@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import GameWrapper from 'src/components/wrapper/game-wrapper';
 import Error from '../components/error';
 import Play from '../components/play/play';
 import RoundEnd from '../components/round/round.end';
@@ -48,18 +49,20 @@ const Game: NextPage = () => {
   */
   return (
     <>
-      <PageContentContainer height='100%'>
-        {positionError ? (
-          <Error
-            callback={handleRetry}
-            title='Error getting Street View data'
-            info='This is likely because the map you chose is a little
-                too small or has little Street View coverage.'
-            reason={positionError.message}
-          />
-        ) : (
-          render()
-        )}
+      <PageContentContainer height="100%">
+        <GameWrapper>
+          {positionError ? (
+            <Error
+              callback={handleRetry}
+              title="Error getting Street View data"
+              info="This is likely because the map you chose is a little
+                too small or has little Street View coverage."
+              reason={positionError.message}
+            />
+          ) : (
+            render()
+          )}
+        </GameWrapper>
       </PageContentContainer>
     </>
   );

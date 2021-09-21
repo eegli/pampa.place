@@ -2,7 +2,7 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import type { AppProps } from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
-import GoogleWrapper from '../google-wrapper';
+import AuthWrapper from '../components/wrapper/auth-wrapper';
 import { store } from '../redux/store';
 import '../styles/root.css';
 
@@ -17,9 +17,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <GoogleWrapper>
+        <AuthWrapper>
           <Component {...pageProps} />
-        </GoogleWrapper>
+        </AuthWrapper>
       </ThemeProvider>
     </Provider>
   );

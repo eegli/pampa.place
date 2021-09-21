@@ -7,12 +7,12 @@ export type AuthReq = {
 };
 
 export type AuthRes = {
-  key: string;
+  apikey: string;
 };
 
 const accessPW = env.APP_ACCESS_PW || '';
 
-function getKey() {
+function getApiKeyFromEnv() {
   switch (env.NODE_ENV) {
     case 'development':
       return env.MAPS_LOCAL_API_KEY || '';
@@ -27,8 +27,8 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<AuthRes>
 ) {
-  const key = getKey();
-  if (!key) {
+  const envApiKey = getApiKeyFromEnv();
+  if (!envApiKey) {
     throw new Error('Missing API keys');
   }
 
@@ -40,7 +40,7 @@ export default function handler(
     res.status(400).end('Resource not found');
   }
   if (req.query.pw === accessPW) {
-    res.status(200).json({ key });
+    res.status(200).json({ apikey: envApiKey });
   } else {
     res.status(401).end('Invalid password');
   }

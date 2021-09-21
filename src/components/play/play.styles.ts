@@ -6,7 +6,7 @@ interface StyledMapOverlayProps extends BoxProps {
 export const StyledMapOverlay = styled(Box)<StyledMapOverlayProps>(
   ({ pos }) => ({
     zIndex: 10,
-    position: 'absolute',
+    position: 'fixed',
     width: '4rem',
     bottom: 35,
     left: pos === 'left' ? 25 : 'auto',

@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
+import app from './app';
 import game from './game';
 import position from './position';
 
 export const rootReducer = combineReducers({
   position,
   game,
+  app,
 });
 
 /* const persistConfig = {

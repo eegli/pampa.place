@@ -1,7 +1,7 @@
-import config from '@config';
 import { Box, Button } from '@mui/material';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
+import { useTimer } from 'src/hooks/useTimer';
 import {
   getActiveMap,
   getActivePlayer,
@@ -19,7 +19,7 @@ export default function Play() {
   const dispatch = useAppDispatch();
 
   const [showMap, setShowMap] = useState<boolean>(false);
-  const [time, setTime] = useState<number>(config.defaults.game.timeLimit);
+  const [time, activateTimer] = useTimer();
 
   const activeMap = useAppSelector(getActiveMap);
   const activePlayer = useAppSelector(getActivePlayer);
@@ -50,15 +50,8 @@ export default function Play() {
   }, [dispatch, initialPosition, selectedPosition]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (time > 0) {
-        setTime(time - 1);
-      } else {
-        // memoizedSubmit();
-      }
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [time, memoizedSubmit]);
+    activateTimer();
+  }, []);
 
   return (
     <Box
@@ -74,7 +67,7 @@ export default function Play() {
       <PlayHeader player={activePlayer} time={time} />
       <Box position="relative" height="100%" width="100%">
         <StyledMapOverlay pos="right" onClick={() => setShowMap(!showMap)}>
-          <Image src="/map.svg" alt="map-icon" />
+          <Image layout="fill" src="/map.svg" alt="map-icon" />
         </StyledMapOverlay>
         {selectedPosition && (
           <StyledMapOverlay pos="left" onClick={() => setShowMap(!showMap)}>
