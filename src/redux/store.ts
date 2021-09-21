@@ -1,0 +1,34 @@
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
+import game from './game';
+import position from './position';
+
+export const rootReducer = combineReducers({
+  position,
+  game,
+});
+
+/* const persistConfig = {
+  key: 'root',
+  storage,
+};
+ */
+
+/* const persistedReducer = persistReducer(persistConfig, rootReducer); */
+
+const devMiddleware = [logger];
+
+const isDev = process.env.NODE_ENV !== 'production';
+
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefault =>
+    isDev
+      ? getDefault({ serializableCheck: false }).concat(devMiddleware)
+      : getDefault({ serializableCheck: false }),
+});
+
+/* const persistor = persistStore(store); */
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

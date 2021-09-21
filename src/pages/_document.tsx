@@ -1,0 +1,36 @@
+import Document, {
+  DocumentContext,
+  Head,
+  Html,
+  Main,
+  NextScript,
+} from 'next/document';
+
+class MyDocument extends Document {
+  static async getInitialProps(ctx: DocumentContext) {
+    const initialProps = await Document.getInitialProps(ctx);
+
+    return initialProps;
+  }
+  render() {
+    return (
+      <Html lang='en'>
+        <Head />
+        <link
+          rel='stylesheet'
+          href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
+        />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta name='theme-color' content='#000000' />
+        <meta name='description' content='Geoguesseric - Play with friends' />
+
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+}
+
+export default MyDocument;
