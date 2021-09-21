@@ -1,3 +1,4 @@
+import { NextPage } from 'next';
 import Error from '../components/error';
 import Play from '../components/play/play';
 import RoundEnd from '../components/round/round.end';
@@ -8,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { getPositionError, getRandomStreetView } from '../redux/position';
 import { PageContentContainer } from '../styles';
 
-const Game: React.FC = () => {
+const Game: NextPage = () => {
   const dispatch = useAppDispatch();
 
   const gameState = useAppSelector(getGameState);
