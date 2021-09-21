@@ -2,9 +2,9 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import type { AppProps } from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
+import GoogleWrapper from '../google-wrapper';
 import { store } from '../redux/store';
 import '../styles/root.css';
-import GoogleWrapper from '../wrapper';
 
 const theme = createTheme({
   palette: {
@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <GoogleWrapper>
-          <Component {...pageProps} />{' '}
+          <Component {...pageProps} />
         </GoogleWrapper>
       </ThemeProvider>
     </Provider>

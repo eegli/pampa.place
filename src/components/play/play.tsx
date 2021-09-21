@@ -1,5 +1,6 @@
 import config from '@config';
 import { Box, Button } from '@mui/material';
+import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import {
   getActiveMap,
@@ -68,19 +69,21 @@ export default function Play() {
         height: '100%',
         width: '100%',
         overflow: 'hidden',
-      }}>
+      }}
+    >
       <PlayHeader player={activePlayer} time={time} />
-      <Box position='relative' height='100%' width='100%'>
-        <StyledMapOverlay pos='right' onClick={() => setShowMap(!showMap)}>
-          <img src='/map.svg' alt='map-icon' />
+      <Box position="relative" height="100%" width="100%">
+        <StyledMapOverlay pos="right" onClick={() => setShowMap(!showMap)}>
+          <Image src="/map.svg" alt="map-icon" />
         </StyledMapOverlay>
         {selectedPosition && (
-          <StyledMapOverlay pos='left' onClick={() => setShowMap(!showMap)}>
+          <StyledMapOverlay pos="left" onClick={() => setShowMap(!showMap)}>
             <Button
               size={'large'}
-              variant='contained'
-              color='primary'
-              onClick={memoizedSubmit}>
+              variant="contained"
+              color="primary"
+              onClick={memoizedSubmit}
+            >
               Submit
             </Button>
           </StyledMapOverlay>
@@ -89,7 +92,8 @@ export default function Play() {
           style={{
             display: showMap ? 'none' : 'block',
             height: '100%',
-          }}>
+          }}
+        >
           {initialPosition && <StreetView position={initialPosition} />}
         </div>
 

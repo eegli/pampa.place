@@ -1,25 +1,26 @@
 import { Status, Wrapper } from '@googlemaps/react-wrapper';
 import { NextPage } from 'next';
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from 'src/hooks/useAuth';
 import { PageContentContainer } from 'src/styles';
 import Spinner from './components/spinner';
-import GoogleWrapperInput from './wrapper-input';
+import GoogleWrapperInput from './google-wrapper-input';
 
 const GoogleWrapper: NextPage = ({ children }) => {
-  const [key, authorize, error] = useAuth();
+  const [authorize, error] = useAuth();
+  const [apiKey, setApiKey] = useState<string>();
+
+  async function handleSubmit(pw: string) {
+    const key = await authorize({ pw });
+    setApiKey(key);
+  }
 
   const render = (status: Status) => {
     if (status === Status.LOADING) return <Spinner />;
-    if (status === Status.FAILURE) return <div>Error</div>;
     return <div />;
   };
 
-  function handleSubmit(pw: string) {
-    authorize({ pw });
-  }
-
-  if (!key) {
+  if (!apiKey) {
     return (
       <PageContentContainer height='100%'>
         <GoogleWrapperInput callback={handleSubmit} />
@@ -27,9 +28,10 @@ const GoogleWrapper: NextPage = ({ children }) => {
       </PageContentContainer>
     );
   }
+
   return (
     <Wrapper
-      apiKey={key}
+      apiKey={apiKey}
       render={render}
       libraries={['drawing', 'geometry', 'places', 'visualization']}>
       {children}

@@ -21,7 +21,6 @@ const GoogleWrapperInput: NextPage<InputProps> = ({ callback }) => {
 
   function handleKeyUp(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
-      console.log('yeaj');
       handleSubmit();
     }
   }
@@ -35,7 +34,7 @@ const GoogleWrapperInput: NextPage<InputProps> = ({ callback }) => {
       display='flex'
       flexDirection='column'
       alignItems='center'
-      width='90%'
+      width='80%'
       sx={{ mt: 2 }}>
       <TextField
         fullWidth

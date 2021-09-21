@@ -37,20 +37,21 @@ export default function RoundIntermission() {
 
   return (
     <SlimContainer fullHeight>
-      <Stack direction='column' alignItems='center' spacing={3}>
-        <Typography variant='h3' align='center'>
-          {players[0]}, it's your turn!
+      <Stack direction="column" alignItems="center" spacing={3}>
+        <Typography variant="h3" align="center">
+          {players[0]}, it&apos;s your turn!
         </Typography>
-        <Divider orientation='horizontal' flexItem />
+        <Divider orientation="horizontal" flexItem />
         <Typography
-          variant='h6'
+          variant="h6"
           sx={{
             color: 'text.secondary',
-          }}>
+          }}
+        >
           Round {currentRound}/{totalRounds}
         </Typography>
 
-        <Button onClick={handleClick} variant='contained' color='primary'>
+        <Button onClick={handleClick} variant="contained" color="primary">
           Start
         </Button>
       </Stack>
