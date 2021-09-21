@@ -1,9 +1,8 @@
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import { PageContentContainer } from '../styles/';
 import { Typography } from '@mui/material';
+import type { NextPage } from 'next';
 import Form from '../components/form/form';
+import { PageContentContainer } from '../styles/';
+
 const Home: NextPage = () => {
   return (
     <>

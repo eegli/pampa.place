@@ -1,3 +1,5 @@
+import config, { MapData } from '@config';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box,
   FormControl,
@@ -9,9 +11,7 @@ import {
   SelectChangeEvent,
   Tooltip,
 } from '@mui/material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useState } from 'react';
-import config, { MapData } from '../../config';
 import Map, { MapMode } from '../google/google.map';
 import Spinner from '../spinner';
 import MapPreview from './form.map-preview';
@@ -28,17 +28,17 @@ export default function FormLocationSelect({
   const [previewMap, setPreviewMap] = useState<boolean>(false);
 
   const handleMapSelect = (e: SelectChangeEvent<string>) => {
-    const idx = config.maps.findIndex(l => l.__name === e.target.value);
+    const idx = config.maps.findIndex(l => l.id === e.target.value);
     setMap(config.maps[idx]);
   };
 
-  if (map?.__name) {
+  if (map?.id) {
     return (
       <Box>
         <FormControl fullWidth>
           <InputLabel>Select map</InputLabel>
           <Select
-            value={map.__name}
+            value={map.id}
             label='Select map'
             onChange={handleMapSelect}
             endAdornment={
@@ -54,8 +54,8 @@ export default function FormLocationSelect({
               </InputAdornment>
             }>
             {config.maps.map(loc => (
-              <MenuItem key={loc.__name} value={loc.__name}>
-                {loc.__name}
+              <MenuItem key={loc.id} value={loc.id}>
+                {loc.id}
               </MenuItem>
             ))}
           </Select>
@@ -63,7 +63,7 @@ export default function FormLocationSelect({
 
         {previewMap && (
           <MapPreview
-            title={map?.__name}
+            title={map?.id}
             open={previewMap}
             setIsOpen={setPreviewMap}>
             <Box height={500}>

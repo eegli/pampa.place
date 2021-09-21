@@ -1,9 +1,9 @@
 // https://coolors.co/ef476f-ffd166-06d6a0-118ab2-073b4c
 
-import { MarkerColors } from '.';
+import { MarkerColors } from './types';
 
 // TODO put in palette
-export const markerColors: MarkerColors = {
+export const markers: MarkerColors = {
   yellow: 'FFD166',
   red: 'EF476F',
   mint: '06D6A0',

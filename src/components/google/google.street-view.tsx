@@ -1,5 +1,5 @@
+import config, { MapLatLng } from '@config';
 import React, { useEffect, useRef } from 'react';
-import config, { MapLatLng } from '../../config';
 
 type StreetViewProps = {
   position: MapLatLng;

@@ -1,5 +1,5 @@
+import config, { MapEdges, MapLatLng } from '@config';
 import React, { useEffect, useRef, useState } from 'react';
-import config, { MapEdges, MapLatLng } from '../../config';
 import { Result } from '../../redux/game';
 import { useAppDispatch } from '../../redux/hooks';
 import { updateSelectedPosition } from '../../redux/position';

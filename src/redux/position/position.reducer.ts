@@ -1,5 +1,5 @@
+import config, { MapLatLng } from '@config';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import config, { MapLatLng } from '../../config';
 import { getRandomCoords } from '../../utils';
 import { RootState } from '../store';
 

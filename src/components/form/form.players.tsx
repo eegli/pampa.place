@@ -1,6 +1,6 @@
+import config from '@config';
 import RoomIcon from '@mui/icons-material/Room';
 import { Box, Fade, InputAdornment, TextField } from '@mui/material';
-import config from '../../config';
 import { max } from '../../utils';
 
 type FormPlayerProps = {

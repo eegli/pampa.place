@@ -1,7 +1,7 @@
+import { MapData } from '@config';
 import { Box, Button } from '@mui/material';
 import { useRouter } from 'next/dist/client/router';
 import { useEffect, useState } from 'react';
-import { MapData } from '../../config';
 import {
   getActiveMap,
   getPlayerNames,

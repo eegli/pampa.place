@@ -1,5 +1,5 @@
+import config, { MapData, MapLatLng } from '@config';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import config, { MapData, MapLatLng } from '../../config';
 import { calculateArea, calculateScore } from '../../utils';
 
 export type Result = {

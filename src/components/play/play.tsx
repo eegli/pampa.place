@@ -1,6 +1,6 @@
+import config from '@config';
 import { Box, Button } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
-import config from '../../config';
 import {
   getActiveMap,
   getActivePlayer,
@@ -72,7 +72,7 @@ export default function Play() {
       <PlayHeader player={activePlayer} time={time} />
       <Box position='relative' height='100%' width='100%'>
         <StyledMapOverlay pos='right' onClick={() => setShowMap(!showMap)}>
-          <img src={process.env.PUBLIC_URL + '/map.svg'} alt='map-icon' />
+          <img src='/map.svg' alt='map-icon' />
         </StyledMapOverlay>
         {selectedPosition && (
           <StyledMapOverlay pos='left' onClick={() => setShowMap(!showMap)}>

@@ -1,4 +1,4 @@
-import { MapBounds, MapEdges, MapLatLng } from '../config';
+import { MapBounds, MapEdges, MapLatLng } from '@config';
 
 export function getRandomCoords(data: MapBounds): MapLatLng {
   const lat = randomize(data.latMin, data.latMax);
