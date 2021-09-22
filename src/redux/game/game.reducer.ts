@@ -1,10 +1,10 @@
-import config, { MapData, MapLatLng } from '@config';
+import config, { LatLngLiteral, MapData } from '@config';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { calculateArea, calculateScore } from '../../utils';
+import { calculateScore } from '../../utils';
 
 export type Result = {
   round: number;
-  selected: MapLatLng | null;
+  selected: LatLngLiteral | null;
   dist: number;
   score: number;
 };
@@ -26,7 +26,6 @@ export enum STATUS {
 interface GameState {
   initialized: boolean;
   map: MapData;
-  mapArea: number;
   players: string[];
   playerInfo: Record<string, Player>;
   rounds: {
@@ -40,7 +39,6 @@ interface GameState {
 const initialState: GameState = {
   initialized: false,
   map: config.maps[0],
-  mapArea: 0,
   players: [],
   playerInfo: {},
   rounds: {
@@ -76,7 +74,6 @@ const gameSlice = createSlice({
       });
 
       state.map = action.payload.map;
-      state.mapArea = calculateArea(action.payload.map);
 
       state.rounds.total = action.payload.rounds;
       state.rounds.current = 1;
@@ -105,7 +102,7 @@ const gameSlice = createSlice({
     ) {
       // Set current round score
       const player = state.playerInfo[state.players[0]];
-      const score = calculateScore(state.mapArea, payload.dist);
+      const score = calculateScore(state.map.computed.area, payload.dist);
 
       const newScore = player.totalScore + score;
       const existingResults = player.results;

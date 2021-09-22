@@ -1,26 +1,11 @@
-import customMaps from '../../custom-maps';
-import { defaultSettings } from './defaults';
-import { markers } from './markers';
-import type { MapData } from './types';
-export * from './types';
+import defaults from './defaults';
+import maps from './maps';
+import markers from './markers';
 
-const maps = customMaps.reduce((acc, curr) => {
-  acc.push({
-    ...curr,
-    center: {
-      lat: (curr.latMax + curr.latMin) / 2,
-      lng: (curr.latMax + curr.latMin) / 2,
-    },
-    NE: { lat: curr.latMax, lng: curr.lngMax },
-    SE: { lat: curr.latMin, lng: curr.lngMax },
-    SW: { lat: curr.latMin, lng: curr.lngMin },
-    NW: { lat: curr.latMax, lng: curr.lngMin },
-  });
-  return acc;
-}, [] as MapData[]);
+export type { BBoxLiteral, CustomMap, LatLngLiteral, MapData } from './maps';
 
 export default {
-  defaults: defaultSettings,
+  defaults,
   markers,
   maps,
 };

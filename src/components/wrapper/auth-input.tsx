@@ -72,7 +72,7 @@ const AuthInput: NextPage<InputProps> = ({ callback }) => {
         label="Enter password"
         placeholder="gugelhupf..."
         id="password"
-        /*     type="password" */
+        type="password"
         onChange={handlePasswordInput}
         onKeyUp={handleKeyUp}
       />
@@ -84,8 +84,7 @@ const AuthInput: NextPage<InputProps> = ({ callback }) => {
         label="Enter Maps API key"
         placeholder="AIzaSyBXR..."
         id="apikey"
-        /*     type="password" */
-
+        type="password"
         onChange={handleApiKeyInput}
         onKeyUp={handleKeyUp}
       />

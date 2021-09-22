@@ -1,8 +1,8 @@
-import config, { MapLatLng } from '@config';
+import config, { LatLngLiteral } from '@config';
 import React, { useEffect, useRef } from 'react';
 
 type StreetViewProps = {
-  position: MapLatLng;
+  position: LatLngLiteral;
 };
 
 function GoogleStreetView({ position }: StreetViewProps) {

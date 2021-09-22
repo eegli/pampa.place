@@ -42,32 +42,32 @@ export default function RoundEnd() {
   return (
     <>
       <SlimContainer>
-        <Stack direction='column' alignItems='center' spacing={3}>
-          <Typography variant='h3'>Round {currentRound} is over!</Typography>
-          <Divider orientation='horizontal' flexItem />
-          <Table size='small' aria-label='a dense table'>
+        <Stack direction="column" alignItems="center" spacing={3}>
+          <Typography variant="h3">Round {currentRound} is over!</Typography>
+          <Divider orientation="horizontal" flexItem />
+          <Table size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCell align='left'>#</TableCell>
-                <TableCell align='left'>Name</TableCell>
-                <TableCell align='right'>Distance</TableCell>
-                <TableCell align='right'>Score</TableCell>
+                <TableCell align="left">#</TableCell>
+                <TableCell align="left">Name</TableCell>
+                <TableCell align="right">Distance</TableCell>
+                <TableCell align="right">Score</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {scores.map((p, idx) => (
                 <TableRow key={p.name}>
-                  <TableCell component='th' scope='row' align='left'>
+                  <TableCell component="th" scope="row" align="left">
                     {idx + 1}
                   </TableCell>
-                  <TableCell align='left'>{p.name}</TableCell>
-                  <TableCell align='right'>{formatDist(p.dist)}</TableCell>
-                  <TableCell align='right'>{p.score}</TableCell>
+                  <TableCell align="left">{p.name}</TableCell>
+                  <TableCell align="right">{formatDist(p.dist)}</TableCell>
+                  <TableCell align="right">{p.score}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
-          <Button onClick={handleClick} variant='contained' color='primary'>
+          <Button onClick={handleClick} variant="contained" color="primary">
             {text}
           </Button>
         </Stack>
@@ -75,7 +75,7 @@ export default function RoundEnd() {
       {initialPosition && (
         <GoogleMap
           mode={MapMode.RESULT}
-          bounds={activeMap}
+          mapData={activeMap}
           scores={scores}
           initialPos={initialPosition}
         />
