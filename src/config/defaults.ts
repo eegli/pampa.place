@@ -1,6 +1,18 @@
-import { DefaultSettings } from './types';
+export type DefaultSettings = {
+  game: {
+    maxPlayers: number;
+    timeLimit: number;
+  };
+  svRequest: google.maps.StreetViewLocationRequest;
+  gStreetView: google.maps.StreetViewPanoramaOptions;
+  gMap: google.maps.MapOptions;
+  marker: {
+    path: string;
+    anchor: [number, number];
+  };
+};
 
-export const defaultSettings: DefaultSettings = {
+const defaultSettings: DefaultSettings = {
   game: {
     maxPlayers: 4,
     timeLimit: 10,
@@ -37,3 +49,5 @@ export const defaultSettings: DefaultSettings = {
     anchor: [14, 43],
   },
 };
+
+export default defaultSettings;

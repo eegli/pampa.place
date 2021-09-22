@@ -28,34 +28,36 @@ export default function FormLocationSelect({
   const [previewMap, setPreviewMap] = useState<boolean>(false);
 
   const handleMapSelect = (e: SelectChangeEvent<string>) => {
-    const idx = config.maps.findIndex(l => l.id === e.target.value);
+    const idx = config.maps.findIndex(l => l.name === e.target.value);
     setMap(config.maps[idx]);
   };
 
-  if (map?.id) {
+  if (map?.name) {
     return (
       <Box>
         <FormControl fullWidth>
           <InputLabel>Select map</InputLabel>
           <Select
-            value={map.id}
-            label='Select map'
+            value={map.name}
+            label="Select map"
             onChange={handleMapSelect}
             endAdornment={
-              <InputAdornment position='start'>
+              <InputAdornment position="start">
                 <IconButton
                   onClick={() => setPreviewMap(!previewMap)}
-                  edge='end'
-                  sx={{ mr: 1 }}>
-                  <Tooltip title='Preview map'>
+                  edge="end"
+                  sx={{ mr: 1 }}
+                >
+                  <Tooltip title="Preview map">
                     <VisibilityIcon />
                   </Tooltip>
                 </IconButton>
               </InputAdornment>
-            }>
+            }
+          >
             {config.maps.map(loc => (
-              <MenuItem key={loc.id} value={loc.id}>
-                {loc.id}
+              <MenuItem key={loc.name} value={loc.name}>
+                {loc.name}
               </MenuItem>
             ))}
           </Select>
@@ -63,11 +65,12 @@ export default function FormLocationSelect({
 
         {previewMap && (
           <MapPreview
-            title={map?.id}
+            title={map?.name}
             open={previewMap}
-            setIsOpen={setPreviewMap}>
+            setIsOpen={setPreviewMap}
+          >
             <Box height={500}>
-              <Map mode={MapMode.PREVIEW} bounds={map || config.maps[0]} />
+              <Map mode={MapMode.PREVIEW} mapData={map || config.maps[0]} />
             </Box>
           </MapPreview>
         )}

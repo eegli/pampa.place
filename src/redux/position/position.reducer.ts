@@ -1,4 +1,4 @@
-import config, { MapLatLng } from '@config';
+import config, { LatLngLiteral } from '@config';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getRandomCoords } from '../../utils';
 import { RootState } from '../store';
@@ -17,10 +17,10 @@ interface PositionState {
   // considered truthy, which means that it needs to be set on root
   // level as soon as the the app mounts (and before the game page can
   // be accessed).
-  initialPosition: MapLatLng | null;
+  initialPosition: LatLngLiteral | null;
 
   // The user selected position
-  selectedPosition: MapLatLng | null;
+  selectedPosition: LatLngLiteral | null;
 
   error: ValidationErrors | null;
 
@@ -32,7 +32,7 @@ type RandomRequest = {
 };
 
 export const getRandomStreetView = createAsyncThunk<
-  MapLatLng,
+  LatLngLiteral,
   RandomRequest | void,
   {
     rejectValue: ValidationErrors;
@@ -80,14 +80,14 @@ const positonSlice = createSlice({
     resetSelectedPosition(state) {
       state.selectedPosition = null;
     },
-    updateSelectedPosition(state, action: PayloadAction<MapLatLng>) {
+    updateSelectedPosition(state, action: PayloadAction<LatLngLiteral>) {
       state.selectedPosition = action.payload;
     },
   },
   extraReducers: builder => {
     builder.addCase(
       getRandomStreetView.fulfilled,
-      (state, action: PayloadAction<MapLatLng>) => {
+      (state, action: PayloadAction<LatLngLiteral>) => {
         state.initialPosition = action.payload;
         state.error = null;
       }

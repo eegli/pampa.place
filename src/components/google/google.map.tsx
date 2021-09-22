@@ -1,4 +1,4 @@
-import config, { MapEdges, MapLatLng } from '@config';
+import config, { LatLngLiteral, MapData } from '@config';
 import React, { useEffect, useRef, useState } from 'react';
 import { Result } from '../../redux/game';
 import { useAppDispatch } from '../../redux/hooks';
@@ -11,15 +11,15 @@ export enum MapMode {
 }
 
 export type GoogleMapProps = {
-  bounds: MapEdges;
+  mapData: MapData;
   mode: MapMode;
   scores?: (Result & {
     name: string;
   })[];
-  initialPos?: MapLatLng;
+  initialPos?: LatLngLiteral;
 };
 
-function GoogleMap({ mode, bounds, scores, initialPos }: GoogleMapProps) {
+function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
 
@@ -33,14 +33,19 @@ function GoogleMap({ mode, bounds, scores, initialPos }: GoogleMapProps) {
       const gmap = new window.google.maps.Map(mapRef.current, {
         ...config.defaults.gMap,
       });
+
+      const sw = new google.maps.LatLng(mapData.computed.bbLiteral.SW);
+
+      const ne = new google.maps.LatLng(mapData.computed.bbLiteral.NE);
+
       /* Order in constructor is important! SW, NE  */
-      const mapBounds = new google.maps.LatLngBounds(bounds.SW, bounds.NE);
+      const mapBounds = new google.maps.LatLngBounds(sw, ne);
 
       gmap.fitBounds(mapBounds);
 
       setMap(gmap);
     }
-  }, [bounds.SW, bounds.NE]);
+  }, [mapData.computed.bbLiteral.NE, mapData.computed.bbLiteral.SW]);
 
   /* If the map is used in preview mode */
   useEffect(() => {
@@ -51,14 +56,16 @@ function GoogleMap({ mode, bounds, scores, initialPos }: GoogleMapProps) {
         gestureHandling: 'none',
       });
 
-      const line = new google.maps.Polyline({
+      /*       const line = new google.maps.Polyline({
         strokeOpacity: 0.3,
       });
 
       line.setPath([bounds.NE, bounds.SE, bounds.SW, bounds.NW, bounds.NE]);
-      line.setMap(map);
+      line.setMap(map); */
+
+      map.data.addGeoJson(mapData.base);
     }
-  }, [map, mode, bounds]);
+  }, [map, mode, mapData.base]);
 
   /* Map in actual game mode */
   useEffect(() => {
@@ -126,15 +133,5 @@ function GoogleMap({ mode, bounds, scores, initialPos }: GoogleMapProps) {
 }
 
 export default React.memo(GoogleMap, (prev, curr) => {
-  return (
-    prev.mode === curr.mode &&
-    prev.bounds.SE.lat === curr.bounds.SE.lat &&
-    prev.bounds.SE.lng === curr.bounds.SE.lng &&
-    prev.bounds.SW.lat === curr.bounds.SW.lat &&
-    prev.bounds.SW.lng === curr.bounds.SW.lng &&
-    prev.bounds.NE.lat === curr.bounds.NE.lat &&
-    prev.bounds.NE.lng === curr.bounds.NE.lng &&
-    prev.bounds.NW.lat === curr.bounds.NW.lat &&
-    prev.bounds.NW.lng === curr.bounds.NW.lng
-  );
+  return prev.mode === curr.mode && prev.mapData.name === curr.mapData.name;
 });

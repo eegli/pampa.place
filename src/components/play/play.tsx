@@ -1,4 +1,5 @@
 import { Box, Button } from '@mui/material';
+import * as turf from '@turf/turf';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { useTimer } from 'src/hooks/useTimer';
@@ -9,7 +10,6 @@ import {
 } from '../../redux/game';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getInitialPosition, getSelectedPosition } from '../../redux/position';
-import { calculateDistance } from '../../utils';
 import Map, { MapMode } from '../google/google.map';
 import StreetView from '../google/google.street-view';
 import PlayHeader from './play.header';
@@ -38,10 +38,14 @@ export default function Play() {
       console.log('loser');
     } else if (initialPosition) {
       // Player was able to set a location
+      const from = turf.point([initialPosition.lng, initialPosition.lat]);
+      const to = turf.point([selectedPosition.lng, selectedPosition.lat]);
+
+      const dist = turf.distance(from, to, { units: 'meters' });
 
       dispatch(
         setPlayerScore({
-          dist: calculateDistance(initialPosition, selectedPosition),
+          dist: dist,
           selected: selectedPosition,
         })
       );
@@ -90,7 +94,7 @@ export default function Play() {
           {initialPosition && <StreetView position={initialPosition} />}
         </div>
 
-        <Map mode={MapMode.PLAY} bounds={activeMap} />
+        <Map mode={MapMode.PLAY} mapData={activeMap} />
       </Box>
     </Box>
   );

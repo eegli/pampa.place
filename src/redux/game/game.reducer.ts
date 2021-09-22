@@ -1,10 +1,10 @@
-import config, { MapData, MapLatLng } from '@config';
+import config, { LatLngLiteral, MapData } from '@config';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { calculateArea, calculateScore } from '../../utils';
+import { calculateScore } from '../../utils';
 
 export type Result = {
   round: number;
-  selected: MapLatLng | null;
+  selected: LatLngLiteral | null;
   dist: number;
   score: number;
 };
@@ -76,7 +76,6 @@ const gameSlice = createSlice({
       });
 
       state.map = action.payload.map;
-      state.mapArea = calculateArea(action.payload.map);
 
       state.rounds.total = action.payload.rounds;
       state.rounds.current = 1;

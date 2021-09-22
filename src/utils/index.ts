@@ -1,6 +1,4 @@
-import { MapBounds, MapEdges, MapLatLng } from '@config';
-
-export function getRandomCoords(data: MapBounds): MapLatLng {
+/* export function getRandomCoords(data: MapBounds): MapLatLng {
   const lat = randomize(data.latMin, data.latMax);
   const lng = randomize(data.lngMin, data.lngMax);
   return { lat, lng };
@@ -11,7 +9,7 @@ function randomize(min: number, max: number) {
   return parseFloat(rand.toFixed(4));
 }
 
-/* Returns the area of a polygon in square kilometers */
+//Returns the area of a polygon in square kilometers
 export function calculateArea(edges: MapEdges) {
   const NW = new google.maps.LatLng(edges.NW);
   const NE = new google.maps.LatLng(edges.NE);
@@ -22,16 +20,16 @@ export function calculateArea(edges: MapEdges) {
   return area * 1e-6;
 }
 
-/* Returns the distance between two points in meters */
+// Returns the distance between two points in meters
 export function calculateDistance(loc1: MapLatLng, loc2: MapLatLng) {
   const from = new google.maps.LatLng(loc1);
   const to = new google.maps.LatLng(loc2);
   const dist = google.maps.geometry.spherical.computeDistanceBetween(from, to);
   return dist;
-}
+} */
 
-/* Area in square kilometers, distance in meters */
-/* https://www.desmos.com/calculator/xlzbhq4xm0 */
+// Area in square kilometers, distance in meters
+// https://www.desmos.com/calculator/xlzbhq4xm0
 export function calculateScore(a: number, d: number) {
   if (d < 0) return 0;
   const c = a * Math.sqrt(d) + Math.log(d ** 2 + 1);
