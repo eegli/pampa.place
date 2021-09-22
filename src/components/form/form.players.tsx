@@ -1,7 +1,7 @@
 import config from '@config';
 import RoomIcon from '@mui/icons-material/Room';
 import { Box, Fade, InputAdornment, TextField } from '@mui/material';
-import { max } from '../../utils';
+import { max } from '@utils';
 
 type FormPlayerProps = {
   players: string[];
@@ -34,7 +34,7 @@ export default function FormPlayers({
   };
 
   return (
-    <Box display='flex' flexDirection='column'>
+    <Box display="flex" flexDirection="column">
       {/* Always have an additional input field to write to */}
       {Array.from({ length: max(players.length + 1, MAX_PLAYERS) }).map(
         (_, idx) => {
@@ -51,8 +51,8 @@ export default function FormPlayers({
                 }}
                 required={idx === 0}
                 key={`p${idx}`}
-                type='text'
-                placeholder='Player name'
+                type="text"
+                placeholder="Player name"
                 value={players[idx] || ''}
                 label={`Player ${idx + 1}`}
                 /*  onMouseOver={() => console.log(players.length === idx)} */
@@ -62,7 +62,7 @@ export default function FormPlayers({
                 onChange={handlePlayerChange(idx)}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment position='end'>
+                    <InputAdornment position="end">
                       <RoomIcon style={{ color: config.markers[idx] }} />
                     </InputAdornment>
                   ),

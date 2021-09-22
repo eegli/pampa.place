@@ -9,6 +9,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
+import { formatDist } from '@utils';
 import {
   finishRound,
   getActiveMap,
@@ -19,7 +20,6 @@ import {
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getInitialPosition } from '../../redux/position';
 import { SlimContainer } from '../../styles';
-import { formatDist } from '../../utils';
 import GoogleMap, { MapMode } from '../google/google.map';
 
 export default function RoundEnd() {

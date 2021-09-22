@@ -1,7 +1,6 @@
 import { Box, Button } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import { useTimer } from 'src/hooks/useTimer';
-import { calculateDistance } from 'src/utils';
 import {
   getActiveMap,
   getActivePlayer,
@@ -26,26 +25,16 @@ export default function Play() {
   const selectedPosition = useAppSelector(getSelectedPosition);
 
   const memoizedSubmit = useCallback(() => {
-    // Player could not set a location
-    if (!selectedPosition) {
-      dispatch(
-        setPlayerScore({
-          dist: -1,
-          selected: selectedPosition,
-        })
-      );
-      console.log('loser');
-    } else if (initialPosition) {
-      // Player was able to set a location
-      dispatch(
-        setPlayerScore({
-          dist: calculateDistance(initialPosition, selectedPosition),
-          selected: selectedPosition,
-        })
-      );
-    }
+    dispatch(
+      setPlayerScore({
+        initial: initialPosition,
+        selected: selectedPosition,
+      })
+    );
+    console.log('loser');
+
     setShowMap(false);
-  }, [dispatch, initialPosition, selectedPosition]);
+  }, [dispatch, selectedPosition]);
 
   useEffect(() => {
     activateTimer();
@@ -85,7 +74,7 @@ export default function Play() {
             height: '100%',
           }}
         >
-          {initialPosition && <StreetView position={initialPosition} />}
+          {initialPosition && <StreetView />}
         </div>
 
         <Map mode={MapMode.PLAY} mapData={activeMap} />

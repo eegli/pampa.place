@@ -1,10 +1,11 @@
-// Area in square kilometers, distance in meters
 import { LatLngLiteral, MapData } from '@config';
 import * as turf from '@turf/turf';
 
+export type OrNull<T> = T | null;
+
 export function randomPointInMap(map: MapData): LatLngLiteral {
   while (true) {
-    const random = turf.randomPoint(50, { bbox: map.computed.bb });
+    const random = turf.randomPoint(20, { bbox: map.computed.bb });
 
     const ptsWithin = turf.pointsWithinPolygon(random, map.base);
     if (ptsWithin.features.length) {
@@ -14,17 +15,18 @@ export function randomPointInMap(map: MapData): LatLngLiteral {
   }
 }
 
+// Area in square kilometers, distance in meters
 // https://www.desmos.com/calculator/xlzbhq4xm0
-export function calculateScore(area: number, dist: number) {
+export function calcScore(area: number, dist: number) {
   if (dist < 0) return 0;
-  const c = Math.sqrt(dist * area) + area;
+  const c = Math.log(area * dist + 1) * Math.sqrt(area * dist);
   const score = 5000 * Math.E ** -(dist / c);
-
+  console.log(score);
   return Math.round(score);
 }
 // Returns distance between two points in kilometers
 
-export function calculateDistance(
+export function calcDist(
   p1: LatLngLiteral,
   p2: LatLngLiteral,
   units: turf.Units = 'meters'

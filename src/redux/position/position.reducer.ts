@@ -1,6 +1,6 @@
 import config, { LatLngLiteral } from '@config';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { randomPointInMap } from 'src/utils';
+import { OrNull, randomPointInMap } from '@utils';
 import { RootState } from '../store';
 interface ValidationErrors {
   code: 'ZERO_RESULTS';
@@ -16,12 +16,12 @@ interface PositionState {
   // considered truthy, which means that it needs to be set on root
   // level as soon as the the app mounts (and before the game page can
   // be accessed).
-  initialPosition: LatLngLiteral | null;
+  initialPosition: OrNull<LatLngLiteral>;
 
   // The user selected position
-  selectedPosition: LatLngLiteral | null;
+  selectedPosition: OrNull<LatLngLiteral>;
 
-  error: ValidationErrors | null;
+  error: OrNull<ValidationErrors>;
 
   errorRetries: number;
 }

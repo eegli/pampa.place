@@ -1,16 +1,15 @@
-import config, { LatLngLiteral } from '@config';
+import config from '@config';
 import React, { useEffect, useRef } from 'react';
+import { useAppSelector } from 'src/redux/hooks';
+import { getInitialPosition } from 'src/redux/position';
 
-type StreetViewProps = {
-  position: LatLngLiteral;
-};
-
-function GoogleStreetView({ position }: StreetViewProps) {
+function GoogleStreetView() {
   const panoRef = useRef<HTMLDivElement>(null);
+  const position = useAppSelector(getInitialPosition);
 
   // Initialization
   useEffect(() => {
-    if (panoRef.current) {
+    if (panoRef.current && position) {
       new window.google.maps.StreetViewPanorama(panoRef.current, {
         position,
         ...config.defaults.gStreetView,
@@ -32,10 +31,4 @@ function GoogleStreetView({ position }: StreetViewProps) {
     />
   );
 }
-
-export default React.memo(GoogleStreetView, (prev, curr) => {
-  return (
-    prev.position.lat === curr.position.lat &&
-    prev.position.lng === curr.position.lng
-  );
-});
+export default GoogleStreetView;

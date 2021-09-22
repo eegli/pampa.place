@@ -1,10 +1,10 @@
 import config, { LatLngLiteral, MapData } from '@config';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { calculateScore } from '../../utils';
+import { calcDist, calcScore, OrNull } from '@utils';
 
 export type Result = {
   round: number;
-  selected: LatLngLiteral | null;
+  selected: OrNull<LatLngLiteral>;
   dist: number;
   score: number;
 };
@@ -98,11 +98,25 @@ const gameSlice = createSlice({
     },
     setPlayerScore(
       state,
-      { payload }: PayloadAction<Omit<Result, 'score' | 'round'>>
+      {
+        payload,
+      }: PayloadAction<{
+        selected: OrNull<LatLngLiteral>;
+        initial: OrNull<LatLngLiteral>;
+      }>
     ) {
       // Set current round score
       const player = state.playerInfo[state.players[0]];
-      const score = calculateScore(state.map.computed.area, payload.dist);
+
+      // When the player fails to select a location: 0 score
+      let score = 0;
+      let dist = -1;
+      let selected: OrNull<LatLngLiteral> = null;
+      if (payload.selected && payload.initial) {
+        dist = calcDist(payload.initial, payload.selected);
+        score = calcScore(state.map.computed.area, dist);
+        selected = payload.selected;
+      }
 
       const newScore = player.totalScore + score;
       const existingResults = player.results;
@@ -113,8 +127,8 @@ const gameSlice = createSlice({
           ...existingResults,
           {
             round: state.rounds.current,
-            dist: payload.dist,
-            selected: payload.selected,
+            selected,
+            dist,
             score,
           },
         ],
