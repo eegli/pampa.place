@@ -35,13 +35,12 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
       });
 
       const sw = new google.maps.LatLng(mapData.computed.bbLiteral.SW);
-
       const ne = new google.maps.LatLng(mapData.computed.bbLiteral.NE);
 
       /* Order in constructor is important! SW, NE  */
       const mapBounds = new google.maps.LatLngBounds(sw, ne);
 
-      gmap.fitBounds(mapBounds);
+      gmap.fitBounds(mapBounds, 2);
 
       setMap(gmap);
     }
@@ -55,13 +54,6 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
         mapTypeControl: false,
         gestureHandling: 'none',
       });
-
-      /*       const line = new google.maps.Polyline({
-        strokeOpacity: 0.3,
-      });
-
-      line.setPath([bounds.NE, bounds.SE, bounds.SW, bounds.NW, bounds.NE]);
-      line.setMap(map); */
 
       map.data.addGeoJson(mapData.base);
     }

@@ -1,4 +1,4 @@
-export type DefaultSettings = {
+type DefaultSettings = {
   game: {
     maxPlayers: number;
     timeLimit: number;

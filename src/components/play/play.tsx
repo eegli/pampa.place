@@ -1,7 +1,7 @@
 import { Box, Button } from '@mui/material';
-import * as turf from '@turf/turf';
 import { useCallback, useEffect, useState } from 'react';
 import { useTimer } from 'src/hooks/useTimer';
+import { calculateDistance } from 'src/utils';
 import {
   getActiveMap,
   getActivePlayer,
@@ -37,14 +37,9 @@ export default function Play() {
       console.log('loser');
     } else if (initialPosition) {
       // Player was able to set a location
-      const from = turf.point([initialPosition.lng, initialPosition.lat]);
-      const to = turf.point([selectedPosition.lng, selectedPosition.lat]);
-
-      const dist = turf.distance(from, to, { units: 'meters' });
-
       dispatch(
         setPlayerScore({
-          dist: dist,
+          dist: calculateDistance(initialPosition, selectedPosition),
           selected: selectedPosition,
         })
       );
