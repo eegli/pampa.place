@@ -1,6 +1,5 @@
 import { Box, Button } from '@mui/material';
 import * as turf from '@turf/turf';
-import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { useTimer } from 'src/hooks/useTimer';
 import {
@@ -71,7 +70,7 @@ export default function Play() {
       <PlayHeader player={activePlayer} time={time} />
       <Box position="relative" height="100%" width="100%">
         <StyledMapOverlay pos="right" onClick={() => setShowMap(!showMap)}>
-          <Image layout="fill" src="/map.svg" alt="map-icon" />
+          <img src="/map.svg" alt="map-icon" />
         </StyledMapOverlay>
         {selectedPosition && (
           <StyledMapOverlay pos="left" onClick={() => setShowMap(!showMap)}>
