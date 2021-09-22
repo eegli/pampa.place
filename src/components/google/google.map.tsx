@@ -56,6 +56,11 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
       });
 
       map.data.addGeoJson(mapData.base);
+      map.data.setStyle({
+        fillColor: '#003d80',
+        fillOpacity: 0.2,
+        strokeWeight: 0.8,
+      });
     }
   }, [map, mode, mapData.base]);
 

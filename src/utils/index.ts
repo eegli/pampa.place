@@ -1,12 +1,23 @@
 // Area in square kilometers, distance in meters
-import { LatLngLiteral } from '@config';
+import { LatLngLiteral, MapData } from '@config';
 import * as turf from '@turf/turf';
+
+export function randomPointInMap(map: MapData): LatLngLiteral {
+  while (true) {
+    const random = turf.randomPoint(50, { bbox: map.computed.bb });
+
+    const ptsWithin = turf.pointsWithinPolygon(random, map.base);
+    if (ptsWithin.features.length) {
+      const pt = ptsWithin.features[0].geometry.coordinates;
+      return { lng: pt[0], lat: pt[1] };
+    }
+  }
+}
 
 // https://www.desmos.com/calculator/xlzbhq4xm0
 export function calculateScore(area: number, dist: number) {
   if (dist < 0) return 0;
-  const c =
-    Math.log(area + 1) * Math.sqrt(dist * area) + Math.log(dist ** 2 + 1);
+  const c = Math.sqrt(dist * area) + area;
   const score = 5000 * Math.E ** -(dist / c);
 
   return Math.round(score);
@@ -16,19 +27,19 @@ export function calculateScore(area: number, dist: number) {
 export function calculateDistance(
   p1: LatLngLiteral,
   p2: LatLngLiteral,
-  units: turf.Units = 'kilometers'
+  units: turf.Units = 'meters'
 ) {
   const from = turf.point([p1.lng, p1.lat]);
   const to = turf.point([p2.lng, p2.lat]);
   return turf.distance(from, to, { units });
 }
 // Formats distance
-export function formatDist(km: number, toFixed = 1) {
-  if (km < 0) return '-';
-  if (km > 1000) {
-    return (km / 1000).toFixed(toFixed) + ' m';
+export function formatDist(meter: number, toFixed = 1) {
+  if (meter < 0) return '-';
+  if (meter < 1000) {
+    return meter.toFixed(toFixed) + ' m';
   }
-  return km.toFixed(toFixed) + ' km';
+  return (meter / 1000).toFixed(toFixed) + ' km';
 }
 
 export function max(num: number, limit: number) {

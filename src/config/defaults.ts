@@ -18,7 +18,7 @@ const defaultSettings: DefaultSettings = {
     timeLimit: 10,
   },
   svRequest: {
-    radius: 500,
+    radius: 1000,
   },
   gStreetView: {
     addressControl: false,

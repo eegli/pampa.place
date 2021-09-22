@@ -1,9 +1,10 @@
 import * as turf from '@turf/turf';
 import { BBox, FeatureCollection, Polygon } from '@turf/turf';
-import customMaps from 'maps/custom';
+import customMaps from 'custom-maps';
 
-type BaseCustomMap = FeatureCollection<Polygon>;
-export type CustomMap = Record<string, BaseCustomMap>;
+// All maps need to be a polygon feature collection
+type BaseMap = FeatureCollection<Polygon>;
+export type CustomMap = Record<string, BaseMap>;
 
 export type LatLngLiteral = { lat: number; lng: number };
 export type BBoxLiteral = Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
@@ -13,14 +14,15 @@ export type MapData = {
   computed: {
     // Area in km^2
     area: number;
+    // Not needed for now
     center: LatLngLiteral;
-    // Actual bounding box
+    // Used to generate a random point
     bb: BBox;
     // Poly bounding box: SW SE NE NW
     bbLiteral: BBoxLiteral;
   };
-  // Base can be used
-  base: BaseCustomMap;
+  // Base can be used directly with google maps
+  base: BaseMap;
 };
 
 const maps: MapData[] = [];

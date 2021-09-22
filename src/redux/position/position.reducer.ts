@@ -1,7 +1,6 @@
 import config, { LatLngLiteral } from '@config';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import * as turf from '@turf/turf';
-import { Position } from '@turf/turf';
+import { randomPointInMap } from 'src/utils';
 import { RootState } from '../store';
 interface ValidationErrors {
   code: 'ZERO_RESULTS';
@@ -43,17 +42,6 @@ export const getRandomStreetView = createAsyncThunk<
   async (params, { rejectWithValue, getState }) => {
     const { game } = getState();
 
-    let point: Position | null = null;
-
-    while (!point) {
-      const random = turf.randomPoint(10, { bbox: game.map.computed.bb });
-
-      const ptsWithin = turf.pointsWithinPolygon(random, game.map.base);
-      if (ptsWithin.features.length) {
-        point = ptsWithin.features[0].geometry.coordinates;
-      }
-    }
-
     const service = new window.google.maps.StreetViewService();
     const defaults: google.maps.StreetViewLocationRequest = {
       preference: google.maps.StreetViewPreference.NEAREST,
@@ -63,7 +51,7 @@ export const getRandomStreetView = createAsyncThunk<
     try {
       const { data } = await service.getPanorama({
         ...defaults,
-        location: { lng: point[0], lat: point[1] },
+        location: randomPointInMap(game.map),
       });
 
       // Avoid non-serializable data through redux

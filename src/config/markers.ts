@@ -11,4 +11,4 @@ const markers: MarkerColors = {
   blue: '118AB2',
 };
 
-export default markers;
+export default Object.values(markers);
