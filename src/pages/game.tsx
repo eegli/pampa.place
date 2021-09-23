@@ -23,7 +23,7 @@ const Game: NextPage = () => {
     if (!initialized) {
       router.push('/');
     }
-  }, [initialized]);
+  }, [router, initialized]);
 
   async function handleRetry() {
     await dispatch(getRandomStreetView({ radius: 1000 }));
