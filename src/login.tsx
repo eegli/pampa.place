@@ -1,7 +1,7 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { NextPage } from 'next';
 import { useRouter } from 'next/dist/client/router';
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { AuthReq, AuthRes } from 'src/pages/api/auth';
 import { setApiKey } from 'src/redux/app';
 import { useAppDispatch } from 'src/redux/hooks';
@@ -16,11 +16,11 @@ const Login: NextPage = () => {
   const router = useRouter();
 
   // Speed up things in development
-  /*   useEffect(() => {
+  useEffect(() => {
     if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_KEY) {
       dispatch(setApiKey(process.env.NEXT_PUBLIC_KEY));
     }
-  }, [dispatch]); */
+  }, [dispatch]);
 
   async function handleSubmit() {
     if (!inputPassword && !inputApiKey) {

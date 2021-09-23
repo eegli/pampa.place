@@ -1,4 +1,6 @@
 import { NextPage } from 'next';
+import { useRouter } from 'next/dist/client/router';
+import { useEffect } from 'react';
 import Error from '../components/error';
 import Play from '../components/play/play';
 import RoundEnd from '../components/round/round.end';
@@ -11,8 +13,17 @@ import { PageContentContainer } from '../styles';
 
 const Game: NextPage = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const initialized = useAppSelector(({ game }) => game.initialized);
   const status = useAppSelector(({ game }) => game.status);
   const positionError = useAppSelector(({ position }) => position.error);
+
+  useEffect(() => {
+    if (!initialized) {
+      router.push('/');
+    }
+  }, [initialized]);
 
   async function handleRetry() {
     await dispatch(getRandomStreetView({ radius: 1000 }));
