@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 interface AppState {
-  initialized: boolean;
+  isLoading: boolean;
   authError: boolean;
   apiKey: string;
 }
 
 const initialState: AppState = {
-  initialized: false,
+  isLoading: false,
   authError: false,
   apiKey: '',
 };
@@ -17,8 +17,8 @@ const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    initialize(state) {
-      state.initialized = true;
+    setIsLoading(state, { payload }: PayloadAction<boolean>) {
+      state.isLoading = payload;
     },
     setApiKey(state, { payload }: PayloadAction<string>) {
       state.apiKey = payload;
@@ -28,7 +28,7 @@ const appSlice = createSlice({
 
 export const getApiKey = (s: RootState) => s.app.apiKey;
 
-export const isGameInitialized = (s: RootState) => s.app.initialized;
+export const isLoading = (s: RootState) => s.app.isLoading;
 
-export const { initialize, setApiKey } = appSlice.actions;
+export const { setApiKey, setIsLoading } = appSlice.actions;
 export default appSlice.reducer;

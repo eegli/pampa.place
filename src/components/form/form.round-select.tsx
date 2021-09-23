@@ -1,3 +1,4 @@
+import config from '@config';
 import { Button, ButtonGroup } from '@mui/material';
 
 type FormRoundSelectProps = {
@@ -5,15 +6,13 @@ type FormRoundSelectProps = {
   rounds: number | undefined;
 };
 
-const roundOptions = [1, 3, 5];
-
 export default function FormRoundSelect({
   setRounds,
   rounds,
 }: FormRoundSelectProps) {
   return (
     <ButtonGroup fullWidth>
-      {roundOptions.map((val, idx) => (
+      {config.defaults.game.roundSelect.map((val, idx) => (
         <Button
           sx={{
             px: 3,
@@ -22,9 +21,10 @@ export default function FormRoundSelect({
           }}
           key={idx}
           size={'small'}
-          color='primary'
+          color="primary"
           onClick={() => setRounds(val)}
-          variant={rounds === val ? 'contained' : 'outlined'}>
+          variant={rounds === val ? 'contained' : 'outlined'}
+        >
           {val} {val === 1 ? 'round' : 'rounds'}
         </Button>
       ))}

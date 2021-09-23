@@ -53,52 +53,65 @@ const AuthInput: NextPage<InputProps> = ({ callback }) => {
   }
 
   return (
-    <Box
-      onSubmit={(e: any) => e.preventDefault()}
-      component="form"
-      noValidate
-      autoComplete="off"
-      display="flex"
-      flexDirection="column"
-      alignItems="flex-end"
-      width="80%"
-      maxWidth={400}
-      sx={{ mt: 2 }}
-    >
-      <TextField
-        fullWidth
-        error={!!inputError}
-        helperText={inputError}
-        label="Enter password"
-        placeholder="gugelhupf..."
-        id="password"
-        type="password"
-        onChange={handlePasswordInput}
-        onKeyUp={handleKeyUp}
-      />
-      <Typography component="p" alignSelf="flex-start" my={2} ml={1}>
-        or
-      </Typography>
-      <TextField
-        fullWidth
-        label="Enter Maps API key"
-        placeholder="AIzaSyBXR..."
-        id="apikey"
-        type="password"
-        onChange={handleApiKeyInput}
-        onKeyUp={handleKeyUp}
-      />
-      <Button
-        sx={{
-          my: 2,
-        }}
-        variant="contained"
-        color="primary"
-        onClick={handleSubmit}
+    <>
+      <Box>
+        <Typography
+          variant="h3"
+          sx={{
+            fontFamily: "'Lato', sans-serif",
+          }}
+        >
+          Geoguesseric
+        </Typography>
+      </Box>
+
+      <Box
+        onSubmit={(e: any) => e.preventDefault()}
+        component="form"
+        noValidate
+        autoComplete="off"
+        display="flex"
+        flexDirection="column"
+        alignItems="flex-end"
+        width="80%"
+        maxWidth={400}
+        sx={{ mt: 2 }}
       >
-        Enter
-      </Button>
-    </Box>
+        <TextField
+          fullWidth
+          error={!!inputError}
+          helperText={inputError}
+          label="Enter password"
+          placeholder="gugelhupf..."
+          id="password"
+          type="password"
+          onChange={handlePasswordInput}
+          onKeyUp={handleKeyUp}
+        />
+        <Typography component="p" alignSelf="flex-start" my={2} ml={1}>
+          or
+        </Typography>
+        <TextField
+          fullWidth
+          label="Enter Maps API key"
+          placeholder="AIzaSyBXR..."
+          id="apikey"
+          type="password"
+          onChange={handleApiKeyInput}
+          onKeyUp={handleKeyUp}
+        />
+        <Button
+          sx={{
+            my: 2,
+          }}
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+        >
+          Enter
+        </Button>
+      </Box>
+    </>
   );
 };
 

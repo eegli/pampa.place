@@ -1,6 +1,7 @@
 type DefaultSettings = {
   game: {
     maxPlayers: number;
+    roundSelect: [number, number, number];
     timeLimit: number;
   };
   svRequest: google.maps.StreetViewLocationRequest;
@@ -15,6 +16,7 @@ type DefaultSettings = {
 const defaultSettings: DefaultSettings = {
   game: {
     maxPlayers: 4,
+    roundSelect: [1, 3, 5],
     timeLimit: 10,
   },
   svRequest: {
@@ -26,7 +28,7 @@ const defaultSettings: DefaultSettings = {
     showRoadLabels: false,
     fullscreenControl: false,
     pov: {
-      heading: 34,
+      heading: 35,
       pitch: 10,
     },
   },

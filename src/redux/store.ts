@@ -22,13 +22,18 @@ const devMiddleware = [logger];
 
 const isDev = process.env.NODE_ENV !== 'production';
 
-export const store = configureStore({
-  reducer: rootReducer,
-  middleware: getDefault =>
-    isDev
-      ? getDefault({ serializableCheck: false }).concat(devMiddleware)
-      : getDefault({ serializableCheck: false }),
-});
+// Export for tests
+export const _makeStore = () => {
+  return configureStore({
+    reducer: rootReducer,
+    middleware: getDefault =>
+      isDev
+        ? getDefault({ serializableCheck: false }).concat(devMiddleware)
+        : getDefault({ serializableCheck: false }),
+  });
+};
+
+export const store = _makeStore();
 
 /* const persistor = persistStore(store); */
 

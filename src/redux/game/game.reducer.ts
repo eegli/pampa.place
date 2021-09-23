@@ -9,11 +9,9 @@ export type Result = {
   score: number;
 };
 
-type PlayerTotals = {
+type Player = {
   totalScore: number;
-};
-
-type Player = PlayerTotals & { results: Result[] };
+} & { results: Result[] };
 
 export enum STATUS {
   PENDING = 'PENDING',
@@ -108,10 +106,12 @@ const gameSlice = createSlice({
       // Set current round score
       const player = state.playerInfo[state.players[0]];
 
-      // When the player fails to select a location: 0 score
+      // Payload when the user fails to set a location in time
       let score = 0;
       let dist = -1;
       let selected: OrNull<LatLngLiteral> = null;
+
+      // User managed to set a location
       if (payload.selected && payload.initial) {
         dist = calcDist(payload.initial, payload.selected);
         score = calcScore(state.map.computed.area, dist);
