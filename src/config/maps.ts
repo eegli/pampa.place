@@ -1,6 +1,6 @@
 import * as turf from '@turf/turf';
 import { BBox, FeatureCollection, Polygon } from '@turf/turf';
-import customMaps from 'custom-maps';
+import customMaps from '../../custom-maps';
 
 // All maps need to be a polygon feature collection
 type BaseMap = FeatureCollection<Polygon>;
