@@ -2,6 +2,7 @@ import { Status, Wrapper } from '@googlemaps/react-wrapper';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
+import { useRouter } from 'next/dist/client/router';
 import React from 'react';
 import { Provider } from 'react-redux';
 import Spinner from 'src/components/spinner';
@@ -20,35 +21,32 @@ const theme = createTheme({
 
 const AuthWrapper: NextPage = ({ children }) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
-
-  if (!apiKey) {
+  const router = useRouter();
+  if (!apiKey && router.pathname !== '/login') {
     return <Login />;
   }
 
-  const render = (status: Status) => {
-    if (status === Status.LOADING)
-      return (
-        <PageContentContainer height="100%">
-          <Spinner />
-        </PageContentContainer>
-      );
-    // Failures are not captured as of now
-    else if (status === Status.FAILURE)
-      return (
-        <PageContentContainer height="100%">
-          <div>fail</div>
-        </PageContentContainer>
-      );
-    return <>{children}</>;
-  };
+  if (apiKey) {
+    const render = (status: Status) => {
+      if (status === Status.LOADING)
+        return (
+          <PageContentContainer height="100%">
+            <Spinner />
+          </PageContentContainer>
+        );
+      // Failures are not captured as of now
+      else if (status === Status.FAILURE)
+        return (
+          <PageContentContainer height="100%">
+            <div>fail</div>
+          </PageContentContainer>
+        );
+      return <>{children}</>;
+    };
 
-  return (
-    <Wrapper
-      apiKey={apiKey}
-      render={render}
-      libraries={['drawing', 'geometry', 'places', 'visualization']}
-    />
-  );
+    return <Wrapper apiKey={apiKey} render={render} />;
+  }
+  return <div />;
 };
 
 export default function App({ Component, pageProps }: AppProps) {

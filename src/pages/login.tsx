@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { NextPage } from 'next';
+import { useRouter } from 'next/dist/client/router';
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { AuthReq, AuthRes } from 'src/pages/api/auth';
 import { setApiKey } from 'src/redux/app';
@@ -12,6 +13,7 @@ const Login: NextPage = () => {
   const [inputApiKey, inputSetApiKey] = useState<string>('');
 
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   // Speed up things in development
   /*   useEffect(() => {
@@ -40,6 +42,7 @@ const Login: NextPage = () => {
         setInputError('Invalid password');
       }
     }
+    router.push('/');
   }
 
   function handlePasswordInput(

@@ -46,6 +46,8 @@ export default function Form() {
     }
   };
 
+  const clearInputError = () => setInputError(false);
+
   // TODO reset state
   const handleReset = () => {
     dispatch(reset());
@@ -72,6 +74,7 @@ export default function Form() {
           players={players}
           setPlayers={setPlayers}
           inputError={inputError}
+          clearInputError={clearInputError}
         />
 
         <FormRoundSelect setRounds={setRounds} rounds={rounds} />

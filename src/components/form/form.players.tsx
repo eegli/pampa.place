@@ -6,6 +6,7 @@ import { max } from '@utils';
 type FormPlayerProps = {
   players: string[];
   inputError: boolean;
+  clearInputError: () => void;
   setPlayers: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
@@ -14,6 +15,7 @@ const MAX_PLAYERS = config.defaults.game.maxPlayers;
 export default function FormPlayers({
   players,
   inputError,
+  clearInputError,
   setPlayers,
 }: FormPlayerProps) {
   const handlePlayerChange =
@@ -21,6 +23,10 @@ export default function FormPlayers({
       const existing = players.filter(Boolean);
       existing[inputId] = e.target.value;
       setPlayers(existing);
+
+      if (existing.length) {
+        clearInputError();
+      }
     };
 
   const handleFocusInput = (isLast: boolean) => {
@@ -38,6 +44,7 @@ export default function FormPlayers({
       {/* Always have an additional input field to write to */}
       {Array.from({ length: max(players.length + 1, MAX_PLAYERS) }).map(
         (_, idx) => {
+          const isFirst = idx === 0;
           const isLast = players.length === idx;
 
           return (
@@ -51,6 +58,10 @@ export default function FormPlayers({
                 }}
                 required={idx === 0}
                 key={`p${idx}`}
+                error={isFirst && inputError}
+                helperText={
+                  isFirst && inputError && 'Needs at least one player'
+                }
                 type="text"
                 placeholder="Player name"
                 value={players[idx] || ''}
