@@ -4,24 +4,22 @@ import Play from '../components/play/play';
 import RoundEnd from '../components/round/round.end';
 import RoundIntermission from '../components/round/round.intermission';
 import RoundResult from '../components/round/round.result';
-import { getGameState, STATUS } from '../redux/game';
+import { STATUS } from '../redux/game';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { getPositionError, getRandomStreetView } from '../redux/position';
+import { getRandomStreetView } from '../redux/position';
 import { PageContentContainer } from '../styles';
 
 const Game: NextPage = () => {
   const dispatch = useAppDispatch();
-
-  const gameState = useAppSelector(getGameState);
-
-  const positionError = useAppSelector(getPositionError);
+  const status = useAppSelector(({ game }) => game.status);
+  const positionError = useAppSelector(({ position }) => position.error);
 
   async function handleRetry() {
     await dispatch(getRandomStreetView({ radius: 1000 }));
   }
 
   function render() {
-    switch (gameState) {
+    switch (status) {
       case STATUS.INTERMISSION:
         return <RoundIntermission />;
       case STATUS.ROUND_STARTED:

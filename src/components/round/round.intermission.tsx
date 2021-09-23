@@ -1,12 +1,6 @@
 import { Button, Divider, Stack, Typography } from '@mui/material';
 import { useEffect } from 'react';
-import {
-  getCurrRoundNum,
-  getPlayerNames,
-  getTotalRoundNum,
-  shouldRequestNewSV,
-  startRound,
-} from '../../redux/game';
+import { shouldRequestNewSV, startRound } from '../../redux/game';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   getRandomStreetView,
@@ -17,9 +11,9 @@ import { SlimContainer } from '../../styles';
 export default function RoundIntermission() {
   const dispatch = useAppDispatch();
 
-  const players = useAppSelector(getPlayerNames);
-  const currentRound = useAppSelector(getCurrRoundNum);
-  const totalRounds = useAppSelector(getTotalRoundNum);
+  const players = useAppSelector(({ game }) => game.players);
+  const currentRound = useAppSelector(({ game }) => game.rounds.current);
+  const totalRounds = useAppSelector(({ game }) => game.rounds.total);
   const shouldGetNewSV = useAppSelector(shouldRequestNewSV);
 
   useEffect(() => {

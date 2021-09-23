@@ -1,13 +1,8 @@
 import { Box, Button } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import { useTimer } from 'src/hooks/useTimer';
-import {
-  getActiveMap,
-  getActivePlayer,
-  setPlayerScore,
-} from '../../redux/game';
+import { getActivePlayer, setPlayerScore } from '../../redux/game';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getInitialPosition, getSelectedPosition } from '../../redux/position';
 import Map, { MapMode } from '../google/google.map';
 import StreetView from '../google/google.street-view';
 import PlayHeader from './play.header';
@@ -19,26 +14,28 @@ export default function Play() {
   const [showMap, setShowMap] = useState<boolean>(false);
   const [time, activateTimer] = useTimer();
 
-  const activeMap = useAppSelector(getActiveMap);
+  const activeMap = useAppSelector(({ game }) => game.map);
   const activePlayer = useAppSelector(getActivePlayer);
-  const initialPosition = useAppSelector(getInitialPosition);
-  const selectedPosition = useAppSelector(getSelectedPosition);
+  const initialPos = useAppSelector(({ position }) => position.initialPosition);
+  const selectedPos = useAppSelector(
+    ({ position }) => position.selectedPosition
+  );
 
   const memoizedSubmit = useCallback(() => {
     dispatch(
       setPlayerScore({
-        initial: initialPosition,
-        selected: selectedPosition,
+        initial: initialPos,
+        selected: selectedPos,
       })
     );
     console.log('loser');
 
     setShowMap(false);
-  }, [dispatch, selectedPosition]);
+  }, [dispatch, selectedPos, initialPos]);
 
   useEffect(() => {
     activateTimer();
-  }, []);
+  }, [activateTimer]);
 
   return (
     <Box
@@ -56,7 +53,7 @@ export default function Play() {
         <StyledMapOverlay pos="right" onClick={() => setShowMap(!showMap)}>
           <img src="/map.svg" alt="map-icon" />
         </StyledMapOverlay>
-        {selectedPosition && (
+        {selectedPos && (
           <StyledMapOverlay pos="left" onClick={() => setShowMap(!showMap)}>
             <Button
               size={'large'}
@@ -74,7 +71,7 @@ export default function Play() {
             height: '100%',
           }}
         >
-          {initialPosition && <StreetView />}
+          {initialPos && <StreetView />}
         </div>
 
         <Map mode={MapMode.PLAY} mapData={activeMap} />

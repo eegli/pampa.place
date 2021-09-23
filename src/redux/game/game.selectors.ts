@@ -1,8 +1,6 @@
 import { RootState } from '../store';
 import { Result } from './game.reducer';
 
-export const getPlayerNames = (s: RootState) => s.game.players;
-
 export const getActivePlayer = (s: RootState) => s.game.players[0];
 
 export const getPlayerCount = (s: RootState) => s.game.players.length;
@@ -32,18 +30,9 @@ export const getTotalScores = (s: RootState) => {
   );
 };
 
-export const getGameState = (s: RootState) => s.game.status;
-
 export const shouldRequestNewSV = (s: RootState) =>
   s.game.rounds.progress === 0;
-
-export const getTotalRoundNum = (s: RootState) => s.game.rounds.total;
-export const getCurrRoundNum = (s: RootState) => s.game.rounds.current;
-
-export const getActiveMap = (s: RootState) => s.game.map;
 
 export const isFinished = (s: RootState) =>
   s.game.rounds.progress === s.game.players.length &&
   s.game.rounds.current === s.game.rounds.total;
-
-export const isInitialized = (s: RootState) => s.game.initialized;

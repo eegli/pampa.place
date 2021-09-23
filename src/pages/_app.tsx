@@ -5,9 +5,9 @@ import type { AppProps } from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
 import Spinner from 'src/components/spinner';
+import LoadingProgress from 'src/progress';
 import { useAppSelector } from 'src/redux/hooks';
 import { PageContentContainer } from 'src/styles';
-import Home from '.';
 import { store } from '../redux/store';
 import '../styles/root.css';
 import Login from './login';
@@ -18,7 +18,6 @@ const theme = createTheme({
   },
 });
 
-// Redirects the user to home if the game has not been properly initialized
 const AuthWrapper: NextPage = ({ children }) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
 
@@ -52,24 +51,14 @@ const AuthWrapper: NextPage = ({ children }) => {
   );
 };
 
-const GameWrapper: NextPage = ({ children }) => {
-  const initialized = useAppSelector(s => s.game.initialized);
-  if (!initialized) {
-    return <Home />;
-  }
-
-  return <>{children}</>;
-};
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AuthWrapper>
-          <GameWrapper>
-            <Component {...pageProps} />
-          </GameWrapper>
+          <LoadingProgress />
+          <Component {...pageProps} />
         </AuthWrapper>
       </ThemeProvider>
     </Provider>

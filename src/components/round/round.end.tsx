@@ -10,15 +10,8 @@ import {
   Typography,
 } from '@mui/material';
 import { formatDist } from '@utils';
-import {
-  finishRound,
-  getActiveMap,
-  getCurrRoundNum,
-  getRoundScores,
-  isFinished,
-} from '../../redux/game';
+import { finishRound, getRoundScores, isFinished } from '../../redux/game';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getInitialPosition } from '../../redux/position';
 import { SlimContainer } from '../../styles';
 import GoogleMap, { MapMode } from '../google/google.map';
 
@@ -26,9 +19,11 @@ export default function RoundEnd() {
   const dispatch = useAppDispatch();
 
   const scores = useAppSelector(getRoundScores);
-  const currentRound = useAppSelector(getCurrRoundNum);
-  const initialPosition = useAppSelector(getInitialPosition);
-  const activeMap = useAppSelector(getActiveMap);
+  const currentRound = useAppSelector(({ game }) => game.rounds.current);
+  const initialPosition = useAppSelector(
+    ({ position }) => position.initialPosition
+  );
+  const activeMap = useAppSelector(({ game }) => game.map);
   const isGameFinished = useAppSelector(isFinished);
 
   function handleClick() {

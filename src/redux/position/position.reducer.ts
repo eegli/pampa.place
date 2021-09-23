@@ -22,12 +22,18 @@ interface PositionState {
   selectedPosition: OrNull<LatLngLiteral>;
 
   error: OrNull<ValidationErrors>;
-
-  errorRetries: number;
+  loading: boolean;
 }
 
 type RandomRequest = {
   radius: number;
+};
+
+const initialState: PositionState = {
+  initialPosition: null, //{ lat: 51.492145, lng: -0.192983 },
+  selectedPosition: null,
+  loading: false,
+  error: null,
 };
 
 export const getRandomStreetView = createAsyncThunk<
@@ -66,13 +72,6 @@ export const getRandomStreetView = createAsyncThunk<
   }
 );
 
-const initialState: PositionState = {
-  initialPosition: null, //{ lat: 51.492145, lng: -0.192983 },
-  selectedPosition: null,
-  error: null,
-  errorRetries: 3,
-};
-
 const positonSlice = createSlice({
   name: 'position',
   initialState,
@@ -89,14 +88,19 @@ const positonSlice = createSlice({
       getRandomStreetView.fulfilled,
       (state, action: PayloadAction<LatLngLiteral>) => {
         state.initialPosition = action.payload;
+        state.loading = false;
         state.error = null;
       }
     );
-    builder.addCase(getRandomStreetView.rejected, (state, action) => {
-      if (action.payload) {
-        state.error = action.payload;
-      }
-    });
+    builder.addCase(getRandomStreetView.pending, state => {
+      state.loading = true;
+    }),
+      builder.addCase(getRandomStreetView.rejected, (state, action) => {
+        if (action.payload) {
+          state.loading = false;
+          state.error = action.payload;
+        }
+      });
   },
 });
 

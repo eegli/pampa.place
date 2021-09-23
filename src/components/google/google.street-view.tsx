@@ -1,11 +1,10 @@
 import config from '@config';
 import React, { useEffect, useRef } from 'react';
 import { useAppSelector } from 'src/redux/hooks';
-import { getInitialPosition } from 'src/redux/position';
 
 function GoogleStreetView() {
   const panoRef = useRef<HTMLDivElement>(null);
-  const position = useAppSelector(getInitialPosition);
+  const position = useAppSelector(({ position }) => position.initialPosition);
 
   // Initialization
   useEffect(() => {
