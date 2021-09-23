@@ -2,32 +2,40 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { NextPage } from 'next';
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { AuthReq, AuthRes } from 'src/pages/api/auth';
+import { setApiKey } from 'src/redux/app';
+import { useAppDispatch } from 'src/redux/hooks';
+import { PageContentContainer } from 'src/styles';
 
-type InputProps = {
-  callback: (key: string) => void;
-};
-
-const AuthInput: NextPage<InputProps> = ({ callback }) => {
+const Login: NextPage = () => {
   const [inputError, setInputError] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [apiKey, setApiKey] = useState<string>('');
+  const [inputPassword, inputSetPassword] = useState<string>('');
+  const [inputApiKey, inputSetApiKey] = useState<string>('');
+
+  const dispatch = useAppDispatch();
+
+  // Speed up things in development
+  /*   useEffect(() => {
+    if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_KEY) {
+      dispatch(setApiKey(process.env.NEXT_PUBLIC_KEY));
+    }
+  }, [dispatch]); */
 
   async function handleSubmit() {
-    if (!password && !apiKey) {
+    if (!inputPassword && !inputApiKey) {
       setInputError('Either a password or API key must be provided');
       // User provided their own api key
-    } else if (apiKey) {
-      callback(apiKey);
+    } else if (inputApiKey) {
+      dispatch(setApiKey(inputApiKey));
       // User provided password, use it to get api key from env
-    } else if (password) {
+    } else if (inputPassword) {
       const params: AuthReq = {
-        pw: password,
+        pw: inputPassword,
       };
       try {
         const res: AuthRes = await (
           await fetch('api/auth?' + new URLSearchParams(params))
         ).json();
-        callback(res.apikey);
+        dispatch(setApiKey(res.apikey));
       } catch (e) {
         setInputError('Invalid password');
       }
@@ -37,13 +45,13 @@ const AuthInput: NextPage<InputProps> = ({ callback }) => {
   function handlePasswordInput(
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) {
-    setPassword(e.target.value);
+    inputSetPassword(e.target.value);
   }
 
   function handleApiKeyInput(
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) {
-    setApiKey(e.target.value);
+    inputSetApiKey(e.target.value);
   }
 
   function handleKeyUp(e: KeyboardEvent<HTMLInputElement>) {
@@ -53,18 +61,7 @@ const AuthInput: NextPage<InputProps> = ({ callback }) => {
   }
 
   return (
-    <>
-      <Box>
-        <Typography
-          variant="h3"
-          sx={{
-            fontFamily: "'Lato', sans-serif",
-          }}
-        >
-          Geoguesseric
-        </Typography>
-      </Box>
-
+    <PageContentContainer height="100%">
       <Box
         onSubmit={(e: any) => e.preventDefault()}
         component="form"
@@ -111,8 +108,8 @@ const AuthInput: NextPage<InputProps> = ({ callback }) => {
           Enter
         </Button>
       </Box>
-    </>
+    </PageContentContainer>
   );
 };
 
-export default AuthInput;
+export default Login;
