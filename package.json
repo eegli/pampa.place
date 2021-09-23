@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@emotion/react": "^11.4.1",
@@ -23,16 +25,23 @@
     "styled-components": "^5.3.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.0",
+    "@testing-library/user-event": "^13.2.1",
     "@types/geojson": "^7946.0.8",
     "@types/google.maps": "^3.45.6",
+    "@types/jest": "^27.0.2",
     "@types/react": "17.0.22",
     "@types/redux-logger": "^3.0.9",
+    "babel-jest": "^27.2.1",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
     "eslint-config-prettier": "^8.3.0",
+    "jest": "^27.2.1",
     "prettier": "^2.4.1",
     "prettier-plugin-organize-imports": "^2.3.3",
     "redux-logger": "^3.0.6",
-    "typescript": "4.4.3"
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.4.3"
   }
 }

@@ -8,9 +8,9 @@ import Spinner from 'src/components/spinner';
 import LoadingProgress from 'src/progress';
 import { useAppSelector } from 'src/redux/hooks';
 import { PageContentContainer } from 'src/styles';
+import GlobalStyles from 'src/styles/global';
 import Login from '../login';
 import { store } from '../redux/store';
-import '../styles/root.css';
 
 const theme = createTheme({
   palette: {
@@ -46,11 +46,13 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <AuthWrapper>
-          <LoadingProgress />
-          <Component {...pageProps} />
-        </AuthWrapper>
+        <GlobalStyles>
+          <CssBaseline />
+          <AuthWrapper>
+            <LoadingProgress />
+            <Component {...pageProps} />
+          </AuthWrapper>
+        </GlobalStyles>
       </ThemeProvider>
     </Provider>
   );

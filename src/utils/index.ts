@@ -45,7 +45,7 @@ export function formatDist(meter: number, toFixed = 1): string {
 }
 
 export function max(num: number, limit: number): number {
-  return num >= limit ? limit : num;
+  return num >= limit ? num : limit;
 }
 
 export async function sha256(message: string): Promise<string> {
