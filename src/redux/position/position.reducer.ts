@@ -1,4 +1,5 @@
-import config, { LatLngLiteral } from '@config';
+import defaults from '@config/defaults';
+import { LatLngLiteral } from '@config/maps';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OrNull, randomPointInMap } from '@utils';
 import { RootState } from '../store';
@@ -49,14 +50,14 @@ export const getRandomStreetView = createAsyncThunk<
     const { game } = getState();
 
     const service = new window.google.maps.StreetViewService();
-    const defaults: google.maps.StreetViewLocationRequest = {
+    const reqDefaults: google.maps.StreetViewLocationRequest = {
       preference: google.maps.StreetViewPreference.NEAREST,
-      radius: params?.radius || config.defaults.svRequest.radius,
+      radius: params?.radius || defaults.svRequest.radius,
     };
 
     try {
       const { data } = await service.getPanorama({
-        ...defaults,
+        ...reqDefaults,
         location: randomPointInMap(game.map),
       });
 

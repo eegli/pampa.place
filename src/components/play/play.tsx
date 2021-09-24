@@ -1,6 +1,6 @@
 import { Box, Button } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
-import { useTimer } from 'src/hooks/useTimer';
+import { useTimer } from '../../hooks/useTimer';
 import { getActivePlayer, setPlayerScore } from '../../redux/game';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import Map, { MapMode } from '../google/google.map';

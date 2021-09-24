@@ -1,4 +1,4 @@
-import { LatLngLiteral, MapData } from '@config';
+import { LatLngLiteral, MapData } from '@config/maps';
 import * as turf from '@turf/turf';
 
 export type OrNull<T> = T | null;
@@ -45,7 +45,7 @@ export function formatDist(meter: number, toFixed = 1): string {
 }
 
 export function max(num: number, limit: number): number {
-  return num >= limit ? num : limit;
+  return num >= limit ? limit : num;
 }
 
 export async function sha256(message: string): Promise<string> {

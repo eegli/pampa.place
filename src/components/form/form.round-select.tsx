@@ -1,4 +1,4 @@
-import config from '@config';
+import defaults from '@config/defaults';
 import { Button, ButtonGroup } from '@mui/material';
 
 type FormRoundSelectProps = {
@@ -12,7 +12,7 @@ export default function FormRoundSelect({
 }: FormRoundSelectProps) {
   return (
     <ButtonGroup fullWidth>
-      {config.defaults.game.roundSelect.map((val, idx) => (
+      {defaults.game.roundSelect.map((val, idx) => (
         <Button
           sx={{
             px: 3,

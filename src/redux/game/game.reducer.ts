@@ -1,4 +1,4 @@
-import config, { LatLngLiteral, MapData } from '@config';
+import maps, { LatLngLiteral, MapData } from '@config/maps';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { calcDist, calcScore, OrNull } from '@utils';
 
@@ -36,7 +36,7 @@ interface GameState {
 
 const initialState: GameState = {
   initialized: false,
-  map: config.maps[0],
+  map: maps[0],
   players: [],
   playerInfo: {},
   rounds: {

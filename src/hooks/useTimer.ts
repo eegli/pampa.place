@@ -1,11 +1,9 @@
-import config from '@config';
+import defaults from '@config/defaults';
 import { useEffect, useState } from 'react';
 
 export const useTimer = () => {
   const [active, setActive] = useState<boolean>(false);
-  const [seconds, setSeconds] = useState<number>(
-    config.defaults.game.timeLimit
-  );
+  const [seconds, setSeconds] = useState<number>(defaults.game.timeLimit);
 
   useEffect(() => {
     if (active) {

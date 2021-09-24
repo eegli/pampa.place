@@ -1,4 +1,4 @@
-import config, { MapData } from '@config';
+import maps, { MapData } from '@config/maps';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box,
@@ -28,8 +28,8 @@ export default function FormLocationSelect({
   const [previewMap, setPreviewMap] = useState<boolean>(false);
 
   const handleMapSelect = (e: SelectChangeEvent<string>) => {
-    const idx = config.maps.findIndex(l => l.name === e.target.value);
-    setMap(config.maps[idx]);
+    const idx = maps.findIndex(l => l.name === e.target.value);
+    setMap(maps[idx]);
   };
 
   if (map?.name) {
@@ -55,7 +55,7 @@ export default function FormLocationSelect({
               </InputAdornment>
             }
           >
-            {config.maps.map(loc => (
+            {maps.map(loc => (
               <MenuItem key={loc.name} value={loc.name}>
                 {loc.name}
               </MenuItem>
@@ -70,7 +70,7 @@ export default function FormLocationSelect({
             setIsOpen={setPreviewMap}
           >
             <Box height={500}>
-              <Map mode={MapMode.PREVIEW} mapData={map || config.maps[0]} />
+              <Map mode={MapMode.PREVIEW} mapData={map || maps[0]} />
             </Box>
           </MapPreview>
         )}

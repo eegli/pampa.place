@@ -1,4 +1,5 @@
-import config from '@config';
+import defaults from '@config/defaults';
+import markers from '@config/markers';
 import RoomIcon from '@mui/icons-material/Room';
 import { Box, Fade, InputAdornment, TextField } from '@mui/material';
 import { max } from '@utils';
@@ -10,7 +11,7 @@ type FormPlayerProps = {
   setPlayers: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const MAX_PLAYERS = config.defaults.game.maxPlayers;
+const MAX_PLAYERS = defaults.game.maxPlayers;
 
 export default function FormPlayers({
   players,
@@ -74,7 +75,7 @@ export default function FormPlayers({
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <RoomIcon style={{ color: config.markers[idx] }} />
+                      <RoomIcon style={{ color: markers[idx] }} />
                     </InputAdornment>
                   ),
                 }}

@@ -4,13 +4,13 @@ import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
-import Spinner from 'src/components/spinner';
-import LoadingProgress from 'src/progress';
-import { useAppSelector } from 'src/redux/hooks';
-import { PageContentContainer } from 'src/styles';
-import GlobalStyles from 'src/styles/global';
-import Login from '../login';
+import Login from '../components/login';
+import LoadingProgress from '../components/progress';
+import Spinner from '../components/spinner';
+import { useAppSelector } from '../redux/hooks';
 import { store } from '../redux/store';
+import { PageContentContainer } from '../styles';
+import GlobalStyles from '../styles/global';
 
 const theme = createTheme({
   palette: {

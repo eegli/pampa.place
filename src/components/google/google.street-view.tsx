@@ -1,6 +1,6 @@
-import config from '@config';
+import defaults from '@config/defaults';
 import React, { useEffect, useRef } from 'react';
-import { useAppSelector } from 'src/redux/hooks';
+import { useAppSelector } from '../../redux/hooks';
 
 function GoogleStreetView() {
   const panoRef = useRef<HTMLDivElement>(null);
@@ -11,7 +11,7 @@ function GoogleStreetView() {
     if (panoRef.current && position) {
       new window.google.maps.StreetViewPanorama(panoRef.current, {
         position,
-        ...config.defaults.gStreetView,
+        ...defaults.gStreetView,
       });
     }
   }, [panoRef, position]);

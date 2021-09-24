@@ -4,7 +4,7 @@ import Error from '../components/error';
 
 describe('it tests', () => {
   it('works', () => {
-    expect(max(2, 3)).toEqual(3);
+    expect(max(2, 3)).toEqual(2);
   });
 
   it('renders', () => {

@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { render, RenderOptions } from '@testing-library/react';
-import React, { FC, ReactElement } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { rootReducer } from '../redux/store';
 
-const AllTheProviders: FC = ({ children }) => {
+const AllTheProviders: React.FC = ({ children }) => {
   return (
     <Provider store={configureStore({ reducer: rootReducer })}>
       {children}
@@ -13,7 +13,7 @@ const AllTheProviders: FC = ({ children }) => {
 };
 
 const customRender = (
-  ui: ReactElement,
+  ui: React.ReactElement,
   options?: Omit<RenderOptions, 'wrapper'>
 ) => render(ui, { wrapper: AllTheProviders, ...options });
 

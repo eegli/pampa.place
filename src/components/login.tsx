@@ -2,10 +2,10 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { NextPage } from 'next';
 import { useRouter } from 'next/dist/client/router';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
-import { AuthReq, AuthRes } from 'src/pages/api/auth';
-import { setApiKey } from 'src/redux/app';
-import { useAppDispatch } from 'src/redux/hooks';
-import { PageContentContainer } from 'src/styles';
+import { AuthReq, AuthRes } from '../pages/api/auth';
+import { setApiKey } from '../redux/app';
+import { useAppDispatch } from '../redux/hooks';
+import { PageContentContainer } from '../styles';
 
 const Login: NextPage = () => {
   const [inputError, setInputError] = useState<string>('');
