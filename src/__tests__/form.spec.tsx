@@ -4,12 +4,14 @@ import { fireEvent, render, screen } from './test-utils';
 
 describe('Form', () => {
   it('player inputs', async () => {
-    const { container, getAllByLabelText } = render(<Form />);
+    const { container } = render(<Form />);
     expect(container.firstChild).toMatchSnapshot();
-    expect(getAllByLabelText(/^player /i)).toHaveLength(1);
 
-    const input = screen.getByTestId(/^player-1/i);
+    expect(screen.getAllByLabelText(/^player /i)).toHaveLength(1);
+
+    const input = screen.getByTestId(/^player-input-1/i);
     fireEvent.change(input, { target: { value: 'eric' } });
+    expect(container.firstChild).toMatchSnapshot();
     expect(screen.getAllByLabelText(/^player /i)).toHaveLength(2);
   });
 });

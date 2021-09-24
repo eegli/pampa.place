@@ -48,6 +48,8 @@ export default function FormPlayers({
           const isFirst = idx === 0;
           const isLast = players.length === idx;
 
+          const id = `player-input-${idx + 1}`;
+
           return (
             <Fade in timeout={500} key={idx}>
               <TextField
@@ -58,12 +60,12 @@ export default function FormPlayers({
                   },
                 }}
                 inputProps={{
-                  'data-testid': `player-${idx + 1}`,
+                  'data-testid': id,
                 }}
                 // This is required for the tests
-                id="players"
+                id={id}
+                key={id}
                 required={idx === 0}
-                key={`player-${idx}`}
                 error={isFirst && inputError}
                 helperText={
                   isFirst && inputError && 'Needs at least one player'
@@ -72,7 +74,6 @@ export default function FormPlayers({
                 placeholder="Player name"
                 value={players[idx] || ''}
                 label={`Player ${idx + 1}`}
-                /*  onMouseOver={() => console.log(players.length === idx)} */
                 onFocus={() => handleFocusInput(isLast)}
                 onInput={() => handleFocusInput(isLast)}
                 onBlur={() => handleFocusInput(isLast)}

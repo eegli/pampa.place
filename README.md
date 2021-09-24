@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Todos
+
+- Use react-use
+
 The maps and related data conform to the [GeoJSON standard](https://en.wikipedia.org/wiki/GeoJSON). In terms of geometry, points are specified as [lng,lat]. This is different from Google Maps, which usually defines points as [lat,lng].
 
 ## Links
