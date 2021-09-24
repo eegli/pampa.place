@@ -57,8 +57,13 @@ export default function FormPlayers({
                     mb: 0,
                   },
                 }}
+                inputProps={{
+                  'data-testid': `player-${idx + 1}`,
+                }}
+                // This is required for the tests
+                id="players"
                 required={idx === 0}
-                key={`p${idx}`}
+                key={`player-${idx}`}
                 error={isFirst && inputError}
                 helperText={
                   isFirst && inputError && 'Needs at least one player'

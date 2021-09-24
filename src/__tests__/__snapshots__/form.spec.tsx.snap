@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it tests renders 1`] = `
+exports[`Form player inputs 1`] = `
 <form
   autocomplete="off"
   class="MuiBox-root css-fj09t4"
@@ -16,6 +16,8 @@ exports[`it tests renders 1`] = `
       <label
         class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary Mui-required css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
         data-shrink="false"
+        for="players"
+        id="players-label"
       >
         Player 1
         <span
@@ -32,6 +34,8 @@ exports[`it tests renders 1`] = `
         <input
           aria-invalid="false"
           class="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
+          data-testid="player-1"
+          id="players"
           placeholder="Player name"
           required=""
           type="text"
@@ -217,10 +221,4 @@ exports[`it tests renders 1`] = `
     />
   </button>
 </form>
-`;
-
-exports[`it tests streetview 1`] = `
-<div
-  style="height: 100%; width: 100%;"
-/>
 `;
