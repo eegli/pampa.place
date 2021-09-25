@@ -70,7 +70,7 @@ describe('Form - Player name input', () => {
     render(<Form />);
     const submit = querySubmitButton();
     fireEvent.click(submit);
-    expect(dispatchSpy).toHaveBeenCalledTimes(0);
+    expect(dispatchSpy).not.toHaveBeenCalled();
   });
   it('submits if there is at least one player name', () => {
     render(<Form />);
