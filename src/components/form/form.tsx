@@ -1,7 +1,7 @@
 import { MapData } from '@config/maps';
 import { Box, Button } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { initGame, reset } from '../../redux/game';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import FormMapSelect from './form.location-select';
@@ -12,6 +12,7 @@ export default function Form() {
   const [players, setPlayers] = useState<string[]>([]);
   const [rounds, setRounds] = useState<number>();
   const [activeMap, setMap] = useState<MapData>();
+  const [timeLimit, setTimeLimit] = useState<false | number>(false);
 
   const [inputError, setInputError] = useState<boolean>(false);
 
@@ -40,6 +41,7 @@ export default function Form() {
           names: validPlayers,
           map: activeMap,
           rounds,
+          timeLimit,
         })
       );
       router.push('/game');
@@ -78,7 +80,7 @@ export default function Form() {
         />
 
         <FormRoundSelect setRounds={setRounds} rounds={rounds} />
-        {/*   <FormDurationSelect /> */}
+
         <FormMapSelect setMap={setMap} map={activeMap} />
 
         <Button

@@ -1,7 +1,6 @@
 import { Box, Slider } from '@mui/material';
 
 const durationSelect = [
-  { value: 0, label: 'unlimited' },
   {
     value: 30,
     label: '30s',
@@ -14,6 +13,7 @@ const durationSelect = [
     value: 120,
     label: '2m',
   },
+  { value: 0, label: 'unlimited' },
 ];
 
 function valuetext(value: number) {
@@ -28,12 +28,12 @@ export default function FormDurationSelect() {
   return (
     <Box sx={{ paddingX: 2 }}>
       <Slider
-        aria-label='Restricted values'
+        aria-label="Restricted values"
         defaultValue={60}
         valueLabelFormat={valueLabelFormat}
         getAriaValueText={valuetext}
         step={null}
-        valueLabelDisplay='auto'
+        valueLabelDisplay="auto"
         marks={durationSelect}
         onBlur={e => console.log(e)}
       />

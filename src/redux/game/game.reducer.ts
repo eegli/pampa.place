@@ -27,6 +27,7 @@ interface GameState {
   map: MapData;
   players: string[];
   playerInfo: Record<string, Player>;
+  timeLimit: number | false;
   rounds: {
     current: number;
     progress: number;
@@ -40,6 +41,7 @@ const initialState: GameState = {
   map: maps[0],
   players: [],
   playerInfo: {},
+  timeLimit: false,
   rounds: {
     current: 1,
     total: 3,
@@ -64,6 +66,7 @@ const gameSlice = createSlice({
         names: string[];
         rounds: number;
         map: MapData;
+        timeLimit: number | false;
       }>
     ) {
       state.players = action.payload.names;
@@ -73,6 +76,7 @@ const gameSlice = createSlice({
       });
 
       state.map = action.payload.map;
+      state.timeLimit = action.payload.timeLimit;
 
       state.rounds.total = action.payload.rounds;
       state.rounds.current = 1;
