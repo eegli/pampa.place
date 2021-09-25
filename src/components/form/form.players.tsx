@@ -2,7 +2,7 @@ import gameConfig from '@config/game';
 import markerConfig from '@config/markers';
 import RoomIcon from '@mui/icons-material/Room';
 import { Box, Fade, InputAdornment, TextField } from '@mui/material';
-import { min } from '@utils';
+import { min } from '@utils/misc';
 import { Dispatch, SetStateAction } from 'react';
 
 type FormPlayerProps = {

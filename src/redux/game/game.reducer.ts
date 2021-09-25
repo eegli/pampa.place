@@ -1,6 +1,7 @@
 import maps, { LatLngLiteral, MapData } from '@config/maps';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { calcDist, calcScore, OrNull } from '@utils';
+import { calcDist, calcScore } from '@utils/geo';
+import { OrNull } from '@utils/types';
 
 export type Result = {
   round: number;

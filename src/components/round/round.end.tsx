@@ -9,7 +9,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { formatDist } from '@utils';
+import { formatDist } from '@utils/geo';
 import { finishRound, getRoundScores, isFinished } from '../../redux/game';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { SlimContainer } from '../../styles';

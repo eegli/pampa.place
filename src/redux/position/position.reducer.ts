@@ -1,7 +1,8 @@
 import config from '@config/google';
 import { LatLngLiteral } from '@config/maps';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { OrNull, randomPointInMap } from '@utils';
+import { randomPointInMap } from '@utils/geo';
+import { OrNull } from '@utils/types';
 import { RootState } from '../store';
 interface ValidationErrors {
   code: 'ZERO_RESULTS';

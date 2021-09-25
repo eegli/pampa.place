@@ -2,13 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { render, RenderOptions } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { rootReducer } from '../redux/store';
-
-type DeepPartial<T> = T extends Function
-  ? T
-  : T extends object
-  ? { [P in keyof T]?: DeepPartial<T[P]> }
-  : T;
+import { rootReducer } from '../src/redux/store';
 
 export function createMockStore() {
   return configureStore({

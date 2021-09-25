@@ -1,8 +1,8 @@
 import gameConfig from '@config/game';
 import { fireEvent } from '@testing-library/dom';
+import { render, screen } from '@tests/test-utils';
 import React from 'react';
-import Form from '../components/form/form';
-import { render, screen } from './test-utils';
+import Form from '../form';
 
 jest.mock('next/router', () => ({
   useRouter() {
@@ -15,7 +15,7 @@ jest.mock('next/router', () => ({
 const dispatchSpy = jest.fn();
 
 jest
-  .spyOn(require('../redux/hooks'), 'useAppDispatch')
+  .spyOn(require('../../../redux/hooks'), 'useAppDispatch')
   .mockReturnValue(dispatchSpy);
 
 beforeEach(() => {
@@ -39,16 +39,13 @@ describe('Form', () => {
 });
 
 describe('Form - Player name input', () => {
-  it('always renders at least one player input field', async () => {
+  it('always renders at least one player input field', () => {
     render(<Form />);
-    let playerInputs = queryPlayers();
-    expect(playerInputs).toHaveLength(1);
-    expect(playerInputs[0]).toHaveValue('');
+    expect(queryPlayers()).toHaveLength(1);
+    expect(queryPlayers()[0]).toHaveValue('');
 
-    fireEvent.change(playerInputs[0], { target: { value: 'eric' } });
-
-    playerInputs = queryPlayers();
-    expect(playerInputs[0]).toHaveValue('eric');
+    fireEvent.change(queryPlayers()[0], { target: { value: 'eric' } });
+    expect(queryPlayers()[0]).toHaveValue('eric');
   });
   it('does not create more inputs than defined', () => {
     render(<Form />);
