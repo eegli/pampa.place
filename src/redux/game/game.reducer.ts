@@ -60,25 +60,30 @@ const gameSlice = createSlice({
     reset(state) {
       state = initialState;
     },
+    setPlayers(state, action: PayloadAction<string[]>) {
+      state.players = action.payload.filter(Boolean);
+    },
+    setRounds(state, action: PayloadAction<number>) {
+      state.rounds.total = action.payload;
+    },
+    setMap(state, action: PayloadAction<MapData>) {
+      state.map = action.payload;
+    },
     initGame(
       state,
       action: PayloadAction<{
-        names: string[];
-        rounds: number;
-        map: MapData;
         timeLimit: number | false;
       }>
     ) {
-      state.players = action.payload.names;
+      if (!state.players.length) {
+        state.players = ['Player 1'];
+      }
 
-      action.payload.names.forEach(name => {
+      state.players.forEach(name => {
         state.playerInfo[name] = { totalScore: 0, results: [] };
       });
-
-      state.map = action.payload.map;
       state.timeLimit = action.payload.timeLimit;
 
-      state.rounds.total = action.payload.rounds;
       state.rounds.current = 1;
       state.rounds.progress = 0;
 
@@ -159,6 +164,14 @@ const gameSlice = createSlice({
   },
 });
 
-export const { reset, initGame, startRound, finishRound, setPlayerScore } =
-  gameSlice.actions;
+export const {
+  reset,
+  initGame,
+  startRound,
+  finishRound,
+  setPlayerScore,
+  setRounds,
+  setMap,
+  setPlayers,
+} = gameSlice.actions;
 export default gameSlice.reducer;

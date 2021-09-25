@@ -3,36 +3,24 @@ import markerConfig from '@config/markers';
 import RoomIcon from '@mui/icons-material/Room';
 import { Box, Fade, InputAdornment, TextField } from '@mui/material';
 import { min } from '@utils/misc';
-import { Dispatch, SetStateAction } from 'react';
-
-type FormPlayerProps = {
-  players: string[];
-  inputError: boolean;
-  clearInputError: () => void;
-  setPlayers: Dispatch<SetStateAction<string[]>>;
-};
+import { setPlayers } from '../../redux/game';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 const MAX_PLAYERS = gameConfig.maxPlayers;
 
-export default function FormPlayers({
-  players,
-  inputError,
-  clearInputError,
-  setPlayers,
-}: FormPlayerProps) {
+export default function FormPlayers() {
+  const players = useAppSelector(({ game }) => game.players);
+  const dispatch = useAppDispatch();
+
   const handlePlayerChange =
     (inputId: number) => (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const existing = players.filter(Boolean);
+      const existing = [...players];
       existing[inputId] = e.target.value;
-      setPlayers(existing);
-
-      if (existing.length) {
-        clearInputError();
-      }
+      dispatch(setPlayers(existing));
     };
 
   const handleInputBlur = (isLast: boolean) => {
-    const existing = players.filter(Boolean);
+    const existing = [...players];
     if (isLast) {
       existing.push('');
       setPlayers(existing);
@@ -46,10 +34,9 @@ export default function FormPlayers({
       {/* Always have an additional input field to write to */}
       {Array.from({ length: min(players.length + 1, MAX_PLAYERS) }).map(
         (_, idx) => {
-          const isFirst = idx === 0;
           const isLast = players.length === idx;
 
-          const id = `player-input-${idx + 1}`;
+          const id = `player-name-${idx + 1}`;
 
           return (
             <Fade in timeout={500} key={idx}>
@@ -67,11 +54,6 @@ export default function FormPlayers({
                 id={id}
                 key={id}
                 label={`Player ${idx + 1}`}
-                required={idx === 0}
-                error={isFirst && inputError}
-                helperText={
-                  isFirst && inputError && 'Needs at least one player'
-                }
                 type="text"
                 placeholder="Player name"
                 value={players[idx] || ''}

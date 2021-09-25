@@ -1,54 +1,24 @@
-import { MapData } from '@config/maps';
 import { Box, Button } from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { initGame, reset } from '../../redux/game';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import FormMapSelect from './form.location-select';
 import FormPlayers from './form.players';
 import FormRoundSelect from './form.round-select';
 
 export default function Form() {
-  const [players, setPlayers] = useState<string[]>([]);
-  const [rounds, setRounds] = useState<number>();
-  const [activeMap, setMap] = useState<MapData>();
-  const [timeLimit, setTimeLimit] = useState<false | number>(false);
-
-  const [inputError, setInputError] = useState<boolean>(false);
-
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const existingPlayers = useAppSelector(({ game }) => game.players);
-  const existingRounds = useAppSelector(({ game }) => game.rounds.total);
-  const existingMap = useAppSelector(({ game }) => game.map);
-
-  useEffect(() => {
-    setPlayers(existingPlayers);
-    setRounds(existingRounds);
-    setMap(existingMap);
-  }, [existingPlayers, existingRounds, existingMap]);
-
   const handleSubmit = () => {
-    const validPlayers = players.filter(Boolean);
-
-    if (!validPlayers.length) {
-      setInputError(true);
-    } else if (activeMap && rounds) {
-      setInputError(false);
-      dispatch(
-        initGame({
-          names: validPlayers,
-          map: activeMap,
-          rounds,
-          timeLimit,
-        })
-      );
-      router.push('/game');
-    }
+    dispatch(
+      initGame({
+        timeLimit: 99,
+      })
+    );
+    router.push('/game');
   };
-
-  const clearInputError = () => setInputError(false);
 
   // TODO reset state
   const handleReset = () => {
@@ -72,16 +42,11 @@ export default function Form() {
           },
         }}
       >
-        <FormPlayers
-          players={players}
-          setPlayers={setPlayers}
-          inputError={inputError}
-          clearInputError={clearInputError}
-        />
+        <FormPlayers />
 
-        <FormRoundSelect setRounds={setRounds} rounds={rounds} />
+        <FormRoundSelect />
 
-        <FormMapSelect setMap={setMap} map={activeMap} />
+        <FormMapSelect />
 
         <Button
           sx={{

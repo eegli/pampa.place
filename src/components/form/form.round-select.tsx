@@ -1,33 +1,33 @@
 import config from '@config/game';
 import { Button, ButtonGroup } from '@mui/material';
+import { setRounds } from '../../redux/game';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
-type FormRoundSelectProps = {
-  setRounds: React.Dispatch<React.SetStateAction<number | undefined>>;
-  rounds: number | undefined;
-};
-
-export default function FormRoundSelect({
-  setRounds,
-  rounds,
-}: FormRoundSelectProps) {
+export default function FormRoundSelect() {
+  const dispatch = useAppDispatch();
+  const totalRoundCount = useAppSelector(({ game }) => game.rounds.total);
   return (
     <ButtonGroup fullWidth>
-      {config.roundSelect.map((val, idx) => (
-        <Button
-          sx={{
-            px: 3,
-            my: 1,
-            whiteSpace: 'nowrap',
-          }}
-          key={idx}
-          size={'small'}
-          color="primary"
-          onClick={() => setRounds(val)}
-          variant={rounds === val ? 'contained' : 'outlined'}
-        >
-          {val} {val === 1 ? 'round' : 'rounds'}
-        </Button>
-      ))}
+      {config.roundSelect.map((val, idx) => {
+        const id = `round-${val}`;
+        return (
+          <Button
+            sx={{
+              px: 3,
+              my: 1,
+              whiteSpace: 'nowrap',
+            }}
+            id={id}
+            key={id}
+            size={'small'}
+            color="primary"
+            onClick={() => dispatch(setRounds(val))}
+            variant={totalRoundCount === val ? 'contained' : 'outlined'}
+          >
+            {val} {val === 1 ? 'round' : 'rounds'}
+          </Button>
+        );
+      })}
     </ButtonGroup>
   );
 }

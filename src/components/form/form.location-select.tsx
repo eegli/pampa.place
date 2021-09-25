@@ -1,4 +1,4 @@
-import maps, { MapData } from '@config/maps';
+import MAPS from '@config/maps';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box,
@@ -12,24 +12,21 @@ import {
   Tooltip,
 } from '@mui/material';
 import { useState } from 'react';
+import { setMap } from '../../redux/game';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import Map, { MapMode } from '../google/google.map';
 import Spinner from '../spinner';
 import MapPreview from './form.map-preview';
 
-type FormLocationSelectProps = {
-  setMap: React.Dispatch<React.SetStateAction<MapData | undefined>>;
-  map: MapData | undefined;
-};
-
-export default function FormLocationSelect({
-  setMap,
-  map,
-}: FormLocationSelectProps) {
+export default function FormLocationSelect() {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
 
+  const dispatch = useAppDispatch();
+  const map = useAppSelector(({ game }) => game.map);
+
   const handleMapSelect = (e: SelectChangeEvent<string>) => {
-    const idx = maps.findIndex(l => l.name === e.target.value);
-    setMap(maps[idx]);
+    const idx = MAPS.findIndex(l => l.name === e.target.value);
+    dispatch(setMap(MAPS[idx]));
   };
 
   if (map?.name) {
@@ -55,7 +52,7 @@ export default function FormLocationSelect({
               </InputAdornment>
             }
           >
-            {maps.map(loc => (
+            {MAPS.map(loc => (
               <MenuItem key={loc.name} value={loc.name}>
                 {loc.name}
               </MenuItem>
@@ -70,7 +67,7 @@ export default function FormLocationSelect({
             setIsOpen={setPreviewMap}
           >
             <Box height={500}>
-              <Map mode={MapMode.PREVIEW} mapData={map || maps[0]} />
+              <Map mode={MapMode.PREVIEW} mapData={map} />
             </Box>
           </MapPreview>
         )}
