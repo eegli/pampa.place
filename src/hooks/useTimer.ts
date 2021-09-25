@@ -1,22 +1,16 @@
-import config from '@config/game';
 import { useEffect, useState } from 'react';
 
-export const useTimer = () => {
-  const [active, setActive] = useState<boolean>(false);
-  const [seconds, setSeconds] = useState<number>(config.timeLimit);
+export function useTimer(startTime: number) {
+  const [seconds, setSeconds] = useState<number>(startTime);
 
   useEffect(() => {
-    if (active) {
+    if (seconds > 0) {
       const timer = setTimeout(() => {
-        if (seconds > 0) {
-          setSeconds(seconds - 1);
-        } else {
-          setActive(false);
-        }
+        setSeconds(seconds - 1);
       }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [active, seconds]);
+  }, [seconds]);
 
-  return [seconds, () => setActive(true)] as const;
-};
+  return [seconds] as const;
+}

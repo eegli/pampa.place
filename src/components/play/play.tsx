@@ -1,6 +1,5 @@
 import { Box, Button } from '@mui/material';
-import { useCallback, useEffect, useState } from 'react';
-import { useTimer } from '../../hooks/useTimer';
+import { useState } from 'react';
 import { getActivePlayer, setPlayerScore } from '../../redux/game';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import Map, { MapMode } from '../google/google.map';
@@ -10,9 +9,7 @@ import { StyledMapOverlay } from './play.styles';
 
 export default function Play() {
   const dispatch = useAppDispatch();
-
   const [showMap, setShowMap] = useState<boolean>(false);
-  const [time, activateTimer] = useTimer();
 
   const activeMap = useAppSelector(({ game }) => game.map);
   const activePlayer = useAppSelector(getActivePlayer);
@@ -21,7 +18,7 @@ export default function Play() {
     ({ position }) => position.selectedPosition
   );
 
-  const memoizedSubmit = useCallback(() => {
+  function submitScore() {
     dispatch(
       setPlayerScore({
         initial: initialPos,
@@ -29,13 +26,7 @@ export default function Play() {
       })
     );
     console.log('loser');
-
-    setShowMap(false);
-  }, [dispatch, selectedPos, initialPos]);
-
-  useEffect(() => {
-    activateTimer();
-  }, [activateTimer]);
+  }
 
   return (
     <Box
@@ -48,7 +39,7 @@ export default function Play() {
         overflow: 'hidden',
       }}
     >
-      <PlayHeader player={activePlayer} time={time} />
+      <PlayHeader player={activePlayer} timerCallback={submitScore} />
       <Box position="relative" height="100%" width="100%">
         <StyledMapOverlay pos="right" onClick={() => setShowMap(!showMap)}>
           <img src="/map.svg" alt="map-icon" />
@@ -59,7 +50,7 @@ export default function Play() {
               size={'large'}
               variant="contained"
               color="primary"
-              onClick={memoizedSubmit}
+              onClick={submitScore}
             >
               Submit
             </Button>

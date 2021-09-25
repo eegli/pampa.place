@@ -1,14 +1,26 @@
+import config from '@config/game';
 import HomeIcon from '@mui/icons-material/Home';
 import { Box, Divider, IconButton, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useTimer } from '../../hooks/useTimer';
 
 type PlayHeaderProps = {
   player: string;
-  time: number;
+  timerCallback: () => void;
 };
 
-export default function PlayHeader({ player, time }: PlayHeaderProps) {
+export default function PlayHeader({ player, timerCallback }: PlayHeaderProps) {
   const router = useRouter();
+
+  const [timeRemaining] = useTimer(config.timeLimit);
+
+  useEffect(() => {
+    if (!timeRemaining) {
+      timerCallback();
+    }
+  }, [timeRemaining]);
+
   function handleClick() {
     router.push('/');
   }
@@ -46,7 +58,7 @@ export default function PlayHeader({ player, time }: PlayHeaderProps) {
             Time remaining
           </Typography>
           <Typography variant="h5" color={'secondary.main'}>
-            {time}s
+            {timeRemaining}s
           </Typography>
         </Box>
       </Stack>
