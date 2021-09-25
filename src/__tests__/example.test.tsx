@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
-import { max } from '@utils';
+import { min } from '@utils';
 import Error from '../components/error';
 
 describe('it tests', () => {
   it('works', () => {
-    expect(max(2, 3)).toEqual(2);
+    expect(min(2, 3)).toEqual(2);
   });
 
   it('renders', () => {

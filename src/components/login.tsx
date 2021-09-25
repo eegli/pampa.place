@@ -1,6 +1,6 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { NextPage } from 'next';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { AuthReq, AuthRes } from '../pages/api/auth';
 import { setApiKey } from '../redux/app';

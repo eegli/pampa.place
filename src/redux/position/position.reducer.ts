@@ -1,4 +1,4 @@
-import defaults from '@config/defaults';
+import config from '@config/google';
 import { LatLngLiteral } from '@config/maps';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OrNull, randomPointInMap } from '@utils';
@@ -52,7 +52,7 @@ export const getRandomStreetView = createAsyncThunk<
     const service = new window.google.maps.StreetViewService();
     const reqDefaults: google.maps.StreetViewLocationRequest = {
       preference: google.maps.StreetViewPreference.NEAREST,
-      radius: params?.radius || defaults.svRequest.radius,
+      radius: params?.radius || config.svRequest.radius,
     };
 
     try {

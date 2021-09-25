@@ -9,7 +9,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { getTotalScores } from '../../redux/game';
 import { useAppSelector } from '../../redux/hooks';
 import { SlimContainer } from '../../styles';
@@ -25,29 +25,29 @@ export default function RoundResult() {
 
   return (
     <SlimContainer fullHeight>
-      <Stack direction='column' alignItems='center' spacing={3}>
-        <Typography variant='h3'>Game over!</Typography>
-        <Typography variant='h5'>{result[0].name} wins 🥳</Typography>
-        <Divider orientation='horizontal' flexItem />
-        <Table size='small' aria-label='a dense table'>
+      <Stack direction="column" alignItems="center" spacing={3}>
+        <Typography variant="h3">Game over!</Typography>
+        <Typography variant="h5">{result[0].name} wins 🥳</Typography>
+        <Divider orientation="horizontal" flexItem />
+        <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              <TableCell align='right'>Total Score</TableCell>
+              <TableCell align="right">Total Score</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {result.map(p => (
               <TableRow key={p.name}>
-                <TableCell component='th' scope='row'>
+                <TableCell component="th" scope="row">
                   {p.name}
                 </TableCell>
-                <TableCell align='right'>{p.score}</TableCell>
+                <TableCell align="right">{p.score}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        <Button onClick={handleClick} variant='contained' color='primary'>
+        <Button onClick={handleClick} variant="contained" color="primary">
           Play again
         </Button>
       </Stack>

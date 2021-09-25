@@ -1,17 +1,18 @@
-import defaults from '@config/defaults';
-import markers from '@config/markers';
+import gameConfig from '@config/game';
+import markerConfig from '@config/markers';
 import RoomIcon from '@mui/icons-material/Room';
 import { Box, Fade, InputAdornment, TextField } from '@mui/material';
-import { max } from '@utils';
+import { min } from '@utils';
+import { Dispatch, SetStateAction } from 'react';
 
 type FormPlayerProps = {
   players: string[];
   inputError: boolean;
   clearInputError: () => void;
-  setPlayers: React.Dispatch<React.SetStateAction<string[]>>;
+  setPlayers: Dispatch<SetStateAction<string[]>>;
 };
 
-const MAX_PLAYERS = defaults.game.maxPlayers;
+const MAX_PLAYERS = gameConfig.maxPlayers;
 
 export default function FormPlayers({
   players,
@@ -30,7 +31,7 @@ export default function FormPlayers({
       }
     };
 
-  const handleFocusInput = (isLast: boolean) => {
+  const handleInputBlur = (isLast: boolean) => {
     const existing = players.filter(Boolean);
     if (isLast) {
       existing.push('');
@@ -43,7 +44,7 @@ export default function FormPlayers({
   return (
     <Box display="flex" flexDirection="column">
       {/* Always have an additional input field to write to */}
-      {Array.from({ length: max(players.length + 1, MAX_PLAYERS) }).map(
+      {Array.from({ length: min(players.length + 1, MAX_PLAYERS) }).map(
         (_, idx) => {
           const isFirst = idx === 0;
           const isLast = players.length === idx;
@@ -65,6 +66,7 @@ export default function FormPlayers({
                 // This is required for the tests
                 id={id}
                 key={id}
+                label={`Player ${idx + 1}`}
                 required={idx === 0}
                 error={isFirst && inputError}
                 helperText={
@@ -73,15 +75,13 @@ export default function FormPlayers({
                 type="text"
                 placeholder="Player name"
                 value={players[idx] || ''}
-                label={`Player ${idx + 1}`}
-                onFocus={() => handleFocusInput(isLast)}
-                onInput={() => handleFocusInput(isLast)}
-                onBlur={() => handleFocusInput(isLast)}
+                onInput={() => handleInputBlur(isLast)}
+                onBlur={() => handleInputBlur(isLast)}
                 onChange={handlePlayerChange(idx)}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <RoomIcon style={{ color: markers[idx] }} />
+                      <RoomIcon style={{ color: markerConfig.colors[idx] }} />
                     </InputAdornment>
                   ),
                 }}

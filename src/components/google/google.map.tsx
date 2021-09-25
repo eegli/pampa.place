@@ -1,6 +1,6 @@
-import defaults from '@config/defaults';
+import googleConfig from '@config/google';
 import { LatLngLiteral, MapData } from '@config/maps';
-import markers from '@config/markers';
+import markerConfig from '@config/markers';
 import React, { useEffect, useRef, useState } from 'react';
 import { Result } from '../../redux/game';
 import { useAppDispatch } from '../../redux/hooks';
@@ -33,7 +33,7 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
       console.count('map render');
 
       const gmap = new window.google.maps.Map(mapRef.current, {
-        ...defaults.gMap,
+        ...googleConfig.map,
       });
 
       const sw = new google.maps.LatLng(mapData.computed.bbLiteral.SW);
@@ -104,12 +104,12 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
             className: 'map-marker',
           },
           icon: {
-            path: defaults.marker.path,
-            fillColor: `#${markers[idx]}`,
+            path: markerConfig.marker.path,
+            fillColor: `#${markerConfig.colors[idx]}`,
             fillOpacity: 1,
             anchor: new google.maps.Point(
-              defaults.marker.anchor[0],
-              defaults.marker.anchor[1]
+              markerConfig.marker.anchor[0],
+              markerConfig.marker.anchor[1]
             ),
             strokeWeight: 0,
             scale: 1,

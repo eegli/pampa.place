@@ -44,7 +44,7 @@ export function formatDist(meter: number, toFixed = 1): string {
   return (meter / 1000).toFixed(toFixed) + ' km';
 }
 
-export function max(num: number, limit: number): number {
+export function min(num: number, limit: number): number {
   return num >= limit ? limit : num;
 }
 

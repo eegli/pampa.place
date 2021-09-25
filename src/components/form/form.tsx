@@ -1,6 +1,6 @@
 import { MapData } from '@config/maps';
 import { Box, Button } from '@mui/material';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { initGame, reset } from '../../redux/game';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';

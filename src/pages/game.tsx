@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Error from '../components/error';
 import Play from '../components/play/play';
