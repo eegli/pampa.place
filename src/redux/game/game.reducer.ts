@@ -69,12 +69,7 @@ const gameSlice = createSlice({
     setMap(state, action: PayloadAction<MapData>) {
       state.map = action.payload;
     },
-    initGame(
-      state,
-      action: PayloadAction<{
-        timeLimit: number | false;
-      }>
-    ) {
+    initGame(state) {
       if (!state.players.length) {
         state.players = ['Player 1'];
       }
@@ -82,7 +77,6 @@ const gameSlice = createSlice({
       state.players.forEach(name => {
         state.playerInfo[name] = { totalScore: 0, results: [] };
       });
-      state.timeLimit = action.payload.timeLimit;
 
       state.rounds.current = 1;
       state.rounds.progress = 0;

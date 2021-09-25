@@ -12,11 +12,7 @@ export default function Form() {
   const router = useRouter();
 
   const handleSubmit = () => {
-    dispatch(
-      initGame({
-        timeLimit: 99,
-      })
-    );
+    dispatch(initGame());
     router.push('/game');
   };
 
@@ -43,11 +39,8 @@ export default function Form() {
         }}
       >
         <FormPlayers />
-
         <FormRoundSelect />
-
         <FormMapSelect />
-
         <Button
           sx={{
             my: 2,
