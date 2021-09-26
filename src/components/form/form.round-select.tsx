@@ -1,4 +1,4 @@
-import config from '@/config/game';
+import { config } from '@/config/game';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setRounds } from '@/redux/slices/game';
 import { Button, ButtonGroup } from '@mui/material';
@@ -8,7 +8,7 @@ export default function FormRoundSelect() {
   const totalRoundCount = useAppSelector(({ game }) => game.rounds.total);
   return (
     <ButtonGroup fullWidth>
-      {config.roundSelect.map((val, idx) => {
+      {config.rounds.map(val => {
         const id = `round-${val}`;
         return (
           <Button

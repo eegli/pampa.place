@@ -1,4 +1,4 @@
-import { LatLngLiteral, MapData } from '@config/maps';
+import { LatLngLiteral, MapData } from '@/config/maps';
 import * as turf from '@turf/turf';
 
 export function randomPointInMap(map: MapData): LatLngLiteral {

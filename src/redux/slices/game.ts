@@ -1,4 +1,5 @@
-import maps, { LatLngLiteral, MapData } from '@/config/maps';
+import { defaults } from '@/config/game';
+import { defaultMap, LatLngLiteral, MapData } from '@/config/maps';
 import { calcDist, calcScore } from '@/utils/geo';
 import { OrNull } from '@/utils/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -30,7 +31,7 @@ interface GameState {
     names: string[];
     scores: Record<string, Player>;
   };
-  timeLimit: number | false;
+  timeLimit: number;
   rounds: {
     current: number;
     progress: number;
@@ -41,15 +42,15 @@ interface GameState {
 const initialState: GameState = {
   status: STATUS.PENDING_START,
 
-  map: maps[0],
+  map: defaultMap,
   players: {
     names: [],
     scores: {},
   },
-  timeLimit: false,
+  timeLimit: defaults.timeLimit,
   rounds: {
     current: 1,
-    total: 3,
+    total: defaults.round,
     progress: 0,
   },
 };
@@ -69,6 +70,9 @@ const gameSlice = createSlice({
     },
     setRounds(state, action: PayloadAction<number>) {
       state.rounds.total = action.payload;
+    },
+    setTimeLimit(state, action: PayloadAction<number>) {
+      state.timeLimit = action.payload;
     },
     setMap(state, action: PayloadAction<MapData>) {
       state.map = action.payload;
@@ -170,5 +174,6 @@ export const {
   setRounds,
   setMap,
   setPlayers,
+  setTimeLimit,
 } = gameSlice.actions;
 export default gameSlice.reducer;

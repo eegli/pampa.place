@@ -1,12 +1,12 @@
-import gameConfig from '@/config/game';
-import markerConfig from '@/config/markers';
+import { config } from '@/config/game';
+import { markers } from '@/config/markers';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setPlayers } from '@/redux/slices/game';
 import { min } from '@/utils/misc';
 import RoomIcon from '@mui/icons-material/Room';
 import { Box, Fade, InputAdornment, TextField } from '@mui/material';
 
-const MAX_PLAYERS = gameConfig.maxPlayers;
+const MAX_PLAYERS = config.maxPlayers;
 
 export default function FormPlayers() {
   const players = useAppSelector(({ game }) => game.players.names);
@@ -48,7 +48,7 @@ export default function FormPlayers() {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <RoomIcon style={{ color: markerConfig.colors[idx] }} />
+                      <RoomIcon style={{ color: markers.colors[idx] }} />
                     </InputAdornment>
                   ),
                 }}

@@ -1,4 +1,4 @@
-import MAPS from '@/config/maps';
+import { mapData } from '@/config/maps';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setMap } from '@/redux/slices/game';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -25,8 +25,8 @@ export default function FormLocationSelect() {
   const map = useAppSelector(({ game }) => game.map);
 
   const handleMapSelect = (e: SelectChangeEvent<string>) => {
-    const idx = MAPS.findIndex(l => l.name === e.target.value);
-    dispatch(setMap(MAPS[idx]));
+    const idx = mapData.findIndex(l => l.name === e.target.value);
+    dispatch(setMap(mapData[idx]));
   };
 
   if (map?.name) {
@@ -52,7 +52,7 @@ export default function FormLocationSelect() {
               </InputAdornment>
             }
           >
-            {MAPS.map(loc => (
+            {mapData.map(loc => (
               <MenuItem key={loc.name} value={loc.name}>
                 {loc.name}
               </MenuItem>

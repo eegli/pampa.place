@@ -1,4 +1,4 @@
-import config from '@/config/google';
+import { config } from '@/config/google';
 import { LatLngLiteral } from '@/config/maps';
 import { RootState } from '@/redux/store';
 import { randomPointInMap } from '@/utils/geo';

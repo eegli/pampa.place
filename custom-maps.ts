@@ -1,4 +1,4 @@
-import { CustomMap } from '@config/maps';
+import { CustomMap } from '@/config/maps';
 
 const maps: CustomMap = {
   Zurich: {

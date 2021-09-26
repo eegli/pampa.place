@@ -59,5 +59,5 @@ for (const [name, base] of Object.entries(customMaps)) {
     },
   });
 }
-
-export default maps.sort((a, b) => (a.name > b.name ? 1 : -1));
+export const mapData = maps.sort((a, b) => (a.name > b.name ? 1 : -1));
+export const defaultMap = maps[0];

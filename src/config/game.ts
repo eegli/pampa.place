@@ -1,15 +1,22 @@
 type GameConfig = {
   maxPlayers: number;
-  roundSelect: [number, number, number];
-  timeLimitSelect: [number, number, number, true];
+  rounds: [number, number, number];
+  timeLimits: [number, number, number, number];
+};
+
+type GameConfigDefaults = {
+  round: number;
   timeLimit: number;
 };
 
-const gameConfig: GameConfig = {
+export const config: GameConfig = {
   maxPlayers: 4,
-  roundSelect: [1, 3, 5],
-  timeLimitSelect: [30, 60, 120, true],
-  timeLimit: 60,
+  rounds: [1, 3, 5],
+  // -1 for unlimited time
+  timeLimits: [30, 60, 120, -1],
 };
 
-export default gameConfig;
+export const defaults: GameConfigDefaults = {
+  round: 3,
+  timeLimit: 30,
+};

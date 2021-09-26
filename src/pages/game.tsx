@@ -57,7 +57,7 @@ const Game: NextPage = () => {
   */
   return (
     <>
-      <PageContentContainer height="100%">
+      <PageContentContainer height="100%" disableGutters>
         {positionError ? (
           <Error
             callback={handleRetry}

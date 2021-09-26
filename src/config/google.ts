@@ -4,7 +4,7 @@ type GoogleConfig = {
   map: google.maps.MapOptions;
 };
 
-const googleConfig: GoogleConfig = {
+export const config: GoogleConfig = {
   svRequest: {
     radius: 1000,
   },
@@ -29,5 +29,3 @@ const googleConfig: GoogleConfig = {
     },
   },
 };
-
-export default googleConfig;

@@ -27,7 +27,7 @@ c0.06,3.01-1.89,6.26-5.78,12.77c-0.18,0.3-4.15,6.95-5.1,10.26c-0.64,2.24-0.89,4.
   },
 };
 
-export default {
+export const markers = {
   marker: markerConfig.svgMarker,
   colors: Object.values(markerConfig.colors),
 };

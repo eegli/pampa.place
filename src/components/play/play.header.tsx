@@ -1,4 +1,5 @@
-import config from '@/config/game';
+import { useAppSelector } from '@/redux/hooks';
+import { formatDuration } from '@/utils/misc';
 import HomeIcon from '@mui/icons-material/Home';
 import { Box, Divider, IconButton, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -10,13 +11,21 @@ type PlayHeaderProps = {
   timerCallback: () => void;
 };
 
+function getLabel(unlimited: boolean, time: number) {
+  return unlimited ? <span>&#8734;</span> : <span>{formatDuration(time)}</span>;
+}
+
 export default function PlayHeader({ player, timerCallback }: PlayHeaderProps) {
   const router = useRouter();
+  const timeLimit = useAppSelector(s => s.game.timeLimit);
+  const [timeRemaining] = useTimer(timeLimit);
 
-  const [timeRemaining] = useTimer(config.timeLimit);
+  const isUnlimitedTimeMode = timeLimit < 0;
+
+  const label = getLabel(isUnlimitedTimeMode, timeRemaining);
 
   useEffect(() => {
-    if (!timeRemaining) {
+    if (!timeRemaining && !isUnlimitedTimeMode) {
       timerCallback();
     }
   }, [timeRemaining]);
@@ -58,7 +67,7 @@ export default function PlayHeader({ player, timerCallback }: PlayHeaderProps) {
             Time remaining
           </Typography>
           <Typography variant="h5" color={'secondary.main'}>
-            {timeRemaining}s
+            {label}
           </Typography>
         </Box>
       </Stack>
