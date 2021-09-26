@@ -62,13 +62,17 @@ describe('Form, player name input', () => {
 });
 
 describe('Form, round select', () => {
-  function queryRoundSelect() {
-    return screen.getAllByRole('button', { name: /round/i });
-  }
+  it('renders round select options', () => {
+    const store = createMockStore();
+    render(<Form />, store);
 
-  it('renders a round select options', () => {
-    render(<Form />);
-    expect(queryRoundSelect()).toHaveLength(3);
-    expect(queryRoundSelect()[0]).toHaveValue('');
+    const roundOptions = screen.getAllByRole('button', { name: /round/i });
+
+    expect(roundOptions).toHaveLength(config.rounds.length);
+
+    fireEvent.click(roundOptions[0]);
+    expect(store.getState().game.rounds.total).toEqual(config.rounds[0]);
+    fireEvent.click(roundOptions[1]);
+    expect(store.getState().game.rounds.total).toEqual(config.rounds[1]);
   });
 });
