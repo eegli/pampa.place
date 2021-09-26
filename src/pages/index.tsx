@@ -5,7 +5,7 @@ import { PageContentContainer } from '../styles/';
 
 const Home: NextPage = () => {
   return (
-    <PageContentContainer height="auto" disableGutters={false}>
+    <PageContentContainer height="auto">
       <Typography variant="h3" my={8}>
         GEO GUESSERIC
       </Typography>

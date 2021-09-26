@@ -33,7 +33,6 @@ export const SlimContainer = styled(Box)<SlimContainerProps>(
 );
 
 interface PageContentContainerProps extends ContainerProps {
-  disableGutters: boolean;
   height: string;
 }
 
@@ -43,7 +42,6 @@ interface PageContentContainerProps extends ContainerProps {
 // /pages/game.
 export function PageContentContainer({
   children,
-  disableGutters,
   height: customHeight,
   ...rest
 }: PageContentContainerProps) {
@@ -57,7 +55,6 @@ export function PageContentContainer({
       }}
     >
       <Container
-        disableGutters={disableGutters}
         maxWidth="xl"
         sx={{
           // Required for darkmode to work, see example:

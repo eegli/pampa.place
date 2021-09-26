@@ -1,4 +1,4 @@
-import gameConfig from '@/config/game';
+import { config } from '@/config/game';
 import { STATUS } from '@/redux/slices/game';
 import { createMockStore, fireEvent, render, screen } from '@/tests/test-utils';
 import React from 'react';
@@ -53,11 +53,11 @@ describe('Form, player name input', () => {
   });
   it('does not create more inputs than defined', () => {
     render(<FormPlayers />);
-    for (let i = 0; i < gameConfig.maxPlayers; i++) {
+    for (let i = 0; i < config.maxPlayers; i++) {
       const inputs = queryPlayerInput();
       fireEvent.change(inputs[i], { target: { value: `player ${i}` } });
     }
-    expect(queryPlayerInput()).toHaveLength(gameConfig.maxPlayers);
+    expect(queryPlayerInput()).toHaveLength(config.maxPlayers);
   });
 });
 
