@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 const MAX_PLAYERS = gameConfig.maxPlayers;
 
 export default function FormPlayers() {
-  const players = useAppSelector(({ game }) => game.players);
+  const players = useAppSelector(({ game }) => game.players.names);
   const dispatch = useAppDispatch();
 
   const handlePlayerChange =
@@ -19,25 +19,12 @@ export default function FormPlayers() {
       dispatch(setPlayers(existing));
     };
 
-  const handleInputBlur = (isLast: boolean) => {
-    const existing = [...players];
-    if (isLast) {
-      existing.push('');
-      setPlayers(existing);
-    } else {
-      setPlayers(existing);
-    }
-  };
-
   return (
     <Box display="flex" flexDirection="column">
       {/* Always have an additional input field to write to */}
       {Array.from({ length: min(players.length + 1, MAX_PLAYERS) }).map(
         (_, idx) => {
-          const isLast = players.length === idx;
-
           const id = `player-name-${idx + 1}`;
-
           return (
             <Fade in timeout={500} key={idx}>
               <TextField
@@ -57,8 +44,6 @@ export default function FormPlayers() {
                 type="text"
                 placeholder="Player name"
                 value={players[idx] || ''}
-                onInput={() => handleInputBlur(isLast)}
-                onBlur={() => handleInputBlur(isLast)}
                 onChange={handlePlayerChange(idx)}
                 InputProps={{
                   endAdornment: (

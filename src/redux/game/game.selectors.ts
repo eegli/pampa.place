@@ -1,14 +1,14 @@
 import { RootState } from '../store';
 import { Result } from './game.reducer';
 
-export const getActivePlayer = (s: RootState) => s.game.players[0];
+export const getActivePlayer = (s: RootState) => s.game.players.names[0];
 
-export const getPlayerCount = (s: RootState) => s.game.players.length;
+export const getPlayerCount = (s: RootState) => s.game.players.names.length;
 
 export const getRoundScores = (s: RootState) => {
   const final: Array<Result & { name: string }> = [];
 
-  for (const [key, value] of Object.entries(s.game.playerInfo)) {
+  for (const [key, value] of Object.entries(s.game.players.scores)) {
     final.push({
       name: key,
       ...value.results[s.game.rounds.current - 1],
@@ -21,7 +21,7 @@ export const getRoundScores = (s: RootState) => {
 export const getTotalScores = (s: RootState) => {
   const final: { name: string; score: number }[] = [];
 
-  for (const [key, value] of Object.entries(s.game.playerInfo)) {
+  for (const [key, value] of Object.entries(s.game.players.scores)) {
     final.push({ name: key, score: value.totalScore });
   }
 
@@ -34,5 +34,5 @@ export const shouldRequestNewSV = (s: RootState) =>
   s.game.rounds.progress === 0;
 
 export const isFinished = (s: RootState) =>
-  s.game.rounds.progress === s.game.players.length &&
+  s.game.rounds.progress === s.game.players.names.length &&
   s.game.rounds.current === s.game.rounds.total;

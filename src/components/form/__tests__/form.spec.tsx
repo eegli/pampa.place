@@ -1,8 +1,8 @@
 import gameConfig from '@config/game';
-import { fireEvent } from '@testing-library/dom';
-import { render, screen } from '@tests/test-utils';
+import { createMockStore, fireEvent, render, screen } from '@tests/test-utils';
 import React from 'react';
 import Form from '../form';
+import FormPlayers from '../form.players';
 
 jest.mock('next/router', () => ({
   useRouter() {
@@ -12,24 +12,14 @@ jest.mock('next/router', () => ({
   },
 }));
 
-const dispatchSpy = jest.fn();
-
-jest
-  .spyOn(require('../../../redux/hooks'), 'useAppDispatch')
-  .mockReturnValue(dispatchSpy);
-
-beforeEach(() => {
-  dispatchSpy.mockClear();
-});
-
-function querySubmitButton() {
-  return screen.getByRole('button', { name: /start/i });
-}
-
 describe('Form', () => {
-  function queryRoundSelect() {
-    return screen.getAllByRole('button', { name: /round/i });
+  function querySubmitButton() {
+    return screen.getByRole('button', { name: /start/i });
   }
+  it('matches snapshot', () => {
+    const { container } = render(<Form />);
+    expect(container.firstChild).toMatchSnapshot();
+  });
 
   it('has submit button', () => {
     render(<Form />);
@@ -37,20 +27,23 @@ describe('Form', () => {
     expect(submit).toBeInTheDocument();
   });
 
-  it('renders a round select options', () => {
-    render(<Form />);
-    expect(queryRoundSelect()).toHaveLength(3);
-    expect(queryRoundSelect()[0]).toHaveValue('');
+  it('inits game on click', () => {
+    const store = createMockStore();
+    render(<Form />, store);
+    const submit = querySubmitButton();
+    fireEvent.click(submit);
+
+    expect(store.getState().game.meta.initialized).toBeTruthy();
   });
 });
 
-describe('Form - Player name input', () => {
+describe('Form, player name input', () => {
   function queryPlayerInput() {
     return screen.queryAllByLabelText(/^player/i);
   }
 
   it('always renders at least one player input field', () => {
-    render(<Form />);
+    render(<FormPlayers />);
     expect(queryPlayerInput()).toHaveLength(1);
     expect(queryPlayerInput()[0]).toHaveValue('');
 
@@ -58,35 +51,23 @@ describe('Form - Player name input', () => {
     expect(queryPlayerInput()[0]).toHaveValue('eric');
   });
   it('does not create more inputs than defined', () => {
-    render(<Form />);
+    render(<FormPlayers />);
     for (let i = 0; i < gameConfig.maxPlayers; i++) {
       const inputs = queryPlayerInput();
       fireEvent.change(inputs[i], { target: { value: `player ${i}` } });
     }
     expect(queryPlayerInput()).toHaveLength(gameConfig.maxPlayers);
   });
-  it('filters invalid players', () => {
-    render(<Form />);
-    fireEvent.change(queryPlayerInput()[0], { target: { value: 'a' } });
-    fireEvent.change(queryPlayerInput()[1], { target: { value: 'b' } });
-    expect(queryPlayerInput()).toHaveLength(3);
+});
 
-    fireEvent.change(queryPlayerInput()[1], { target: { value: '' } });
-    fireEvent.change(queryPlayerInput()[0], { target: { value: 'aa' } });
-    expect(queryPlayerInput()).toHaveLength(2);
-  });
+describe('Form, round select', () => {
+  function queryRoundSelect() {
+    return screen.getAllByRole('button', { name: /round/i });
+  }
 
-  it('does not submit if there are not players', () => {
+  it('renders a round select options', () => {
     render(<Form />);
-    const submit = querySubmitButton();
-    fireEvent.click(submit);
-    expect(dispatchSpy).not.toHaveBeenCalled();
-  });
-  it('submits if there is at least one player name', () => {
-    render(<Form />);
-    const submit = querySubmitButton();
-    fireEvent.change(queryPlayerInput()[0], { target: { value: 'eric' } });
-    fireEvent.click(submit);
-    expect(dispatchSpy).toHaveBeenCalledTimes(1);
+    expect(queryRoundSelect()).toHaveLength(3);
+    expect(queryRoundSelect()[0]).toHaveValue('');
   });
 });

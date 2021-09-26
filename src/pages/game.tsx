@@ -15,8 +15,8 @@ const Game: NextPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const initialized = useAppSelector(({ game }) => game.initialized);
-  const status = useAppSelector(({ game }) => game.status);
+  const initialized = useAppSelector(({ game }) => game.meta.initialized);
+  const status = useAppSelector(({ game }) => game.meta.status);
   const positionError = useAppSelector(({ position }) => position.error);
 
   useEffect(() => {
