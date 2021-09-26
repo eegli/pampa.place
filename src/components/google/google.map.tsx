@@ -1,10 +1,10 @@
-import googleConfig from '@config/google';
-import { LatLngLiteral, MapData } from '@config/maps';
-import markerConfig from '@config/markers';
-import React, { useEffect, useRef, useState } from 'react';
-import { Result } from '../../redux/game';
-import { useAppDispatch } from '../../redux/hooks';
-import { updateSelectedPosition } from '../../redux/position';
+import googleConfig from '@/config/google';
+import { LatLngLiteral, MapData } from '@/config/maps';
+import markerConfig from '@/config/markers';
+import { useAppDispatch } from '@/redux/hooks';
+import { Result } from '@/redux/slices/game';
+import { updateSelectedPosition } from '@/redux/slices/position';
+import { memo, useEffect, useRef, useState } from 'react';
 
 export enum MapMode {
   PREVIEW,
@@ -131,6 +131,6 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   );
 }
 
-export default React.memo(GoogleMap, (prev, curr) => {
+export default memo(GoogleMap, (prev, curr) => {
   return prev.mode === curr.mode && prev.mapData.name === curr.mapData.name;
 });

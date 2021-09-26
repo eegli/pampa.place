@@ -1,9 +1,9 @@
-import config from '@config/google';
-import { LatLngLiteral } from '@config/maps';
+import config from '@/config/google';
+import { LatLngLiteral } from '@/config/maps';
+import { RootState } from '@/redux/store';
+import { randomPointInMap } from '@/utils/geo';
+import { OrNull } from '@/utils/types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { randomPointInMap } from '@utils/geo';
-import { OrNull } from '@utils/types';
-import { RootState } from '../store';
 interface ValidationErrors {
   code: 'ZERO_RESULTS';
   endpoint: string;

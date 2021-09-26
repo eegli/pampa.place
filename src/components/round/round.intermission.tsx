@@ -1,11 +1,12 @@
-import { Button, Divider, Stack, Typography } from '@mui/material';
-import { useEffect } from 'react';
-import { shouldRequestNewSV, startRound } from '../../redux/game';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { shouldRequestNewSV } from '@/redux/selectors/game';
+import { startRound } from '@/redux/slices/game';
 import {
   getRandomStreetView,
   resetSelectedPosition,
-} from '../../redux/position';
+} from '@/redux/slices/position';
+import { Button, Divider, Stack, Typography } from '@mui/material';
+import { useEffect } from 'react';
 import { SlimContainer } from '../../styles';
 
 export default function RoundIntermission() {

@@ -52,10 +52,11 @@ export function PageContentContainer({
         height: '100%',
         bgcolor: 'background.default',
         color: 'text.primary',
-      }}>
+      }}
+    >
       <Container
-        disableGutters
-        maxWidth='xl'
+        /*         disableGutters */
+        maxWidth="xl"
         sx={{
           // Required for darkmode to work, see example:
           // https://next.material-ui.com/customization/palette/#toggling-color-mode
@@ -67,7 +68,8 @@ export function PageContentContainer({
           height: customHeight,
           flexFlow: 'column',
         }}
-        {...rest}>
+        {...rest}
+      >
         {children}
       </Container>
     </Box>

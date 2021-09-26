@@ -1,5 +1,6 @@
-import gameConfig from '@config/game';
-import { createMockStore, fireEvent, render, screen } from '@tests/test-utils';
+import gameConfig from '@/config/game';
+import { STATUS } from '@/redux/slices/game';
+import { createMockStore, fireEvent, render, screen } from '@/tests/test-utils';
 import React from 'react';
 import Form from '../form';
 import FormPlayers from '../form.players';
@@ -33,7 +34,7 @@ describe('Form', () => {
     const submit = querySubmitButton();
     fireEvent.click(submit);
 
-    expect(store.getState().game.meta.initialized).toBeTruthy();
+    expect(store.getState().game.status).not.toEqual(STATUS.PENDING_START);
   });
 });
 

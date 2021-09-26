@@ -1,6 +1,6 @@
-import config from '@config/google';
+import config from '@/config/google';
+import { useAppSelector } from '@/redux/hooks';
 import React, { useEffect, useRef } from 'react';
-import { useAppSelector } from '../../redux/hooks';
 
 function GoogleStreetView() {
   const panoRef = useRef<HTMLDivElement>(null);

@@ -1,10 +1,10 @@
+import { useAppDispatch } from '@/redux/hooks';
+import { setApiKey } from '@/redux/slices/app';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import { AuthReq, AuthRes } from '../pages/api/auth';
-import { setApiKey } from '../redux/app';
-import { useAppDispatch } from '../redux/hooks';
 import { PageContentContainer } from '../styles';
 
 const Login: NextPage = () => {

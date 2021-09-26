@@ -1,5 +1,5 @@
+import { Result } from '../slices/game';
 import { RootState } from '../store';
-import { Result } from './game.reducer';
 
 export const getActivePlayer = (s: RootState) => s.game.players.names[0];
 

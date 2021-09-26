@@ -1,3 +1,5 @@
+import { useAppSelector } from '@/redux/hooks';
+import { getTotalScores } from '@/redux/selectors/game';
 import {
   Button,
   Divider,
@@ -10,8 +12,6 @@ import {
   Typography,
 } from '@mui/material';
 import { useRouter } from 'next/router';
-import { getTotalScores } from '../../redux/game';
-import { useAppSelector } from '../../redux/hooks';
 import { SlimContainer } from '../../styles';
 
 export default function RoundResult() {

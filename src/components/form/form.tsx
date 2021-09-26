@@ -1,8 +1,8 @@
+import { useAppDispatch } from '@/redux/hooks';
+import { initGame, reset } from '@/redux/slices/game';
 import { Box, Button } from '@mui/material';
 import { useRouter } from 'next/router';
-import React from 'react';
-import { initGame, reset } from '../../redux/game';
-import { useAppDispatch } from '../../redux/hooks';
+import FormDurationSelect from './form.duration-select';
 import FormMapSelect from './form.location-select';
 import FormPlayers from './form.players';
 import FormRoundSelect from './form.round-select';
@@ -29,7 +29,9 @@ export default function Form() {
         autoComplete="off"
         display="flex"
         flexDirection="column"
+        maxWidth={350}
         sx={{
+          mx: 5,
           '&>*': {
             marginBottom: 3,
           },
@@ -40,6 +42,7 @@ export default function Form() {
       >
         <FormPlayers />
         <FormRoundSelect />
+        <FormDurationSelect />
         <FormMapSelect />
         <Button
           sx={{

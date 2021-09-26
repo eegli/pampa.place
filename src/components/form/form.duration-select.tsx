@@ -1,42 +1,38 @@
-import { Box, Slider } from '@mui/material';
-
-const durationSelect = [
-  {
-    value: 30,
-    label: '30s',
-  },
-  {
-    value: 60,
-    label: '1m',
-  },
-  {
-    value: 120,
-    label: '2m',
-  },
-  { value: 0, label: 'unlimited' },
-];
-
-function valuetext(value: number) {
-  return `${value}m`;
-}
-
-function valueLabelFormat(value: number) {
-  return durationSelect.findIndex(d => d.value === value) + 1;
-}
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from '@mui/material';
 
 export default function FormDurationSelect() {
   return (
-    <Box sx={{ paddingX: 2 }}>
-      <Slider
-        aria-label="Restricted values"
-        defaultValue={60}
-        valueLabelFormat={valueLabelFormat}
-        getAriaValueText={valuetext}
-        step={null}
-        valueLabelDisplay="auto"
-        marks={durationSelect}
-        onBlur={e => console.log(e)}
-      />
-    </Box>
+    <FormControl component="fieldset" sx={{ mb: 3 }}>
+      <FormLabel component="legend">Gender</FormLabel>
+      <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
+        <FormControlLabel value="female" control={<Radio />} label="Female" />
+        <FormControlLabel value="male" control={<Radio />} label="Male" />
+        <FormControlLabel value="other" control={<Radio />} label="Other" />
+        <FormControlLabel
+          value="disabled"
+          disabled
+          control={<Radio />}
+          label="other"
+        />
+        <FormControlLabel
+          value="disabled"
+          disabled
+          control={<Radio />}
+          label="other"
+        />
+        <FormControlLabel
+          value="disabled"
+          disabled
+          control={<Radio />}
+          label="other"
+        />
+      </RadioGroup>
+    </FormControl>
   );
 }

@@ -1,3 +1,7 @@
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { getRoundScores, isFinished } from '@/redux/selectors/game';
+import { finishRound } from '@/redux/slices/game';
+import { formatDist } from '@/utils/geo';
 import {
   Button,
   Divider,
@@ -9,9 +13,6 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { formatDist } from '@utils/geo';
-import { finishRound, getRoundScores, isFinished } from '../../redux/game';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { SlimContainer } from '../../styles';
 import GoogleMap, { MapMode } from '../google/google.map';
 

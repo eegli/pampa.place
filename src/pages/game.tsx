@@ -1,3 +1,5 @@
+import { STATUS } from '@/redux/slices/game';
+import { getRandomStreetView } from '@/redux/slices/position';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -6,24 +8,22 @@ import Play from '../components/play/play';
 import RoundEnd from '../components/round/round.end';
 import RoundIntermission from '../components/round/round.intermission';
 import RoundResult from '../components/round/round.result';
-import { STATUS } from '../redux/game';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { getRandomStreetView } from '../redux/position';
 import { PageContentContainer } from '../styles';
 
 const Game: NextPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const initialized = useAppSelector(({ game }) => game.meta.initialized);
-  const status = useAppSelector(({ game }) => game.meta.status);
+  const status = useAppSelector(({ game }) => game.status);
   const positionError = useAppSelector(({ position }) => position.error);
 
+  // Redirect to home if game has not bee initialized properly
   useEffect(() => {
-    if (!initialized) {
+    if (status === STATUS.PENDING_START) {
       router.push('/');
     }
-  }, [router, initialized]);
+  }, [router, status]);
 
   async function handleRetry() {
     await dispatch(getRandomStreetView({ radius: 1000 }));

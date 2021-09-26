@@ -1,4 +1,4 @@
-import config from '@config/game';
+import config from '@/config/game';
 import HomeIcon from '@mui/icons-material/Home';
 import { Box, Divider, IconButton, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';

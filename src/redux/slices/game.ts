@@ -1,7 +1,7 @@
-import maps, { LatLngLiteral, MapData } from '@config/maps';
+import maps, { LatLngLiteral, MapData } from '@/config/maps';
+import { calcDist, calcScore } from '@/utils/geo';
+import { OrNull } from '@/utils/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { calcDist, calcScore } from '@utils/geo';
-import { OrNull } from '@utils/types';
 
 export type Result = {
   round: number;
@@ -15,7 +15,7 @@ type Player = {
 } & { results: Result[] };
 
 export enum STATUS {
-  PENDING = 'PENDING', // TODO Uninitialized?
+  PENDING_START = 'PENDING_START', // Uninitialized
   ROUND_STARTED = 'ROUND_STARTED',
   INTERMISSION = 'INTERMISSION',
   ROUND_ENDED = 'ROUND_ENDED',
@@ -23,10 +23,7 @@ export enum STATUS {
 }
 
 interface GameState {
-  meta: {
-    initialized: boolean;
-    status: STATUS;
-  };
+  status: STATUS;
 
   map: MapData;
   players: {
@@ -42,10 +39,8 @@ interface GameState {
 }
 
 const initialState: GameState = {
-  meta: {
-    initialized: false,
-    status: STATUS.PENDING,
-  },
+  status: STATUS.PENDING_START,
+
   map: maps[0],
   players: {
     names: [],
@@ -90,8 +85,7 @@ const gameSlice = createSlice({
       state.rounds.current = 1;
       state.rounds.progress = 0;
 
-      state.meta.status = STATUS.INTERMISSION;
-      state.meta.initialized = true;
+      state.status = STATUS.INTERMISSION;
     },
     finishRound(state) {
       state.rounds.current++;
@@ -99,13 +93,13 @@ const gameSlice = createSlice({
 
       // Game has ended
       if (state.rounds.total < state.rounds.current) {
-        state.meta.status = STATUS.FINISHED;
+        state.status = STATUS.FINISHED;
       } else {
-        state.meta.status = STATUS.INTERMISSION;
+        state.status = STATUS.INTERMISSION;
       }
     },
     startRound(state) {
-      state.meta.status = STATUS.ROUND_STARTED;
+      state.status = STATUS.ROUND_STARTED;
     },
     setPlayerScore(
       state,
@@ -157,11 +151,11 @@ const gameSlice = createSlice({
       // Same round, wait for player change
       if (state.rounds.progress < state.players.names.length) {
         // Display popup
-        state.meta.status = STATUS.INTERMISSION;
+        state.status = STATUS.INTERMISSION;
         // Round is over, reset round progress
       } else {
         // Update overall score and force a new random location
-        state.meta.status = STATUS.ROUND_ENDED;
+        state.status = STATUS.ROUND_ENDED;
       }
     },
   },

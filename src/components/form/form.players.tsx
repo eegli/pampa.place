@@ -1,10 +1,10 @@
-import gameConfig from '@config/game';
-import markerConfig from '@config/markers';
+import gameConfig from '@/config/game';
+import markerConfig from '@/config/markers';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setPlayers } from '@/redux/slices/game';
+import { min } from '@/utils/misc';
 import RoomIcon from '@mui/icons-material/Room';
 import { Box, Fade, InputAdornment, TextField } from '@mui/material';
-import { min } from '@utils/misc';
-import { setPlayers } from '../../redux/game';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 const MAX_PLAYERS = gameConfig.maxPlayers;
 

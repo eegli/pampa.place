@@ -1,4 +1,6 @@
-import MAPS from '@config/maps';
+import MAPS from '@/config/maps';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setMap } from '@/redux/slices/game';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box,
@@ -12,8 +14,6 @@ import {
   Tooltip,
 } from '@mui/material';
 import { useState } from 'react';
-import { setMap } from '../../redux/game';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import Map, { MapMode } from '../google/google.map';
 import Spinner from '../spinner';
 import MapPreview from './form.map-preview';
@@ -32,7 +32,7 @@ export default function FormLocationSelect() {
   if (map?.name) {
     return (
       <Box>
-        <FormControl fullWidth>
+        <FormControl fullWidth component="fieldset">
           <InputLabel>Select map</InputLabel>
           <Select
             value={map.name}

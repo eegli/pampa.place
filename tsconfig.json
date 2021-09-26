@@ -15,9 +15,10 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@config/*": ["src/config/*"],
-      "@utils/*": ["src/utils/*"],
-      "@tests/*": ["tests/*"]
+      "@/config/*": ["src/config/*"],
+      "@/redux/*": ["src/redux/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/tests/*": ["tests/*"]
     }
   },
   "include": ["next-env.d.ts", "custom-maps.ts", "src/**/*.ts", "src/**/*.tsx"],

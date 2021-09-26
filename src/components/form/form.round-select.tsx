@@ -1,7 +1,7 @@
-import config from '@config/game';
+import config from '@/config/game';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setRounds } from '@/redux/slices/game';
 import { Button, ButtonGroup } from '@mui/material';
-import { setRounds } from '../../redux/game';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 export default function FormRoundSelect() {
   const dispatch = useAppDispatch();
