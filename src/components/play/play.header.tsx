@@ -28,7 +28,7 @@ export default function PlayHeader({ player, timerCallback }: PlayHeaderProps) {
     if (!timeRemaining && !isUnlimitedTimeMode) {
       timerCallback();
     }
-  }, [timeRemaining]);
+  }, [timeRemaining, isUnlimitedTimeMode, timerCallback]);
 
   function handleClick() {
     router.push('/');
