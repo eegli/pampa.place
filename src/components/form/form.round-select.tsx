@@ -1,13 +1,42 @@
 import { config } from '@/config/game';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setRounds } from '@/redux/slices/game';
-import { Button, ButtonGroup } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from '@mui/material';
+import { ChangeEvent } from 'react';
 
 export default function FormRoundSelect() {
   const dispatch = useAppDispatch();
-  const totalRoundCount = useAppSelector(({ game }) => game.rounds.total);
+  const selected = useAppSelector(({ game }) => game.rounds.total);
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    const val = parseInt(e.target.value);
+    dispatch(setRounds(val));
+  }
   return (
-    <ButtonGroup fullWidth>
+    <FormControl component="fieldset" sx={{ mb: 3 }}>
+      <FormLabel component="legend">Rounds</FormLabel>
+      <RadioGroup row onChange={handleChange} name="row-radio-buttons-group">
+        {config.rounds.map(val => {
+          const label = val === 1 ? `1 Round` : `${val} Rounds`;
+          return (
+            <FormControlLabel
+              key={val}
+              value={val}
+              control={<Radio checked={val === selected} />}
+              label={label}
+            />
+          );
+        })}
+      </RadioGroup>
+    </FormControl>
+
+    /*     <ButtonGroup fullWidth>
       {config.rounds.map(val => {
         const id = `round-${val}`;
         return (
@@ -28,6 +57,6 @@ export default function FormRoundSelect() {
           </Button>
         );
       })}
-    </ButtonGroup>
+    </ButtonGroup> */
   );
 }

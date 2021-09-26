@@ -4,6 +4,7 @@ import { createMockStore, fireEvent, render, screen } from '@/tests/test-utils';
 import React from 'react';
 import Form from '../form';
 import FormPlayers from '../form.players';
+import FormRoundSelect from '../form.round-select';
 
 jest.mock('next/router', () => ({
   useRouter() {
@@ -17,10 +18,6 @@ describe('Form', () => {
   function querySubmitButton() {
     return screen.getByRole('button', { name: /start/i });
   }
-  it('matches snapshot', () => {
-    const { container } = render(<Form />);
-    expect(container.firstChild).toMatchSnapshot();
-  });
 
   it('has submit button', () => {
     render(<Form />);
@@ -59,20 +56,36 @@ describe('Form, player name input', () => {
     }
     expect(queryPlayerInput()).toHaveLength(config.maxPlayers);
   });
+  it('stores the player name in Redux', () => {
+    const store = createMockStore();
+    render(<FormPlayers />, store);
+    const inputs = queryPlayerInput();
+    fireEvent.change(inputs[0], { target: { value: 'eric' } });
+    expect(store.getState().game.players.names).toEqual(['eric']);
+  });
 });
 
 describe('Form, round select', () => {
+  function queryRoundOptions() {
+    return screen.getAllByRole('radio');
+  }
+
+  function getActiveRadioValue() {
+    return screen.getByRole('radio', { checked: true });
+  }
+
   it('renders round select options', () => {
-    const store = createMockStore();
-    render(<Form />, store);
+    render(<FormRoundSelect />);
 
-    const roundOptions = screen.getAllByRole('button', { name: /round/i });
+    expect(queryRoundOptions()).toHaveLength(config.rounds.length);
+  });
 
-    expect(roundOptions).toHaveLength(config.rounds.length);
-
+  it('stores the selected round in Redux', () => {
+    render(<FormRoundSelect />);
+    const roundOptions = queryRoundOptions();
     fireEvent.click(roundOptions[0]);
-    expect(store.getState().game.rounds.total).toEqual(config.rounds[0]);
+    expect(getActiveRadioValue()).toMatchSnapshot();
     fireEvent.click(roundOptions[1]);
-    expect(store.getState().game.rounds.total).toEqual(config.rounds[1]);
+    expect(getActiveRadioValue()).toMatchSnapshot();
   });
 });

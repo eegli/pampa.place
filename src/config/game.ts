@@ -18,5 +18,5 @@ export const config: GameConfig = {
 
 export const defaults: GameConfigDefaults = {
   round: 3,
-  timeLimit: 30,
+  timeLimit: 60,
 };

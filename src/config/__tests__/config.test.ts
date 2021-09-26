@@ -1,4 +1,4 @@
-import { config as gameConfig } from '../game';
+import { config as gameConfig, defaults as gameDefaults } from '../game';
 import { markers } from '../markers';
 
 describe('Config', () => {
@@ -7,5 +7,9 @@ describe('Config', () => {
   });
   it('includes unlimited time mode', () => {
     expect(gameConfig.timeLimits).toContain(-1);
+  });
+  it('defaults options are included by the config', () => {
+    expect(gameConfig.rounds).toContain(gameDefaults.round);
+    expect(gameConfig.timeLimits).toContain(gameDefaults.timeLimit);
   });
 });
