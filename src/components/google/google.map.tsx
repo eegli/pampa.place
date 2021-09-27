@@ -3,6 +3,8 @@ import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import React, { useEffect, useRef } from 'react';
 import { config } from '../../config/google';
+import { markers } from '../../config/markers';
+import { updateSelectedPosition } from '../../redux/slices/position';
 export enum MapMode {
   PREVIEW,
   PLAY,
@@ -51,22 +53,18 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   }, []);
 
   useEffect(() => {
-    if (!window.__GMAP) {
-      const mapDiv = document.getElementById('GMAP')!;
-      window.__GMAP = new google.maps.Map(mapDiv);
-      console.log('created new map instance');
+    if (window.__GMAP) {
+      window.__GMAP.setOptions({
+        ...config.map,
+      });
+      const sw = new google.maps.LatLng(mapData.computed.bbLiteral.SW);
+      const ne = new google.maps.LatLng(mapData.computed.bbLiteral.NE);
+
+      /* Order in constructor is important! SW, NE  */
+      const mapBounds = new google.maps.LatLngBounds(sw, ne);
+
+      window.__GMAP.fitBounds(mapBounds, 2);
     }
-
-    window.__GMAP.setOptions({
-      ...config.map,
-    });
-    const sw = new google.maps.LatLng(mapData.computed.bbLiteral.SW);
-    const ne = new google.maps.LatLng(mapData.computed.bbLiteral.NE);
-
-    /* Order in constructor is important! SW, NE  */
-    const mapBounds = new google.maps.LatLngBounds(sw, ne);
-
-    window.__GMAP.fitBounds(mapBounds, 2);
   }, [mapData.computed.bbLiteral.NE, mapData.computed.bbLiteral.SW]);
 
   /* If the map is used in preview mode */
@@ -95,6 +93,72 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
       };
     }
   }, [mode, mapData.base]);
+
+  /* Map in actual game mode */
+  useEffect(() => {
+    if (window.__GMAP && mode === MapMode.PLAY) {
+      const marker = new google.maps.Marker();
+
+      const listener = window.__GMAP.addListener(
+        'click',
+        ({ latLng }: { latLng: google.maps.LatLng }) => {
+          marker.setPosition(latLng);
+          marker.setMap(window.__GMAP!);
+
+          dispatch(
+            updateSelectedPosition({ lat: latLng.lat(), lng: latLng.lng() })
+          );
+        }
+      );
+      return () => {
+        listener.remove();
+        marker.setMap(null);
+      };
+    }
+  }, [mode, dispatch]);
+
+  /* End of round, display markers */
+  useEffect(() => {
+    if (window.__GMAP && scores && initialPos && mode === MapMode.RESULT) {
+      const gMarkers: google.maps.Marker[] = [];
+      gMarkers.push(
+        new window.google.maps.Marker({
+          position: initialPos,
+          map: window.__GMAP,
+        })
+      );
+
+      scores.forEach((p, idx) => {
+        gMarkers.push(
+          new window.google.maps.Marker({
+            position: p.selected,
+            map: window.__GMAP,
+            label: {
+              text: p.name,
+              color: 'white',
+              className: 'map-marker',
+            },
+            icon: {
+              path: markers.marker.path,
+              fillColor: `#${markers.colors[idx]}`,
+              fillOpacity: 1,
+              anchor: new google.maps.Point(
+                markers.marker.anchor[0],
+                markers.marker.anchor[1]
+              ),
+              strokeWeight: 0,
+              scale: 1,
+              labelOrigin: new google.maps.Point(15, 60),
+            },
+          })
+        );
+      });
+
+      return () => {
+        gMarkers.forEach(marker => marker.setMap(null));
+      };
+    }
+  }, [scores, initialPos, mode]);
 
   return (
     <div
