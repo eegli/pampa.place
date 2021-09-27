@@ -43,6 +43,7 @@ export default function Play() {
       <PlayHeader player={activePlayer} timerCallback={submitScore} />
       <Box position="relative" height="100%" width="100%">
         <StyledMapOverlay pos="right" onClick={() => setShowMap(!showMap)}>
+          {/* eslint-disable-next-line  @next/next/no-img-element */}
           <img src="/map.svg" alt="map-icon" />
         </StyledMapOverlay>
         {selectedPos && (

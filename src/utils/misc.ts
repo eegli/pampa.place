@@ -11,16 +11,3 @@ export function formatDuration(seconds: number): string {
 
   return rem ? `${min}m ${rem}s` : `${min}m`;
 }
-
-export function toggleDOMNode<T extends Node>(
-  element: HTMLElement,
-  container: T
-): () => void {
-  element.style.display = 'block';
-  container.appendChild(element);
-
-  return () => {
-    element.style.display = 'none';
-    document.body.appendChild(element);
-  };
-}
