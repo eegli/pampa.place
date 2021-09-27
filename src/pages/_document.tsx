@@ -6,6 +6,11 @@ import Document, {
   NextScript,
 } from 'next/document';
 
+export enum DomNodeIds {
+  GOOGLE_MAP = '__GMAP__',
+  GOOGLE_STREET_VIEW = '__GSTV__',
+}
+
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
@@ -35,6 +40,14 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <div
+            id={DomNodeIds.GOOGLE_MAP}
+            style={{ width: '100%', height: '100%', display: 'none' }}
+          />
+          <div
+            id={DomNodeIds.GOOGLE_STREET_VIEW}
+            style={{ width: '100%', height: '100%', display: 'none' }}
+          />
         </body>
       </Html>
     );

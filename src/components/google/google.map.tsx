@@ -3,8 +3,11 @@ import { LatLngLiteral, MapData } from '@/config/maps';
 import { markers } from '@/config/markers';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
-import { updateSelectedPosition } from '@/redux/slices/position';
-import { memo, useEffect, useRef, useState } from 'react';
+import { toggleDOMNode } from '@/utils/misc';
+import { Fade } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
+import { DomNodeIds } from '../../pages/_document';
+import { updateSelectedPosition } from '../../redux/slices/position';
 
 export enum MapMode {
   PREVIEW,
@@ -21,116 +24,145 @@ export type GoogleMapProps = {
   initialPos?: LatLngLiteral;
 };
 
+let GLOBAL_MAP: google.maps.Map | undefined;
+
 function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<google.maps.Map>();
-
   const dispatch = useAppDispatch();
+  const ref = useRef<HTMLDivElement>(null);
 
-  /*   Initialization */
   useEffect(() => {
-    if (mapRef.current) {
-      console.count('map render');
+    const mapDiv = document.getElementById(DomNodeIds.GOOGLE_MAP)!;
 
-      const gmap = new window.google.maps.Map(mapRef.current, {
+    if (!GLOBAL_MAP) {
+      GLOBAL_MAP = new google.maps.Map(mapDiv);
+      console.log('Created new Map instance');
+    }
+    if (ref.current) {
+      const detach = toggleDOMNode(mapDiv, ref.current);
+      return () => detach();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (GLOBAL_MAP) {
+      console.log('render');
+      GLOBAL_MAP.setOptions({
         ...config.map,
       });
-
       const sw = new google.maps.LatLng(mapData.computed.bbLiteral.SW);
       const ne = new google.maps.LatLng(mapData.computed.bbLiteral.NE);
 
       /* Order in constructor is important! SW, NE  */
       const mapBounds = new google.maps.LatLngBounds(sw, ne);
 
-      gmap.fitBounds(mapBounds, 2);
-
-      setMap(gmap);
+      GLOBAL_MAP.fitBounds(mapBounds, 2);
     }
   }, [mapData.computed.bbLiteral.NE, mapData.computed.bbLiteral.SW]);
 
   /* If the map is used in preview mode */
   useEffect(() => {
-    if (map && mode === MapMode.PREVIEW) {
-      map.setOptions({
+    if (GLOBAL_MAP && mode === MapMode.PREVIEW) {
+      GLOBAL_MAP.setOptions({
+        ...config.map,
         mapTypeId: 'roadmap',
         mapTypeControl: false,
         gestureHandling: 'none',
       });
 
-      map.data.addGeoJson(mapData.base);
-      map.data.setStyle({
+      const features = GLOBAL_MAP.data.addGeoJson(mapData.base);
+      GLOBAL_MAP.data.setStyle({
         fillColor: '#003d80',
         fillOpacity: 0.2,
         strokeWeight: 0.8,
       });
+
+      return () => {
+        features.forEach(feat => {
+          if (GLOBAL_MAP) {
+            GLOBAL_MAP.data.remove(feat);
+          }
+        });
+      };
     }
-  }, [map, mode, mapData.base]);
+  }, [mode, mapData.base]);
 
   /* Map in actual game mode */
   useEffect(() => {
-    if (map && mode === MapMode.PLAY) {
+    if (GLOBAL_MAP && mode === MapMode.PLAY) {
       const marker = new google.maps.Marker();
 
-      const listener = map.addListener(
+      const listener = GLOBAL_MAP.addListener(
         'click',
         ({ latLng }: { latLng: google.maps.LatLng }) => {
           marker.setPosition(latLng);
-          marker.setMap(map);
+          marker.setMap(GLOBAL_MAP!);
 
           dispatch(
             updateSelectedPosition({ lat: latLng.lat(), lng: latLng.lng() })
           );
         }
       );
-      return () => listener.remove();
+      return () => {
+        listener.remove();
+        marker.setMap(null);
+      };
     }
-  }, [map, mode, dispatch]);
+  }, [mode, dispatch]);
 
   /* End of round, display markers */
   useEffect(() => {
-    if (map && scores && initialPos && mode === MapMode.RESULT) {
-      new window.google.maps.Marker({
-        position: initialPos,
-        map,
-      });
+    if (GLOBAL_MAP && scores && initialPos && mode === MapMode.RESULT) {
+      const gMarkers: google.maps.Marker[] = [];
+      gMarkers.push(
+        new window.google.maps.Marker({
+          position: initialPos,
+          map: GLOBAL_MAP,
+        })
+      );
 
       scores.forEach((p, idx) => {
-        new window.google.maps.Marker({
-          position: p.selected,
-          map,
-          label: {
-            text: p.name,
-            color: 'white',
-            className: 'map-marker',
-          },
-          icon: {
-            path: markers.marker.path,
-            fillColor: `#${markers.colors[idx]}`,
-            fillOpacity: 1,
-            anchor: new google.maps.Point(
-              markers.marker.anchor[0],
-              markers.marker.anchor[1]
-            ),
-            strokeWeight: 0,
-            scale: 1,
-            labelOrigin: new google.maps.Point(15, 60),
-          },
-        });
+        gMarkers.push(
+          new window.google.maps.Marker({
+            position: p.selected,
+            map: GLOBAL_MAP,
+            label: {
+              text: p.name,
+              color: 'white',
+              className: 'map-marker',
+            },
+            icon: {
+              path: markers.marker.path,
+              fillColor: `#${markers.colors[idx]}`,
+              fillOpacity: 1,
+              anchor: new google.maps.Point(
+                markers.marker.anchor[0],
+                markers.marker.anchor[1]
+              ),
+              strokeWeight: 0,
+              scale: 1,
+              labelOrigin: new google.maps.Point(15, 60),
+            },
+          })
+        );
       });
+
+      return () => {
+        gMarkers.forEach(marker => marker.setMap(null));
+      };
     }
-  });
+  }, [scores, initialPos, mode]);
 
   return (
-    <div
-      ref={mapRef}
-      style={{
-        height: '100%',
-        width: '100%',
-      }}
-    />
+    <Fade in timeout={500}>
+      <div
+        ref={ref}
+        style={{
+          height: '100%',
+          width: '100%',
+        }}
+      />
+    </Fade>
   );
 }
 
-export default memo(GoogleMap, (prev, curr) => {
-  return prev.mode === curr.mode && prev.mapData.name === curr.mapData.name;
-});
+export default GoogleMap;

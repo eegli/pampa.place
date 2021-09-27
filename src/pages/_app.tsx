@@ -12,6 +12,13 @@ import { store } from '../redux/store';
 import { PageContentContainer } from '../styles';
 import GlobalStyles from '../styles/global';
 
+/* declare global {
+  interface Window {
+    __GMAP: google.maps.Map | undefined;
+    __GSTV: google.maps.StreetViewPanorama | undefined;
+  }
+} */
+
 const theme = createTheme({
   palette: {
     mode: 'dark',
@@ -36,6 +43,7 @@ const AuthWrapper: NextPage = ({ children }) => {
           <div>fail</div>
         </PageContentContainer>
       );
+
     return <>{children}</>;
   };
 

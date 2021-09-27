@@ -66,6 +66,12 @@ export const getRandomStreetView = createAsyncThunk<
       const location = data.location?.latLng;
       const lat = location?.lat() || 0;
       const lng = location?.lng() || 0;
+
+      /*       const panoId = data.location?.pano;
+
+      if (panoId && window.__GSTV) {
+        window.__GSTV.setPano(panoId);
+      } */
       return { lat, lng };
     } catch (e) {
       let err = e as ValidationErrors;
