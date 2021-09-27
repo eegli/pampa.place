@@ -12,18 +12,26 @@ import { store } from '../redux/store';
 import { PageContentContainer } from '../styles';
 import GlobalStyles from '../styles/global';
 
-/* declare global {
-  interface Window {
-    __GMAP__: google.maps.Map | undefined;
-    __GSTV__: google.maps.StreetViewPanorama | undefined;
-  }
-} */
-
 const theme = createTheme({
   palette: {
     mode: 'dark',
   },
 });
+
+export function GoogleBaseDivs() {
+  return (
+    <>
+      <div
+        id="__GMAP__"
+        style={{ width: '100%', height: '100%', display: 'none' }}
+      />
+      <div
+        id="__GSTV__"
+        style={{ width: '100%', height: '100%', display: 'none' }}
+      />
+    </>
+  );
+}
 
 const AuthWrapper: NextPage = ({ children }) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
@@ -52,16 +60,19 @@ const AuthWrapper: NextPage = ({ children }) => {
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles>
-          <CssBaseline />
-          <AuthWrapper>
-            <LoadingProgress />
-            <Component {...pageProps} />
-          </AuthWrapper>
-        </GlobalStyles>
-      </ThemeProvider>
-    </Provider>
+    <>
+      <GoogleBaseDivs />
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyles>
+            <CssBaseline />
+            <AuthWrapper>
+              <LoadingProgress />
+              <Component {...pageProps} />
+            </AuthWrapper>
+          </GlobalStyles>
+        </ThemeProvider>
+      </Provider>
+    </>
   );
 }

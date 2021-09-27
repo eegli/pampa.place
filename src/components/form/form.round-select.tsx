@@ -26,6 +26,7 @@ export default function FormRoundSelect() {
           const label = val === 1 ? `1 Round` : `${val} Rounds`;
           return (
             <FormControlLabel
+              checked={val === selected}
               key={val}
               value={val}
               control={<Radio checked={val === selected} />}

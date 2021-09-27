@@ -3,10 +3,10 @@ import { initGame, reset } from '@/redux/slices/game';
 import { Box, Button } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';
-import FormDurationSelect from './form.duration-select';
-import FormMapSelect from './form.location-select';
+import FormMapSelect from './form.map-select';
 import FormPlayers from './form.players';
 import FormRoundSelect from './form.round-select';
+import FormTimeLimitSelect from './form.time-select';
 
 export default function Form() {
   const dispatch = useAppDispatch();
@@ -42,7 +42,7 @@ export default function Form() {
       >
         <FormPlayers />
         <FormRoundSelect />
-        <FormDurationSelect />
+        <FormTimeLimitSelect />
         <FormMapSelect />
         <Button
           sx={{

@@ -3,8 +3,11 @@ import { STATUS } from '@/redux/slices/game';
 import { createMockStore, fireEvent, render, screen } from '@/tests/test-utils';
 import React from 'react';
 import Form from '../form';
+import MapPreview from '../form.map-preview';
+import FormMapSelect from '../form.map-select';
 import FormPlayers from '../form.players';
 import FormRoundSelect from '../form.round-select';
+import FormTimeLimitSelect from '../form.time-select';
 
 jest.mock('next/router', () => ({
   useRouter() {
@@ -44,9 +47,6 @@ describe('Form, player name input', () => {
     render(<FormPlayers />);
     expect(queryPlayerInput()).toHaveLength(1);
     expect(queryPlayerInput()[0]).toHaveValue('');
-
-    fireEvent.change(queryPlayerInput()[0], { target: { value: 'eric' } });
-    expect(queryPlayerInput()[0]).toHaveValue('eric');
   });
   it('does not create more inputs than defined', () => {
     render(<FormPlayers />);
@@ -56,36 +56,79 @@ describe('Form, player name input', () => {
     }
     expect(queryPlayerInput()).toHaveLength(config.maxPlayers);
   });
-  it('stores the player name in Redux', () => {
-    const store = createMockStore();
-    render(<FormPlayers />, store);
-    const inputs = queryPlayerInput();
-    fireEvent.change(inputs[0], { target: { value: 'eric' } });
-    expect(store.getState().game.players.names).toEqual(['eric']);
+  it('displays player names and filters empty inputs', () => {
+    render(<FormPlayers />);
+    fireEvent.change(queryPlayerInput()[0], { target: { value: 'eric' } });
+    expect(queryPlayerInput()[0]).toHaveValue('eric');
+    fireEvent.change(queryPlayerInput()[1], { target: { value: 'eric 2' } });
+    expect(queryPlayerInput()[1]).toHaveValue('eric 2');
+    fireEvent.change(queryPlayerInput()[0], { target: { value: '' } });
+    expect(queryPlayerInput()[0]).toHaveValue('eric 2');
   });
 });
 
 describe('Form, round select', () => {
-  function queryRoundOptions() {
+  function queryRoundOpts() {
     return screen.getAllByRole('radio');
-  }
-
-  function getActiveRadioValue() {
-    return screen.getByRole('radio', { checked: true });
   }
 
   it('renders round select options', () => {
     render(<FormRoundSelect />);
-
-    expect(queryRoundOptions()).toHaveLength(config.rounds.length);
+    expect(screen.getAllByRole('radio', { checked: true })).toHaveLength(1);
+    expect(queryRoundOpts()).toHaveLength(config.rounds.length);
   });
 
-  it('stores the selected round in Redux', () => {
+  it('updates round select radio buttons', () => {
     render(<FormRoundSelect />);
-    const roundOptions = queryRoundOptions();
-    fireEvent.click(roundOptions[0]);
-    expect(getActiveRadioValue()).toMatchSnapshot();
-    fireEvent.click(roundOptions[1]);
-    expect(getActiveRadioValue()).toMatchSnapshot();
+    const roundInputs = queryRoundOpts();
+    fireEvent.click(roundInputs[0]);
+    expect(queryRoundOpts()[0]).toHaveProperty('checked', true);
+    fireEvent.click(roundInputs[1]);
+    expect(queryRoundOpts()[1]).toHaveProperty('checked', true);
+  });
+});
+
+describe('Form, duration select', () => {
+  function queryDurationOpts() {
+    return screen.getAllByRole('radio');
+  }
+
+  it('renders duration select options', () => {
+    render(<FormTimeLimitSelect />);
+    expect(screen.getAllByRole('radio', { checked: true })).toHaveLength(1);
+    expect(queryDurationOpts()).toHaveLength(config.timeLimits.length);
+  });
+
+  it('updates duration select radio buttons', () => {
+    render(<FormTimeLimitSelect />);
+    const durationInputs = queryDurationOpts();
+    fireEvent.click(durationInputs[0]);
+    expect(queryDurationOpts()[0]).toHaveProperty('checked', true);
+    fireEvent.click(durationInputs[1]);
+    expect(queryDurationOpts()[1]).toHaveProperty('checked', true);
+  });
+});
+// TODO
+describe('Form, map select', () => {
+  function queryMapOps() {
+    return screen.getAllByRole('button');
+  }
+
+  it('renders map options', () => {
+    render(<FormMapSelect />);
+    expect(queryMapOps()).toMatchSnapshot();
+  });
+});
+// TODO
+describe('Form, map preview', () => {
+  it('renders map options', () => {
+    const { container: c1 } = render(
+      <MapPreview title="test map" open={true} setIsOpen={() => {}} />
+    );
+    expect(c1).toMatchSnapshot();
+    const { container: c2 } = render(
+      <MapPreview title="test map" open={false} setIsOpen={() => {}} />
+    );
+    expect(c2).toMatchSnapshot();
   });
 });

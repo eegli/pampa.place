@@ -486,6 +486,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@googlemaps/jest-mocks@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@googlemaps/jest-mocks/-/jest-mocks-1.3.2.tgz#f5b0bf27ff8306c72092b94537293efa16f95855"
+  integrity sha512-bsOyc7YKo8Revdk1GR2S34wgKI61ZJJ3NvbFEXsaoBp8owtuubDOeHrihYSx1jC0SaJka/bBN00gGQHbm0Iycg==
+
 "@googlemaps/js-api-loader@^1.11.1":
   version "1.12.3"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.12.3.tgz#fb329f750399850d6a938a2c02b703b3a22fea47"

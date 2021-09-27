@@ -18,7 +18,19 @@ const customRender = (
   const providerStore = store || createMockStore();
 
   const Wrapper: React.FC = ({ children }) => {
-    return <Provider store={providerStore}>{children}</Provider>;
+    return (
+      <Provider store={providerStore}>
+        <div
+          id="__GMAP__"
+          style={{ width: '100%', height: '100%', display: 'none' }}
+        />
+        <div
+          id="__GSTV__"
+          style={{ width: '100%', height: '100%', display: 'none' }}
+        />
+        {children}
+      </Provider>
+    );
   };
 
   return render(ui, {

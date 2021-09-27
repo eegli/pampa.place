@@ -35,14 +35,6 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <div
-            id="__GMAP__"
-            style={{ width: '100%', height: '100%', display: 'none' }}
-          />
-          <div
-            id="__GSTV__"
-            style={{ width: '100%', height: '100%', display: 'none' }}
-          />
         </body>
       </Html>
     );

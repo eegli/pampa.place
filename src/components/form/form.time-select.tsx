@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { ChangeEvent } from 'react';
 
-export default function FormDurationSelect() {
+export default function FormTimeLimitSelect() {
   const selected = useAppSelector(({ game }) => game.timeLimit);
   const dispatch = useAppDispatch();
 

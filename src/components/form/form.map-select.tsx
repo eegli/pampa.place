@@ -18,7 +18,7 @@ import Map, { MapMode } from '../google/google.map';
 import Spinner from '../spinner';
 import MapPreview from './form.map-preview';
 
-export default function FormLocationSelect() {
+export default function FormMapSelect() {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
