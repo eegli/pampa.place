@@ -2,6 +2,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { initGame, reset } from '@/redux/slices/game';
 import { Box, Button } from '@mui/material';
 import { useRouter } from 'next/router';
+import React from 'react';
 import FormDurationSelect from './form.duration-select';
 import FormMapSelect from './form.location-select';
 import FormPlayers from './form.players';
@@ -32,7 +33,7 @@ export default function Form() {
         sx={{
           mx: 4,
           '&>*': {
-            mb: 3,
+            mb: 4,
           },
           '&:last-child': {
             mb: 3,
