@@ -1,10 +1,14 @@
+import { config } from '@/config/google';
 import { LatLngLiteral, MapData } from '@/config/maps';
+import { markers } from '@/config/markers';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
+import { toggleDOMNode } from '@/utils/misc';
+import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
-import { config } from '../../config/google';
-import { markers } from '../../config/markers';
+import { DomNodeIds } from '../../pages/_document';
 import { updateSelectedPosition } from '../../redux/slices/position';
+
 export enum MapMode {
   PREVIEW,
   PLAY,
@@ -20,41 +24,29 @@ export type GoogleMapProps = {
   initialPos?: LatLngLiteral;
 };
 
-declare global {
-  interface Window {
-    __GMAP: google.maps.Map | undefined;
-  }
-}
+let GLOBAL_MAP: google.maps.Map | undefined;
 
 function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!window.__GMAP) {
-      const mapDiv = document.getElementById('GMAP')!;
-      window.__GMAP = new google.maps.Map(mapDiv);
-      console.log('created new map instance');
+    const mapDiv = document.getElementById(DomNodeIds.GOOGLE_MAP)!;
+
+    if (!GLOBAL_MAP) {
+      GLOBAL_MAP = new google.maps.Map(mapDiv);
+      console.log('Created new Map instance');
     }
-
     if (ref.current) {
-      const mapDiv = document.getElementById('GMAP')!;
-
-      mapDiv.style.height = '100%';
-      mapDiv.style.width = '100%';
-      ref.current.appendChild(mapDiv);
-
-      return () => {
-        mapDiv.style.height = '0';
-        mapDiv.style.width = '0';
-        document.body.appendChild(mapDiv);
-      };
+      const detach = toggleDOMNode(mapDiv, ref.current);
+      return () => detach();
     }
   }, []);
 
   useEffect(() => {
-    if (window.__GMAP) {
-      window.__GMAP.setOptions({
+    if (GLOBAL_MAP) {
+      console.log('render');
+      GLOBAL_MAP.setOptions({
         ...config.map,
       });
       const sw = new google.maps.LatLng(mapData.computed.bbLiteral.SW);
@@ -63,22 +55,22 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
       /* Order in constructor is important! SW, NE  */
       const mapBounds = new google.maps.LatLngBounds(sw, ne);
 
-      window.__GMAP.fitBounds(mapBounds, 2);
+      GLOBAL_MAP.fitBounds(mapBounds, 2);
     }
   }, [mapData.computed.bbLiteral.NE, mapData.computed.bbLiteral.SW]);
 
   /* If the map is used in preview mode */
   useEffect(() => {
-    if (window.__GMAP && mode === MapMode.PREVIEW) {
-      window.__GMAP.setOptions({
+    if (GLOBAL_MAP && mode === MapMode.PREVIEW) {
+      GLOBAL_MAP.setOptions({
         ...config.map,
         mapTypeId: 'roadmap',
         mapTypeControl: false,
         gestureHandling: 'none',
       });
 
-      const features = window.__GMAP.data.addGeoJson(mapData.base);
-      window.__GMAP.data.setStyle({
+      const features = GLOBAL_MAP.data.addGeoJson(mapData.base);
+      GLOBAL_MAP.data.setStyle({
         fillColor: '#003d80',
         fillOpacity: 0.2,
         strokeWeight: 0.8,
@@ -86,8 +78,8 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
 
       return () => {
         features.forEach(feat => {
-          if (window.__GMAP) {
-            window.__GMAP.data.remove(feat);
+          if (GLOBAL_MAP) {
+            GLOBAL_MAP.data.remove(feat);
           }
         });
       };
@@ -96,14 +88,14 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
 
   /* Map in actual game mode */
   useEffect(() => {
-    if (window.__GMAP && mode === MapMode.PLAY) {
+    if (GLOBAL_MAP && mode === MapMode.PLAY) {
       const marker = new google.maps.Marker();
 
-      const listener = window.__GMAP.addListener(
+      const listener = GLOBAL_MAP.addListener(
         'click',
         ({ latLng }: { latLng: google.maps.LatLng }) => {
           marker.setPosition(latLng);
-          marker.setMap(window.__GMAP!);
+          marker.setMap(GLOBAL_MAP!);
 
           dispatch(
             updateSelectedPosition({ lat: latLng.lat(), lng: latLng.lng() })
@@ -119,12 +111,12 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
 
   /* End of round, display markers */
   useEffect(() => {
-    if (window.__GMAP && scores && initialPos && mode === MapMode.RESULT) {
+    if (GLOBAL_MAP && scores && initialPos && mode === MapMode.RESULT) {
       const gMarkers: google.maps.Marker[] = [];
       gMarkers.push(
         new window.google.maps.Marker({
           position: initialPos,
-          map: window.__GMAP,
+          map: GLOBAL_MAP,
         })
       );
 
@@ -132,7 +124,7 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
         gMarkers.push(
           new window.google.maps.Marker({
             position: p.selected,
-            map: window.__GMAP,
+            map: GLOBAL_MAP,
             label: {
               text: p.name,
               color: 'white',
@@ -161,13 +153,15 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   }, [scores, initialPos, mode]);
 
   return (
-    <div
-      ref={ref}
-      style={{
-        height: '100%',
-        width: '100%',
-      }}
-    />
+    <Fade in timeout={500}>
+      <div
+        ref={ref}
+        style={{
+          height: '100%',
+          width: '100%',
+        }}
+      />
+    </Fade>
   );
 }
 
