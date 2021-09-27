@@ -36,6 +36,7 @@ const AuthWrapper: NextPage = ({ children }) => {
           <div>fail</div>
         </PageContentContainer>
       );
+
     return <>{children}</>;
   };
 

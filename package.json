@@ -33,6 +33,7 @@
     "@types/google.maps": "^3.45.6",
     "@types/jest": "^27.0.2",
     "@types/react": "17.0.22",
+    "@types/react-dom": "^17.0.9",
     "@types/redux-logger": "^3.0.9",
     "babel-jest": "^27.2.1",
     "eslint": "7.32.0",

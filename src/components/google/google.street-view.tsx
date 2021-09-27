@@ -22,8 +22,9 @@ function GoogleStreetView() {
 
   return (
     <div
-      ref={panoRef}
+      /*  ref={panoRef} */
       style={{
+        backgroundColor: '#f51b51',
         height: '100%',
         width: '100%',
       }}
