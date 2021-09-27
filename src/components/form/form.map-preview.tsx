@@ -26,7 +26,7 @@ export default function MapPreview({
       <DialogContent>
         {children}
         <DialogContentText mt={2}>
-          Rough bounds of the game location "{title}".
+          Rough bounds of the game location &quot;{title}&quot;.
         </DialogContentText>
       </DialogContent>
       <DialogActions>

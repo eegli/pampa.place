@@ -2,7 +2,6 @@ import { config } from '@/config/google';
 import { useAppSelector } from '@/redux/hooks';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
-import { DomNodeIds } from '../../pages/_document';
 
 export let GLOBAL_SV: google.maps.StreetViewPanorama | undefined;
 
@@ -12,10 +11,7 @@ function GoogleStreetView() {
 
   // Initialization
   useEffect(() => {
-    const streetViewDiv = document.getElementById(
-      DomNodeIds.GOOGLE_STREET_VIEW
-    )!;
-    console.log(streetViewDiv);
+    const streetViewDiv = document.getElementById('__GSTV__')!;
 
     if (!GLOBAL_SV) {
       GLOBAL_SV = new google.maps.StreetViewPanorama(streetViewDiv);

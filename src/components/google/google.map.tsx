@@ -5,7 +5,6 @@ import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
-import { DomNodeIds } from '../../pages/_document';
 import { updateSelectedPosition } from '../../redux/slices/position';
 
 export enum MapMode {
@@ -30,7 +29,7 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const mapDiv = document.getElementById(DomNodeIds.GOOGLE_MAP)!;
+    const mapDiv = document.getElementById('__GMAP__')!;
 
     if (!GLOBAL_MAP) {
       GLOBAL_MAP = new google.maps.Map(mapDiv);
@@ -49,7 +48,6 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
 
   useEffect(() => {
     if (GLOBAL_MAP) {
-      console.log('render');
       GLOBAL_MAP.setOptions({
         ...config.map,
       });
