@@ -14,8 +14,8 @@ import GlobalStyles from '../styles/global';
 
 /* declare global {
   interface Window {
-    __GMAP: google.maps.Map | undefined;
-    __GSTV: google.maps.StreetViewPanorama | undefined;
+    __GMAP__: google.maps.Map | undefined;
+    __GSTV__: google.maps.StreetViewPanorama | undefined;
   }
 } */
 

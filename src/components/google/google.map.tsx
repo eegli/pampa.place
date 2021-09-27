@@ -3,7 +3,6 @@ import { LatLngLiteral, MapData } from '@/config/maps';
 import { markers } from '@/config/markers';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
-import { toggleDOMNode } from '@/utils/misc';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { DomNodeIds } from '../../pages/_document';
@@ -24,7 +23,7 @@ export type GoogleMapProps = {
   initialPos?: LatLngLiteral;
 };
 
-let GLOBAL_MAP: google.maps.Map | undefined;
+export let GLOBAL_MAP: google.maps.Map | undefined;
 
 function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   const dispatch = useAppDispatch();
@@ -38,8 +37,13 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
       console.log('Created new Map instance');
     }
     if (ref.current) {
-      const detach = toggleDOMNode(mapDiv, ref.current);
-      return () => detach();
+      mapDiv.style.display = 'block';
+      ref.current.appendChild(mapDiv);
+
+      return () => {
+        mapDiv.style.display = 'none';
+        document.body.appendChild(mapDiv);
+      };
     }
   }, []);
 

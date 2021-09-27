@@ -29,14 +29,13 @@ export default function Form() {
         autoComplete="off"
         display="flex"
         flexDirection="column"
-        maxWidth={350}
         sx={{
-          mx: 5,
+          mx: 4,
           '&>*': {
-            marginBottom: 3,
+            mb: 3,
           },
           '&:last-child': {
-            marginBottom: 3,
+            mb: 3,
           },
         }}
       >

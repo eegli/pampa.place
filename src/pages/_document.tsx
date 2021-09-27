@@ -6,10 +6,12 @@ import Document, {
   NextScript,
 } from 'next/document';
 
-export enum DomNodeIds {
-  GOOGLE_MAP = '__GMAP__',
-  GOOGLE_STREET_VIEW = '__GSTV__',
-}
+export const DomNodeIds = {
+  GOOGLE_MAP: '__GMAP__',
+  GOOGLE_STREET_VIEW: '__GSTV__',
+};
+
+Object.freeze(DomNodeIds);
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

@@ -1,11 +1,10 @@
 import { config } from '@/config/google';
 import { useAppSelector } from '@/redux/hooks';
-import { toggleDOMNode } from '@/utils/misc';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { DomNodeIds } from '../../pages/_document';
 
-let GLOBAL_STREET_VIEW: google.maps.StreetViewPanorama | undefined;
+export let GLOBAL_SV: google.maps.StreetViewPanorama | undefined;
 
 function GoogleStreetView() {
   const ref = useRef<HTMLDivElement>(null);
@@ -16,21 +15,27 @@ function GoogleStreetView() {
     const streetViewDiv = document.getElementById(
       DomNodeIds.GOOGLE_STREET_VIEW
     )!;
+    console.log(streetViewDiv);
 
-    if (!GLOBAL_STREET_VIEW) {
-      GLOBAL_STREET_VIEW = new google.maps.StreetViewPanorama(streetViewDiv);
+    if (!GLOBAL_SV) {
+      GLOBAL_SV = new google.maps.StreetViewPanorama(streetViewDiv);
       console.log('Created new Street View instance');
     }
 
     if (ref.current) {
-      const detach = toggleDOMNode(streetViewDiv, ref.current);
-      return () => detach();
+      streetViewDiv.style.display = 'block';
+      ref.current.appendChild(streetViewDiv);
+
+      return () => {
+        streetViewDiv.style.display = 'none';
+        document.body.appendChild(streetViewDiv);
+      };
     }
   }, []);
 
   useEffect(() => {
-    if (GLOBAL_STREET_VIEW && position) {
-      GLOBAL_STREET_VIEW.setOptions({
+    if (GLOBAL_SV && position) {
+      GLOBAL_SV.setOptions({
         position,
         ...config.streetview,
       });
