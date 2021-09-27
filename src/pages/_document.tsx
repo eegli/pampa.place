@@ -36,6 +36,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
           <div id="GMAP" />
+          <div id="GSTV" />
         </body>
       </Html>
     );
