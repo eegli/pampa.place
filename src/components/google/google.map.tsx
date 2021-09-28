@@ -91,6 +91,10 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   /* Map in actual game mode */
   useEffect(() => {
     if (GLOBAL_MAP && mode === MapMode.PLAY) {
+      GLOBAL_MAP.setOptions({
+        ...config.map,
+      });
+
       const marker = new google.maps.Marker();
 
       const listener = GLOBAL_MAP.addListener(
@@ -114,6 +118,10 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   /* End of round, display markers */
   useEffect(() => {
     if (GLOBAL_MAP && scores && initialPos && mode === MapMode.RESULT) {
+      GLOBAL_MAP.setOptions({
+        ...config.map,
+      });
+
       const gMarkers: google.maps.Marker[] = [];
       gMarkers.push(
         new window.google.maps.Marker({

@@ -3,7 +3,6 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import type { AppProps } from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { InitWrapper } from '../components/google/google.root-containers';
 import Login from '../components/login';
 import LoadingProgress from '../components/progress';
 import Spinner from '../components/spinner';
@@ -18,6 +17,20 @@ export const theme = createTheme({
   },
 });
 // Export to use in tests
+export const GoogleBaseDivs = () => {
+  return (
+    <>
+      <div
+        id="__GMAP__"
+        style={{ width: '100%', height: '100%', display: 'none' }}
+      />
+      <div
+        id="__GSTV__"
+        style={{ width: '100%', height: '100%', display: 'none' }}
+      />
+    </>
+  );
+};
 
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
@@ -48,7 +61,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <InitWrapper />
+        <GoogleBaseDivs />
         <GlobalStyles />
         <CssBaseline />
         <AuthWrapper>
