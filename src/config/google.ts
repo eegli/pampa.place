@@ -22,10 +22,10 @@ export const config: GoogleConfig = {
     draggableCursor: 'crosshair',
     clickableIcons: false,
     disableDefaultUI: true,
-    mapTypeId: 'roadmap',
+    mapTypeId: 'hybrid',
     mapTypeControl: true,
     mapTypeControlOptions: {
-      mapTypeIds: ['roadmap', 'hybrid'],
+      mapTypeIds: ['hybrid', 'roadmap'],
     },
   },
 };

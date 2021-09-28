@@ -18,7 +18,7 @@ import Map, { MapMode } from '../google/google.map';
 import Spinner from '../spinner';
 import MapPreview from './form.map-preview';
 
-export default function FormMapSelect() {
+const FormMapSelect = () => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -75,4 +75,6 @@ export default function FormMapSelect() {
     );
   }
   return <Spinner />;
-}
+};
+
+export default FormMapSelect;

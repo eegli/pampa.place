@@ -14,12 +14,7 @@ type MapPreviewProps = {
   children?: React.ReactNode;
 };
 
-export default function MapPreview({
-  title,
-  open,
-  setIsOpen,
-  children,
-}: MapPreviewProps) {
+const MapPreview = ({ title, open, setIsOpen, children }: MapPreviewProps) => {
   return (
     <Dialog open={open} onClose={() => setIsOpen(false)}>
       <DialogTitle>{title} - Map preview</DialogTitle>
@@ -34,4 +29,6 @@ export default function MapPreview({
       </DialogActions>
     </Dialog>
   );
-}
+};
+
+export default MapPreview;

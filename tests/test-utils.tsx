@@ -1,7 +1,10 @@
+import { ThemeProvider } from '@mui/material';
 import { configureStore } from '@reduxjs/toolkit';
 import { render, RenderOptions } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
+import { GoogleRootDivs } from '../src/components/google/google.root-containers';
+import { theme } from '../src/pages/_app';
 import { rootReducer } from '../src/redux/store';
 
 export function createMockStore() {
@@ -20,15 +23,10 @@ const customRender = (
   const Wrapper: React.FC = ({ children }) => {
     return (
       <Provider store={providerStore}>
-        <div
-          id="__GMAP__"
-          style={{ width: '100%', height: '100%', display: 'none' }}
-        />
-        <div
-          id="__GSTV__"
-          style={{ width: '100%', height: '100%', display: 'none' }}
-        />
-        {children}
+        <ThemeProvider theme={theme}>
+          <GoogleRootDivs />
+          {children}
+        </ThemeProvider>
       </Provider>
     );
   };

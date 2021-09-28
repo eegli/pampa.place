@@ -1,9 +1,8 @@
 import { Typography } from '@mui/material';
-import type { NextPage } from 'next';
 import Form from '../components/form/form';
 import { PageContentContainer } from '../styles/';
 
-const Home: NextPage = () => {
+const HomePage = () => {
   return (
     <PageContentContainer height="auto" disableGutters>
       <Typography variant="h3" my={6} mx={4} alignSelf="center">
@@ -14,4 +13,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default HomePage;

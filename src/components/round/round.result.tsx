@@ -14,7 +14,7 @@ import {
 import { useRouter } from 'next/router';
 import { SlimContainer } from '../../styles';
 
-export default function RoundResult() {
+const RoundResult = () => {
   const result = useAppSelector(getTotalScores);
 
   const router = useRouter();
@@ -53,4 +53,5 @@ export default function RoundResult() {
       </Stack>
     </SlimContainer>
   );
-}
+};
+export default RoundResult;

@@ -1,10 +1,11 @@
 import { CircularProgress } from '@mui/material';
 import { SlimContainer } from '../styles';
 
-export default function Spinner() {
+const Spinner = () => {
   return (
-    <SlimContainer margin='auto'>
+    <SlimContainer margin="auto">
       <CircularProgress />
     </SlimContainer>
   );
-}
+};
+export default Spinner;

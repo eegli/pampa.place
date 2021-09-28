@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Button, Box } from '@mui/material';
+import { Alert, AlertTitle, Box, Button } from '@mui/material';
 
 type ErrorPros = {
   callback?: () => void;
@@ -7,12 +7,12 @@ type ErrorPros = {
   reason?: string;
 };
 
-export default function Error({ callback, title, info, reason }: ErrorPros) {
+const Error = ({ callback, title, info, reason }: ErrorPros) => {
   const errTitle = title || 'Something went wrong';
 
   return (
     <Box padding={4}>
-      <Alert variant='outlined' severity='error'>
+      <Alert variant="outlined" severity="error">
         <AlertTitle>{errTitle}</AlertTitle>
         <p>{info}</p>
         <p>
@@ -21,12 +21,13 @@ export default function Error({ callback, title, info, reason }: ErrorPros) {
         <pre style={{ whiteSpace: 'pre-wrap', overflow: 'auto' }}>{reason}</pre>
       </Alert>
       {callback && (
-        <Box textAlign='center'>
-          <Button variant='contained' sx={{ mt: 2 }} onClick={callback}>
+        <Box textAlign="center">
+          <Button variant="contained" sx={{ mt: 2 }} onClick={callback}>
             Retry
           </Button>
         </Box>
       )}
     </Box>
   );
-}
+};
+export default Error;

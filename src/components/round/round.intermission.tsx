@@ -9,7 +9,7 @@ import { Button, Divider, Stack, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { SlimContainer } from '../../styles';
 
-export default function RoundIntermission() {
+const RoundIntermission = () => {
   const dispatch = useAppDispatch();
 
   const players = useAppSelector(({ game }) => game.players.names);
@@ -52,4 +52,5 @@ export default function RoundIntermission() {
       </Stack>
     </SlimContainer>
   );
-}
+};
+export default RoundIntermission;

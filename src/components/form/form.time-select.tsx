@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { ChangeEvent } from 'react';
 
-export default function FormTimeLimitSelect() {
+const FormTimeLimitSelect = () => {
   const selected = useAppSelector(({ game }) => game.timeLimit);
   const dispatch = useAppDispatch();
 
@@ -38,4 +38,6 @@ export default function FormTimeLimitSelect() {
       </RadioGroup>
     </FormControl>
   );
-}
+};
+
+export default FormTimeLimitSelect;

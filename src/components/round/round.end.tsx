@@ -16,7 +16,7 @@ import {
 import { SlimContainer } from '../../styles';
 import GoogleMap, { MapMode } from '../google/google.map';
 
-export default function RoundEnd() {
+const RoundEnd = () => {
   const dispatch = useAppDispatch();
 
   const scores = useAppSelector(getRoundScores);
@@ -78,4 +78,5 @@ export default function RoundEnd() {
       )}
     </>
   );
-}
+};
+export default RoundEnd;

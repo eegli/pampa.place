@@ -40,11 +40,11 @@ interface PageContentContainerProps extends ContainerProps {
 // especially useful when a header is used - a height calc can be
 // passed so that the container takes the remaining height, see
 // /pages/game.
-export function PageContentContainer({
+export const PageContentContainer = ({
   children,
   height: customHeight,
   ...rest
-}: PageContentContainerProps) {
+}: PageContentContainerProps) => {
   return (
     <Box
       sx={{
@@ -73,4 +73,4 @@ export function PageContentContainer({
       </Container>
     </Box>
   );
-}
+};

@@ -8,7 +8,7 @@ import FormPlayers from './form.players';
 import FormRoundSelect from './form.round-select';
 import FormTimeLimitSelect from './form.time-select';
 
-export default function Form() {
+const Form = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -63,4 +63,6 @@ export default function Form() {
       </Box>
     </>
   );
-}
+};
+
+export default Form;

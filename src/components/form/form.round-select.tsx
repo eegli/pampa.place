@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { ChangeEvent } from 'react';
 
-export default function FormRoundSelect() {
+const FormRoundSelect = () => {
   const dispatch = useAppDispatch();
   const selected = useAppSelector(({ game }) => game.rounds.total);
 
@@ -60,4 +60,6 @@ export default function FormRoundSelect() {
       })}
     </ButtonGroup> */
   );
-}
+};
+
+export default FormRoundSelect;

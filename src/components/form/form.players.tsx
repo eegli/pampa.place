@@ -8,7 +8,7 @@ import { Box, Fade, InputAdornment, TextField } from '@mui/material';
 
 const MAX_PLAYERS = config.maxPlayers;
 
-export default function FormPlayers() {
+const FormPlayers = () => {
   const players = useAppSelector(({ game }) => game.players.names);
   const dispatch = useAppDispatch();
 
@@ -59,4 +59,5 @@ export default function FormPlayers() {
       )}
     </Box>
   );
-}
+};
+export default FormPlayers;

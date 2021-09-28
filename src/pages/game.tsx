@@ -1,6 +1,5 @@
 import { STATUS } from '@/redux/slices/game';
 import { getRandomStreetView } from '@/redux/slices/position';
-import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Error from '../components/error';
@@ -11,7 +10,7 @@ import RoundResult from '../components/round/round.result';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { PageContentContainer } from '../styles';
 
-const Game: NextPage = () => {
+const GamePage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -74,4 +73,4 @@ const Game: NextPage = () => {
   );
 };
 
-export default Game;
+export default GamePage;

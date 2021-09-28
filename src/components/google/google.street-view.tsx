@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from 'react';
 
 export let GLOBAL_SV: google.maps.StreetViewPanorama | undefined;
 
-function GoogleStreetView() {
+const GoogleStreetView = () => {
   const ref = useRef<HTMLDivElement>(null);
   const position = useAppSelector(({ position }) => position.initialPosition);
 
@@ -49,5 +49,5 @@ function GoogleStreetView() {
       />
     </Fade>
   );
-}
+};
 export default GoogleStreetView;

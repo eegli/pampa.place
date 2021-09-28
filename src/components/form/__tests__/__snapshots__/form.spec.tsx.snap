@@ -3,24 +3,44 @@
 exports[`Form, map preview renders map options 1`] = `
 <div
   aria-hidden="true"
-/>
+>
+  <div
+    id="__GMAP__"
+    style="width: 100%; height: 100%; display: none;"
+  />
+  <div
+    id="__GSTV__"
+    style="width: 100%; height: 100%; display: none;"
+  />
+</div>
 `;
 
-exports[`Form, map preview renders map options 2`] = `<div />`;
+exports[`Form, map preview renders map options 2`] = `
+<div>
+  <div
+    id="__GMAP__"
+    style="width: 100%; height: 100%; display: none;"
+  />
+  <div
+    id="__GSTV__"
+    style="width: 100%; height: 100%; display: none;"
+  />
+</div>
+`;
 
 exports[`Form, map select renders map options 1`] = `
 Array [
   <div
     aria-expanded="false"
     aria-haspopup="listbox"
-    class="MuiSelect-select MuiSelect-outlined MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd css-4ygxeq-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+    class="MuiSelect-select MuiSelect-outlined MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputAdornedEnd css-1coxseh-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
     role="button"
     tabindex="0"
   >
     Frauenfeld
   </div>,
   <button
-    class="MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-uof0vn-MuiButtonBase-root-MuiIconButton-root"
+    class="MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-1hf04jj-MuiButtonBase-root-MuiIconButton-root"
     tabindex="0"
     type="button"
   >

@@ -8,7 +8,7 @@ import StreetView from '../google/google.street-view';
 import PlayHeader from './play.header';
 import { StyledMapOverlay } from './play.styles';
 
-export default function Play() {
+const Play = () => {
   const dispatch = useAppDispatch();
   const [showMap, setShowMap] = useState<boolean>(false);
 
@@ -71,4 +71,6 @@ export default function Play() {
       </Box>
     </Box>
   );
-}
+};
+
+export default Play;

@@ -11,11 +11,11 @@ type PlayHeaderProps = {
   timerCallback: () => void;
 };
 
-function getLabel(unlimited: boolean, time: number) {
+const getLabel = (unlimited: boolean, time: number) => {
   return unlimited ? <span>&#8734;</span> : <span>{formatDuration(time)}</span>;
-}
+};
 
-export default function PlayHeader({ player, timerCallback }: PlayHeaderProps) {
+const PlayHeader = ({ player, timerCallback }: PlayHeaderProps) => {
   const router = useRouter();
   const timeLimit = useAppSelector(s => s.game.timeLimit);
   const [timeRemaining] = useTimer(timeLimit);
@@ -77,4 +77,5 @@ export default function PlayHeader({ player, timerCallback }: PlayHeaderProps) {
       </IconButton>
     </Box>
   );
-}
+};
+export default PlayHeader;
