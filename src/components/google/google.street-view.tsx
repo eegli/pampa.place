@@ -2,6 +2,7 @@ import { config } from '@/config/google';
 import { useAppSelector } from '@/redux/hooks';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 
 export let GLOBAL_SV: google.maps.StreetViewPanorama | undefined;
 
@@ -21,10 +22,11 @@ const GoogleStreetView = () => {
     if (ref.current) {
       streetViewDiv.style.display = 'block';
       ref.current.appendChild(streetViewDiv);
-
+      const refCopy = ref.current;
       return () => {
         streetViewDiv.style.display = 'none';
         document.body.appendChild(streetViewDiv);
+        ReactDOM.unmountComponentAtNode(refCopy);
       };
     }
   }, []);

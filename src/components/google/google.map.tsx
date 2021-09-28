@@ -5,9 +5,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom';
 import { updateSelectedPosition } from '../../redux/slices/position';
-
 export enum MapMode {
   PREVIEW,
   PLAY,
@@ -23,6 +21,10 @@ export type GoogleMapProps = {
   initialPos?: LatLngLiteral;
 };
 
+function stringPad(n: number) {
+  return n.toFixed(0) + 'px';
+}
+
 export let GLOBAL_MAP: google.maps.Map | undefined;
 
 function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
@@ -30,25 +32,38 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const mapDiv = document.getElementById('__GMAP__')!;
-
     if (!GLOBAL_MAP) {
+      const mapDiv = document.getElementById('__GMAP__')!;
       GLOBAL_MAP = new google.maps.Map(mapDiv);
       console.log('Created new Map instance');
     }
-    if (ref.current) {
-      mapDiv.style.display = 'block';
-      ref.current.appendChild(mapDiv);
-
-      return () => {
-        mapDiv.style.display = 'none';
-        document.body.appendChild(mapDiv);
-        if (ref.current) {
-          ReactDOM.unmountComponentAtNode(ref.current);
-        }
-      };
-    }
   }, []);
+
+  useEffect(() => {
+    if (ref.current) {
+      const mapDiv = document.getElementById('__GMAP__')!;
+      const dim = ref.current.getBoundingClientRect();
+      mapDiv.style.display = 'block';
+      mapDiv.style.position = 'absolute';
+      mapDiv.style.height = stringPad(dim.height);
+      mapDiv.style.width = stringPad(dim.width);
+      mapDiv.style.bottom = stringPad(dim.bottom);
+      mapDiv.style.left = stringPad(dim.left);
+      mapDiv.style.right = stringPad(dim.right);
+      mapDiv.style.top = stringPad(dim.top);
+
+      if (mode === MapMode.PREVIEW) {
+        mapDiv.style.zIndex = '9999';
+      }
+    }
+    return () => {
+      const mapDiv = document.getElementById('__GMAP__')!;
+      console.log('unmounted');
+      mapDiv.style.display = 'none';
+      mapDiv.style.height = '0';
+      mapDiv.style.position = 'auto';
+    };
+  }, [mode]);
 
   useEffect(() => {
     if (GLOBAL_MAP) {

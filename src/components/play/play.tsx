@@ -58,16 +58,11 @@ const Play = () => {
             </Button>
           </StyledMapOverlay>
         )}
-        <div
-          style={{
-            display: showMap ? 'none' : 'block',
-            height: '100%',
-          }}
-        >
-          {initialPos && <StreetView />}
-        </div>
-
-        <Map mode={MapMode.PLAY} mapData={activeMap} />
+        {showMap ? (
+          <Map key="map" mode={MapMode.PLAY} mapData={activeMap} />
+        ) : initialPos ? (
+          <StreetView />
+        ) : null}
       </Box>
     </Box>
   );

@@ -16,19 +16,22 @@ export const theme = createTheme({
     mode: 'dark',
   },
 });
-// Export to use in tests
-export const GoogleBaseDivs = () => {
+
+export const GoogleMapRoot = () => {
   return (
-    <>
-      <div
-        id="__GMAP__"
-        style={{ width: '100%', height: '100%', display: 'none' }}
-      />
-      <div
-        id="__GSTV__"
-        style={{ width: '100%', height: '100%', display: 'none' }}
-      />
-    </>
+    <div
+      id="__GMAP__"
+      style={{ width: '100%', height: '100%', display: 'none' }}
+    />
+  );
+};
+
+export const GoogleSVRoot = () => {
+  return (
+    <div
+      id="__GSTV__"
+      style={{ width: '100%', height: '100%', display: 'none' }}
+    />
   );
 };
 
@@ -61,7 +64,8 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <GoogleBaseDivs />
+        <GoogleMapRoot />
+        <GoogleSVRoot />
         <GlobalStyles />
         <CssBaseline />
         <AuthWrapper>
