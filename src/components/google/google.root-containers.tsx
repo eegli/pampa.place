@@ -23,7 +23,7 @@ export const GoogleMapRootContainer = ({
   );
 };
 
-export const GoogleMapNode = ({ display = false }: RenderProps) => (
+export const GoogleMapDiv = ({ display = false }: RenderProps) => (
   <div
     id="__GMAP__"
     style={{
@@ -52,7 +52,7 @@ export const GoogleSVRootContainer = ({
   );
 };
 
-export const GoogleSVNode = ({ display = false }: RenderProps) => (
+export const GoogleSVDiv = ({ display = false }: RenderProps) => (
   <div
     id="__GSTV__"
     style={{
@@ -66,10 +66,10 @@ export const GoogleSVNode = ({ display = false }: RenderProps) => (
 export const InitWrapper = () => (
   <>
     <GoogleMapRootContainer>
-      <GoogleMapNode display />
+      <GoogleMapDiv display />
     </GoogleMapRootContainer>
     <GoogleSVRootContainer>
-      <GoogleSVNode display />
+      <GoogleSVDiv display />
     </GoogleSVRootContainer>
   </>
 );

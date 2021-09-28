@@ -5,6 +5,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import { updateSelectedPosition } from '../../redux/slices/position';
 
 export enum MapMode {
@@ -42,6 +43,9 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
       return () => {
         mapDiv.style.display = 'none';
         document.body.appendChild(mapDiv);
+        if (ref.current) {
+          ReactDOM.unmountComponentAtNode(ref.current);
+        }
       };
     }
   }, []);
