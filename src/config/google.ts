@@ -9,6 +9,7 @@ export const config: GoogleConfig = {
     radius: 1000,
   },
   streetview: {
+    zoom: 0,
     addressControl: false,
     zoomControl: false,
     showRoadLabels: false,
@@ -24,6 +25,7 @@ export const config: GoogleConfig = {
     disableDefaultUI: true,
     mapTypeId: 'hybrid',
     mapTypeControl: true,
+    gestureHandling: 'auto',
     mapTypeControlOptions: {
       mapTypeIds: ['hybrid', 'roadmap'],
     },
