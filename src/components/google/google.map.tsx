@@ -40,8 +40,8 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   }, []);
 
   useEffect(() => {
+    const mapDiv = document.getElementById('__GMAP__')!;
     if (ref.current) {
-      const mapDiv = document.getElementById('__GMAP__')!;
       const dim = ref.current.getBoundingClientRect();
       mapDiv.style.display = 'block';
       mapDiv.style.position = 'absolute';
@@ -57,7 +57,6 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
       }
     }
     return () => {
-      const mapDiv = document.getElementById('__GMAP__')!;
       console.log('unmounted');
       mapDiv.style.display = 'none';
       mapDiv.style.height = '0';
