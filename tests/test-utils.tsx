@@ -3,8 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { render, RenderOptions } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { GoogleRootDivs } from '../src/components/google/google.root-containers';
-import { theme } from '../src/pages/_app';
+import { GoogleMapRoot, GoogleSVRoot, theme } from '../src/pages/_app';
 import { rootReducer } from '../src/redux/store';
 
 export function createMockStore() {
@@ -24,7 +23,8 @@ const customRender = (
     return (
       <Provider store={providerStore}>
         <ThemeProvider theme={theme}>
-          <GoogleRootDivs />
+          <GoogleMapRoot />
+          <GoogleSVRoot />
           {children}
         </ThemeProvider>
       </Provider>
