@@ -82,6 +82,8 @@ const gameSlice = createSlice({
         state.players.names = ['Player 1'];
       }
 
+      state.players.scores = {};
+
       state.players.names.forEach(name => {
         state.players.scores[name] = { totalScore: 0, results: [] };
       });

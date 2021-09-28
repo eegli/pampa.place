@@ -26,7 +26,7 @@ export const getTotalScores = (s: RootState) => {
   }
 
   return final.sort((a, b) =>
-    a.score > b.score ? 1 : b.score > a.score ? -1 : 0
+    a.score > b.score ? -1 : b.score > a.score ? 1 : 0
   );
 };
 
