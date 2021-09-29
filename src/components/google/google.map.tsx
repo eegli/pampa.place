@@ -5,6 +5,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
+import { GLOBAL_MAP } from '../../pages/_app';
 import { updateSelectedPosition } from '../../redux/slices/position';
 
 export enum MapMode {
@@ -22,22 +23,16 @@ export type GoogleMapProps = {
   initialPos?: LatLngLiteral;
 };
 
-export let GLOBAL_MAP: google.maps.Map | undefined;
-
 function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mapDiv = document.getElementById('__GMAP__')!;
-    if (!GLOBAL_MAP) {
-      GLOBAL_MAP = new google.maps.Map(mapDiv);
-      console.log('Created new Map instance');
-    }
+
     if (ref.current) {
       mapDiv.style.display = 'block';
       ref.current.appendChild(mapDiv);
-
       return () => {
         mapDiv.style.display = 'none';
         document.body.appendChild(mapDiv);
@@ -46,22 +41,20 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
   }, []);
 
   useEffect(() => {
-    if (GLOBAL_MAP) {
-      GLOBAL_MAP.setOptions({
-        ...config.map,
-      });
-      const sw = new google.maps.LatLng(mapData.computed.bbLiteral.SW);
-      const ne = new google.maps.LatLng(mapData.computed.bbLiteral.NE);
+    GLOBAL_MAP.setOptions({
+      ...config.map,
+    });
+    const sw = new google.maps.LatLng(mapData.computed.bbLiteral.SW);
+    const ne = new google.maps.LatLng(mapData.computed.bbLiteral.NE);
 
-      /* Order in constructor is important! SW, NE  */
-      const mapBounds = new google.maps.LatLngBounds(sw, ne);
-      GLOBAL_MAP.fitBounds(mapBounds, 2);
-    }
+    /* Order in constructor is important! SW, NE  */
+    const mapBounds = new google.maps.LatLngBounds(sw, ne);
+    GLOBAL_MAP.fitBounds(mapBounds, 2);
   }, [mapData.computed.bbLiteral.NE, mapData.computed.bbLiteral.SW]);
 
   /* If the map is used in preview mode */
   useEffect(() => {
-    if (GLOBAL_MAP && mode === MapMode.PREVIEW) {
+    if (mode === MapMode.PREVIEW) {
       GLOBAL_MAP.setOptions({
         ...config.map,
         mapTypeId: 'roadmap',
@@ -86,7 +79,7 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
 
   /* Map in actual game mode */
   useEffect(() => {
-    if (GLOBAL_MAP && mode === MapMode.PLAY) {
+    if (mode === MapMode.PLAY) {
       GLOBAL_MAP.setOptions({
         ...config.map,
       });
@@ -111,7 +104,7 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
 
   /* End of round, display markers */
   useEffect(() => {
-    if (GLOBAL_MAP && scores && initialPos && mode === MapMode.RESULT) {
+    if (scores && initialPos && mode === MapMode.RESULT) {
       GLOBAL_MAP.setOptions({
         ...config.map,
       });

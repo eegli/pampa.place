@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <PageContentContainer height="auto" disableGutters>
       <Typography variant="h3" my={6} mx={4} alignSelf="center">
-        GEO GUESSERIC
+        GeoGuessEric
       </Typography>
       <Form />
     </PageContentContainer>

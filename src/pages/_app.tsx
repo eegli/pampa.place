@@ -19,10 +19,13 @@ export const theme = createTheme({
 
 export const GoogleMapRoot = () => {
   return (
-    <div
-      id="__GMAP__"
-      style={{ width: '100%', height: '100%', display: 'none' }}
-    />
+    <>
+      <div
+        id="__GMAP__"
+        style={{ width: '100%', height: '100%', display: 'none' }}
+      />
+      <div id="__GMAP_PARKING__" />
+    </>
   );
 };
 
@@ -34,6 +37,9 @@ export const GoogleSVRoot = () => {
     />
   );
 };
+
+export let GLOBAL_MAP: google.maps.Map;
+export let GLOBAL_SV: google.maps.StreetViewPanorama;
 
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
@@ -54,6 +60,14 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
         </PageContentContainer>
       );
 
+    // All good, create global instances that can be reused
+    const MAP_ROOT = document.getElementById('__GMAP__')!;
+    const SV_ROOT = document.getElementById('__GSTV__')!;
+
+    GLOBAL_MAP ??= new google.maps.Map(MAP_ROOT);
+    GLOBAL_SV ??= new google.maps.StreetViewPanorama(SV_ROOT);
+    console.log('Created new global Map instance');
+    console.log('Created new global SV instance');
     return <>{children}</>;
   };
 
@@ -68,8 +82,8 @@ const App = ({ Component, pageProps }: AppProps) => {
         <GoogleSVRoot />
         <GlobalStyles />
         <CssBaseline />
+        <LoadingProgress />
         <AuthWrapper>
-          <LoadingProgress />
           <Component {...pageProps} />
         </AuthWrapper>
       </ThemeProvider>
