@@ -17,8 +17,7 @@
     "paths": {
       "@/config/*": ["src/config/*"],
       "@/redux/*": ["src/redux/*"],
-      "@/utils/*": ["src/utils/*"],
-      "@/tests/*": ["tests/*"]
+      "@/utils/*": ["src/utils/*"]
     }
   },
   "include": ["next-env.d.ts", "custom-maps.ts", "src/**/*.ts", "src/**/*.tsx"],

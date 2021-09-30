@@ -1,8 +1,8 @@
-import { testMap } from '@/tests/payloads/map-data';
-import { render } from '@/tests/test-utils';
 import { initialize, Map } from '@googlemaps/jest-mocks';
 import React from 'react';
-import GoogleMap, { MapMode } from '../google.map';
+import GoogleMap, { MapMode } from '../src/components/google/google.map';
+import { testMap } from './payloads/map-data';
+import { render } from './test-utils';
 
 beforeEach(() => {
   initialize();
