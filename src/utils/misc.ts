@@ -15,9 +15,9 @@ export function formatDuration(seconds: number): string {
 export function __unsafeToggleElement<
   T extends HTMLElement,
   K extends HTMLElement
->(el: T, container: K) {
+>(el: T, containerRef: K) {
   el.style.display = 'block';
-  container.appendChild(el);
+  containerRef.appendChild(el);
   return () => {
     el.style.display = 'none';
     document.body.appendChild(el);

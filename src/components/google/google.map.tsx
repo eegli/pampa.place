@@ -4,9 +4,9 @@ import { markers } from '@/config/markers';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import { updateSelectedPosition } from '@/redux/slices/position';
-import { __unsafeToggleElement } from '@/utils/misc';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
+import { __unsafeToggleElement } from '../../utils/misc';
 
 export const GoogleMapRoot = () => {
   return (
@@ -160,6 +160,7 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
       };
     }
   }, [scores, initialPos, mode]);
+  const gmap = document.getElementById('__GMAP__')!;
 
   return (
     <Fade in timeout={500}>

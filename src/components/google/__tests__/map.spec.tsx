@@ -16,10 +16,16 @@ jest.spyOn(React, 'useRef').mockReturnValue({
   },
 });
 
-const mockedMap = Map as jest.Mocked<typeof Map>;
+const consoleSpy = jest
+  .spyOn(global.console, 'error')
+  .mockImplementation(() => {});
+
+afterAll(() => {
+  consoleSpy.mockRestore();
+});
 
 // @ts-expect-error
-mockedMap.prototype.data = {
+Map.prototype.data = {
   addGeoJson: jest.fn(),
   setStyle: jest.fn(),
 };
