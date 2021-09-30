@@ -4,21 +4,15 @@ import { markers } from '@/config/markers';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import { updateSelectedPosition } from '@/redux/slices/position';
-import { __unsafeToggleElement } from '@/utils/misc';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 
 export const GoogleMapRoot = () => {
   return (
     <div
-      id="PARKING"
+      id="__GMAP__"
       style={{ width: '100%', height: '100%', display: 'none' }}
-    >
-      <div
-        id="__GMAP__"
-        style={{ width: '100%', height: '100%', display: 'none' }}
-      />
-    </div>
+    />
   );
 };
 
@@ -37,32 +31,22 @@ export type GoogleMapProps = {
   initialPos?: LatLngLiteral;
 };
 
-export let GLOBAL_MAP: google.maps.Map | undefined;
+// export let GLOBAL_MAP: google.maps.Map | undefined;
 
 const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
   const dispatch = useAppDispatch();
-  const [isUnmounting, setIsUnmounting] = useState<boolean>(false);
+  const [GLOBAL_MAP, SET_GLOBAL_MAP] = useState<google.maps.Map>();
+
   const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    console.log(isUnmounting);
-  }, [isUnmounting]);
 
   useEffect(() => {
-    const mapContainer = document.getElementById('__GMAP__')!;
-    mapContainer.style.display = 'block';
-
-    GLOBAL_MAP ?? console.log('Creating new global Map instance');
-    GLOBAL_MAP ??= new google.maps.Map(mapContainer);
-
     if (ref.current) {
-      console.log('unmount');
-      const revert = __unsafeToggleElement(mapContainer, ref.current);
-      return () => {
-        setIsUnmounting(true);
-        revert();
-      };
+      if (!GLOBAL_MAP) {
+        SET_GLOBAL_MAP(new google.maps.Map(ref.current));
+        console.log('Creating new global Map instance');
+      }
     }
-  }, []);
+  }, [GLOBAL_MAP]);
 
   useEffect(() => {
     if (GLOBAL_MAP) {
@@ -76,7 +60,11 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
       const mapBounds = new google.maps.LatLngBounds(sw, ne);
       GLOBAL_MAP.fitBounds(mapBounds, 2);
     }
-  }, [mapData.computed.bbLiteral.NE, mapData.computed.bbLiteral.SW]);
+  }, [
+    GLOBAL_MAP,
+    mapData.computed.bbLiteral.NE,
+    mapData.computed.bbLiteral.SW,
+  ]);
 
   /* If the map is used in preview mode */
   useEffect(() => {
@@ -95,13 +83,11 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
       });
       return () => {
         features.forEach(feat => {
-          if (GLOBAL_MAP) {
-            GLOBAL_MAP.data.remove(feat);
-          }
+          GLOBAL_MAP.data.remove(feat);
         });
       };
     }
-  }, [mode, mapData.base]);
+  }, [GLOBAL_MAP, mode, mapData.base]);
 
   /* Map in actual game mode */
   useEffect(() => {
@@ -126,7 +112,7 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
         marker.setMap(null);
       };
     }
-  }, [mode, dispatch]);
+  }, [GLOBAL_MAP, mode, dispatch]);
 
   /* End of round, display markers */
   useEffect(() => {
@@ -171,7 +157,7 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
         gMarkers.forEach(marker => marker.setMap(null));
       };
     }
-  }, [scores, initialPos, mode]);
+  }, [GLOBAL_MAP, scores, initialPos, mode]);
 
   return (
     <Fade in timeout={500}>
