@@ -4,8 +4,9 @@ import { markers } from '@/config/markers';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import { updateSelectedPosition } from '@/redux/slices/position';
+import { __unsafeToggleElement } from '@/utils/misc';
 import { Fade } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export const GoogleMapRoot = () => {
   return (
@@ -31,22 +32,25 @@ export type GoogleMapProps = {
   initialPos?: LatLngLiteral;
 };
 
-// export let GLOBAL_MAP: google.maps.Map | undefined;
+export let GLOBAL_MAP: google.maps.Map | undefined;
 
 const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
   const dispatch = useAppDispatch();
-  const [GLOBAL_MAP, SET_GLOBAL_MAP] = useState<google.maps.Map>();
 
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const gmapContainer = document.getElementById('__GMAP__')!;
+
+    GLOBAL_MAP ?? console.log('Creating new global SV instance');
+    GLOBAL_MAP ??= new google.maps.Map(gmapContainer);
     if (ref.current) {
-      if (!GLOBAL_MAP) {
-        SET_GLOBAL_MAP(new google.maps.Map(ref.current));
-        console.log('Creating new global Map instance');
-      }
+      const revert = __unsafeToggleElement(gmapContainer, ref.current);
+      return () => {
+        revert();
+      };
     }
-  }, [GLOBAL_MAP]);
+  }, []);
 
   useEffect(() => {
     if (GLOBAL_MAP) {
@@ -83,11 +87,11 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
       });
       return () => {
         features.forEach(feat => {
-          GLOBAL_MAP.data.remove(feat);
+          GLOBAL_MAP?.data.remove(feat);
         });
       };
     }
-  }, [GLOBAL_MAP, mode, mapData.base]);
+  }, [mode, mapData.base]);
 
   /* Map in actual game mode */
   useEffect(() => {
@@ -112,7 +116,7 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
         marker.setMap(null);
       };
     }
-  }, [GLOBAL_MAP, mode, dispatch]);
+  }, [mode, dispatch]);
 
   /* End of round, display markers */
   useEffect(() => {
@@ -157,7 +161,7 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
         gMarkers.forEach(marker => marker.setMap(null));
       };
     }
-  }, [GLOBAL_MAP, scores, initialPos, mode]);
+  }, [scores, initialPos, mode]);
 
   return (
     <Fade in timeout={500}>
