@@ -31,7 +31,6 @@ const Form = () => {
         display="flex"
         flexDirection="column"
         sx={{
-          mx: 4,
           '&>*': {
             mb: 4,
           },

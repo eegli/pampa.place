@@ -56,6 +56,7 @@ describe('Form, player name input', () => {
     }
     expect(queryPlayerInput()).toHaveLength(config.maxPlayers);
   });
+
   it('displays player names and filters empty inputs', () => {
     render(<FormPlayers />);
     fireEvent.change(queryPlayerInput()[0], { target: { value: 'eric' } });
@@ -64,6 +65,13 @@ describe('Form, player name input', () => {
     expect(queryPlayerInput()[1]).toHaveValue('eric 2');
     fireEvent.change(queryPlayerInput()[0], { target: { value: '' } });
     expect(queryPlayerInput()[0]).toHaveValue('eric 2');
+  });
+  it('truncates long inputs', () => {
+    render(<FormPlayers />);
+    fireEvent.change(queryPlayerInput()[0], {
+      target: { value: 'eric eric eric eric eric eric eric eric eric eric ' },
+    });
+    expect(queryPlayerInput()[0]).toHaveValue(expect.any(String));
   });
 });
 

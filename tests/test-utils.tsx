@@ -3,7 +3,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import { render, RenderOptions } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { GoogleMapRoot, GoogleSVRoot, theme } from '../src/pages/_app';
+import { GoogleMapRoot } from '../src/components/google/google.map';
+import { GoogleSVRoot } from '../src/components/google/google.street-view';
+import { theme } from '../src/pages/_app';
 import { rootReducer } from '../src/redux/store';
 
 export function createMockStore() {

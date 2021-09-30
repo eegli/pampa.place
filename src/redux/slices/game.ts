@@ -66,7 +66,9 @@ const gameSlice = createSlice({
       state = initialState;
     },
     setPlayers(state, action: PayloadAction<string[]>) {
-      state.players.names = action.payload.filter(Boolean);
+      state.players.names = action.payload
+        .filter(Boolean)
+        .map(el => el.slice(0, 24));
     },
     setRounds(state, action: PayloadAction<number>) {
       state.rounds.total = action.payload;

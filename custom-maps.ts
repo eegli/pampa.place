@@ -1,6 +1,6 @@
-import { CustomMap } from '@/config/maps';
+import { CustomMaps } from '@/config/maps';
 
-const maps: CustomMap = {
+const maps: CustomMaps = {
   Zurich: {
     type: 'FeatureCollection',
     features: [

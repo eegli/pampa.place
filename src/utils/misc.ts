@@ -11,3 +11,15 @@ export function formatDuration(seconds: number): string {
 
   return rem ? `${min}m ${rem}s` : `${min}m`;
 }
+
+export function __unsafeToggleElement<
+  T extends HTMLElement,
+  K extends HTMLElement
+>(el: T, container: K) {
+  el.style.display = 'block';
+  container.appendChild(el);
+  return () => {
+    el.style.display = 'none';
+    document.body.appendChild(el);
+  };
+}

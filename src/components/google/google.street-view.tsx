@@ -1,8 +1,19 @@
 import { config } from '@/config/google';
 import { useAppSelector } from '@/redux/hooks';
+import { __unsafeToggleElement } from '@/utils/misc';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
-import { GLOBAL_SV } from '../../pages/_app';
+
+export const GoogleSVRoot = () => {
+  return (
+    <div
+      id="__GSTV__"
+      style={{ width: '100%', height: '100%', display: 'none' }}
+    />
+  );
+};
+
+export let GLOBAL_SV: google.maps.StreetViewPanorama | undefined;
 
 const GoogleStreetView = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -10,21 +21,21 @@ const GoogleStreetView = () => {
 
   // Initialization
   useEffect(() => {
-    const streetViewDiv = document.getElementById('__GSTV__')!;
+    const svContainer = document.getElementById('__GSTV__')!;
+
+    GLOBAL_SV ?? console.log('Creating new global SV instance');
+    GLOBAL_SV ??= new google.maps.StreetViewPanorama(svContainer);
 
     if (ref.current) {
-      streetViewDiv.style.display = 'block';
-      ref.current.appendChild(streetViewDiv);
-
+      const revert = __unsafeToggleElement(svContainer, ref.current);
       return () => {
-        streetViewDiv.style.display = 'none';
-        document.body.appendChild(streetViewDiv);
+        revert();
       };
     }
   }, []);
 
   useEffect(() => {
-    if (position) {
+    if (GLOBAL_SV && position) {
       GLOBAL_SV.setOptions({
         position,
         ...config.streetview,

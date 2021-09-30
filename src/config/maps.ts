@@ -4,7 +4,7 @@ import customMaps from '../../custom-maps';
 
 // All maps need to be a polygon feature collection
 type BaseMap = FeatureCollection<Polygon>;
-export type CustomMap = Record<string, BaseMap>;
+export type CustomMaps = Record<string, BaseMap>;
 
 export type LatLngLiteral = { lat: number; lng: number };
 export type BBoxLiteral = Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;

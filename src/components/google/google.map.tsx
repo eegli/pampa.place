@@ -3,10 +3,19 @@ import { LatLngLiteral, MapData } from '@/config/maps';
 import { markers } from '@/config/markers';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
+import { updateSelectedPosition } from '@/redux/slices/position';
+import { __unsafeToggleElement } from '@/utils/misc';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
-import { GLOBAL_MAP } from '../../pages/_app';
-import { updateSelectedPosition } from '../../redux/slices/position';
+
+export const GoogleMapRoot = () => {
+  return (
+    <div
+      id="__GMAP__"
+      style={{ width: '100%', height: '100%', display: 'none' }}
+    />
+  );
+};
 
 export enum MapMode {
   PREVIEW,
@@ -23,38 +32,43 @@ export type GoogleMapProps = {
   initialPos?: LatLngLiteral;
 };
 
-function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
+export let GLOBAL_MAP: google.maps.Map | undefined;
+
+const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const mapDiv = document.getElementById('__GMAP__')!;
+    const mapContainer = document.getElementById('__GMAP__')!;
+
+    GLOBAL_MAP ?? console.log('Creating new global Map instance');
+    GLOBAL_MAP ??= new google.maps.Map(mapContainer);
 
     if (ref.current) {
-      mapDiv.style.display = 'block';
-      ref.current.appendChild(mapDiv);
+      const revert = __unsafeToggleElement(mapContainer, ref.current);
       return () => {
-        mapDiv.style.display = 'none';
-        document.body.appendChild(mapDiv);
+        revert();
       };
     }
   }, []);
 
   useEffect(() => {
-    GLOBAL_MAP.setOptions({
-      ...config.map,
-    });
-    const sw = new google.maps.LatLng(mapData.computed.bbLiteral.SW);
-    const ne = new google.maps.LatLng(mapData.computed.bbLiteral.NE);
+    if (GLOBAL_MAP) {
+      GLOBAL_MAP.setOptions({
+        ...config.map,
+      });
+      const sw = new google.maps.LatLng(mapData.computed.bbLiteral.SW);
+      const ne = new google.maps.LatLng(mapData.computed.bbLiteral.NE);
 
-    /* Order in constructor is important! SW, NE  */
-    const mapBounds = new google.maps.LatLngBounds(sw, ne);
-    GLOBAL_MAP.fitBounds(mapBounds, 2);
+      /* Order in constructor is important! SW, NE  */
+      const mapBounds = new google.maps.LatLngBounds(sw, ne);
+      GLOBAL_MAP.fitBounds(mapBounds, 2);
+    }
   }, [mapData.computed.bbLiteral.NE, mapData.computed.bbLiteral.SW]);
 
   /* If the map is used in preview mode */
   useEffect(() => {
-    if (mode === MapMode.PREVIEW) {
+    if (GLOBAL_MAP && mode === MapMode.PREVIEW) {
       GLOBAL_MAP.setOptions({
         ...config.map,
         mapTypeId: 'roadmap',
@@ -79,7 +93,7 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
 
   /* Map in actual game mode */
   useEffect(() => {
-    if (mode === MapMode.PLAY) {
+    if (GLOBAL_MAP && mode === MapMode.PLAY) {
       GLOBAL_MAP.setOptions({
         ...config.map,
       });
@@ -104,7 +118,7 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
 
   /* End of round, display markers */
   useEffect(() => {
-    if (scores && initialPos && mode === MapMode.RESULT) {
+    if (GLOBAL_MAP && scores && initialPos && mode === MapMode.RESULT) {
       GLOBAL_MAP.setOptions({
         ...config.map,
       });
@@ -158,6 +172,6 @@ function GoogleMap({ mode, scores, initialPos, mapData }: GoogleMapProps) {
       />
     </Fade>
   );
-}
+};
 
 export default GoogleMap;
