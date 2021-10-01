@@ -4,9 +4,9 @@ import { markers } from '@/config/markers';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import { updateSelectedPosition } from '@/redux/slices/position';
+import { unsafeToggleHTMLElement } from '@/utils/misc';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
-import { __unsafeToggleElement } from '../../utils/misc';
 
 export const GoogleMapRoot = () => {
   return (
@@ -35,19 +35,21 @@ export type GoogleMapProps = {
 export let GLOBAL_MAP: google.maps.Map | undefined;
 
 const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
-  const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const mapContainer = document.getElementById('__GMAP__')!;
+    const gmapContainer = document.getElementById('__GMAP__')!;
 
-    GLOBAL_MAP ?? console.log('Creating new global Map instance');
-    GLOBAL_MAP ??= new google.maps.Map(mapContainer);
+    if (!GLOBAL_MAP) {
+      GLOBAL_MAP = new google.maps.Map(gmapContainer);
+      console.log('Created new global SV instance');
+    }
 
     if (ref.current) {
-      const revert = __unsafeToggleElement(mapContainer, ref.current);
+      const undoToggle = unsafeToggleHTMLElement(gmapContainer, ref.current);
       return () => {
-        revert();
+        undoToggle();
       };
     }
   }, []);
@@ -64,7 +66,11 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
       const mapBounds = new google.maps.LatLngBounds(sw, ne);
       GLOBAL_MAP.fitBounds(mapBounds, 2);
     }
-  }, [mapData.computed.bbLiteral.NE, mapData.computed.bbLiteral.SW]);
+  }, [
+    GLOBAL_MAP,
+    mapData.computed.bbLiteral.NE,
+    mapData.computed.bbLiteral.SW,
+  ]);
 
   /* If the map is used in preview mode */
   useEffect(() => {
@@ -83,9 +89,7 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
       });
       return () => {
         features.forEach(feat => {
-          if (GLOBAL_MAP) {
-            GLOBAL_MAP.data.remove(feat);
-          }
+          GLOBAL_MAP?.data.remove(feat);
         });
       };
     }
@@ -160,7 +164,6 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
       };
     }
   }, [scores, initialPos, mode]);
-  const gmap = document.getElementById('__GMAP__')!;
 
   return (
     <Fade in timeout={500}>
@@ -175,4 +178,6 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
   );
 };
 
-export default GoogleMap;
+export default React.memo(GoogleMap, (prev, curr) => {
+  return prev.mode === curr.mode && prev.mapData.name === curr.mapData.name;
+});
