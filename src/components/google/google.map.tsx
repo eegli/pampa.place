@@ -4,7 +4,7 @@ import { markers } from '@/config/markers';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import { updateSelectedPosition } from '@/redux/slices/position';
-import { __unsafeToggleElement } from '@/utils/misc';
+import { unsafeToggleHTMLElement } from '@/utils/misc';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 
@@ -35,19 +35,21 @@ export type GoogleMapProps = {
 export let GLOBAL_MAP: google.maps.Map | undefined;
 
 const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
-  const dispatch = useAppDispatch();
-
   const ref = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const gmapContainer = document.getElementById('__GMAP__')!;
 
-    GLOBAL_MAP ?? console.log('Creating new global SV instance');
-    GLOBAL_MAP ??= new google.maps.Map(gmapContainer);
+    if (!GLOBAL_MAP) {
+      GLOBAL_MAP = new google.maps.Map(gmapContainer);
+      console.log('Created new global SV instance');
+    }
+
     if (ref.current) {
-      const revert = __unsafeToggleElement(gmapContainer, ref.current);
+      const undoToggle = unsafeToggleHTMLElement(gmapContainer, ref.current);
       return () => {
-        revert();
+        undoToggle();
       };
     }
   }, []);

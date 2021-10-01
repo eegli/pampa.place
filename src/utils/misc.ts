@@ -12,7 +12,7 @@ export function formatDuration(seconds: number): string {
   return rem ? `${min}m ${rem}s` : `${min}m`;
 }
 
-export function __unsafeToggleElement<
+export function unsafeToggleHTMLElement<
   T extends HTMLElement,
   K extends HTMLElement
 >(el: T, containerRef: K) {
