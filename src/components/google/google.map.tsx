@@ -4,9 +4,9 @@ import { markers } from '@/config/markers';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import { updateSelectedPosition } from '@/redux/slices/position';
-import { __unsafeToggleElement } from '@/utils/misc';
+import { unsafeToggleHTMLElement } from '@/utils/misc';
 import { Fade } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export const GoogleMapRoot = () => {
   return (
@@ -40,26 +40,21 @@ export type GoogleMapProps = {
 export let GLOBAL_MAP: google.maps.Map | undefined;
 
 const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
-  const dispatch = useAppDispatch();
-  const [isUnmounting, setIsUnmounting] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    console.log(isUnmounting);
-  }, [isUnmounting]);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const mapContainer = document.getElementById('__GMAP__')!;
-    mapContainer.style.display = 'block';
+    const gmapContainer = document.getElementById('__GMAP__')!;
 
-    GLOBAL_MAP ?? console.log('Creating new global Map instance');
-    GLOBAL_MAP ??= new google.maps.Map(mapContainer);
+    if (!GLOBAL_MAP) {
+      GLOBAL_MAP = new google.maps.Map(gmapContainer);
+      console.log('Created new global SV instance');
+    }
 
     if (ref.current) {
-      console.log('unmount');
-      const revert = __unsafeToggleElement(mapContainer, ref.current);
+      const undoToggle = unsafeToggleHTMLElement(gmapContainer, ref.current);
       return () => {
-        setIsUnmounting(true);
-        revert();
+        undoToggle();
       };
     }
   }, []);
@@ -76,7 +71,11 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
       const mapBounds = new google.maps.LatLngBounds(sw, ne);
       GLOBAL_MAP.fitBounds(mapBounds, 2);
     }
-  }, [mapData.computed.bbLiteral.NE, mapData.computed.bbLiteral.SW]);
+  }, [
+    GLOBAL_MAP,
+    mapData.computed.bbLiteral.NE,
+    mapData.computed.bbLiteral.SW,
+  ]);
 
   /* If the map is used in preview mode */
   useEffect(() => {
@@ -95,9 +94,7 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
       });
       return () => {
         features.forEach(feat => {
-          if (GLOBAL_MAP) {
-            GLOBAL_MAP.data.remove(feat);
-          }
+          GLOBAL_MAP?.data.remove(feat);
         });
       };
     }

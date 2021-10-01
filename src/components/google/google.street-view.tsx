@@ -1,6 +1,6 @@
 import { config } from '@/config/google';
 import { useAppSelector } from '@/redux/hooks';
-import { __unsafeToggleElement } from '@/utils/misc';
+import { unsafeToggleHTMLElement } from '@/utils/misc';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 
@@ -23,13 +23,15 @@ const GoogleStreetView = () => {
   useEffect(() => {
     const svContainer = document.getElementById('__GSTV__')!;
 
-    GLOBAL_SV ?? console.log('Creating new global SV instance');
-    GLOBAL_SV ??= new google.maps.StreetViewPanorama(svContainer);
+    if (!GLOBAL_SV) {
+      GLOBAL_SV = new google.maps.StreetViewPanorama(svContainer);
+      console.log('Created new global SV instance');
+    }
 
     if (ref.current) {
-      const revert = __unsafeToggleElement(svContainer, ref.current);
+      const undoToggle = unsafeToggleHTMLElement(svContainer, ref.current);
       return () => {
-        revert();
+        undoToggle();
       };
     }
   }, []);
