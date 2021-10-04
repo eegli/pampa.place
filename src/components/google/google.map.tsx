@@ -11,7 +11,7 @@ import React, { useEffect, useRef } from 'react';
 export const GoogleMapRoot = () => {
   return (
     <div
-      id="PARKING"
+      id="__GMAP__CONTAINER__"
       style={{ width: '100%', height: '100%', display: 'none' }}
     >
       <div
@@ -44,15 +44,16 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const gmapContainer = document.getElementById('__GMAP__')!;
+    const mapDiv = document.getElementById('__GMAP__')!;
+    const parking = document.getElementById('__GMAP__CONTAINER__')!;
 
     if (!GLOBAL_MAP) {
-      GLOBAL_MAP = new google.maps.Map(gmapContainer);
+      GLOBAL_MAP = new google.maps.Map(mapDiv);
       console.log('Created new global SV instance');
     }
 
     if (ref.current) {
-      const undoToggle = unsafeToggleHTMLElement(gmapContainer, ref.current);
+      const undoToggle = unsafeToggleHTMLElement(mapDiv, parking, ref.current);
       return () => {
         undoToggle();
       };

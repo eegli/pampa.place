@@ -7,9 +7,14 @@ import React, { useEffect, useRef } from 'react';
 export const GoogleSVRoot = () => {
   return (
     <div
-      id="__GSTV__"
+      id="__GSTV__CONTAINER__"
       style={{ width: '100%', height: '100%', display: 'none' }}
-    />
+    >
+      <div
+        id="__GSTV__"
+        style={{ width: '100%', height: '100%', display: 'none' }}
+      />
+    </div>
   );
 };
 
@@ -22,14 +27,18 @@ const GoogleStreetView = () => {
   // Initialization
   useEffect(() => {
     const svContainer = document.getElementById('__GSTV__')!;
-
+    const parking = document.getElementById('__GSTV__CONTAINER__')!;
     if (!GLOBAL_SV) {
       GLOBAL_SV = new google.maps.StreetViewPanorama(svContainer);
       console.log('Created new global SV instance');
     }
 
     if (ref.current) {
-      const undoToggle = unsafeToggleHTMLElement(svContainer, ref.current);
+      const undoToggle = unsafeToggleHTMLElement(
+        svContainer,
+        parking,
+        ref.current
+      );
       return () => {
         undoToggle();
       };
