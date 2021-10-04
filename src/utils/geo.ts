@@ -31,11 +31,3 @@ export function calcDist(
   const to = turf.point([p2.lng, p2.lat]);
   return turf.distance(from, to, { units });
 }
-// Formats distance
-export function formatDist(meter: number, toFixed = 1): string {
-  if (meter < 0) return '-';
-  if (meter < 1000) {
-    return meter.toFixed(toFixed) + ' m';
-  }
-  return (meter / 1000).toFixed(toFixed) + ' km';
-}

@@ -9,11 +9,7 @@ beforeEach(() => {
 });
 
 jest.spyOn(React, 'useRef').mockReturnValue({
-  current: {
-    style: {
-      display: '',
-    },
-  },
+  current: document.createElement('div'),
 });
 
 // @ts-expect-error

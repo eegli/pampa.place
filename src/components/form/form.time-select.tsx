@@ -1,7 +1,7 @@
 import { config } from '@/config/game';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setTimeLimit } from '@/redux/slices/game';
-import { formatDuration } from '@/utils/misc';
+import { formatDur } from '@/utils/misc';
 import {
   FormControl,
   FormControlLabel,
@@ -24,7 +24,7 @@ const FormTimeLimitSelect = () => {
       <FormLabel component="legend">Time limit</FormLabel>
       <RadioGroup row onChange={handleChange} name="row-radio-buttons-group">
         {config.timeLimits.map(val => {
-          const label = formatDuration(val);
+          const label = formatDur(val);
           return (
             <FormControlLabel
               key={val}

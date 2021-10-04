@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getRoundScores, isFinished } from '@/redux/selectors/game';
 import { finishRound } from '@/redux/slices/game';
-import { formatDist } from '@/utils/geo';
+import { formatDist } from '@/utils/misc';
 import {
   Button,
   Divider,
