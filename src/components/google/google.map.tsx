@@ -49,7 +49,7 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
 
     if (!GLOBAL_MAP) {
       GLOBAL_MAP = new google.maps.Map(mapDiv);
-      console.log('Created new global SV instance');
+      console.log('Created new global Map instance');
     }
 
     if (ref.current) {

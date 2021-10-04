@@ -71,7 +71,7 @@ describe('Form, player name input', () => {
     fireEvent.change(queryPlayerInput()[0], {
       target: { value: 'eric eric eric eric eric eric eric eric eric eric ' },
     });
-    expect(queryPlayerInput()[0]).toHaveValue(expect.any(String));
+    expect(queryPlayerInput()[0]).toHaveValue('eric eric eric eric eric');
   });
 });
 

@@ -16,17 +16,9 @@ jest.spyOn(React, 'useRef').mockReturnValue({
   },
 });
 
-const consoleSpy = jest
-  .spyOn(global.console, 'error')
-  .mockImplementation(() => {});
-
-afterAll(() => {
-  consoleSpy.mockRestore();
-});
-
 // @ts-expect-error
 Map.prototype.data = {
-  addGeoJson: jest.fn(),
+  addGeoJson: jest.fn().mockImplementation(() => []),
   setStyle: jest.fn(),
 };
 
@@ -36,6 +28,6 @@ describe('Google Map', () => {
       <GoogleMap mapData={testMap} mode={MapMode.PREVIEW} />
     );
 
-    expect(container).toMatchSnapshot();
+    expect(container.firstChild).toMatchSnapshot();
   });
 });

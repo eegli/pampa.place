@@ -26,19 +26,16 @@ const GoogleStreetView = () => {
 
   // Initialization
   useEffect(() => {
-    const svContainer = document.getElementById('__GSTV__')!;
+    const svDiv = document.getElementById('__GSTV__')!;
     const parking = document.getElementById('__GSTV__CONTAINER__')!;
+
     if (!GLOBAL_SV) {
-      GLOBAL_SV = new google.maps.StreetViewPanorama(svContainer);
+      GLOBAL_SV = new google.maps.StreetViewPanorama(svDiv);
       console.log('Created new global SV instance');
     }
 
     if (ref.current) {
-      const undoToggle = unsafeToggleHTMLElement(
-        svContainer,
-        parking,
-        ref.current
-      );
+      const undoToggle = unsafeToggleHTMLElement(svDiv, parking, ref.current);
       return () => {
         undoToggle();
       };
