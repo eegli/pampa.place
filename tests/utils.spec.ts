@@ -1,4 +1,9 @@
-import { formatDist, formatDur, min } from '../src/utils/misc';
+import {
+  formatDist,
+  formatDur,
+  min,
+  unsafeToggleHTMLElement,
+} from '../src/utils/misc';
 
 describe('Utils, misc', () => {
   test('min utility', () => {
@@ -16,6 +21,26 @@ describe('Utils, misc', () => {
     expect(formatDur(122)).toEqual('2m 2s');
   });
   test('distance formatting utility', () => {
-    expect(formatDist(0)).toEqual('0m');
+    expect(formatDist(0)).toEqual('0.0 m');
+    expect(formatDist(-1)).toEqual('-');
+    expect(formatDist(1000)).toEqual('1.0 km');
+  });
+  test('toggle element', () => {
+    const originContainer = document.createElement('div');
+    const tempContainer = document.createElement('div');
+    const child = document.createElement('div');
+
+    originContainer.appendChild(child);
+    expect(originContainer.hasChildNodes()).toBeTruthy();
+
+    const undo = unsafeToggleHTMLElement(child, originContainer, tempContainer);
+    expect(originContainer.hasChildNodes()).toBeFalsy();
+    expect(tempContainer.hasChildNodes()).toBeTruthy();
+    expect(child).toHaveStyle('display:block');
+
+    undo();
+    expect(originContainer.hasChildNodes()).toBeTruthy();
+    expect(tempContainer.hasChildNodes()).toBeFalsy();
+    expect(child).toHaveStyle('display:none');
   });
 });

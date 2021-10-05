@@ -6,20 +6,18 @@ exports[`Form, map preview renders map options 1`] = `
 >
   <div
     id="__GMAP__CONTAINER__"
-    style="width: 100%; height: 100%; display: none;"
   >
     <div
       id="__GMAP__"
-      style="width: 100%; height: 100%; display: none;"
+      style="height: 100%; display: none;"
     />
   </div>
   <div
     id="__GSTV__CONTAINER__"
-    style="width: 100%; height: 100%; display: none;"
   >
     <div
       id="__GSTV__"
-      style="width: 100%; height: 100%; display: none;"
+      style="height: 100%; display: none;"
     />
   </div>
 </div>
@@ -29,20 +27,18 @@ exports[`Form, map preview renders map options 2`] = `
 <div>
   <div
     id="__GMAP__CONTAINER__"
-    style="width: 100%; height: 100%; display: none;"
   >
     <div
       id="__GMAP__"
-      style="width: 100%; height: 100%; display: none;"
+      style="height: 100%; display: none;"
     />
   </div>
   <div
     id="__GSTV__CONTAINER__"
-    style="width: 100%; height: 100%; display: none;"
   >
     <div
       id="__GSTV__"
-      style="width: 100%; height: 100%; display: none;"
+      style="height: 100%; display: none;"
     />
   </div>
 </div>

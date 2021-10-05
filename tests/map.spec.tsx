@@ -8,6 +8,8 @@ beforeEach(() => {
   initialize();
 });
 
+const mockMap = Map as jest.MockedClass<typeof Map>;
+
 jest.spyOn(React, 'useRef').mockReturnValue({
   current: document.createElement('div'),
 });
@@ -23,7 +25,7 @@ describe('Google Map', () => {
     const { container } = render(
       <GoogleMap mapData={testMap} mode={MapMode.PREVIEW} />
     );
-
+    expect(mockMap.mock).toMatchInlineSnapshot(`undefined`);
     expect(container.firstChild).toMatchSnapshot();
   });
 });
