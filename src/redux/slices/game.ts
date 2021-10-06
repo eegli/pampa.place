@@ -1,5 +1,5 @@
 import { defaults } from '@/config/game';
-import { defaultMap, LatLngLiteral, MapData } from '@/config/maps';
+import { LatLngLiteral, mapIds, MAPS } from '@/config/maps';
 import { calcDist, calcScore } from '@/utils/geo';
 import { OrNull } from '@/utils/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -25,8 +25,7 @@ export enum STATUS {
 
 interface GameState {
   status: STATUS;
-
-  map: MapData;
+  mapId: string;
   players: {
     names: string[];
     scores: Record<string, Player>;
@@ -42,7 +41,7 @@ interface GameState {
 const initialState: GameState = {
   status: STATUS.PENDING_START,
 
-  map: defaultMap,
+  mapId: mapIds[0],
   players: {
     names: [],
     scores: {},
@@ -76,8 +75,8 @@ const gameSlice = createSlice({
     setTimeLimit(state, action: PayloadAction<number>) {
       state.timeLimit = action.payload;
     },
-    setMap(state, action: PayloadAction<MapData>) {
-      state.map = action.payload;
+    setMap(state, action: PayloadAction<string>) {
+      state.mapId = action.payload;
     },
     initGame(state) {
       if (!state.players.names.length) {
@@ -129,7 +128,7 @@ const gameSlice = createSlice({
       // User managed to set a location
       if (payload.selected && payload.initial) {
         dist = calcDist(payload.initial, payload.selected);
-        score = calcScore(state.map.computed.area, dist);
+        score = calcScore(MAPS[state.mapId].computed.area, dist);
         selected = payload.selected;
       }
 

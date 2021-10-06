@@ -1,5 +1,5 @@
 import { config } from '@/config/google';
-import { LatLngLiteral, MapData } from '@/config/maps';
+import { LatLngLiteral, MAPS } from '@/config/maps';
 import { markers } from '@/config/markers';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
@@ -23,7 +23,7 @@ export enum MapMode {
 }
 
 export type GoogleMapProps = {
-  mapData: MapData;
+  activeMapId: string;
   mode: MapMode;
   scores?: (Result & {
     name: string;
@@ -33,7 +33,12 @@ export type GoogleMapProps = {
 
 export let GLOBAL_MAP: google.maps.Map | undefined;
 
-const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
+const GoogleMap = ({
+  mode,
+  scores,
+  initialPos,
+  activeMapId,
+}: GoogleMapProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
 
@@ -59,18 +64,15 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
       GLOBAL_MAP.setOptions({
         ...config.map,
       });
-      const sw = new google.maps.LatLng(mapData.computed.bbLiteral.SW);
-      const ne = new google.maps.LatLng(mapData.computed.bbLiteral.NE);
+      const map = MAPS[activeMapId];
+      const sw = new google.maps.LatLng(map.computed.bbLiteral.SW);
+      const ne = new google.maps.LatLng(map.computed.bbLiteral.NE);
 
       /* Order in constructor is important! SW, NE  */
       const mapBounds = new google.maps.LatLngBounds(sw, ne);
       GLOBAL_MAP.fitBounds(mapBounds, 2);
     }
-  }, [
-    GLOBAL_MAP,
-    mapData.computed.bbLiteral.NE,
-    mapData.computed.bbLiteral.SW,
-  ]);
+  }, [activeMapId]);
 
   /* If the map is used in preview mode */
   useEffect(() => {
@@ -81,7 +83,7 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
         mapTypeControl: false,
         gestureHandling: 'none',
       });
-      const features = GLOBAL_MAP.data.addGeoJson(mapData.base);
+      const features = GLOBAL_MAP.data.addGeoJson(MAPS[activeMapId].base);
       GLOBAL_MAP.data.setStyle({
         fillColor: '#003d80',
         fillOpacity: 0.2,
@@ -93,7 +95,7 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
         });
       };
     }
-  }, [mode, mapData.base]);
+  }, [mode, activeMapId]);
 
   /* Map in actual game mode */
   useEffect(() => {
@@ -179,5 +181,5 @@ const GoogleMap = ({ mode, scores, initialPos, mapData }: GoogleMapProps) => {
 };
 
 export default React.memo(GoogleMap, (prev, curr) => {
-  return prev.mode === curr.mode && prev.mapData.name === curr.mapData.name;
+  return prev.mode === curr.mode && prev.activeMapId === curr.activeMapId;
 });

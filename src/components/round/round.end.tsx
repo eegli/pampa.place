@@ -24,7 +24,7 @@ const RoundEnd = () => {
   const initialPosition = useAppSelector(
     ({ position }) => position.initialPosition
   );
-  const activeMap = useAppSelector(({ game }) => game.map);
+  const activeMapId = useAppSelector(({ game }) => game.mapId);
   const isGameFinished = useAppSelector(isFinished);
 
   function handleClick() {
@@ -71,7 +71,7 @@ const RoundEnd = () => {
       {initialPosition && (
         <GoogleMap
           mode={MapMode.RESULT}
-          mapData={activeMap}
+          activeMapId={activeMapId}
           scores={scores}
           initialPos={initialPosition}
         />

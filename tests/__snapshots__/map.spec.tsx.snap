@@ -5,9 +5,3 @@ exports[`Google Map renders 1`] = `
   id="__GMAP__CONTAINER__"
 />
 `;
-
-exports[`Google Map renders 2`] = `
-<div
-  id="__GMAP__CONTAINER__"
-/>
-`;

@@ -1,14 +1,15 @@
 import { initialize, Map } from '@googlemaps/jest-mocks';
 import React from 'react';
-import GoogleMap, { MapMode } from '../src/components/google/google.map';
+import GoogleMap, {
+  GLOBAL_MAP,
+  MapMode,
+} from '../src/components/google/google.map';
 import { testMap } from './payloads/map-data';
 import { render } from './test-utils';
 
 beforeEach(() => {
   initialize();
 });
-
-const mockMap = Map as jest.MockedClass<typeof Map>;
 
 jest.spyOn(React, 'useRef').mockReturnValue({
   current: document.createElement('div'),
@@ -22,10 +23,12 @@ Map.prototype.data = {
 
 describe('Google Map', () => {
   it('renders', () => {
+    expect(GLOBAL_MAP).toBeUndefined();
     const { container } = render(
       <GoogleMap mapData={testMap} mode={MapMode.PREVIEW} />
     );
-    expect(mockMap.mock).toMatchInlineSnapshot(`undefined`);
+    expect(GLOBAL_MAP).not.toBeUndefined();
+    expect(GLOBAL_MAP.fitBounds).toHaveBeenCalledTimes(1);
     expect(container.firstChild).toMatchSnapshot();
   });
 });

@@ -1,9 +1,10 @@
 import { config } from '@/config/google';
-import { LatLngLiteral } from '@/config/maps';
+import { LatLngLiteral, MAPS } from '@/config/maps';
 import { RootState } from '@/redux/store';
 import { randomPointInMap } from '@/utils/geo';
 import { OrNull } from '@/utils/types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 interface ValidationErrors {
   code: 'ZERO_RESULTS';
   endpoint: string;
@@ -59,7 +60,7 @@ export const getRandomStreetView = createAsyncThunk<
     try {
       const { data } = await service.getPanorama({
         ...reqDefaults,
-        location: randomPointInMap(game.map),
+        location: randomPointInMap(MAPS[game.mapId]),
       });
 
       // Avoid non-serializable data through redux

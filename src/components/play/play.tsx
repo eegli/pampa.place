@@ -12,7 +12,7 @@ const Play = () => {
   const dispatch = useAppDispatch();
   const [showMap, setShowMap] = useState<boolean>(false);
 
-  const activeMap = useAppSelector(({ game }) => game.map);
+  const activeMapId = useAppSelector(({ game }) => game.mapId);
   const activePlayer = useAppSelector(getActivePlayer);
   const initialPos = useAppSelector(({ position }) => position.initialPosition);
   const selectedPos = useAppSelector(
@@ -67,7 +67,7 @@ const Play = () => {
           {initialPos && <StreetView />}
         </div>
 
-        <Map key="map" mode={MapMode.PLAY} mapData={activeMap} />
+        <Map key="map" mode={MapMode.PLAY} activeMapId={activeMapId} />
       </Box>
     </Box>
   );
