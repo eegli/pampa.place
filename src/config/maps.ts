@@ -1,6 +1,6 @@
 import * as turf from '@turf/turf';
 import { BBox, FeatureCollection, Polygon } from '@turf/turf';
-import customMaps from '../../custom-maps';
+import customMaps from '../../maps';
 
 export type LatLngLiteral = { lat: number; lng: number };
 type BBoxLiteral = Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;

@@ -8,13 +8,8 @@ const config = {
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/',
   }),
-  roots: ['<rootDir>/src/', '<rootDir>/tests/'],
-  testMatch: [
-    '**/tests/**/*.[jt]s?(x)',
-    '!**/tests/**/test-utils.[jt]s?(x)',
-    '!**/tests/payloads/**/*',
-    '**/?(*.)+(spec|test).[jt]s?(x)',
-  ],
+  roots: ['<rootDir>/src/'],
+  testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   testEnvironment: 'jsdom',
 };
 

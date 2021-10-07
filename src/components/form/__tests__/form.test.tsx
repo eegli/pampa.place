@@ -1,13 +1,13 @@
+import { createMockStore, fireEvent, render, screen } from '@/tests/test-utils';
 import React from 'react';
-import Form from '../src/components/form/form';
-import MapPreview from '../src/components/form/form.map-preview';
-import FormMapSelect from '../src/components/form/form.map-select';
-import FormPlayers from '../src/components/form/form.players';
-import FormRoundSelect from '../src/components/form/form.round-select';
-import FormTimeLimitSelect from '../src/components/form/form.time-select';
-import { config } from '../src/config/game';
-import { STATUS } from '../src/redux/slices/game';
-import { createMockStore, fireEvent, render, screen } from './test-utils';
+import { config } from '../../../config/game';
+import { STATUS } from '../../../redux/slices/game';
+import Form from '../form';
+import MapPreview from '../form.map-preview';
+import FormMapSelect from '../form.map-select';
+import FormPlayers from '../form.players';
+import FormRoundSelect from '../form.round-select';
+import FormTimeLimitSelect from '../form.time-select';
 
 jest.mock('next/router', () => ({
   useRouter() {

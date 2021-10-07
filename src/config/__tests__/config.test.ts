@@ -1,8 +1,5 @@
-import {
-  config as gameConfig,
-  defaults as gameDefaults,
-} from '../src/config/game';
-import { markers } from '../src/config/markers';
+import { config as gameConfig, defaults as gameDefaults } from '../game';
+import { markers } from '../markers';
 
 describe('Config', () => {
   it('defines a marker color for each player', () => {
