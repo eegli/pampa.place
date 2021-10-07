@@ -1,7 +1,7 @@
+import { config } from '@/config/game';
+import { STATUS } from '@/redux/slices/game';
 import { createMockStore, fireEvent, render, screen } from '@/tests/test-utils';
 import React from 'react';
-import { config } from '../../../config/game';
-import { STATUS } from '../../../redux/slices/game';
 import Form from '../form';
 import MapPreview from '../form.map-preview';
 import FormMapSelect from '../form.map-select';

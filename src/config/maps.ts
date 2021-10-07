@@ -2,14 +2,19 @@ import * as turf from '@turf/turf';
 import { BBox, FeatureCollection, Polygon } from '@turf/turf';
 import customMaps from '../../maps';
 
+if (!Object.keys(customMaps).length) {
+  throw new Error('No maps found! Provide at least one custom map');
+}
+
 export type LatLngLiteral = { lat: number; lng: number };
-type BBoxLiteral = Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
 
 // All maps need to be a polygon feature collection
 type BaseMapData = FeatureCollection<Polygon>;
+
 // Custom map input
 export type CustomMaps = Record<string, BaseMapData>;
 
+// Full map properties with additional data
 export type FullMapData = {
   name: string;
   computed: {
@@ -20,22 +25,18 @@ export type FullMapData = {
     // Used to generate a random point
     bb: BBox;
     // Poly bounding box: SW SE NE NW
-    bbLiteral: BBoxLiteral;
+    bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
   };
   // Base can be used directly with google maps
   base: BaseMapData;
 };
 
-type Maps = Record<keyof typeof customMaps, FullMapData>;
-
-export const MAPS: Maps = {};
-
-for (const [name, base] of Object.entries(customMaps)) {
+export const MAPS = Object.entries(customMaps).reduce((acc, [name, base]) => {
   const bb = turf.bbox(base);
   const bbPoly = turf.bboxPolygon(bb);
   const center = turf.center(base).geometry.coordinates;
 
-  MAPS[name] = {
+  acc[name] = {
     name,
     base,
     computed: {
@@ -62,8 +63,8 @@ for (const [name, base] of Object.entries(customMaps)) {
       },
     },
   };
-}
 
-export const mapIds = Object.keys(MAPS).sort();
-/* export const defaultMap = MAPS[0];
- */
+  return acc;
+}, <Record<string, FullMapData>>{});
+
+export const mapIds = Object.keys(customMaps).sort();
