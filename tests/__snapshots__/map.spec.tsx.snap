@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Google Map renders 1`] = `
-<div
-  id="__GMAP__CONTAINER__"
-/>
-`;
