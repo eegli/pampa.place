@@ -2,32 +2,55 @@ import { mapIds } from '@/config/maps';
 import { render } from '@/tests/test-utils';
 import { initialize, Map } from '@googlemaps/jest-mocks';
 import React from 'react';
-import GoogleMap, { GLOBAL_MAP, MapMode } from '../google.map';
+import GoogleMap, { GLOBAL_MAP, MapMode, resetGlobalMap } from '../google.map';
 
 beforeEach(() => {
-  jest.resetModules();
   initialize();
+});
+
+afterEach(() => {
+  resetGlobalMap();
 });
 
 jest.spyOn(React, 'useRef').mockReturnValue({
   current: document.createElement('div'),
 });
 
+// Return at least one element to test the cleanup function
+const mockAddGeoJSON = jest
+  .fn()
+  .mockImplementation(() => ['feature 1', 'feature 2', 'feature 3']);
+const mockSetStyle = jest.fn();
+const mockRemove = jest.fn();
+
 // @ts-expect-error
 Map.prototype.data = {
-  addGeoJson: jest.fn().mockImplementation(() => []),
-  setStyle: jest.fn(),
+  addGeoJson: mockAddGeoJSON,
+  setStyle: mockSetStyle,
+  remove: mockRemove,
 };
 
+const testMapId = mapIds[0];
+
 describe('Google Map', () => {
-  it('renders', () => {
+  it('renders google map', () => {
     expect(GLOBAL_MAP).toBeUndefined();
-    const { container } = render(
-      <GoogleMap activeMapId={mapIds[0]} mode={MapMode.PREVIEW} />
-    );
+    const { container } = render(<GoogleMap activeMapId={testMapId} />);
+
     expect(GLOBAL_MAP).not.toBeUndefined();
     expect(GLOBAL_MAP).toBeInstanceOf(Map);
     expect(GLOBAL_MAP!.fitBounds).toHaveBeenCalledTimes(1);
     expect(container.querySelector('#__GMAP__CONTAINER__')).toBeInTheDocument();
+    expect(container.querySelector('#__GMAP__')).toHaveStyle('height:100%');
+  });
+  it('has preview mode', () => {
+    const { unmount } = render(
+      <GoogleMap activeMapId={testMapId} mode={MapMode.PREVIEW} />
+    );
+
+    expect(mockAddGeoJSON).toHaveBeenCalledTimes(1);
+    expect(mockSetStyle).toHaveBeenCalledTimes(1);
+    unmount();
+    expect(mockRemove).toHaveBeenCalledTimes(3);
   });
 });

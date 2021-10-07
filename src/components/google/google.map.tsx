@@ -24,12 +24,17 @@ export enum MapMode {
 
 export type GoogleMapProps = {
   activeMapId: string;
-  mode: MapMode;
+  mode?: MapMode;
   scores?: (Result & {
     name: string;
   })[];
   initialPos?: LatLngLiteral;
 };
+
+// Testing utility because imports cannot be changed
+export function resetGlobalMap() {
+  GLOBAL_MAP = undefined;
+}
 
 export let GLOBAL_MAP: google.maps.Map | undefined;
 
