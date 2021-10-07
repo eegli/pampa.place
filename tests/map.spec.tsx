@@ -4,7 +4,7 @@ import GoogleMap, {
   GLOBAL_MAP,
   MapMode,
 } from '../src/components/google/google.map';
-import { testMap } from './payloads/map-data';
+import { testMap, testMapId } from './payloads/map-data';
 import { render } from './test-utils';
 
 beforeEach(() => {
@@ -14,6 +14,11 @@ beforeEach(() => {
 jest.spyOn(React, 'useRef').mockReturnValue({
   current: document.createElement('div'),
 });
+
+jest.mock('../src/config/maps', () => ({
+  MAPS: testMap,
+  mapIds: testMapId,
+}));
 
 // @ts-expect-error
 Map.prototype.data = {
@@ -25,7 +30,7 @@ describe('Google Map', () => {
   it('renders', () => {
     expect(GLOBAL_MAP).toBeUndefined();
     const { container } = render(
-      <GoogleMap mapData={testMap} mode={MapMode.PREVIEW} />
+      <GoogleMap activeMapId={testMapId} mode={MapMode.PREVIEW} />
     );
     expect(GLOBAL_MAP).not.toBeUndefined();
     expect(GLOBAL_MAP.fitBounds).toHaveBeenCalledTimes(1);

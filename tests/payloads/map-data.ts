@@ -1,7 +1,9 @@
-import { MapData } from '@/config/maps';
+import { FullMapData } from '../../src/config/maps';
 
-export const testMap: MapData = {
-  name: 'Zurich',
+export const testMapId = 'Zurich';
+
+export const testMap: FullMapData = {
+  name: testMapId,
   base: {
     type: 'FeatureCollection',
     features: [

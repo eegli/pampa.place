@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Form from '../components/form/form';
-import { PageContentContainer } from '../styles/';
+import { PageContentContainer } from '../styles';
 
 const HomePage = () => {
   return (

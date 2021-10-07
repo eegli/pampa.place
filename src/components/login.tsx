@@ -3,7 +3,7 @@ import { setApiKey } from '@/redux/slices/app';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
-import { AuthReq, AuthRes } from '../pages/api/auth';
+import { AuthReq, AuthRes } from '../pages/api/auth.page';
 import { PageContentContainer } from '../styles';
 
 const Login = () => {
