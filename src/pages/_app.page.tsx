@@ -9,15 +9,9 @@ import Login from '../components/login';
 import LoadingProgress from '../components/progress';
 import Spinner from '../components/spinner';
 import { useAppSelector } from '../redux/hooks';
-import { store } from '../redux/store';
+import { RootState, store } from '../redux/store';
 import { PageContentContainer } from '../styles';
 import GlobalStyles from '../styles/global';
-
-export const theme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
 
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
@@ -44,19 +38,26 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   return <Wrapper apiKey={apiKey} render={render} />;
 };
 
+export const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
+  const activeTheme = useAppSelector((s: RootState) => s.app.theme);
+  const theme = createTheme({ palette: { mode: activeTheme } });
+
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+};
+
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <GoogleMapRoot />
-        <GoogleSVRoot />
-        <GlobalStyles />
-        <CssBaseline />
-        <LoadingProgress />
-        <AuthWrapper>
+      <GoogleMapRoot />
+      <GoogleSVRoot />
+      <GlobalStyles />
+      <CssBaseline />
+      <LoadingProgress />
+      <AuthWrapper>
+        <ThemeWrapper>
           <Component {...pageProps} />
-        </AuthWrapper>
-      </ThemeProvider>
+        </ThemeWrapper>
+      </AuthWrapper>
     </Provider>
   );
 };
