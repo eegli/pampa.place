@@ -1,48 +1,76 @@
-import HomeIcon from '@mui/icons-material/Home';
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import MenuIcon from '@mui/icons-material/Menu';
+import {
+  AppBar,
+  Box,
+  Divider,
+  IconButton,
+  Link,
+  Paper,
+  Toolbar,
+} from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { toggleTheme } from '../redux/slices/app';
+import { RootState } from '../redux/store';
 
-type HeaderProps = {
-  home?: boolean;
-};
+const Header = () => {
+  const activeTheme = useAppSelector((s: RootState) => s.app.theme);
+  const dispatch = useAppDispatch();
 
-const Header = ({ home }: HeaderProps) => {
   function handleClick() {
-    /*   history.push('/'); */
+    dispatch(toggleTheme());
   }
 
-  function handleReset() {
-    /*   history.push('/'); */
-  }
   return (
     <>
-      {/* enableColorOnDark */}
-      <AppBar position="fixed" color="secondary">
-        <Toolbar variant="dense">
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <HomeIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1 }}
-            onClick={handleClick}
-          >
-            Maps
-          </Typography>
-          {!home && (
-            <Button color="inherit" onClick={handleReset}>
-              Home
-            </Button>
-          )}
-        </Toolbar>
+      <AppBar position="fixed">
+        <Paper elevation={1}>
+          <Toolbar sx={{ py: 1 }}>
+            <Box sx={{ flexGrow: 1 }}>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
+
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={handleClick}
+            >
+              {activeTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+            </IconButton>
+
+            <Divider orientation="vertical" variant="middle" flexItem />
+            <Link
+              href="https://www.github.com/eegli/geoguesser"
+              target="_blank"
+              rel="noopener"
+              color="text.primary"
+            >
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mx: 1 }}
+              >
+                <GitHubIcon />
+              </IconButton>
+            </Link>
+          </Toolbar>
+        </Paper>
       </AppBar>
-      <Toolbar variant="dense" />
+      <Toolbar sx={{ py: 1 }} />
     </>
   );
 };

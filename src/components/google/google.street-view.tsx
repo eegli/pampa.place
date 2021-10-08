@@ -7,7 +7,7 @@ import React, { useEffect, useRef } from 'react';
 export const GoogleSVRoot = () => {
   return (
     <div id="__GSTV__CONTAINER__">
-      <div id="__GSTV__" style={{ height: '100%', display: 'none' }} />
+      <div id="__GSTV__" style={{ height: '100%' }} />
     </div>
   );
 };

@@ -11,7 +11,7 @@ import React, { useEffect, useRef } from 'react';
 export const GoogleMapRoot = () => {
   return (
     <div id="__GMAP__CONTAINER__">
-      <div id="__GMAP__" style={{ height: '100%', display: 'none' }} />
+      <div id="__GMAP__" style={{ height: '100%' }} />
     </div>
   );
 };

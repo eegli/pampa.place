@@ -11,6 +11,7 @@ export const config: GoogleConfig = {
   streetview: {
     zoom: 0,
     addressControl: false,
+    motionTracking: false,
     zoomControl: false,
     showRoadLabels: false,
     fullscreenControl: false,

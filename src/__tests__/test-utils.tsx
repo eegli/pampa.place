@@ -1,11 +1,10 @@
-import { ThemeProvider } from '@mui/material';
 import { configureStore } from '@reduxjs/toolkit';
 import { render, RenderOptions } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { GoogleMapRoot } from '../components/google/google.map';
 import { GoogleSVRoot } from '../components/google/google.street-view';
-import { theme } from '../pages/_app.page';
+import { ThemeWrapper } from '../pages/_app.page';
 import { rootReducer } from '../redux/store';
 
 export function createMockStore() {
@@ -24,11 +23,11 @@ const customRender = (
   const Wrapper: React.FC = ({ children }) => {
     return (
       <Provider store={providerStore}>
-        <ThemeProvider theme={theme}>
+        <ThemeWrapper>
           <GoogleMapRoot />
           <GoogleSVRoot />
           {children}
-        </ThemeProvider>
+        </ThemeWrapper>
       </Provider>
     );
   };

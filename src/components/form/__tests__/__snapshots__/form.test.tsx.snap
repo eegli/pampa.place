@@ -9,7 +9,7 @@ exports[`Form, map preview renders map options 1`] = `
   >
     <div
       id="__GMAP__"
-      style="height: 100%; display: none;"
+      style="height: 100%;"
     />
   </div>
   <div
@@ -17,7 +17,7 @@ exports[`Form, map preview renders map options 1`] = `
   >
     <div
       id="__GSTV__"
-      style="height: 100%; display: none;"
+      style="height: 100%;"
     />
   </div>
 </div>
@@ -30,7 +30,7 @@ exports[`Form, map preview renders map options 2`] = `
   >
     <div
       id="__GMAP__"
-      style="height: 100%; display: none;"
+      style="height: 100%;"
     />
   </div>
   <div
@@ -38,7 +38,7 @@ exports[`Form, map preview renders map options 2`] = `
   >
     <div
       id="__GSTV__"
-      style="height: 100%; display: none;"
+      style="height: 100%;"
     />
   </div>
 </div>
