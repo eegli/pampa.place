@@ -1,12 +1,12 @@
-import { CustomMaps } from '@/config/maps';
+import { BaseMapData } from '@/config/maps';
 
-const maps: CustomMaps = {
-  Zurich: {
+const maps: BaseMapData[] = [
+  {
     type: 'FeatureCollection',
     features: [
       {
         type: 'Feature',
-        properties: {},
+        properties: { name: 'Zurich' },
         geometry: {
           type: 'Polygon',
           coordinates: [
@@ -27,12 +27,12 @@ const maps: CustomMaps = {
       },
     ],
   },
-  Frauenfeld: {
+  {
     type: 'FeatureCollection',
     features: [
       {
         type: 'Feature',
-        properties: {},
+        properties: { name: 'Frauenfeld' },
         geometry: {
           type: 'Polygon',
           coordinates: [
@@ -50,12 +50,12 @@ const maps: CustomMaps = {
       },
     ],
   },
-  Switzerland: {
+  {
     type: 'FeatureCollection',
     features: [
       {
         type: 'Feature',
-        properties: {},
+        properties: { name: 'Switzerland' },
         geometry: {
           type: 'Polygon',
           coordinates: [
@@ -161,6 +161,6 @@ const maps: CustomMaps = {
       },
     ],
   },
-};
+];
 
 export default maps;

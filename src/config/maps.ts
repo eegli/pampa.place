@@ -1,5 +1,5 @@
 import * as turf from '@turf/turf';
-import { BBox, FeatureCollection, Polygon } from '@turf/turf';
+import { BBox, FeatureCollection, MultiPolygon, Polygon } from '@turf/turf';
 import customMaps from '../../maps';
 
 if (!Object.keys(customMaps).length) {
@@ -9,14 +9,14 @@ if (!Object.keys(customMaps).length) {
 export type LatLngLiteral = { lat: number; lng: number };
 
 // All maps need to be a polygon feature collection
-type BaseMapData = FeatureCollection<Polygon>;
-
-// Custom map input
-export type CustomMaps = Record<string, BaseMapData>;
+type Properties = {
+  name: string;
+};
+export type BaseMapData = FeatureCollection<Polygon | MultiPolygon, Properties>;
 
 // Full map properties with additional data
 export type FullMapData = {
-  name: string;
+  type: 'custom' | 'default';
   computed: {
     // Area in km^2
     area: number;
@@ -31,16 +31,16 @@ export type FullMapData = {
   base: BaseMapData;
 };
 
-export const MAPS = Object.entries(customMaps).reduce((acc, [name, base]) => {
-  const bb = turf.bbox(base);
+export const MAPS = customMaps.reduce((acc, curr) => {
+  const bb = turf.bbox(curr);
   const bbPoly = turf.bboxPolygon(bb);
-  const center = turf.center(base).geometry.coordinates;
+  const center = turf.center(curr.features[0]).geometry.coordinates;
 
-  acc[name] = {
-    name,
-    base,
+  acc[curr.features[0].properties.name] = {
+    base: curr,
+    type: 'custom',
     computed: {
-      area: turf.area(base) * 1e-6,
+      area: turf.area(curr) * 1e-6,
       center: { lng: center[0], lat: center[1] },
       bb,
       bbLiteral: {
