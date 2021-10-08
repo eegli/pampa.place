@@ -36,6 +36,9 @@ const PlayHeader = ({ player, timerCallback }: PlayHeaderProps) => {
 
   return (
     <Box px={2} my={2} width="100%" display="flex">
+      <IconButton sx={{ mx: 2 }} size="large" onClick={handleClick}>
+        <HomeIcon />
+      </IconButton>
       <Stack
         flexGrow={1}
         display="flex"
@@ -71,10 +74,6 @@ const PlayHeader = ({ player, timerCallback }: PlayHeaderProps) => {
           </Typography>
         </Box>
       </Stack>
-
-      <IconButton sx={{ mx: 2 }} size="large" edge="end" onClick={handleClick}>
-        <HomeIcon />
-      </IconButton>
     </Box>
   );
 };
