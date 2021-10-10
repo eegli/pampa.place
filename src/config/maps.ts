@@ -1,5 +1,11 @@
 import * as turf from '@turf/turf';
-import { BBox, FeatureCollection, Geometry, Polygon } from '@turf/turf';
+import {
+  BBox,
+  Feature,
+  FeatureCollection,
+  MultiPolygon,
+  Polygon,
+} from '@turf/turf';
 import _countries from '../../data/world.json';
 import _custom from '../../maps';
 
@@ -18,7 +24,7 @@ export type CustomMaps = FeatureCollection<Polygon, Properties>[];
 
 // Full map properties with additional data
 export type FullMapData = {
-  type: 'custom' | 'default';
+  type: 'custom' | 'country';
   computed: {
     // Area in km^2
     area: number;
@@ -30,19 +36,24 @@ export type FullMapData = {
     bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
   };
   // Base can be used directly with google maps
-  geo: Geometry;
+  geo: Feature<Polygon | MultiPolygon, Properties>;
 };
 
 export type MapConfig = Record<string, FullMapData>;
 
-export const countryMaps = _countries.features.reduce((acc, curr) => {
+const countries = _countries as FeatureCollection<
+  Polygon | MultiPolygon,
+  Properties
+>;
+
+export const countryMaps = countries.features.reduce((acc, curr) => {
   const bb = turf.bbox(curr);
   const bbPoly = turf.bboxPolygon(bb);
   const center = turf.center(curr.geometry).geometry.coordinates;
 
   acc[curr.properties.name] = {
-    geo: curr.geometry,
-    type: 'custom',
+    geo: curr,
+    type: 'country',
     computed: {
       area: turf.area(curr.geometry) * 1e-6,
       center: { lng: center[0], lat: center[1] },
@@ -77,7 +88,7 @@ export const customMaps = _custom.reduce((acc, curr) => {
   const center = turf.center(curr.features[0]).geometry.coordinates;
 
   acc[curr.features[0].properties.name] = {
-    geo: curr.features[0].geometry,
+    geo: curr.features[0],
     type: 'custom',
     computed: {
       area: turf.area(curr) * 1e-6,

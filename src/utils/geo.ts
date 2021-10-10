@@ -4,7 +4,7 @@ import * as turf from '@turf/turf';
 export function randomPointInMap(map: FullMapData): LatLngLiteral {
   do {
     const random = turf.randomPoint(20, { bbox: map.computed.bb });
-    const ptsWithin = turf.pointsWithinPolygon(random, map.base);
+    const ptsWithin = turf.pointsWithinPolygon(random, map.geo);
     if (ptsWithin.features.length) {
       const pt = ptsWithin.features[0].geometry.coordinates;
       return { lng: pt[0], lat: pt[1] };

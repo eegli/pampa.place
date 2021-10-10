@@ -1,4 +1,4 @@
-import { mapIds } from '@/config/maps';
+import { MAP_IDS } from '@/config/maps';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setMap } from '@/redux/slices/game';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -49,7 +49,7 @@ const FormMapSelect = () => {
             </InputAdornment>
           }
         >
-          {mapIds.map(map => (
+          {MAP_IDS.map(map => (
             <MenuItem key={map} value={map}>
               {map}
             </MenuItem>
