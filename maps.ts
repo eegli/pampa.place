@@ -1,6 +1,6 @@
-import { BaseMapData } from '@/config/maps';
+import { CustomMaps } from '@/config/maps';
 
-const maps: BaseMapData[] = [
+const maps: CustomMaps = [
   {
     type: 'FeatureCollection',
     features: [
@@ -50,7 +50,7 @@ const maps: BaseMapData[] = [
       },
     ],
   },
-  {
+  /*  {
     type: 'FeatureCollection',
     features: [
       {
@@ -160,7 +160,7 @@ const maps: BaseMapData[] = [
         },
       },
     ],
-  },
+  }, */
 ];
 
 export default maps;

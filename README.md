@@ -8,6 +8,8 @@ The maps and related data conform to the [GeoJSON standard](https://en.wikipedia
 
 ## Links
 
+- [Map data](https://github.com/openlayers/openlayers/blob/main/examples/data/geojson/countries.geojson)
+- [Country polygons](https://github.com/johan/world.geo.json/blob/master/countries.geo.json)
 - [GeoJSON stuff](https://macwright.com/2015/03/23/geojson-second-bite.html#features)
 - [https://geojson.io/](https://geojson.io/)
 - [Country polygon data](https://datahub.io/core/geo-countries#resource-geo-countries_zip)

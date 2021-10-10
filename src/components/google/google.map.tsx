@@ -1,5 +1,5 @@
 import { config } from '@/config/google';
-import { LatLngLiteral, MAPS } from '@/config/maps';
+import { customMaps, LatLngLiteral } from '@/config/maps';
 import { markers } from '@/config/markers';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
@@ -69,7 +69,7 @@ const GoogleMap = ({
       GLOBAL_MAP.setOptions({
         ...config.map,
       });
-      const map = MAPS[activeMapId];
+      const map = customMaps[activeMapId];
       const sw = new google.maps.LatLng(map.computed.bbLiteral.SW);
       const ne = new google.maps.LatLng(map.computed.bbLiteral.NE);
 
@@ -88,7 +88,7 @@ const GoogleMap = ({
         mapTypeControl: false,
         gestureHandling: 'none',
       });
-      const features = GLOBAL_MAP.data.addGeoJson(MAPS[activeMapId].base);
+      const features = GLOBAL_MAP.data.addGeoJson(customMaps[activeMapId].geo);
       GLOBAL_MAP.data.setStyle({
         fillColor: '#003d80',
         fillOpacity: 0.2,
