@@ -52,16 +52,16 @@ export const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider store={store}>
-      <GoogleMapRoot />
-      <GoogleSVRoot />
-      <GlobalStyles />
-      <CssBaseline />
-      <LoadingProgress />
-      <AuthWrapper>
-        <ThemeWrapper>
+      <ThemeWrapper>
+        <GoogleMapRoot />
+        <GoogleSVRoot />
+        <GlobalStyles />
+        <CssBaseline />
+        <LoadingProgress />
+        <AuthWrapper>
           <Component {...pageProps} />
-        </ThemeWrapper>
-      </AuthWrapper>
+        </AuthWrapper>
+      </ThemeWrapper>
     </Provider>
   );
 };

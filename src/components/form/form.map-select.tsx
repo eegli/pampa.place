@@ -1,4 +1,4 @@
-import { MAP_IDS } from '@/config/maps';
+import { COUNTRY_MAP_IDS, CUSTOM_MAP_IDS } from '@/config/maps';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setMap } from '@/redux/slices/game';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -8,6 +8,7 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  ListSubheader,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -32,9 +33,21 @@ const FormMapSelect = () => {
       <FormControl fullWidth component="fieldset">
         <InputLabel>Select map</InputLabel>
         <Select
+          id="form-map-select"
           value={activeMapId}
           label="Select map"
           onChange={handleMapSelect}
+          MenuProps={{
+            style: { padding: 0 },
+            anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'left',
+            },
+            transformOrigin: {
+              vertical: 'top',
+              horizontal: 'left',
+            },
+          }}
           endAdornment={
             <InputAdornment position="start">
               <IconButton
@@ -49,8 +62,16 @@ const FormMapSelect = () => {
             </InputAdornment>
           }
         >
-          {MAP_IDS.map(map => (
-            <MenuItem key={map} value={map}>
+          <ListSubheader>Custom</ListSubheader>
+          {CUSTOM_MAP_IDS.map(map => (
+            <MenuItem sx={{ maxWidth: 330 }} key={map} value={map}>
+              {map}
+            </MenuItem>
+          ))}
+
+          <ListSubheader>Countries</ListSubheader>
+          {COUNTRY_MAP_IDS.map(map => (
+            <MenuItem sx={{ maxWidth: 330 }} key={map} value={map}>
               {map}
             </MenuItem>
           ))}

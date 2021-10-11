@@ -8,6 +8,7 @@ The maps and related data conform to the [GeoJSON standard](https://en.wikipedia
 
 ## Links
 
+- [More map data](https://hub.arcgis.com/datasets/252471276c9941729543be8789e06e12_0/explore?location=6.177935%2C-7.522465%2C4.59)
 - [Map data](https://github.com/openlayers/openlayers/blob/main/examples/data/geojson/countries.geojson)
 - [Country polygons](https://github.com/johan/world.geo.json/blob/master/countries.geo.json)
 - [GeoJSON stuff](https://macwright.com/2015/03/23/geojson-second-bite.html#features)

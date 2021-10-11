@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { countries, nthQuery } from '../../common';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log(req.query);
   const queryId = nthQuery(req.query.id);
   const mapId = Object.keys(countries).find(
     key => key.toLowerCase() === queryId.toLowerCase()

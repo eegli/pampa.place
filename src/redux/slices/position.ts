@@ -53,7 +53,7 @@ export const getRandomStreetView = createAsyncThunk<
 
     const service = new window.google.maps.StreetViewService();
     const reqDefaults: google.maps.StreetViewLocationRequest = {
-      preference: google.maps.StreetViewPreference.NEAREST,
+      preference: google.maps.StreetViewPreference.BEST,
       radius: params?.radius || config.svRequest.radius,
     };
 

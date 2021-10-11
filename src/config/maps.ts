@@ -6,7 +6,7 @@ import {
   MultiPolygon,
   Polygon,
 } from '@turf/turf';
-import _countries from '../../data/world.json';
+import _countries from '../../data/world_2.json';
 import _custom from '../../maps';
 
 if (!Object.keys(_custom).length) {
@@ -120,7 +120,5 @@ export const customMaps = _custom.reduce((acc, curr) => {
 
 export const MAPS = { ...customMaps, ...countryMaps };
 
-export const MAP_IDS = [
-  ...Object.keys(customMaps).sort(),
-  ...Object.keys(countryMaps).sort(),
-];
+export const CUSTOM_MAP_IDS = [...Object.keys(customMaps).sort()];
+export const COUNTRY_MAP_IDS = [...Object.keys(countryMaps).sort()];
