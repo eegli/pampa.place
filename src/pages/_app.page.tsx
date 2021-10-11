@@ -1,6 +1,6 @@
 import { Status, Wrapper } from '@googlemaps/react-wrapper';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-import type { AppProps } from 'next/app';
+import type { AppProps, NextWebVitalsMetric } from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { GoogleMapRoot } from '../components/google/google.map';
@@ -12,6 +12,10 @@ import { useAppSelector } from '../redux/hooks';
 import { RootState, store } from '../redux/store';
 import { PageContentContainer } from '../styles';
 import GlobalStyles from '../styles/global';
+
+export function reportWebVitals(metric: NextWebVitalsMetric) {
+  console.log(metric);
+}
 
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const apiKey = useAppSelector(s => s.app.apiKey);

@@ -27,13 +27,13 @@ const StyleHeader = styled('h3')`
     background-repeat: no-repeat;
   }
 
-  & > span:first-child {
+  & > span:first-of-type {
     display: block;
     text-shadow: 0 0 0.1em #8ba2d0, 0 0 0.2em black, 0 0 0.5em #165ff3;
     -webkit-text-stroke: 0.06em rgba(black, 0.5);
   }
 
-  & > span:last-child {
+  & > span:last-of-type {
     position: absolute;
     left: 0;
     top: 0;
