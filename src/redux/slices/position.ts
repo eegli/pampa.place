@@ -24,62 +24,54 @@ interface PositionState {
   // The user selected position
   selectedPosition: OrNull<LatLngLiteral>;
 
+  searchRadius: number;
+
   error: OrNull<ValidationErrors>;
   loading: boolean;
 }
 
-type RandomRequest = {
-  radius: number;
-};
-
 const initialState: PositionState = {
   initialPosition: null, //{ lat: 51.492145, lng: -0.192983 },
   selectedPosition: null,
+  searchRadius: config.svRequest.radius,
   loading: false,
   error: null,
 };
 
 export const getRandomStreetView = createAsyncThunk<
   LatLngLiteral,
-  RandomRequest | void,
+  void,
   {
     rejectValue: ValidationErrors;
     state: RootState;
   }
->(
-  'location/getRandomStreetView',
-  async (params, { rejectWithValue, getState }) => {
-    const { game } = getState();
+>('location/getRandomStreetView', async (_, { rejectWithValue, getState }) => {
+  const { game, position } = getState();
 
-    const service = new window.google.maps.StreetViewService();
-    const reqDefaults: google.maps.StreetViewLocationRequest = {
-      preference: google.maps.StreetViewPreference.BEST,
-      radius: params?.radius || config.svRequest.radius,
-    };
+  const service = new window.google.maps.StreetViewService();
+  const reqDefaults: google.maps.StreetViewLocationRequest = {
+    preference: google.maps.StreetViewPreference.BEST,
+    radius: 1000,
+  };
 
-    try {
-      const { data } = await service.getPanorama({
-        ...reqDefaults,
-        location: randomPointInMap(MAPS[game.mapId]),
-      });
+  try {
+    const { data } = await service.getPanorama({
+      ...reqDefaults,
+      location: randomPointInMap(MAPS[game.mapId]),
+    });
 
-      // Avoid non-serializable data through redux
-      const location = data.location?.latLng;
-      const lat = location?.lat() || 0;
-      const lng = location?.lng() || 0;
+    // Avoid non-serializable data through redux
+    const location = data.location?.latLng;
+    const lat = location?.lat() || 0;
+    const lng = location?.lng() || 0;
 
-      /*       const panoId = data.location?.pano;
-
-      if (panoId && window.__GSTV) {
-        window.__GSTV.setPano(panoId);
-      } */
-      return { lat, lng };
-    } catch (e) {
-      let err = e as ValidationErrors;
-      return rejectWithValue(err);
-    }
+    console.log('yes');
+    return { lat, lng };
+  } catch (e) {
+    let err = e as ValidationErrors;
+    return rejectWithValue(err);
   }
-);
+});
 
 const positonSlice = createSlice({
   name: 'position',
@@ -99,6 +91,7 @@ const positonSlice = createSlice({
         state.initialPosition = action.payload;
         state.loading = false;
         state.error = null;
+        state.searchRadius = config.svRequest.radius;
       }
     );
     builder.addCase(getRandomStreetView.pending, state => {
@@ -108,6 +101,7 @@ const positonSlice = createSlice({
         if (action.payload) {
           state.loading = false;
           state.error = action.payload;
+          state.searchRadius = state.searchRadius * 100;
         }
       });
   },

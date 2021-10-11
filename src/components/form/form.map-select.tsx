@@ -62,14 +62,14 @@ const FormMapSelect = () => {
             </InputAdornment>
           }
         >
-          <ListSubheader>Custom</ListSubheader>
+          <ListSubheader color="inherit">Custom</ListSubheader>
           {CUSTOM_MAP_IDS.map(map => (
             <MenuItem sx={{ maxWidth: 330 }} key={map} value={map}>
               {map}
             </MenuItem>
           ))}
 
-          <ListSubheader>Countries</ListSubheader>
+          <ListSubheader color="inherit">Countries</ListSubheader>
           {COUNTRY_MAP_IDS.map(map => (
             <MenuItem sx={{ maxWidth: 330 }} key={map} value={map}>
               {map}

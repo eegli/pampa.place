@@ -25,7 +25,7 @@ const GamePage = () => {
   }, [router, status]);
 
   async function handleRetry() {
-    await dispatch(getRandomStreetView({ radius: 100000 }));
+    await dispatch(getRandomStreetView());
   }
 
   function render() {
