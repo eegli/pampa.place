@@ -67,7 +67,7 @@ const Play = () => {
           {initialPos && <StreetView />}
         </div>
 
-        <Map key="map" mode={MapMode.PLAY} activeMapId={activeMapId} />
+        <Map mode={MapMode.PLAY} activeMapId={activeMapId} />
       </Box>
     </Box>
   );

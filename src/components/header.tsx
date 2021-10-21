@@ -33,7 +33,6 @@ const Header = () => {
                 size="large"
                 edge="start"
                 color="inherit"
-                aria-label="menu"
                 sx={{ mr: 2 }}
               >
                 <MenuIcon />
@@ -44,7 +43,7 @@ const Header = () => {
               size="large"
               edge="start"
               color="inherit"
-              aria-label="menu"
+              sx={{ mx: 1 }}
               onClick={handleClick}
             >
               {activeTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
@@ -61,7 +60,6 @@ const Header = () => {
                 size="large"
                 edge="start"
                 color="inherit"
-                aria-label="menu"
                 sx={{ mx: 1 }}
               >
                 <GitHubIcon />

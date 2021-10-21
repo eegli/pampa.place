@@ -55,7 +55,7 @@ export const PageContentContainer = ({
       }}
     >
       <Container
-        maxWidth="xl"
+        maxWidth={false} // "xl"
         sx={{
           // Required for darkmode to work, see example:
           // https://next.material-ui.com/customization/palette/#toggling-color-mode
