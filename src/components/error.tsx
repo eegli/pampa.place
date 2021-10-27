@@ -11,7 +11,7 @@ const Error = ({ callback, title, info, reason }: ErrorPros) => {
   const errTitle = title || 'Something went wrong';
 
   return (
-    <Box padding={4}>
+    <Box padding={4} margin="auto">
       <Alert variant="outlined" severity="error">
         <AlertTitle>{errTitle}</AlertTitle>
         <p>{info}</p>

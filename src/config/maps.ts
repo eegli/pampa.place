@@ -80,7 +80,7 @@ export const countryMaps = countries.features.reduce((acc, curr) => {
   };
   acc;
   return acc;
-}, <MapConfig>{});
+}, {} as MapConfig);
 
 export const customMaps = _custom.reduce((acc, curr) => {
   const bb = turf.bbox(curr);
@@ -116,7 +116,7 @@ export const customMaps = _custom.reduce((acc, curr) => {
   };
 
   return acc;
-}, <MapConfig>{});
+}, {} as MapConfig);
 
 export const MAPS = { ...customMaps, ...countryMaps };
 

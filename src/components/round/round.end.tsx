@@ -5,7 +5,6 @@ import { formatDist } from '@/utils/misc';
 import {
   Box,
   Button,
-  Divider,
   Stack,
   Tab,
   Table,
@@ -19,35 +18,13 @@ import {
 import { SyntheticEvent, useState } from 'react';
 import { SlimContainer } from '../../styles';
 import GoogleMap, { MapMode } from '../google/google.map';
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-    >
-      {value === index && (
-        <Box sx={{ p: 1 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
+import TabPanel from '../tabs/tabs.panel';
 
 const RoundEnd = () => {
-  const [value, setValue] = useState(0);
+  const [selectedPanel, setSelectedPanel] = useState(0);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setSelectedPanel(newValue);
   };
   const dispatch = useAppDispatch();
 
@@ -69,18 +46,26 @@ const RoundEnd = () => {
 
   return (
     <>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} centered>
+      <Box py={2}>
+        <Tabs value={selectedPanel} onChange={handleChange} centered>
           <Tab label="Result" />
           <Tab label="Map" />
           <Tab label="Location" />
         </Tabs>
-      </Box>{' '}
-      <SlimContainer>
-        <TabPanel value={value} index={0}>
-          <Stack direction="column" alignItems="center" spacing={3}>
-            <Typography variant="h3">Round {currentRound} is over!</Typography>
-            <Divider orientation="horizontal" flexItem />
+      </Box>
+
+      <TabPanel selected={selectedPanel} index={0}>
+        <SlimContainer id="round-end-table">
+          <Stack
+            direction="column"
+            alignItems="center"
+            spacing={3}
+            width="100%"
+          >
+            <Typography variant="h4" alignSelf="flex-start">
+              Round {currentRound} is over!
+            </Typography>
+
             <Table size="small" aria-label="a dense table">
               <TableHead>
                 <TableRow>
@@ -106,24 +91,30 @@ const RoundEnd = () => {
             <Button onClick={handleClick} variant="contained" color="primary">
               {text}
             </Button>
-          </Stack>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <Box height="100%">
-            {initialPosition && (
-              <GoogleMap
-                mode={MapMode.RESULT}
-                activeMapId={activeMapId}
-                scores={scores}
-                initialPos={initialPosition}
-              />
-            )}
-          </Box>
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
-        </TabPanel>
-      </SlimContainer>
+          </Stack>{' '}
+        </SlimContainer>
+      </TabPanel>
+
+      <TabPanel selected={selectedPanel} index={1}>
+        <Box height="100%" id="round-end-map">
+          {initialPosition && (
+            <GoogleMap
+              mode={MapMode.RESULT}
+              activeMapId={activeMapId}
+              scores={scores}
+              initialPos={initialPosition}
+            />
+          )}
+        </Box>
+      </TabPanel>
+
+      <TabPanel selected={selectedPanel} index={2}>
+        <SlimContainer id="round-end-sv">
+          <Typography variant="h4" alignSelf="flex-start">
+            Map details
+          </Typography>
+        </SlimContainer>{' '}
+      </TabPanel>
     </>
   );
 };

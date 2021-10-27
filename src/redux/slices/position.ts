@@ -24,6 +24,8 @@ interface PositionState {
   // The user selected position
   selectedPosition: OrNull<LatLngLiteral>;
 
+  panoId: string;
+  panoDescription: string;
   searchRadius: number;
 
   error: OrNull<ValidationErrors>;
@@ -33,13 +35,20 @@ interface PositionState {
 const initialState: PositionState = {
   initialPosition: null, //{ lat: 51.492145, lng: -0.192983 },
   selectedPosition: null,
+  panoId: '',
+  panoDescription: '',
   searchRadius: config.svRequest.radius,
   loading: false,
   error: null,
 };
 
+type RandomSVRes = { pos: LatLngLiteral } & Pick<
+  PositionState,
+  'panoDescription' | 'panoId'
+>;
+
 export const getRandomStreetView = createAsyncThunk<
-  LatLngLiteral,
+  RandomSVRes,
   void,
   {
     rejectValue: ValidationErrors;
@@ -60,13 +69,17 @@ export const getRandomStreetView = createAsyncThunk<
       location: randomPointInMap(MAPS[game.mapId]),
     });
 
+    console.log(data);
+
     // Avoid non-serializable data through redux
     const location = data.location?.latLng;
     const lat = location?.lat() || 0;
     const lng = location?.lng() || 0;
 
-    console.log('yes');
-    return { lat, lng };
+    const panoId = data.location?.pano || '';
+    const panoDescription = data.location?.description || '';
+
+    return { pos: { lat, lng }, panoId, panoDescription };
   } catch (e) {
     let err = e as ValidationErrors;
     return rejectWithValue(err);
@@ -87,8 +100,10 @@ const positonSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(
       getRandomStreetView.fulfilled,
-      (state, action: PayloadAction<LatLngLiteral>) => {
-        state.initialPosition = action.payload;
+      (state, action: PayloadAction<RandomSVRes>) => {
+        state.initialPosition = action.payload.pos;
+        state.panoId = action.payload.panoId;
+        state.panoDescription = action.payload.panoDescription;
         state.loading = false;
         state.error = null;
         state.searchRadius = config.svRequest.radius;

@@ -1,4 +1,3 @@
-import { config } from '@/config/game';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setTimeLimit } from '@/redux/slices/game';
 import { formatDur } from '@/utils/misc';
@@ -11,7 +10,12 @@ import {
 } from '@mui/material';
 import { ChangeEvent } from 'react';
 
-const FormTimeLimitSelect = () => {
+type FormTimeLimitProps = {
+  timeLimits: number[];
+};
+
+const FormTimeLimitSelect = (props: FormTimeLimitProps) => {
+  const { timeLimits } = props;
   const selected = useAppSelector(({ game }) => game.timeLimit);
   const dispatch = useAppDispatch();
 
@@ -22,15 +26,15 @@ const FormTimeLimitSelect = () => {
   return (
     <FormControl component="fieldset" sx={{ mb: 3 }}>
       <FormLabel component="legend">Time limit</FormLabel>
-      <RadioGroup row onChange={handleChange} name="row-radio-buttons-group">
-        {config.timeLimits.map(val => {
+      <RadioGroup row onChange={handleChange} name="form-time-select">
+        {timeLimits.map(val => {
           const label = formatDur(val);
           return (
             <FormControlLabel
               key={val}
               value={val}
               checked={val === selected}
-              control={<Radio />}
+              control={<Radio checked={val === selected} />}
               label={label}
             />
           );

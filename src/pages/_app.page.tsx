@@ -14,7 +14,7 @@ import { PageContentContainer } from '../styles';
 import GlobalStyles from '../styles/global';
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
-  console.log(metric);
+  // console.log(metric);
 }
 
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {

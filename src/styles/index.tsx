@@ -1,13 +1,14 @@
 import {
   Box,
   BoxProps,
+  Breakpoint,
   Container,
   ContainerProps,
   styled,
 } from '@mui/material';
 
 interface SlimContainerProps extends BoxProps {
-  fullHeight?: boolean;
+  breakpoint?: Breakpoint;
 }
 
 // Shared container that can be applied to all "info" screens -
@@ -16,19 +17,18 @@ interface SlimContainerProps extends BoxProps {
 // is no other content on the page (currently needed for
 // "intermission" and "final result")
 export const SlimContainer = styled(Box)<SlimContainerProps>(
-  ({ theme, fullHeight }) => ({
-    maxWidth: theme.breakpoints.values['sm'],
-    padding: theme.spacing(1),
+  ({ theme, breakpoint }) => ({
+    maxWidth: breakpoint
+      ? theme.breakpoints.values[breakpoint]
+      : theme.breakpoints.values['sm'],
+    padding: theme.spacing(2),
     flexWrap: 'wrap',
-    height: fullHeight ? '100%' : 'auto',
     width: '100%',
     color: theme.palette.primary.light,
     display: 'flex',
     flexFlow: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
+    margin: `${theme.spacing(1)} auto ${theme.spacing(1)} auto`,
   })
 );
 
@@ -62,7 +62,6 @@ export const PageContentContainer = ({
           bgcolor: 'background.default',
           color: 'text.primary',
           display: 'flex',
-          justifyContent: 'center',
           alignItems: 'center',
           height: customHeight,
           flexFlow: 'column',

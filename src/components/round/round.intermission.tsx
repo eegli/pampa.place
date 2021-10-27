@@ -31,9 +31,9 @@ const RoundIntermission = () => {
   }
 
   return (
-    <SlimContainer fullHeight>
-      <Stack direction="column" alignItems="center" spacing={3}>
-        <Typography variant="h3" align="center">
+    <SlimContainer height="100%" id="c-round-intermission">
+      <Stack direction="column" alignItems="center" spacing={3} margin="auto">
+        <Typography variant="h4" align="center">
           {players[0]}, it&apos;s your turn!
         </Typography>
         <Divider orientation="horizontal" flexItem />

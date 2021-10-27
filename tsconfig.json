@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,12 +19,28 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/config/*": ["src/config/*"],
-      "@/redux/*": ["src/redux/*"],
-      "@/utils/*": ["src/utils/*"],
-      "@/tests/*": ["src/__tests__/*"]
-    }
+      "@/config/*": [
+        "src/config/*"
+      ],
+      "@/redux/*": [
+        "src/redux/*"
+      ],
+      "@/utils/*": [
+        "src/utils/*"
+      ],
+      "@/tests/*": [
+        "src/__tests__/*"
+      ]
+    },
+    "incremental": true
   },
-  "include": ["next-env.d.ts", "maps.ts", "src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "maps.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

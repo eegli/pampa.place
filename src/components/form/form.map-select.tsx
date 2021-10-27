@@ -1,4 +1,3 @@
-import { COUNTRY_MAP_IDS, CUSTOM_MAP_IDS } from '@/config/maps';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setMap } from '@/redux/slices/game';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -18,7 +17,13 @@ import { useState } from 'react';
 import Map, { MapMode } from '../google/google.map';
 import MapPreview from './form.map-preview';
 
-const FormMapSelect = () => {
+type FormMapSelectProps = {
+  countryMapIds: string[];
+  customMapIds: string[];
+};
+
+const FormMapSelect = (props: FormMapSelectProps) => {
+  const { countryMapIds, customMapIds } = props;
   const [previewMap, setPreviewMap] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -63,14 +68,14 @@ const FormMapSelect = () => {
           }
         >
           <ListSubheader color="inherit">Custom</ListSubheader>
-          {CUSTOM_MAP_IDS.map(map => (
+          {customMapIds.map(map => (
             <MenuItem sx={{ maxWidth: 330 }} key={map} value={map}>
               {map}
             </MenuItem>
           ))}
 
           <ListSubheader color="inherit">Countries</ListSubheader>
-          {COUNTRY_MAP_IDS.map(map => (
+          {countryMapIds.map(map => (
             <MenuItem sx={{ maxWidth: 330 }} key={map} value={map}>
               {map}
             </MenuItem>

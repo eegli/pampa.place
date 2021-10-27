@@ -1,4 +1,4 @@
-import { mapIds } from '@/config/maps';
+import { testMapIds } from '@/tests/payloads/map-data';
 import { render } from '@/tests/test-utils';
 import { initialize, Map } from '@googlemaps/jest-mocks';
 import React from 'react';
@@ -30,12 +30,12 @@ Map.prototype.data = {
   remove: mockRemove,
 };
 
-const testMapId = mapIds[0];
+const activeMapId = testMapIds[0];
 
 describe('Google Map', () => {
   it('renders google map', () => {
     expect(GLOBAL_MAP).toBeUndefined();
-    const { container } = render(<GoogleMap activeMapId={testMapId} />);
+    const { container } = render(<GoogleMap activeMapId={activeMapId} />);
 
     expect(GLOBAL_MAP).not.toBeUndefined();
     expect(GLOBAL_MAP).toBeInstanceOf(Map);
@@ -45,7 +45,7 @@ describe('Google Map', () => {
   });
   it('has preview mode', () => {
     const { unmount } = render(
-      <GoogleMap activeMapId={testMapId} mode={MapMode.PREVIEW} />
+      <GoogleMap activeMapId={activeMapId} mode={MapMode.PREVIEW} />
     );
 
     expect(mockAddGeoJSON).toHaveBeenCalledTimes(1);
