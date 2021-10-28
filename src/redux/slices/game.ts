@@ -40,8 +40,7 @@ interface GameState {
 
 const initialState: GameState = {
   status: STATUS.PENDING_START,
-
-  mapId: CUSTOM_MAP_IDS[0],
+  mapId: CUSTOM_MAP_IDS[0].id,
   players: {
     names: [],
     scores: {},

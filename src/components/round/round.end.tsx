@@ -119,11 +119,7 @@ const RoundEnd = () => {
 
       <TabPanel selected={selectedPanel} index={2}>
         <Box height="100%" id="round-end-map">
-          {initialPosition && (
-            <GoogleStreetView
-              opts={{ clickToGo: false, disableDoubleClickZoom: true }}
-            />
-          )}
+          {initialPosition && <GoogleStreetView staticPos />}
         </Box>
       </TabPanel>
 

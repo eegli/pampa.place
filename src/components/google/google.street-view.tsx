@@ -13,12 +13,12 @@ export const GoogleSVRoot = () => {
 };
 
 type GoogleStreetViewProps = {
-  opts?: google.maps.StreetViewPanoramaOptions;
+  staticPos: boolean;
 };
 
 export let GLOBAL_SV: google.maps.StreetViewPanorama | undefined;
 
-const GoogleStreetView = ({ opts }: GoogleStreetViewProps) => {
+const GoogleStreetView = ({ staticPos = false }: GoogleStreetViewProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const panoId = useAppSelector(({ position }) => position.panoId);
 
@@ -42,14 +42,19 @@ const GoogleStreetView = ({ opts }: GoogleStreetViewProps) => {
 
   useEffect(() => {
     if (GLOBAL_SV && panoId) {
-      const options = { ...config.streetview, ...opts };
       GLOBAL_SV.setPano(panoId);
       GLOBAL_SV.setOptions({
-        ...options,
+        ...config.streetview,
       });
+      // Don't allow movement
+      if (staticPos) {
+        GLOBAL_SV.setOptions({
+          clickToGo: false,
+          disableDoubleClickZoom: true,
+        });
+      }
     }
-    // TODO static instead
-  }, [panoId, opts]);
+  }, [panoId, staticPos]);
 
   return (
     <Fade in timeout={500}>

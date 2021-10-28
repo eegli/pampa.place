@@ -62,16 +62,16 @@ export const swissMaps = europe.features.reduce((acc, curr) => {
   const bbPoly = turf.bboxPolygon(bb);
   const center = turf.center(curr.geometry).geometry.coordinates;
 
-  let key = curr.properties.NAME_LATN;
+  let name = curr.properties.NAME_LATN;
 
   if (curr.properties.NAME_LATN === 'Schweiz/Suisse/Svizzera') {
-    key = 'Schweiz';
+    name = 'Schweiz';
   }
 
-  const id = nanoid(8);
+  const id = nanoid(12);
 
-  acc[key] = {
-    geo: { ...curr, properties: { name: key, type: 'default' } },
+  acc[id] = {
+    geo: { ...curr, properties: { name, type: 'default' } },
     computed: {
       area: turf.area(curr.geometry) * 1e-6,
       center: { lng: center[0], lat: center[1] },
@@ -105,7 +105,9 @@ export const customMaps = _custom.reduce((acc, curr) => {
   const bbPoly = turf.bboxPolygon(bb);
   const center = turf.center(curr.features[0]).geometry.coordinates;
 
-  acc[curr.features[0].properties.name] = {
+  const id = nanoid(12);
+
+  acc[id] = {
     geo: curr.features[0],
     computed: {
       area: turf.area(curr) * 1e-6,
@@ -135,12 +137,22 @@ export const customMaps = _custom.reduce((acc, curr) => {
   return acc;
 }, {} as Maps);
 
-export type MapCollection<T = Maps> = {
-  type: string;
-  data: T;
+export type MapCollectionId = {
+  name: string;
+  id: string;
 };
 
 export const MAPS = { ...swissMaps, ...customMaps };
 
-export const CUSTOM_MAP_IDS = Object.keys(customMaps).sort();
-export const DEFAULT_MAP_IDS = Object.keys(swissMaps).sort();
+export const CUSTOM_MAP_IDS = Object.entries(customMaps)
+  .reduce(
+    (acc, [id, data]) => [...acc, { name: data.geo.properties.name, id }],
+    [] as MapCollectionId[]
+  )
+  .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
+export const DEFAULT_MAP_IDS = Object.entries(swissMaps)
+  .reduce(
+    (acc, [id, data]) => [...acc, { name: data.geo.properties.name, id }],
+    [] as MapCollectionId[]
+  )
+  .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
