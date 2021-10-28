@@ -14,6 +14,7 @@ export const config: GoogleConfig = {
     zoom: 0,
     addressControl: false,
     motionTracking: false,
+    motionTrackingControl: false,
     zoomControl: false,
     showRoadLabels: false,
     fullscreenControl: false,

@@ -6,7 +6,7 @@ const maps: CustomMaps = [
     features: [
       {
         type: 'Feature',
-        properties: { name: 'Zurich' },
+        properties: { name: 'Zurich', type: 'custom' },
         geometry: {
           type: 'Polygon',
           coordinates: [
@@ -32,7 +32,7 @@ const maps: CustomMaps = [
     features: [
       {
         type: 'Feature',
-        properties: { name: 'Frauenfeld' },
+        properties: { name: 'Frauenfeld', type: 'custom' },
         geometry: {
           type: 'Polygon',
           coordinates: [
@@ -55,7 +55,7 @@ const maps: CustomMaps = [
     features: [
       {
         type: 'Feature',
-        properties: { name: 'Alpen' },
+        properties: { name: 'Alpen', type: 'custom' },
         geometry: {
           type: 'Polygon',
           coordinates: [

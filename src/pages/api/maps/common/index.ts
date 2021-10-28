@@ -1,4 +1,4 @@
-import { countryMaps, customMaps, MAPS } from '@/config/maps';
+import { customMaps, defaultMaps, MAPS } from '@/config/maps';
 import { NextApiRequest } from 'next';
 
 export function filterFields(req: NextApiRequest) {
@@ -15,6 +15,9 @@ export function nthQuery<T>(arg: T | T[], index = 0): T {
   return Array.isArray(arg) ? arg[index] : arg;
 }
 
-export const custom = customMaps;
-export const countries = countryMaps;
-export const all = MAPS;
+// TODO
+export default {
+  customMaps,
+  defaultMaps,
+  maps: MAPS,
+};

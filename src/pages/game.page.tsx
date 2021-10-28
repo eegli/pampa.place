@@ -1,28 +1,19 @@
 import { STATUS } from '@/redux/slices/game';
 import { getRandomStreetView } from '@/redux/slices/position';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import Error from '../components/error';
 import Play from '../components/play/play';
 import RoundEnd from '../components/round/round.end';
 import RoundIntermission from '../components/round/round.intermission';
 import RoundResult from '../components/round/round.result';
+import BasicSpeedDial from '../components/speed-dial';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { PageContentContainer } from '../styles';
 
 const GamePage = () => {
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   const status = useAppSelector(({ game }) => game.status);
   const positionError = useAppSelector(({ position }) => position.error);
-
-  // Redirect to home if game has not bee initialized properly
-  useEffect(() => {
-    if (status === STATUS.PENDING_START) {
-      router.push('/');
-    }
-  }, [router, status]);
 
   async function handleRetry() {
     await dispatch(getRandomStreetView());
@@ -67,8 +58,9 @@ const GamePage = () => {
           />
         ) : (
           render()
-        )}
-      </PageContentContainer>
+        )}{' '}
+        <BasicSpeedDial />
+      </PageContentContainer>{' '}
     </>
   );
 };

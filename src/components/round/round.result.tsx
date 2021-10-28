@@ -24,7 +24,7 @@ const RoundResult = () => {
   }
 
   return (
-    <SlimContainer fullHeight>
+    <SlimContainer height="100%">
       <Stack direction="column" alignItems="center" spacing={3}>
         <Typography variant="h3">Game over!</Typography>
         <Typography variant="h5">{result[0].name} wins 🥳</Typography>

@@ -1,5 +1,5 @@
 import { defaults } from '@/config/game';
-import { CUSTOM_MAP_IDS, LatLngLiteral, MAPS } from '@/config/maps';
+import { LatLngLiteral, MAPS, MAP_IDS } from '@/config/maps';
 import { calcDist, calcScore } from '@/utils/geo';
 import { OrNull } from '@/utils/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -40,8 +40,7 @@ interface GameState {
 
 const initialState: GameState = {
   status: STATUS.PENDING_START,
-
-  mapId: CUSTOM_MAP_IDS[0],
+  mapId: MAP_IDS.custom[0].id,
   players: {
     names: [],
     scores: {},
@@ -134,7 +133,6 @@ const gameSlice = createSlice({
 
       const newScore = player.totalScore + score;
       const existingResults = player.results;
-
       state.players.scores[state.players.names[0]] = {
         totalScore: newScore,
         results: [

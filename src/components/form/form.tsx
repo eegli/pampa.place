@@ -1,3 +1,5 @@
+import { config } from '@/config/game';
+import { MAP_IDS } from '@/config/maps';
 import { useAppDispatch } from '@/redux/hooks';
 import { initGame, reset } from '@/redux/slices/game';
 import { Box, Button } from '@mui/material';
@@ -40,9 +42,12 @@ const Form = () => {
         }}
       >
         <FormPlayers />
-        <FormRoundSelect />
-        <FormTimeLimitSelect />
-        <FormMapSelect />
+        <FormRoundSelect rounds={config.rounds} />
+        <FormTimeLimitSelect timeLimits={config.timeLimits} />
+        <FormMapSelect
+          customMapIds={MAP_IDS.custom}
+          defaultMapIds={MAP_IDS.default}
+        />
         <Button
           sx={{
             my: 2,

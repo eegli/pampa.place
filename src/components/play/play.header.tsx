@@ -1,7 +1,6 @@
 import { useAppSelector } from '@/redux/hooks';
 import { formatDur } from '@/utils/misc';
-import HomeIcon from '@mui/icons-material/Home';
-import { Box, Divider, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Divider, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useTimer } from '../../hooks/useTimer';
@@ -36,9 +35,6 @@ const PlayHeader = ({ player, timerCallback }: PlayHeaderProps) => {
 
   return (
     <Box px={2} my={2} width="100%" display="flex">
-      <IconButton sx={{ mx: 2 }} size="large" onClick={handleClick}>
-        <HomeIcon />
-      </IconButton>
       <Stack
         flexGrow={1}
         display="flex"

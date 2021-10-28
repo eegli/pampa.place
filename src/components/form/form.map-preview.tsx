@@ -5,7 +5,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Paper,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -14,10 +13,6 @@ type MapPreviewProps = {
   open: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   children?: React.ReactNode;
-};
-
-const PaperComp = ({ children }: { children: React.ReactNode }) => {
-  return <Paper elevation={1}>{children}</Paper>;
 };
 
 const MapPreview = ({ title, open, setIsOpen, children }: MapPreviewProps) => {
