@@ -42,22 +42,23 @@ const Play = () => {
     >
       <PlayHeader player={activePlayer} timerCallback={submitScore} />
       <Box position="relative" height="100%" width="100%">
-        <StyledMapOverlay pos="right" onClick={() => setShowMap(!showMap)}>
+        <StyledMapOverlay pos="map" onClick={() => setShowMap(!showMap)}>
           {/* eslint-disable-next-line  @next/next/no-img-element */}
           <img src="/map.svg" alt="map-icon" />
         </StyledMapOverlay>
-        {selectedPos && (
-          <StyledMapOverlay pos="left" onClick={() => setShowMap(!showMap)}>
-            <Button
-              size={'large'}
-              variant="contained"
-              color="primary"
-              onClick={submitScore}
-            >
-              Submit
-            </Button>
-          </StyledMapOverlay>
-        )}
+
+        <StyledMapOverlay pos="submit" onClick={() => setShowMap(!showMap)}>
+          <Button
+            size={'large'}
+            variant="contained"
+            color="secondary"
+            onClick={submitScore}
+            disabled={!selectedPos}
+          >
+            Submit
+          </Button>
+        </StyledMapOverlay>
+
         <div
           style={{
             display: showMap ? 'none' : 'block',
