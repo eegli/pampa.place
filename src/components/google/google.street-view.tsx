@@ -48,7 +48,8 @@ const GoogleStreetView = ({ opts }: GoogleStreetViewProps) => {
         ...options,
       });
     }
-  }, [panoId]);
+    // TODO static instead
+  }, [panoId, opts]);
 
   return (
     <Fade in timeout={500}>

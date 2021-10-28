@@ -54,7 +54,7 @@ const europe = _europe as FeatureCollection<
 /* 
 Any map can be created here, it only needs to fit the MapConfig type
 */
-const swissMaps = europe.features.reduce((acc, curr) => {
+export const swissMaps = europe.features.reduce((acc, curr) => {
   if (curr.properties.CNTR_CODE !== 'CH') {
     return acc;
   }
@@ -100,7 +100,7 @@ const swissMaps = europe.features.reduce((acc, curr) => {
   return acc;
 }, {} as Maps);
 
-const customMaps = _custom.reduce((acc, curr) => {
+export const customMaps = _custom.reduce((acc, curr) => {
   const bb = turf.bbox(curr);
   const bbPoly = turf.bboxPolygon(bb);
   const center = turf.center(curr.features[0]).geometry.coordinates;
