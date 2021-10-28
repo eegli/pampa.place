@@ -1,5 +1,4 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setMap } from '@/redux/slices/game';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box,
@@ -14,15 +13,16 @@ import {
   Tooltip,
 } from '@mui/material';
 import { useState } from 'react';
+import { setMap } from '../../redux/slices/game';
 import Map, { MapMode } from '../google/google.map';
 import MapPreview from './form.map-preview';
 
 type FormMapSelectProps = {
-  swissMapIds: string[];
   customMapIds: string[];
+  defaultMapIds: string[];
 };
 
-const FormMapSelect = ({ swissMapIds, customMapIds }: FormMapSelectProps) => {
+const FormMapSelect = ({ customMapIds, defaultMapIds }: FormMapSelectProps) => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -74,7 +74,7 @@ const FormMapSelect = ({ swissMapIds, customMapIds }: FormMapSelectProps) => {
           ))}
 
           <ListSubheader color="inherit">Switzerland</ListSubheader>
-          {swissMapIds.map(map => (
+          {defaultMapIds.map(map => (
             <MenuItem sx={{ maxWidth: 330 }} key={map} value={map}>
               {map}
             </MenuItem>

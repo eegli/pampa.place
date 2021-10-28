@@ -134,7 +134,6 @@ const gameSlice = createSlice({
 
       const newScore = player.totalScore + score;
       const existingResults = player.results;
-
       state.players.scores[state.players.names[0]] = {
         totalScore: newScore,
         results: [

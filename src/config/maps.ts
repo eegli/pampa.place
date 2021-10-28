@@ -6,19 +6,20 @@ import {
   MultiPolygon,
   Polygon,
 } from '@turf/turf';
+import { nanoid } from 'nanoid';
 import _europe from '../../data/NUTS_RG_03M_2021_4326.json';
 import _custom from '../../maps';
 
-if (!Object.keys(_custom).length) {
-  throw new Error('No maps found! Provide at least one custom map');
-}
-
 export type LatLngLiteral = { lat: number; lng: number };
 
-// All maps need to be a polygon feature collection
+export type MapType = 'custom' | 'default';
 type Properties = {
   name: string;
+  type: MapType;
 };
+
+// Custom map input
+export type CustomMaps = FeatureCollection<Polygon, Properties>[];
 
 type EUMapProperties = {
   CNTR_CODE: string;
@@ -27,12 +28,8 @@ type EUMapProperties = {
   FID: string;
 };
 
-// Custom map input
-export type CustomMaps = FeatureCollection<Polygon, Properties>[];
-
 // Full map properties with additional data
-export type FullMapData = {
-  type: 'custom' | 'country';
+export type MapData = {
   computed: {
     // Area in km^2
     area: number;
@@ -44,17 +41,20 @@ export type FullMapData = {
     bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
   };
   // Base can be used directly with google maps
-  geo: Feature<Polygon | MultiPolygon, Properties | EUMapProperties>;
+  geo: Feature<Polygon | MultiPolygon, Properties>;
 };
 
-export type MapConfig = Record<string, FullMapData>;
+export type Maps = Record<string, MapData>;
 
 const europe = _europe as FeatureCollection<
   Polygon | MultiPolygon,
   EUMapProperties
 >;
 
-export const swissMaps = europe.features.reduce((acc, curr) => {
+/* 
+Any map can be created here, it only needs to fit the MapConfig type
+*/
+const swissMaps = europe.features.reduce((acc, curr) => {
   if (curr.properties.CNTR_CODE !== 'CH') {
     return acc;
   }
@@ -68,9 +68,10 @@ export const swissMaps = europe.features.reduce((acc, curr) => {
     key = 'Schweiz';
   }
 
+  const id = nanoid(8);
+
   acc[key] = {
-    geo: curr,
-    type: 'country',
+    geo: { ...curr, properties: { name: key, type: 'default' } },
     computed: {
       area: turf.area(curr.geometry) * 1e-6,
       center: { lng: center[0], lat: center[1] },
@@ -97,16 +98,15 @@ export const swissMaps = europe.features.reduce((acc, curr) => {
   };
   acc;
   return acc;
-}, {} as MapConfig);
+}, {} as Maps);
 
-export const customMaps = _custom.reduce((acc, curr) => {
+const customMaps = _custom.reduce((acc, curr) => {
   const bb = turf.bbox(curr);
   const bbPoly = turf.bboxPolygon(bb);
   const center = turf.center(curr.features[0]).geometry.coordinates;
 
   acc[curr.features[0].properties.name] = {
     geo: curr.features[0],
-    type: 'custom',
     computed: {
       area: turf.area(curr) * 1e-6,
       center: { lng: center[0], lat: center[1] },
@@ -133,9 +133,14 @@ export const customMaps = _custom.reduce((acc, curr) => {
   };
 
   return acc;
-}, {} as MapConfig);
+}, {} as Maps);
 
-export const MAPS = { ...customMaps, ...swissMaps };
+export type MapCollection<T = Maps> = {
+  type: string;
+  data: T;
+};
 
-export const CUSTOM_MAP_IDS = [...Object.keys(customMaps).sort()];
-export const SWISS_MAP_IDS = [...Object.keys(swissMaps).sort()];
+export const MAPS = { ...swissMaps, ...customMaps };
+
+export const CUSTOM_MAP_IDS = Object.keys(customMaps).sort();
+export const DEFAULT_MAP_IDS = Object.keys(swissMaps).sort();

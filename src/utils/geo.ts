@@ -1,10 +1,10 @@
-import { FullMapData, LatLngLiteral } from '@/config/maps';
+import { LatLngLiteral, MapData } from '@/config/maps';
 import * as turf from '@turf/turf';
 
-export function randomPointInMap(map: FullMapData): LatLngLiteral {
+export function randomPointInMap(mapData: MapData): LatLngLiteral {
   do {
-    const random = turf.randomPoint(20, { bbox: map.computed.bb });
-    const ptsWithin = turf.pointsWithinPolygon(random, map.geo);
+    const random = turf.randomPoint(20, { bbox: mapData.computed.bb });
+    const ptsWithin = turf.pointsWithinPolygon(random, mapData.geo);
     if (ptsWithin.features.length) {
       const pt = ptsWithin.features[0].geometry.coordinates;
       return { lng: pt[0], lat: pt[1] };
