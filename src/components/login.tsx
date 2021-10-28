@@ -66,11 +66,13 @@ const Login = () => {
     <PageContentContainer height="100%">
       <Box
         onSubmit={(e: any) => e.preventDefault()}
+        height="100%"
         component="form"
         noValidate
         autoComplete="off"
         display="flex"
         flexDirection="column"
+        justifyContent="center"
         alignItems="flex-end"
         width="80%"
         maxWidth={400}
