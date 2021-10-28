@@ -13,7 +13,7 @@ export const GoogleSVRoot = () => {
 };
 
 type GoogleStreetViewProps = {
-  staticPos: boolean;
+  staticPos?: boolean;
 };
 
 export let GLOBAL_SV: google.maps.StreetViewPanorama | undefined;
