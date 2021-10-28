@@ -1,5 +1,7 @@
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import FlagIcon from '@mui/icons-material/Flag';
 import HomeIcon from '@mui/icons-material/Home';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import ShortcutIcon from '@mui/icons-material/Shortcut';
 import Box from '@mui/material/Box';
@@ -7,6 +9,9 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { toggleTheme } from '../redux/slices/app';
+import { RootState } from '../redux/store';
 import ConfirmationDialog, {
   ConfirmationDialogProps,
 } from './confirmation-dialog';
@@ -55,6 +60,9 @@ export default function SpeedDialTooltipOpen() {
     },
   };
 
+  const activeTheme = useAppSelector((s: RootState) => s.app.theme);
+  const dispatch = useAppDispatch();
+
   return (
     <>
       <Box
@@ -94,6 +102,15 @@ export default function SpeedDialTooltipOpen() {
             tooltipTitle="Home"
             tooltipPlacement="right"
             onClick={() => setDialog(homeDialog)}
+          />
+          <SpeedDialAction
+            key="Mode"
+            icon={
+              activeTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />
+            }
+            tooltipTitle={activeTheme === 'light' ? 'Lights off' : 'Lights on'}
+            tooltipPlacement="right"
+            onClick={() => dispatch(toggleTheme())}
           />
         </SpeedDial>
       </Box>

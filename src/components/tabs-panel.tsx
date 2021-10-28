@@ -1,13 +1,13 @@
-import { Box } from '@mui/material';
+import { Box, BoxProps } from '@mui/material';
 
-interface TabPanelProps {
+interface TabPanelProps extends BoxProps {
   children?: React.ReactNode;
   index: number;
   selected: number;
 }
 
 const TabPanel = (props: TabPanelProps) => {
-  const { children, selected, index } = props;
+  const { children, selected, index, ...rest } = props;
   const shouldDisplay = selected === index;
   if (shouldDisplay) {
     return (
@@ -16,6 +16,7 @@ const TabPanel = (props: TabPanelProps) => {
         width="100%"
         id={`tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
+        {...rest}
       >
         {children}
       </Box>

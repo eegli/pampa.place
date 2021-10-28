@@ -56,13 +56,20 @@ const RoundEnd = () => {
         </Tabs>
       </Box>
 
-      <TabPanel selected={selectedPanel} index={0}>
+      <TabPanel
+        selected={selectedPanel}
+        index={0}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
         <SlimContainer id="round-end-table">
           <Stack
             direction="column"
             alignItems="center"
             spacing={3}
             width="100%"
+            height="100%"
           >
             <Typography variant="h4" alignSelf="flex-start">
               Round {currentRound} is over!

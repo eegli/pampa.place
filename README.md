@@ -8,6 +8,10 @@ The maps and related data conform to the [GeoJSON standard](https://en.wikipedia
 
 ## Links
 
+- EPSG:4326 (WGS84, coordinates in decimal degrees)
+- [Cantons Data](https://gisco-services.ec.europa.eu/distribution/v2/nuts/geojson/NUTS_RG_03M_2021_4326.geojson)
+- [NUTS Regions 2021](https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2021-units.json)
+- [NUTS Classification](https://ec.europa.eu/eurostat/web/nuts/background)
 - [More map data](https://hub.arcgis.com/datasets/252471276c9941729543be8789e06e12_0/explore?location=6.177935%2C-7.522465%2C4.59)
 - [Map data](https://github.com/openlayers/openlayers/blob/main/examples/data/geojson/countries.geojson)
 - [Country polygons](https://github.com/johan/world.geo.json/blob/master/countries.geo.json)

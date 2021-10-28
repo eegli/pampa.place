@@ -18,12 +18,11 @@ import Map, { MapMode } from '../google/google.map';
 import MapPreview from './form.map-preview';
 
 type FormMapSelectProps = {
-  countryMapIds: string[];
+  swissMapIds: string[];
   customMapIds: string[];
 };
 
-const FormMapSelect = (props: FormMapSelectProps) => {
-  const { countryMapIds, customMapIds } = props;
+const FormMapSelect = ({ swissMapIds, customMapIds }: FormMapSelectProps) => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -74,8 +73,8 @@ const FormMapSelect = (props: FormMapSelectProps) => {
             </MenuItem>
           ))}
 
-          <ListSubheader color="inherit">Countries</ListSubheader>
-          {countryMapIds.map(map => (
+          <ListSubheader color="inherit">Switzerland</ListSubheader>
+          {swissMapIds.map(map => (
             <MenuItem sx={{ maxWidth: 330 }} key={map} value={map}>
               {map}
             </MenuItem>

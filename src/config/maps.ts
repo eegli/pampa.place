@@ -6,7 +6,7 @@ import {
   MultiPolygon,
   Polygon,
 } from '@turf/turf';
-import _countries from '../../data/world_2.json';
+import _europe from '../../data/NUTS_RG_03M_2021_4326.json';
 import _custom from '../../maps';
 
 if (!Object.keys(_custom).length) {
@@ -19,6 +19,14 @@ export type LatLngLiteral = { lat: number; lng: number };
 type Properties = {
   name: string;
 };
+
+type EUMapProperties = {
+  CNTR_CODE: string;
+  NAME_LATN: string;
+  NUTS_ID: string;
+  FID: string;
+};
+
 // Custom map input
 export type CustomMaps = FeatureCollection<Polygon, Properties>[];
 
@@ -36,22 +44,31 @@ export type FullMapData = {
     bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
   };
   // Base can be used directly with google maps
-  geo: Feature<Polygon | MultiPolygon, Properties>;
+  geo: Feature<Polygon | MultiPolygon, Properties | EUMapProperties>;
 };
 
 export type MapConfig = Record<string, FullMapData>;
 
-const countries = _countries as FeatureCollection<
+const europe = _europe as FeatureCollection<
   Polygon | MultiPolygon,
-  Properties
+  EUMapProperties
 >;
 
-export const countryMaps = countries.features.reduce((acc, curr) => {
+export const swissMaps = europe.features.reduce((acc, curr) => {
+  if (curr.properties.CNTR_CODE !== 'CH') {
+    return acc;
+  }
   const bb = turf.bbox(curr);
   const bbPoly = turf.bboxPolygon(bb);
   const center = turf.center(curr.geometry).geometry.coordinates;
 
-  acc[curr.properties.name] = {
+  let key = curr.properties.NAME_LATN;
+
+  if (curr.properties.NAME_LATN === 'Schweiz/Suisse/Svizzera') {
+    key = 'Schweiz';
+  }
+
+  acc[key] = {
     geo: curr,
     type: 'country',
     computed: {
@@ -118,7 +135,7 @@ export const customMaps = _custom.reduce((acc, curr) => {
   return acc;
 }, {} as MapConfig);
 
-export const MAPS = { ...customMaps, ...countryMaps };
+export const MAPS = { ...customMaps, ...swissMaps };
 
 export const CUSTOM_MAP_IDS = [...Object.keys(customMaps).sort()];
-export const COUNTRY_MAP_IDS = [...Object.keys(countryMaps).sort()];
+export const SWISS_MAP_IDS = [...Object.keys(swissMaps).sort()];
