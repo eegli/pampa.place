@@ -18,7 +18,8 @@ import {
 import { SyntheticEvent, useState } from 'react';
 import { SlimContainer } from '../../styles';
 import GoogleMap, { MapMode } from '../google/google.map';
-import TabPanel from '../tabs/tabs.panel';
+import GoogleStreetView from '../google/google.street-view';
+import TabPanel from '../tabs-panel';
 
 const RoundEnd = () => {
   const [selectedPanel, setSelectedPanel] = useState(0);
@@ -50,7 +51,8 @@ const RoundEnd = () => {
         <Tabs value={selectedPanel} onChange={handleChange} centered>
           <Tab label="Result" />
           <Tab label="Map" />
-          <Tab label="Location" />
+          <Tab label="Street View" />
+          <Tab label="Info" />
         </Tabs>
       </Box>
 
@@ -91,7 +93,7 @@ const RoundEnd = () => {
             <Button onClick={handleClick} variant="contained" color="primary">
               {text}
             </Button>
-          </Stack>{' '}
+          </Stack>
         </SlimContainer>
       </TabPanel>
 
@@ -109,11 +111,21 @@ const RoundEnd = () => {
       </TabPanel>
 
       <TabPanel selected={selectedPanel} index={2}>
+        <Box height="100%" id="round-end-map">
+          {initialPosition && (
+            <GoogleStreetView
+              opts={{ clickToGo: false, disableDoubleClickZoom: true }}
+            />
+          )}
+        </Box>
+      </TabPanel>
+
+      <TabPanel selected={selectedPanel} index={3}>
         <SlimContainer id="round-end-sv">
-          <Typography variant="h4" alignSelf="flex-start">
+          <Typography variant="h6" alignSelf="flex-start">
             Map details
           </Typography>
-        </SlimContainer>{' '}
+        </SlimContainer>
       </TabPanel>
     </>
   );

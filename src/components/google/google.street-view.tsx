@@ -2,8 +2,7 @@ import { config } from '@/config/google';
 import { useAppSelector } from '@/redux/hooks';
 import { unsafeToggleHTMLElement } from '@/utils/misc';
 import { Fade } from '@mui/material';
-import React, { useRef } from 'react';
-import { useIsomorphicLayoutEffect } from 'react-use';
+import React, { useEffect, useRef } from 'react';
 
 export const GoogleSVRoot = () => {
   return (
@@ -13,14 +12,18 @@ export const GoogleSVRoot = () => {
   );
 };
 
+type GoogleStreetViewProps = {
+  opts?: google.maps.StreetViewPanoramaOptions;
+};
+
 export let GLOBAL_SV: google.maps.StreetViewPanorama | undefined;
 
-const GoogleStreetView = () => {
+const GoogleStreetView = ({ opts }: GoogleStreetViewProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const panoId = useAppSelector(({ position }) => position.panoId);
 
   // Initialization
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     const svDiv = document.getElementById('__GSTV__')!;
     const parking = document.getElementById('__GSTV__CONTAINER__')!;
 
@@ -37,11 +40,12 @@ const GoogleStreetView = () => {
     }
   }, []);
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     if (GLOBAL_SV && panoId) {
+      const options = { ...config.streetview, ...opts };
       GLOBAL_SV.setPano(panoId);
       GLOBAL_SV.setOptions({
-        ...config.streetview,
+        ...options,
       });
     }
   }, [panoId]);

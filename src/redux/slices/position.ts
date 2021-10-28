@@ -55,11 +55,16 @@ export const getRandomStreetView = createAsyncThunk<
     state: RootState;
   }
 >('location/getRandomStreetView', async (_, { rejectWithValue, getState }) => {
-  const { game, position } = getState();
+  const { game } = getState();
+
+  const randomPreference =
+    Math.random() > 0.5
+      ? google.maps.StreetViewPreference.BEST
+      : google.maps.StreetViewPreference.NEAREST;
 
   const service = new window.google.maps.StreetViewService();
   const reqDefaults: google.maps.StreetViewLocationRequest = {
-    preference: google.maps.StreetViewPreference.BEST,
+    preference: randomPreference,
     radius: 1000,
   };
 

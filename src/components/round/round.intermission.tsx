@@ -6,7 +6,7 @@ import {
   resetSelectedPosition,
 } from '@/redux/slices/position';
 import { Button, Divider, Stack, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { SlimContainer } from '../../styles';
 
 const RoundIntermission = () => {
@@ -17,7 +17,7 @@ const RoundIntermission = () => {
   const totalRounds = useAppSelector(({ game }) => game.rounds.total);
   const shouldGetNewSV = useAppSelector(shouldRequestNewSV);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (shouldGetNewSV) {
       (async () => {
         await dispatch(getRandomStreetView());

@@ -9,6 +9,7 @@ import FormMapSelect from './form.map-select';
 import FormPlayers from './form.players';
 import FormRoundSelect from './form.round-select';
 import FormTimeLimitSelect from './form.time-select';
+
 const Form = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
