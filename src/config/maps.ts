@@ -12,21 +12,13 @@ import _custom from '../../maps';
 
 export type LatLngLiteral = { lat: number; lng: number };
 
-export type MapType = 'custom' | 'default';
 type Properties = {
   name: string;
-  type: MapType;
+  type: 'custom' | 'default';
 };
 
 // Custom map input
 export type CustomMaps = FeatureCollection<Polygon, Properties>[];
-
-type EUMapProperties = {
-  CNTR_CODE: string;
-  NAME_LATN: string;
-  NUTS_ID: string;
-  FID: string;
-};
 
 // Full map properties with additional data
 export type MapData = {
@@ -46,15 +38,25 @@ export type MapData = {
 
 export type Maps = Record<string, MapData>;
 
+type EUMapProperties = {
+  CNTR_CODE: string;
+  NAME_LATN: string;
+  NUTS_ID: string;
+  FID: string;
+};
+
 const europe = _europe as FeatureCollection<
   Polygon | MultiPolygon,
   EUMapProperties
 >;
 
 /* 
-Any map can be created here, it only needs to fit the MapConfig type
+Any map can be created here, it only needs to fit the MapConfig type.
+This version uses Swiss maps as default maps.
 */
-export const swissMaps = europe.features.reduce((acc, curr) => {
+
+export const defaultMaps = europe.features.reduce((acc, curr) => {
+  // Filter non-CH properties
   if (curr.properties.CNTR_CODE !== 'CH') {
     return acc;
   }
@@ -68,9 +70,8 @@ export const swissMaps = europe.features.reduce((acc, curr) => {
     name = 'Schweiz';
   }
 
-  const id = nanoid(12);
-
-  acc[id] = {
+  // Use an ID in order to avoid collisions with custom and default maps
+  acc[nanoid(12)] = {
     geo: { ...curr, properties: { name, type: 'default' } },
     computed: {
       area: turf.area(curr.geometry) * 1e-6,
@@ -105,9 +106,7 @@ export const customMaps = _custom.reduce((acc, curr) => {
   const bbPoly = turf.bboxPolygon(bb);
   const center = turf.center(curr.features[0]).geometry.coordinates;
 
-  const id = nanoid(12);
-
-  acc[id] = {
+  acc[nanoid(12)] = {
     geo: curr.features[0],
     computed: {
       area: turf.area(curr) * 1e-6,
@@ -142,9 +141,47 @@ export type MapCollectionId = {
   id: string;
 };
 
-export const MAPS = { ...swissMaps, ...customMaps };
+// Default maps are spread in before custom maps
+export const MAPS = { ...defaultMaps, ...customMaps };
 
-export const CUSTOM_MAP_IDS = Object.entries(customMaps)
+// Sort the array of custom map ids at the very end
+const sortIdxCustom = Object.keys(MAPS).length - 1;
+// Sort the default map array at the correct index
+const sortIdxDefault = Object.keys(defaultMaps).length - 1;
+
+export const MAP_IDS = Object.entries(MAPS).reduce(
+  (acc, [id, data], idx) => {
+    if (data.geo.properties.type === 'custom') {
+      acc.custom.push({ name: data.geo.properties.name, id });
+
+      // Sort when last element is added
+      if (idx === sortIdxCustom) {
+        console.log('yeah');
+        acc.custom.sort((a, b) =>
+          a.name > b.name ? 1 : a.name < b.name ? -1 : 0
+        );
+      }
+    } else {
+      acc.default.push({ name: data.geo.properties.name, id });
+
+      // Sort when last element is added
+      if (idx === sortIdxDefault) {
+        console.log('yeah');
+        acc.default.sort((a, b) =>
+          a.name > b.name ? 1 : a.name < b.name ? -1 : 0
+        );
+      }
+    }
+
+    return acc;
+  },
+  { custom: [], default: [] } as {
+    custom: MapCollectionId[];
+    default: MapCollectionId[];
+  }
+);
+
+/* export const CUSTOM_MAP_IDS = Object.entries(customMaps)
   .reduce(
     (acc, [id, data]) => [...acc, { name: data.geo.properties.name, id }],
     [] as MapCollectionId[]
@@ -155,4 +192,4 @@ export const DEFAULT_MAP_IDS = Object.entries(swissMaps)
     (acc, [id, data]) => [...acc, { name: data.geo.properties.name, id }],
     [] as MapCollectionId[]
   )
-  .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
+  .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0)); */
