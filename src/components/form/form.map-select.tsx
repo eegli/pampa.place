@@ -28,6 +28,7 @@ const FormMapSelect = ({ customMapIds, defaultMapIds }: FormMapSelectProps) => {
 
   const dispatch = useAppDispatch();
   const activeMapId = useAppSelector(({ game }) => game.mapId);
+  const activeMapName = useAppSelector(({ game }) => game.mapName);
 
   const handleMapSelect = (e: SelectChangeEvent<string>) => {
     dispatch(setMap(e.target.value));
@@ -85,7 +86,7 @@ const FormMapSelect = ({ customMapIds, defaultMapIds }: FormMapSelectProps) => {
 
       {previewMap && (
         <MapPreview
-          title={activeMapId}
+          title={activeMapName}
           open={previewMap}
           setIsOpen={setPreviewMap}
         >

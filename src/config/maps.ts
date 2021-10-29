@@ -7,8 +7,8 @@ import {
   Polygon,
 } from '@turf/turf';
 import { nanoid } from 'nanoid';
-import _europe from '../../data/NUTS_RG_03M_2021_4326.json';
-import _custom from '../../maps';
+import _defaults from '../../data/NUTS_RG_03M_2021_4326_SUI.json';
+import _customs from '../../maps';
 
 export type LatLngLiteral = { lat: number; lng: number };
 
@@ -45,7 +45,7 @@ type EUMapProperties = {
   FID: string;
 };
 
-const europe = _europe as FeatureCollection<
+export const defaults = _defaults as FeatureCollection<
   Polygon | MultiPolygon,
   EUMapProperties
 >;
@@ -55,24 +55,17 @@ Any map can be created here, it only needs to fit the MapConfig type.
 This version uses Swiss maps as default maps.
 */
 
-export const defaultMaps = europe.features.reduce((acc, curr) => {
-  // Filter non-CH properties
-  if (curr.properties.CNTR_CODE !== 'CH') {
-    return acc;
-  }
+export const defaultMaps = defaults.features.reduce((acc, curr) => {
   const bb = turf.bbox(curr);
   const bbPoly = turf.bboxPolygon(bb);
   const center = turf.center(curr.geometry).geometry.coordinates;
 
-  let name = curr.properties.NAME_LATN;
-
-  if (curr.properties.NAME_LATN === 'Schweiz/Suisse/Svizzera') {
-    name = 'Schweiz';
-  }
-
   // Use an ID in order to avoid collisions with custom and default maps
   acc[nanoid(12)] = {
-    geo: { ...curr, properties: { name, type: 'default' } },
+    geo: {
+      ...curr,
+      properties: { name: curr.properties.NAME_LATN, type: 'default' },
+    },
     computed: {
       area: turf.area(curr.geometry) * 1e-6,
       center: { lng: center[0], lat: center[1] },
@@ -101,7 +94,7 @@ export const defaultMaps = europe.features.reduce((acc, curr) => {
   return acc;
 }, {} as Maps);
 
-export const customMaps = _custom.reduce((acc, curr) => {
+export const customMaps = _customs.reduce((acc, curr) => {
   const bb = turf.bbox(curr);
   const bbPoly = turf.bboxPolygon(bb);
   const center = turf.center(curr.features[0]).geometry.coordinates;
@@ -156,7 +149,6 @@ export const MAP_IDS = Object.entries(MAPS).reduce(
 
       // Sort when last element is added
       if (idx === sortIdxCustom) {
-        console.log('yeah');
         acc.custom.sort((a, b) =>
           a.name > b.name ? 1 : a.name < b.name ? -1 : 0
         );
@@ -166,7 +158,6 @@ export const MAP_IDS = Object.entries(MAPS).reduce(
 
       // Sort when last element is added
       if (idx === sortIdxDefault) {
-        console.log('yeah');
         acc.default.sort((a, b) =>
           a.name > b.name ? 1 : a.name < b.name ? -1 : 0
         );
@@ -180,16 +171,3 @@ export const MAP_IDS = Object.entries(MAPS).reduce(
     default: MapCollectionId[];
   }
 );
-
-/* export const CUSTOM_MAP_IDS = Object.entries(customMaps)
-  .reduce(
-    (acc, [id, data]) => [...acc, { name: data.geo.properties.name, id }],
-    [] as MapCollectionId[]
-  )
-  .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
-export const DEFAULT_MAP_IDS = Object.entries(swissMaps)
-  .reduce(
-    (acc, [id, data]) => [...acc, { name: data.geo.properties.name, id }],
-    [] as MapCollectionId[]
-  )
-  .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0)); */

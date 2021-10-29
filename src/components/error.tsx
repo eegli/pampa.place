@@ -7,13 +7,16 @@ type ErrorPros = {
   reason?: string;
 };
 
-const Error = ({ callback, title, info, reason }: ErrorPros) => {
-  const errTitle = title || 'Something went wrong';
-
+const Error = ({
+  callback,
+  title = 'Something went wrong',
+  info,
+  reason,
+}: ErrorPros) => {
   return (
     <Box padding={4} margin="auto">
       <Alert variant="outlined" severity="error">
-        <AlertTitle>{errTitle}</AlertTitle>
+        <AlertTitle>{title}</AlertTitle>
         <p>{info}</p>
         <p>
           <strong>Message:</strong>
@@ -27,7 +30,7 @@ const Error = ({ callback, title, info, reason }: ErrorPros) => {
           justifyContent="space-between"
           sx={{ mt: 2 }}
         >
-          <Link href="/">
+          <Link href="/" passHref>
             <Button>Choose different map</Button>
           </Link>
           <Button variant="contained" onClick={callback} sx={{ mr: 3 }}>

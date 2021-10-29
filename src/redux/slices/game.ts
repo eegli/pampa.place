@@ -26,6 +26,7 @@ export enum STATUS {
 interface GameState {
   status: STATUS;
   mapId: string;
+  mapName: string;
   players: {
     names: string[];
     scores: Record<string, Player>;
@@ -41,6 +42,7 @@ interface GameState {
 const initialState: GameState = {
   status: STATUS.PENDING_START,
   mapId: MAP_IDS.custom[0].id,
+  mapName: MAP_IDS.custom[0].name,
   players: {
     names: [],
     scores: {},
@@ -76,6 +78,7 @@ const gameSlice = createSlice({
     },
     setMap(state, action: PayloadAction<string>) {
       state.mapId = action.payload;
+      state.mapName = MAPS[action.payload].geo.properties.name;
     },
     initGame(state) {
       if (!state.players.names.length) {
