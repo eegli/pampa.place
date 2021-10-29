@@ -1,5 +1,7 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({ enabled: true });
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+const config = {
   reactStrictMode: true,
   pageExtensions: ['page.tsx', 'page.ts'],
   async redirects() {
@@ -12,3 +14,5 @@ module.exports = {
     ];
   },
 };
+
+module.exports = withBundleAnalyzer(config);
