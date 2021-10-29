@@ -1,10 +1,13 @@
 import { LatLngLiteral, MapData } from '@/config/maps';
-import * as turf from '@turf/turf';
+import Tdistance from '@turf/distance';
+import { point as Tpoint, Units as TUnits } from '@turf/helpers';
+import TpointsWithinPolygon from '@turf/points-within-polygon';
+import { randomPoint as TrandomPoint } from '@turf/random';
 
 export function randomPointInMap(mapData: MapData): LatLngLiteral {
   do {
-    const random = turf.randomPoint(20, { bbox: mapData.computed.bb });
-    const ptsWithin = turf.pointsWithinPolygon(random, mapData.geo);
+    const random = TrandomPoint(20, { bbox: mapData.computed.bb });
+    const ptsWithin = TpointsWithinPolygon(random, mapData.geo);
     if (ptsWithin.features.length) {
       const pt = ptsWithin.features[0].geometry.coordinates;
       return { lng: pt[0], lat: pt[1] };
@@ -25,9 +28,9 @@ export function calcScore(area: number, dist: number): number {
 export function calcDist(
   p1: LatLngLiteral,
   p2: LatLngLiteral,
-  units: turf.Units = 'meters'
+  units: TUnits = 'meters'
 ): number {
-  const from = turf.point([p1.lng, p1.lat]);
-  const to = turf.point([p2.lng, p2.lat]);
-  return turf.distance(from, to, { units });
+  const from = Tpoint([p1.lng, p1.lat]);
+  const to = Tpoint([p2.lng, p2.lat]);
+  return Tdistance(from, to, { units });
 }

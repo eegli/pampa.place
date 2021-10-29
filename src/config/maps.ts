@@ -1,11 +1,14 @@
-import * as turf from '@turf/turf';
+import Tarea from '@turf/area';
+import Tbbox from '@turf/bbox';
+import TbboxPolygon from '@turf/bbox-polygon';
+import Tcenter from '@turf/center';
 import {
   BBox,
   Feature,
   FeatureCollection,
   MultiPolygon,
   Polygon,
-} from '@turf/turf';
+} from '@turf/helpers';
 import { nanoid } from 'nanoid';
 import _defaults from '../../data/NUTS_RG_03M_2021_4326_SUI.json';
 import _customs from '../../maps';
@@ -56,9 +59,9 @@ This version uses Swiss maps as default maps.
 */
 
 export const defaultMaps = defaults.features.reduce((acc, curr) => {
-  const bb = turf.bbox(curr);
-  const bbPoly = turf.bboxPolygon(bb);
-  const center = turf.center(curr.geometry).geometry.coordinates;
+  const bb = Tbbox(curr);
+  const bbPoly = TbboxPolygon(bb);
+  const center = Tcenter(curr.geometry).geometry.coordinates;
 
   // Use an ID in order to avoid collisions with custom and default maps
   acc[nanoid(12)] = {
@@ -67,7 +70,7 @@ export const defaultMaps = defaults.features.reduce((acc, curr) => {
       properties: { name: curr.properties.NAME_LATN, type: 'default' },
     },
     computed: {
-      area: turf.area(curr.geometry) * 1e-6,
+      area: Tarea(curr.geometry) * 1e-6,
       center: { lng: center[0], lat: center[1] },
       bb,
       bbLiteral: {
@@ -95,14 +98,14 @@ export const defaultMaps = defaults.features.reduce((acc, curr) => {
 }, {} as Maps);
 
 export const customMaps = _customs.reduce((acc, curr) => {
-  const bb = turf.bbox(curr);
-  const bbPoly = turf.bboxPolygon(bb);
-  const center = turf.center(curr.features[0]).geometry.coordinates;
+  const bb = Tbbox(curr);
+  const bbPoly = TbboxPolygon(bb);
+  const center = Tcenter(curr.features[0]).geometry.coordinates;
 
   acc[nanoid(12)] = {
     geo: curr.features[0],
     computed: {
-      area: turf.area(curr) * 1e-6,
+      area: Tarea(curr) * 1e-6,
       center: { lng: center[0], lat: center[1] },
       bb,
       bbLiteral: {

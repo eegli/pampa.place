@@ -3,7 +3,7 @@ import maps, { nthQuery } from '../../common';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const queryId = nthQuery(req.query.id);
-  const map = Object.values(maps.defaultMaps).find(
+  const map = Object.values(maps.custom).find(
     key => key.geo.properties.name.toLowerCase() === queryId.toLowerCase()
   );
   if (map) {
