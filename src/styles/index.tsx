@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 
 interface SlimContainerProps extends BoxProps {
+  center?: boolean;
   breakpoint?: Breakpoint;
 }
 
@@ -17,7 +18,7 @@ interface SlimContainerProps extends BoxProps {
 // is no other content on the page (currently needed for
 // "intermission" and "final result")
 export const SlimContainer = styled(Box)<SlimContainerProps>(
-  ({ theme, breakpoint, ...rest }) => ({
+  ({ theme, breakpoint, center = false }) => ({
     maxWidth: breakpoint
       ? theme.breakpoints.values[breakpoint]
       : theme.breakpoints.values['sm'],
@@ -26,6 +27,8 @@ export const SlimContainer = styled(Box)<SlimContainerProps>(
     width: '100%',
     color: theme.palette.primary.light,
     display: 'flex',
+    justifyContent: center ? 'center' : 'normal',
+    alignItems: center ? 'center' : 'normal',
     margin: `${theme.spacing(1)} auto ${theme.spacing(1)} auto`,
   })
 );

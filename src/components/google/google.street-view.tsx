@@ -19,6 +19,7 @@ type GoogleStreetViewProps = {
 export let GLOBAL_SV: google.maps.StreetViewPanorama | undefined;
 
 const GoogleStreetView = ({ staticPos = false }: GoogleStreetViewProps) => {
+  console.log(staticPos);
   const ref = useRef<HTMLDivElement>(null);
   const panoId = useAppSelector(({ position }) => position.panoId);
 
@@ -43,16 +44,15 @@ const GoogleStreetView = ({ staticPos = false }: GoogleStreetViewProps) => {
   useEffect(() => {
     if (GLOBAL_SV && panoId) {
       GLOBAL_SV.setPano(panoId);
-      GLOBAL_SV.setOptions({
-        ...config.streetview,
-      });
-      // Don't allow movement
+
+      let opts = config.streetview;
+
       if (staticPos) {
-        GLOBAL_SV.setOptions({
-          clickToGo: false,
-          disableDoubleClickZoom: true,
-        });
+        opts = { ...opts, clickToGo: false, disableDoubleClickZoom: true };
       }
+      GLOBAL_SV.setOptions({
+        ...opts,
+      });
     }
   }, [panoId, staticPos]);
 

@@ -12,6 +12,8 @@ export const config: GoogleConfig = {
   },
   streetview: {
     zoom: 0,
+    clickToGo: true,
+    disableDoubleClickZoom: false,
     addressControl: false,
     motionTracking: false,
     motionTrackingControl: false,
@@ -27,7 +29,7 @@ export const config: GoogleConfig = {
     draggableCursor: 'crosshair',
     clickableIcons: false,
     disableDefaultUI: true,
-    mapTypeId: 'hybrid',
+    mapTypeId: 'roadmap',
     mapTypeControl: true,
     gestureHandling: 'auto',
     mapTypeControlOptions: {
