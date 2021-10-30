@@ -1,5 +1,5 @@
 import { defaults } from '@/config/game';
-import { LatLngLiteral, MAPS, MAP_IDS } from '@/config/maps';
+import { CUSTOM_MAP_IDS, LatLngLiteral, MAPS } from '@/config/maps';
 import { calcDist, calcScore } from '@/utils/geo';
 import { OrNull } from '@/utils/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -23,7 +23,7 @@ export enum STATUS {
   FINISHED = 'FINISHED',
 }
 
-interface GameState {
+export interface GameState {
   status: STATUS;
   mapId: string;
   mapName: string;
@@ -39,10 +39,10 @@ interface GameState {
   };
 }
 
-const initialState: GameState = {
+export const initialState: GameState = {
   status: STATUS.PENDING_START,
-  mapId: MAP_IDS.custom[0].id,
-  mapName: MAP_IDS.custom[0].name,
+  mapId: CUSTOM_MAP_IDS[0].id,
+  mapName: CUSTOM_MAP_IDS[0].name,
   players: {
     names: [],
     scores: {},
@@ -55,7 +55,7 @@ const initialState: GameState = {
   },
 };
 
-const gameSlice = createSlice({
+export const gameSlice = createSlice({
   name: 'game',
   initialState,
 
@@ -109,6 +109,29 @@ const gameSlice = createSlice({
     },
     startRound(state) {
       state.status = STATUS.ROUND_STARTED;
+    },
+    resetRound(state) {
+      // Rotate to first player again
+      for (let i = 0; i < state.rounds.progress; i++) {
+        const playerName = state.players.names.pop();
+        if (playerName) {
+          // Remove score from this round
+          const result = state.players.scores[playerName].results.pop();
+
+          // Subtract score from this round from total score
+          if (result)
+            state.players.scores[playerName].totalScore -= result.score;
+
+          // Rotate player
+          state.players.names.unshift(playerName);
+        }
+      }
+
+      // Reset round progress
+      state.rounds.progress = 0;
+
+      // Set zero for current round scores
+      state.status = STATUS.INTERMISSION;
     },
     setPlayerScore(
       state,
@@ -174,6 +197,7 @@ export const {
   initGame,
   startRound,
   finishRound,
+  resetRound,
   setPlayerScore,
   setRounds,
   setMap,

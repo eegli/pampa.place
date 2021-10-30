@@ -1,12 +1,12 @@
-import { MapConfig } from '../../../src/config/maps';
+import { CustomMaps } from '@/config/maps';
+import { computeMapData, computeMapIds } from '../../utils/geo';
 
-export const testMaps: MapConfig = {
-  Zurich: {
-    geo: {
+const mockMaps: CustomMaps = {
+  type: 'FeatureCollection',
+  features: [
+    {
       type: 'Feature',
-      properties: {
-        name: 'Zurich',
-      },
+      properties: { name: 'Zurich' },
       geometry: {
         type: 'Polygon',
         coordinates: [
@@ -25,37 +25,8 @@ export const testMaps: MapConfig = {
         ],
       },
     },
-    type: 'custom',
-    computed: {
-      area: 34.542192851713864,
-      center: {
-        lng: 8.524532318115234,
-        lat: 47.379282049051,
-      },
-      bb: [
-        8.472518920898438, 47.351384658074124, 8.576545715332031,
-        47.407179440027875,
-      ],
-      bbLiteral: {
-        SW: {
-          lng: 8.472518920898438,
-          lat: 47.351384658074124,
-        },
-        SE: {
-          lng: 8.576545715332031,
-          lat: 47.351384658074124,
-        },
-        NE: {
-          lng: 8.576545715332031,
-          lat: 47.407179440027875,
-        },
-        NW: {
-          lng: 8.472518920898438,
-          lat: 47.407179440027875,
-        },
-      },
-    },
-  },
+  ],
 };
 
-export const testMapIds = [...Object.keys(testMaps)];
+export const testMaps = computeMapData(mockMaps);
+export const testMapIds = computeMapIds(testMaps);

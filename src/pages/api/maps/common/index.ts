@@ -1,4 +1,4 @@
-import * as MAPS from '@/config/maps';
+import * as maps from '@/config/maps';
 import { NextApiRequest } from 'next';
 
 export function filterFields(req: NextApiRequest) {
@@ -17,7 +17,6 @@ export function nthQuery<T>(arg: T | T[], index = 0): T {
 
 // TODO
 export default {
-  custom: MAPS.customMaps,
-  default: MAPS.defaultMaps,
-  maps: MAPS.MAPS,
+  custom: maps.customMaps,
+  default: maps.defaultMaps,
 };

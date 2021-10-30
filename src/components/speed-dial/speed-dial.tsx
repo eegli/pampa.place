@@ -9,52 +9,16 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { toggleTheme } from '../redux/slices/app';
-import { RootState } from '../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { toggleTheme } from '../../redux/slices/app';
+import { resetRound } from '../../redux/slices/game';
+import { RootState } from '../../redux/store';
 import Dialog, { DialogProps } from './dialog';
 
 export default function SpeedDialTooltipOpen() {
   const [dialog, setDialog] = useState<DialogProps>({} as DialogProps);
 
   const router = useRouter();
-
-  const homeDialog: DialogProps = {
-    title: 'Abort the game and return home?',
-    callbackTitle: 'Abort game',
-    callback: function () {
-      router.push('/');
-    },
-    open: true,
-    cancel: function () {
-      setDialog({ ...dialog, open: false });
-    },
-  };
-
-  const restartDialog: DialogProps = {
-    title: 'Restart the game?',
-    callbackTitle: 'Restart',
-    callback: function () {
-      router.push('/');
-    },
-    open: true,
-    cancel: function () {
-      setDialog({ ...dialog, open: false });
-    },
-  };
-
-  // TODO
-  const giveUpDialog: DialogProps = {
-    title: 'Give up and skip round?',
-    callbackTitle: 'Give up',
-    callback: function () {
-      router.push('/');
-    },
-    open: true,
-    cancel: function () {
-      setDialog({ ...dialog, open: false });
-    },
-  };
 
   const activeTheme = useAppSelector((s: RootState) => s.app.theme);
   const dispatch = useAppDispatch();
@@ -83,21 +47,60 @@ export default function SpeedDialTooltipOpen() {
             icon={<FlagIcon />}
             tooltipTitle="Give up"
             tooltipPlacement="right"
-            onClick={() => setDialog(giveUpDialog)}
+            onClick={() =>
+              setDialog({
+                title: 'Give up and skip round?',
+                callbackTitle: 'Give up',
+                callback: function () {
+                  router.push('/');
+                },
+                open: true,
+                cancel: function () {
+                  setDialog({ ...dialog, open: false });
+                },
+              })
+            }
           />
           <SpeedDialAction
             key="Restart"
             icon={<RestartAltIcon />}
-            tooltipTitle="Restart"
+            tooltipTitle="Restart round"
             tooltipPlacement="right"
-            onClick={() => setDialog(restartDialog)}
+            onClick={() =>
+              setDialog({
+                title: 'Restart round?',
+                message:
+                  'This will reset the current round progress for all players. The first player will start the current round again in a new location.',
+                callbackTitle: 'Restart round',
+                callback: function () {
+                  dispatch(resetRound());
+                  setDialog({ ...dialog, open: false });
+                },
+                open: true,
+                cancel: function () {
+                  setDialog({ ...dialog, open: false });
+                },
+              })
+            }
           />
           <SpeedDialAction
             key="Home"
             icon={<HomeIcon />}
             tooltipTitle="Home"
             tooltipPlacement="right"
-            onClick={() => setDialog(homeDialog)}
+            onClick={() =>
+              setDialog({
+                title: 'Abort the game and return home?',
+                callbackTitle: 'Abort game',
+                callback: function () {
+                  router.push('/');
+                },
+                open: true,
+                cancel: function () {
+                  setDialog({ ...dialog, open: false });
+                },
+              })
+            }
           />
           <SpeedDialAction
             key="Mode"

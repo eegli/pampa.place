@@ -30,12 +30,10 @@ Map.prototype.data = {
   remove: mockRemove,
 };
 
-const activeMapId = testMapIds[0];
-
 describe('Google Map', () => {
   it('renders google map', () => {
     expect(GLOBAL_MAP).toBeUndefined();
-    const { container } = render(<GoogleMap activeMapId={activeMapId} />);
+    const { container } = render(<GoogleMap activeMapId={testMapIds[0].id} />);
 
     expect(GLOBAL_MAP).not.toBeUndefined();
     expect(GLOBAL_MAP).toBeInstanceOf(Map);
@@ -45,7 +43,7 @@ describe('Google Map', () => {
   });
   it('has preview mode', () => {
     const { unmount } = render(
-      <GoogleMap activeMapId={activeMapId} mode={MapMode.PREVIEW} />
+      <GoogleMap activeMapId={testMapIds[0].id} mode={MapMode.PREVIEW} />
     );
 
     expect(mockAddGeoJSON).toHaveBeenCalledTimes(1);

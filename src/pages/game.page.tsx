@@ -5,7 +5,7 @@ import Play from '../components/play/play';
 import RoundEnd from '../components/round/round.end';
 import RoundIntermission from '../components/round/round.intermission';
 import RoundResult from '../components/round/round.result';
-import BasicSpeedDial from '../components/speed-dial';
+import BasicSpeedDial from '../components/speed-dial/speed-dial';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { PageContentContainer } from '../styles';
 
@@ -58,9 +58,9 @@ const GamePage = () => {
           />
         ) : (
           render()
-        )}{' '}
+        )}
         <BasicSpeedDial />
-      </PageContentContainer>{' '}
+      </PageContentContainer>
     </>
   );
 };
