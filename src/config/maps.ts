@@ -10,8 +10,8 @@ import {
   Polygon,
 } from '@turf/helpers';
 import { nanoid } from 'nanoid';
-import _defaults from '../../data/NUTS_RG_03M_2021_4326_SUI.json';
-import _customs from '../../maps';
+import defaultMapDataJSON from '../../data/NUTS_RG_03M_2021_4326_SUI.json';
+import customMapDataJSON from '../../maps';
 
 export type LatLngLiteral = { lat: number; lng: number };
 
@@ -41,16 +41,14 @@ export type MapData = {
 
 export type Maps = Record<string, MapData>;
 
-type EUMapProperties = {
-  CNTR_CODE: string;
-  NAME_LATN: string;
-  NUTS_ID: string;
-  FID: string;
-};
-
-export const defaults = _defaults as FeatureCollection<
+export const defaultMapData = defaultMapDataJSON as FeatureCollection<
   Polygon | MultiPolygon,
-  EUMapProperties
+  {
+    CNTR_CODE: string;
+    NAME_LATN: string;
+    NUTS_ID: string;
+    FID: string;
+  }
 >;
 
 /* 
@@ -58,7 +56,7 @@ Any map can be created here, it only needs to fit the MapConfig type.
 This version uses Swiss maps as default maps.
 */
 
-export const defaultMaps = defaults.features.reduce((acc, curr) => {
+export const defaultMaps = defaultMapData.features.reduce((acc, curr) => {
   const bb = Tbbox(curr);
   const bbPoly = TbboxPolygon(bb);
   const center = Tcenter(curr.geometry).geometry.coordinates;
@@ -97,7 +95,7 @@ export const defaultMaps = defaults.features.reduce((acc, curr) => {
   return acc;
 }, {} as Maps);
 
-export const customMaps = _customs.reduce((acc, curr) => {
+export const customMaps = customMapDataJSON.reduce((acc, curr) => {
   const bb = Tbbox(curr);
   const bbPoly = TbboxPolygon(bb);
   const center = Tcenter(curr.features[0]).geometry.coordinates;

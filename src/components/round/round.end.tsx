@@ -5,6 +5,7 @@ import { formatDist } from '@/utils/misc';
 import {
   Box,
   Button,
+  Paper,
   Stack,
   Tab,
   Table,
@@ -37,6 +38,10 @@ const RoundEnd = () => {
   const activeMapId = useAppSelector(({ game }) => game.mapId);
   const isGameFinished = useAppSelector(isFinished);
 
+  const panoDescription = useAppSelector(
+    ({ position }) => position.panoDescription
+  );
+
   function handleClick() {
     dispatch(finishRound());
   }
@@ -61,7 +66,7 @@ const RoundEnd = () => {
         index={0}
         display="flex"
         justifyContent="center"
-        alignItems="center"
+        /*   alignItems="center" */
       >
         <SlimContainer id="round-end-table">
           <Stack
@@ -118,16 +123,24 @@ const RoundEnd = () => {
       </TabPanel>
 
       <TabPanel selected={selectedPanel} index={2}>
-        <Box height="100%" id="round-end-map">
-          {initialPosition && <GoogleStreetView staticPos />}
+        <Box height="100%" id="round-end-sv">
+          <GoogleStreetView staticPos />
         </Box>
       </TabPanel>
 
       <TabPanel selected={selectedPanel} index={3}>
-        <SlimContainer id="round-end-sv">
-          <Typography variant="h6" alignSelf="flex-start">
-            Map details
+        <SlimContainer id="round-end-loc-info" flexDirection="column">
+          <Typography variant="h6" alignSelf="flex-start" mb={2}>
+            Location info
           </Typography>
+
+          <Paper sx={{ p: 2, mb: 1 }} elevation={1}>
+            Panorama description: {panoDescription}
+          </Paper>
+          <Paper sx={{ p: 2 }}>
+            Coordinates (lat/lng): {initialPosition?.lat},{' '}
+            {initialPosition?.lng}
+          </Paper>
         </SlimContainer>
       </TabPanel>
     </>

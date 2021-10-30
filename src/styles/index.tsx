@@ -17,7 +17,7 @@ interface SlimContainerProps extends BoxProps {
 // is no other content on the page (currently needed for
 // "intermission" and "final result")
 export const SlimContainer = styled(Box)<SlimContainerProps>(
-  ({ theme, breakpoint }) => ({
+  ({ theme, breakpoint, ...rest }) => ({
     maxWidth: breakpoint
       ? theme.breakpoints.values[breakpoint]
       : theme.breakpoints.values['sm'],
@@ -26,8 +26,6 @@ export const SlimContainer = styled(Box)<SlimContainerProps>(
     width: '100%',
     color: theme.palette.primary.light,
     display: 'flex',
-    flexFlow: 'column',
-    alignItems: 'center',
     margin: `${theme.spacing(1)} auto ${theme.spacing(1)} auto`,
   })
 );

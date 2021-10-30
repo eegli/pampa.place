@@ -12,18 +12,14 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { toggleTheme } from '../redux/slices/app';
 import { RootState } from '../redux/store';
-import ConfirmationDialog, {
-  ConfirmationDialogProps,
-} from './confirmation-dialog';
+import Dialog, { DialogProps } from './dialog';
 
 export default function SpeedDialTooltipOpen() {
-  const [dialog, setDialog] = useState<ConfirmationDialogProps>(
-    {} as ConfirmationDialogProps
-  );
+  const [dialog, setDialog] = useState<DialogProps>({} as DialogProps);
 
   const router = useRouter();
 
-  const homeDialog: ConfirmationDialogProps = {
+  const homeDialog: DialogProps = {
     title: 'Abort the game and return home?',
     callbackTitle: 'Abort game',
     callback: function () {
@@ -35,7 +31,7 @@ export default function SpeedDialTooltipOpen() {
     },
   };
 
-  const restartDialog: ConfirmationDialogProps = {
+  const restartDialog: DialogProps = {
     title: 'Restart the game?',
     callbackTitle: 'Restart',
     callback: function () {
@@ -48,7 +44,7 @@ export default function SpeedDialTooltipOpen() {
   };
 
   // TODO
-  const giveUpDialog: ConfirmationDialogProps = {
+  const giveUpDialog: DialogProps = {
     title: 'Give up and skip round?',
     callbackTitle: 'Give up',
     callback: function () {
@@ -114,7 +110,7 @@ export default function SpeedDialTooltipOpen() {
           />
         </SpeedDial>
       </Box>
-      <ConfirmationDialog {...dialog} />
+      <Dialog {...dialog} />
     </>
   );
 }
