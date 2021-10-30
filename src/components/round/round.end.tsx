@@ -76,7 +76,7 @@ const RoundEnd = () => {
             width="100%"
             height="100%"
           >
-            <Typography variant="h4" alignSelf="flex-start">
+            <Typography variant="h5" alignSelf="flex-start">
               Round {currentRound} is over!
             </Typography>
 
@@ -129,8 +129,8 @@ const RoundEnd = () => {
       </TabPanel>
 
       <TabPanel selected={selectedPanel} index={3}>
-        <SlimContainer id="round-end-loc-info" flexDirection="column">
-          <Typography variant="h6" alignSelf="flex-start" mb={2}>
+        <SlimContainer id="round-end-loc-info">
+          <Typography variant="h5" alignSelf="flex-start" mb={2}>
             Location info
           </Typography>
 

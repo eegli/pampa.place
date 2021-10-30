@@ -2,7 +2,6 @@ import { useAppSelector } from '@/redux/hooks';
 import { getTotalScores } from '@/redux/selectors/game';
 import {
   Button,
-  Divider,
   Stack,
   Table,
   TableBody,
@@ -24,12 +23,12 @@ const RoundResult = () => {
   }
 
   return (
-    <SlimContainer height="100%" center>
+    <SlimContainer height="100%" justifyContent="center" breakpoint="sm">
       <Stack direction="column" alignItems="center" spacing={3}>
         <Typography variant="h3">Game over!</Typography>
         <Typography variant="h5">{result[0].name} wins 🥳</Typography>
-        <Divider orientation="horizontal" flexItem />
-        <Table size="small" aria-label="a dense table">
+
+        <Table size="small" aria-label="result-table">
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>

@@ -4,11 +4,9 @@ import {
   Breakpoint,
   Container,
   ContainerProps,
-  styled,
 } from '@mui/material';
 
 interface SlimContainerProps extends BoxProps {
-  center?: boolean;
   breakpoint?: Breakpoint;
 }
 
@@ -17,20 +15,26 @@ interface SlimContainerProps extends BoxProps {
 // prop to make it go full height - this is necessary for when there
 // is no other content on the page (currently needed for
 // "intermission" and "final result")
-export const SlimContainer = styled(Box)<SlimContainerProps>(
-  ({ theme, breakpoint, center = false }) => ({
-    maxWidth: breakpoint
-      ? theme.breakpoints.values[breakpoint]
-      : theme.breakpoints.values['sm'],
-    padding: theme.spacing(2),
-    flexWrap: 'wrap',
-    width: '100%',
-    color: theme.palette.primary.light,
-    display: 'flex',
-    justifyContent: center ? 'center' : 'normal',
-    alignItems: center ? 'center' : 'normal',
-    margin: `${theme.spacing(1)} auto ${theme.spacing(1)} auto`,
-  })
+
+export const SlimContainer = ({
+  children,
+  breakpoint = 'sm',
+  ...rest
+}: SlimContainerProps) => (
+  <Box
+    display="flex"
+    flexDirection="column"
+    flexWrap="wrap"
+    width="100%"
+    sx={{
+      maxWidth: ({ breakpoints }) => breakpoints.values[breakpoint],
+      margin: ({ spacing }) => `${spacing(1)} auto ${spacing(1)} auto`,
+      padding: ({ spacing }) => spacing(2),
+    }}
+    {...rest}
+  >
+    {children}
+  </Box>
 );
 
 interface PageContentContainerProps extends ContainerProps {
@@ -48,9 +52,9 @@ export const PageContentContainer = ({
 }: PageContentContainerProps) => {
   return (
     <Box
+      width="100%"
+      height="100%"
       sx={{
-        width: '100%',
-        height: '100%',
         bgcolor: 'background.default',
         color: 'text.primary',
       }}
