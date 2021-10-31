@@ -1,4 +1,4 @@
-import { defaults } from '@/config/game';
+import { config } from '@/config/game';
 import { CUSTOM_MAP_IDS, LatLngLiteral, MAPS } from '@/config/maps';
 import { calcDist, calcScore } from '@/utils/geo';
 import { OrNull } from '@/utils/types';
@@ -47,10 +47,10 @@ export const initialState: GameState = {
     names: [],
     scores: {},
   },
-  timeLimit: defaults.timeLimit,
+  timeLimit: config.timeLimitsDefault,
   rounds: {
     current: 1,
-    total: defaults.round,
+    total: config.roundsDefault,
     progress: 0,
   },
 };

@@ -17,7 +17,6 @@ export const {
 describe('Redux, game state', () => {
   it('defines a marker color for each player', () => {
     const state = initialState;
-    state.players.names = ['eric'];
 
     expect(gameReducer(state, {} as AnyAction)).toEqual(initialState);
   });

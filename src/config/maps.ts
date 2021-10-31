@@ -7,7 +7,7 @@ import {
 } from '@turf/helpers';
 import defaultMapData from '../../data/NUTS_RG_03M_2021_4326_SUI.json';
 import customMapData from '../../maps';
-import { computeMapData, computeMapIds } from '../utils/geo';
+import { computeMapData, computeMapIds } from './helpers';
 
 export type LatLngLiteral = { lat: number; lng: number };
 
@@ -47,8 +47,10 @@ export type Maps = Record<
   }
 >;
 
-export const defaultMaps: Maps = computeMapData(defaultMapData as DefaultMaps);
-export const customMaps: Maps = computeMapData(customMapData);
+export const defaultMaps: Maps = computeMapData<EUMapProperties>(
+  defaultMapData as DefaultMaps
+);
+export const customMaps: Maps = computeMapData<EUMapProperties>(customMapData);
 
 export const MAPS: Maps = { ...defaultMaps, ...customMaps };
 

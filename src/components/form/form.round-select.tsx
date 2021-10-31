@@ -1,3 +1,4 @@
+import { config } from '@/config/game';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setRounds } from '@/redux/slices/game';
 import {
@@ -9,12 +10,7 @@ import {
 } from '@mui/material';
 import { ChangeEvent } from 'react';
 
-type FormRoundSelectProps = {
-  rounds: number[];
-};
-
-const FormRoundSelect = (props: FormRoundSelectProps) => {
-  const { rounds } = props;
+const FormRoundSelect = () => {
   const dispatch = useAppDispatch();
   const selected = useAppSelector(({ game }) => game.rounds.total);
 
@@ -26,7 +22,7 @@ const FormRoundSelect = (props: FormRoundSelectProps) => {
     <FormControl component="fieldset" sx={{ mb: 3 }}>
       <FormLabel component="legend">Rounds</FormLabel>
       <RadioGroup row onChange={handleChange} name="row-radio-buttons-group">
-        {rounds.map(val => {
+        {config.rounds.map(val => {
           const label = val === 1 ? `1 Round` : `${val} Rounds`;
           return (
             <FormControlLabel

@@ -1,3 +1,4 @@
+import { CUSTOM_MAP_IDS, DEFAULT_MAP_IDS } from '@/config/maps';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
@@ -13,17 +14,11 @@ import {
   Tooltip,
 } from '@mui/material';
 import { useState } from 'react';
-import { MapCollectionId } from '../../config/maps';
 import { setMap } from '../../redux/slices/game';
 import Map, { MapMode } from '../google/google.map';
 import MapPreview from './form.map-preview';
 
-type FormMapSelectProps = {
-  customMapIds: MapCollectionId[];
-  defaultMapIds: MapCollectionId[];
-};
-
-const FormMapSelect = ({ customMapIds, defaultMapIds }: FormMapSelectProps) => {
+const FormMapSelect = () => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -69,14 +64,14 @@ const FormMapSelect = ({ customMapIds, defaultMapIds }: FormMapSelectProps) => {
           }
         >
           <ListSubheader color="inherit">Custom</ListSubheader>
-          {customMapIds.map(map => (
+          {CUSTOM_MAP_IDS.map(map => (
             <MenuItem sx={{ maxWidth: 330 }} key={map.id} value={map.id}>
               {map.name}
             </MenuItem>
           ))}
 
           <ListSubheader color="inherit">Switzerland</ListSubheader>
-          {defaultMapIds.map(map => (
+          {DEFAULT_MAP_IDS.map(map => (
             <MenuItem sx={{ maxWidth: 330 }} key={map.id} value={map.id}>
               {map.name}
             </MenuItem>

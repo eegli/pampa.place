@@ -86,16 +86,14 @@ describe('Form, player name input', () => {
 });
 
 describe('Form, round select', () => {
-  const rounds = [1, 2, 3];
-
   it('renders round select options', () => {
-    render(<FormRoundSelect rounds={rounds} />);
+    render(<FormRoundSelect />);
     expect(getRadios({ checked: true })).toHaveLength(1);
-    expect(getRadios()).toHaveLength(rounds.length);
+    expect(getRadios()).toHaveLength(config.rounds.length);
   });
 
   it('updates round select radio buttons', () => {
-    render(<FormRoundSelect rounds={rounds} />);
+    render(<FormRoundSelect />);
     const roundInputs = getRadios();
     fireEvent.click(roundInputs[0]);
     expect(getRadios()[0]).toHaveProperty('checked', true);
@@ -105,19 +103,16 @@ describe('Form, round select', () => {
 });
 
 describe('Form, duration select', () => {
-  const timeLimits = [10, 20, 30];
   it('renders duration select options', () => {
-    const { container } = render(
-      <FormTimeLimitSelect timeLimits={timeLimits} />
-    );
+    const { container } = render(<FormTimeLimitSelect />);
     expect(container).toMatchSnapshot();
 
     expect(getRadios({ checked: true })).toHaveLength(1);
-    expect(getRadios()).toHaveLength(timeLimits.length);
+    expect(getRadios()).toHaveLength(config.timeLimits.length);
   });
 
   it('updates duration select radio buttons', () => {
-    render(<FormTimeLimitSelect timeLimits={timeLimits} />);
+    render(<FormTimeLimitSelect />);
     const durationInputs = getRadios();
     fireEvent.click(durationInputs[0]);
     expect(getRadios()[0]).toHaveProperty('checked', true);
@@ -133,9 +128,7 @@ describe('Form, map select', () => {
   }
 
   it('renders map options', () => {
-    render(
-      <FormMapSelect customMapIds={['Alpen']} countryMapIds={['Switzerland']} />
-    );
+    render(<FormMapSelect />);
     expect(queryMapOps()).toMatchSnapshot();
   });
 });
