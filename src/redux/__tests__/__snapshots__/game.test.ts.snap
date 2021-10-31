@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Redux, game state creates game with default players if none are present 1`] = `
+Object {
+  "mapId": "eJmFZpriK7QX",
+  "mapName": "Alpen",
+  "players": Object {
+    "names": Array [
+      "Player 1",
+    ],
+    "scores": Object {
+      "Player 1": Object {
+        "results": Array [],
+        "totalScore": 0,
+      },
+    },
+  },
+  "rounds": Object {
+    "current": 1,
+    "progress": 0,
+    "total": 3,
+  },
+  "status": "INTERMISSION",
+  "timeLimit": 60,
+}
+`;

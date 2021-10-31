@@ -1,4 +1,3 @@
-import { AnyAction } from 'redux';
 import gameReducer, { gameSlice, initialState } from '../slices/game';
 
 export const {
@@ -15,9 +14,8 @@ export const {
 } = gameSlice.actions;
 
 describe('Redux, game state', () => {
-  it('defines a marker color for each player', () => {
+  it('creates game with default players if none are present', () => {
     const state = initialState;
-
-    expect(gameReducer(state, {} as AnyAction)).toEqual(initialState);
+    expect(gameReducer(state, initGame)).toMatchSnapshot();
   });
 });
