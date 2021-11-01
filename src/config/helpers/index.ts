@@ -4,29 +4,28 @@ import TbboxPolygon from '@turf/bbox-polygon';
 import Tcenter from '@turf/center';
 import { FeatureCollection, MultiPolygon, Polygon } from '@turf/helpers';
 import { nanoid } from 'nanoid';
-import { MapCollectionId, Maps, Properties } from '../maps';
+import { MapIdCollection, Maps } from '../types';
 
 export function computeMapData<
-  AnyProperties extends Record<string, string>,
-  T extends FeatureCollection<
-    Polygon | MultiPolygon,
-    Properties | AnyProperties
-  > = any
+  P extends Record<string, string>,
+  T extends FeatureCollection<Polygon | MultiPolygon, P> = any
 >(m: T): Maps {
   return m.features.reduce((acc, curr) => {
     const bb = Tbbox(curr);
     const bbPoly = TbboxPolygon(bb);
     const center = Tcenter(curr.geometry).geometry.coordinates;
 
-    const properties: Properties = {
+    const properties = {
       name: '',
     };
 
     // Narrow down type
-    if ('NAME_LATN' in curr.properties) {
+    if (curr.properties.NAME_LATN) {
       properties.name = curr.properties.NAME_LATN;
-    } else {
+    } else if (curr.properties.name) {
       properties.name = curr.properties.name;
+    } else {
+      properties.name = 'unknown';
     }
 
     // Use an ID in order to avoid collisions between custom and default maps
@@ -69,7 +68,7 @@ export function computeMapIds(m: Maps) {
     acc.push({ name: data.geo.properties.name, id });
 
     return acc;
-  }, [] as MapCollectionId[]);
+  }, [] as MapIdCollection);
 
   return ids.sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
 }

@@ -1,10 +1,4 @@
-type GoogleConfig = {
-  svRequest: {
-    radius: number;
-  }; // google.maps.StreetViewLocationRequest;
-  streetview: google.maps.StreetViewPanoramaOptions;
-  map: google.maps.MapOptions;
-};
+import { GoogleConfig } from './types';
 
 export const config: GoogleConfig = {
   svRequest: {

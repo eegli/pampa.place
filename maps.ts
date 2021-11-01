@@ -1,6 +1,6 @@
-import { CustomMaps } from '@/config/maps';
+import { MapCollection } from '@/config/types';
 
-const maps: CustomMaps = {
+const maps: MapCollection = {
   type: 'FeatureCollection',
   features: [
     {

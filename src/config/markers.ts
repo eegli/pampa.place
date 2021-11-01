@@ -1,12 +1,6 @@
 // https://coolors.co/ef476f-ffd166-06d6a0-118ab2-073b4c
 
-type MarkerConfig = {
-  colors: Record<string, string>;
-  svgMarker: {
-    path: string;
-    anchor: [number, number];
-  };
-};
+import { MarkerConfig } from './types';
 
 // TODO put in palette
 const markerConfig: MarkerConfig = {

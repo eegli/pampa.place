@@ -1,10 +1,4 @@
-type GameConfig = {
-  maxPlayers: number;
-  rounds: [number, number, number];
-  roundsDefault: number;
-  timeLimits: [number, number, number, number];
-  timeLimitsDefault: number;
-};
+import { GameConfig } from './types';
 
 export const config: GameConfig = {
   maxPlayers: 4,

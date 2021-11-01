@@ -1,9 +1,11 @@
 /* http://localhost:3000/api/maps/mocks */
 
+import { MapIdCollection, Maps } from '../types';
+
 export const testMapId1 = '1mSRVyWP3tLQ';
 export const testMapId2 = 'Yb3nVjDtvVRE';
 
-export const MAPS = {
+export const MAPS: Maps = {
   [testMapId1]: {
     geo: {
       type: 'Feature',
@@ -113,14 +115,14 @@ export const MAPS = {
     },
   },
 };
-export const CUSTOM_MAP_IDS = [
+export const CUSTOM_MAP_IDS: MapIdCollection = [
   {
     name: 'Custom map',
     id: testMapId1,
   },
 ];
 
-export const DEFAULT_MAP_IDS = [
+export const DEFAULT_MAP_IDS: MapIdCollection = [
   {
     name: 'Default map',
     id: testMapId2,
