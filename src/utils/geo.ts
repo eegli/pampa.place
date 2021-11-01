@@ -1,8 +1,9 @@
-import { LatLngLiteral } from '@/config/maps';
+import { LatLngLiteral } from '@/config/types';
 import Tdistance from '@turf/distance';
 import { BBox, point, Units } from '@turf/helpers';
 import TpointsWithinPolygon from '@turf/points-within-polygon';
 import { randomPoint as TrandomPoint } from '@turf/random';
+
 export function randomPointInMap(
   bbox: BBox,
   polygon: Parameters<typeof TpointsWithinPolygon>[1]

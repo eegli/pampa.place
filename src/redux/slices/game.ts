@@ -1,5 +1,6 @@
 import { config } from '@/config/game';
-import { CUSTOM_MAP_IDS, LatLngLiteral, MAPS } from '@/config/maps';
+import { CUSTOM_MAP_IDS, MAPS } from '@/config/maps';
+import { LatLngLiteral } from '@/config/types';
 import { calcDist, calcScore } from '@/utils/geo';
 import { OrNull } from '@/utils/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';

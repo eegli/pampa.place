@@ -1,6 +1,7 @@
 import { config } from '@/config/google';
-import { LatLngLiteral, MAPS } from '@/config/maps';
+import { MAPS } from '@/config/maps';
 import { markers } from '@/config/markers';
+import { LatLngLiteral } from '@/config/types';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import { updateSelectedPosition } from '@/redux/slices/position';

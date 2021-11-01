@@ -1,5 +1,6 @@
 import { config } from '@/config/google';
-import { LatLngLiteral, MAPS } from '@/config/maps';
+import { MAPS } from '@/config/maps';
+import { LatLngLiteral } from '@/config/types';
 import { RootState } from '@/redux/store';
 import { randomPointInMap } from '@/utils/geo';
 import { OrNull } from '@/utils/types';
