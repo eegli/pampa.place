@@ -1,3 +1,4 @@
+import { createSelector } from '@reduxjs/toolkit';
 import { Result } from '../slices/game';
 import { RootState } from '../store';
 
@@ -5,30 +6,36 @@ export const getActivePlayer = (s: RootState) => s.game.players.names[0];
 
 export const getPlayerCount = (s: RootState) => s.game.players.names.length;
 
-export const getRoundScores = (s: RootState) => {
-  const final: Array<Result & { name: string }> = [];
-
-  for (const [key, value] of Object.entries(s.game.players.scores)) {
-    final.push({
-      name: key,
-      ...value.results[s.game.rounds.current - 1],
-    });
+// TODO use memoization once redux toolkit exports reselect 4.1
+export const getRoundScores = createSelector(
+  [
+    (s: RootState) => s.game.players.scores,
+    (s: RootState) => s.game.rounds.current - 1,
+  ],
+  (scores, currentRound) => {
+    return Object.entries(scores)
+      .reduce((acc, [playerName, playerScores]) => {
+        acc.push({
+          name: playerName,
+          ...playerScores.results[currentRound],
+        });
+        return acc;
+      }, [] as Array<Result & { name: string }>)
+      .sort((a, b) => (a.score > b.score ? -1 : b.score > a.score ? 1 : 0));
   }
+);
 
-  return final.sort((a, b) => (a.dist > b.dist ? 1 : b.dist > a.dist ? -1 : 0));
-};
-
-export const getTotalScores = (s: RootState) => {
-  const final: { name: string; score: number }[] = [];
-
-  for (const [key, value] of Object.entries(s.game.players.scores)) {
-    final.push({ name: key, score: value.totalScore });
+export const getTotalScores = createSelector(
+  [(s: RootState) => s.game.players.scores],
+  scores => {
+    return Object.entries(scores)
+      .reduce((acc, [playerName, playerScores]) => {
+        acc.push({ name: playerName, score: playerScores.totalScore });
+        return acc;
+      }, [] as Array<{ name: string; score: number }>)
+      .sort((a, b) => (a.score > b.score ? -1 : b.score > a.score ? 1 : 0));
   }
-
-  return final.sort((a, b) =>
-    a.score > b.score ? -1 : b.score > a.score ? 1 : 0
-  );
-};
+);
 
 export const shouldRequestNewSV = (s: RootState) =>
   s.game.rounds.progress === 0;

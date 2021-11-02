@@ -17,7 +17,7 @@
     "@googlemaps/react-wrapper": "^1.1.10",
     "@mui/icons-material": "^5.0.1",
     "@mui/material": "^5.0.2",
-    "@reduxjs/toolkit": "^1.6.1",
+    "@reduxjs/toolkit": "^1.6.2",
     "@turf/area": "^6.5.0",
     "@turf/bbox": "^6.5.0",
     "@turf/bbox-polygon": "^6.5.0",
@@ -32,6 +32,7 @@
     "react-dom": "17.0.2",
     "react-redux": "^7.2.5",
     "react-use": "^17.3.1",
+    "reselect": "^4.1.1",
     "styled-components": "^5.3.1"
   },
   "devDependencies": {

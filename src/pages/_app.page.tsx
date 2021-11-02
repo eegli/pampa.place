@@ -3,13 +3,13 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import type { AppProps, NextWebVitalsMetric } from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { GoogleMapRoot } from '../components/google/google.map';
-import { GoogleSVRoot } from '../components/google/google.street-view';
 import Login from '../components/login';
 import LoadingProgress from '../components/progress';
 import Spinner from '../components/spinner';
 import { useAppSelector } from '../redux/hooks';
 import { RootState, store } from '../redux/store';
+import { GmapContainer } from '../services/google-map';
+import { GstvContainer } from '../services/google-sv';
 import { PageContentContainer } from '../styles';
 import GlobalStyles from '../styles/global';
 
@@ -53,8 +53,8 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider store={store}>
       <ThemeWrapper>
-        <GoogleMapRoot />
-        <GoogleSVRoot />
+        <GmapContainer />
+        <GstvContainer />
         <GlobalStyles />
         <CssBaseline />
         <LoadingProgress />

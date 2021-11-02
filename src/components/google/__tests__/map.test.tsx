@@ -1,16 +1,11 @@
 import { render } from '@/tests/test-utils';
 import { initialize, Map } from '@googlemaps/jest-mocks';
 import React from 'react';
-import GoogleMap, { GLOBAL_MAP, MapMode, resetGlobalMap } from '../google.map';
-
-jest.mock('../../../config/maps');
+import { Gmap } from '../../../services/google-map';
+import GoogleMap, { MapMode } from '../google.map';
 
 beforeEach(() => {
   initialize();
-});
-
-afterEach(() => {
-  resetGlobalMap();
 });
 
 jest.spyOn(React, 'useRef').mockReturnValue({
@@ -33,12 +28,9 @@ Map.prototype.data = {
 
 describe('Google Map', () => {
   it('renders google map', () => {
-    expect(GLOBAL_MAP).toBeUndefined();
     const { container } = render(<GoogleMap activeMapId="1mSRVyWP3tLQ" />);
 
-    expect(GLOBAL_MAP).not.toBeUndefined();
-    expect(GLOBAL_MAP).toBeInstanceOf(Map);
-    expect(GLOBAL_MAP!.fitBounds).toHaveBeenCalledTimes(1);
+    expect(Gmap.map.fitBounds).toHaveBeenCalledTimes(1);
     expect(container.querySelector('#__GMAP__CONTAINER__')).toBeInTheDocument();
     expect(container.querySelector('#__GMAP__')).toHaveStyle('height:100%');
   });

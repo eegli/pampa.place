@@ -2,10 +2,10 @@ import { configureStore } from '@reduxjs/toolkit';
 import { render, RenderOptions } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { GoogleMapRoot } from '../components/google/google.map';
-import { GoogleSVRoot } from '../components/google/google.street-view';
 import { ThemeWrapper } from '../pages/_app.page';
 import { rootReducer } from '../redux/store';
+import { GmapContainer } from '../services/google-map';
+import { GstvContainer } from '../services/google-sv';
 
 export function createMockStore() {
   return configureStore({
@@ -24,8 +24,8 @@ const customRender = (
     return (
       <Provider store={providerStore}>
         <ThemeWrapper>
-          <GoogleMapRoot />
-          <GoogleSVRoot />
+          <GmapContainer />
+          <GstvContainer />
           {children}
         </ThemeWrapper>
       </Provider>

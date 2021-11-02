@@ -1,6 +1,6 @@
-import { MapCollection } from '@/config/types';
+import { BaseProperties, MapCollection } from '@/config/types';
 
-const maps: MapCollection = {
+const maps: MapCollection<BaseProperties> = {
   type: 'FeatureCollection',
   features: [
     {
