@@ -33,27 +33,21 @@ export type GameConfig = {
 export type LatLngLiteral = { lat: number; lng: number };
 
 // All maps eventually only need the name property
-export type Properties = {
+export type BaseProperties = {
   name: string;
 };
 
-export type MapCollection = FeatureCollection<
-  Polygon | MultiPolygon,
-  Properties
->;
-// Specific properties of the map data set of the EU
-export type EUMapCollection = FeatureCollection<
-  Polygon | MultiPolygon,
-  {
-    CNTR_CODE: string;
-    NAME_LATN: string;
-    NUTS_ID: string;
-    FID: string;
-  }
->;
+export type EUMapProperties = {
+  CNTR_CODE: string;
+  NAME_LATN: string;
+  NUTS_ID: string;
+  FID: string;
+};
+
+export type MapCollection<T> = FeatureCollection<Polygon | MultiPolygon, T>;
 
 // Full, computed map data
-export type Maps<T = Properties> = Record<
+export type Maps<T = BaseProperties> = Record<
   string,
   {
     computed: {

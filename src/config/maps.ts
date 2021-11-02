@@ -1,9 +1,11 @@
 import defaultMapData from '../../data/NUTS_RG_03M_2021_4326_SUI.json';
 import customMapData from '../../maps';
 import { computeMapData, computeMapIds } from './helpers';
-import { EUMapCollection, MapIdCollection, Maps } from './types';
+import { EUMapProperties, MapCollection, MapIdCollection, Maps } from './types';
 
-const defaultMaps = computeMapData(defaultMapData as EUMapCollection);
+const defaultMaps = computeMapData(
+  defaultMapData as MapCollection<EUMapProperties>
+);
 const customMaps = computeMapData(customMapData);
 
 export const MAPS: Maps = { ...defaultMaps, ...customMaps };

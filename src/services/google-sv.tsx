@@ -26,11 +26,6 @@ export class Gstv {
   }
 
   static toggle<T extends HTMLElement>(tempContainer: T) {
-    if (!Gstv._stv) {
-      Gstv._stv = new google.maps.StreetViewPanorama(Gstv.div);
-      console.log('Created new global Map instance');
-    }
-
     const undo = unsafeToggleHTMLElement(
       Gstv.div,
       Gstv.container,

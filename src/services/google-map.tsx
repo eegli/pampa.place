@@ -26,11 +26,6 @@ export class Gmap {
   }
 
   static toggle(tempContainer: Parameters<typeof unsafeToggleHTMLElement>[2]) {
-    if (!Gmap._map) {
-      Gmap._map = new google.maps.Map(Gmap.div);
-      console.log('Created new global Map instance');
-    }
-
     const undo = unsafeToggleHTMLElement(
       Gmap.div,
       Gmap.container,
