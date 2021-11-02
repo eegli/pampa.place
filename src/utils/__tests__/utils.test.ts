@@ -17,8 +17,11 @@ describe('Utils, misc', () => {
   });
   test('distance formatting utility', () => {
     expect(formatDist(0)).toEqual('0.0 m');
+    expect(formatDist(2.2)).toEqual('2.2 m');
     expect(formatDist(-1)).toEqual('-');
-    expect(formatDist(1000)).toEqual('1.0 km');
+    expect(formatDist(1000)).toEqual('1.000 km');
+    expect(formatDist(1001.1)).toEqual('1.001 km');
+    expect(formatDist(1021.1)).toEqual('1.021 km');
   });
   test('toggle element', () => {
     const originContainer = document.createElement('div');

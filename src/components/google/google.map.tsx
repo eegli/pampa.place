@@ -5,17 +5,9 @@ import { LatLngLiteral } from '@/config/types';
 import { useAppDispatch } from '@/redux/hooks';
 import { Result } from '@/redux/slices/game';
 import { updateSelectedPosition } from '@/redux/slices/position';
-import { unsafeToggleHTMLElement } from '@/utils/misc';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
-
-export const GoogleMapRoot = () => {
-  return (
-    <div id="__GMAP__CONTAINER__">
-      <div id="__GMAP__" style={{ height: '100%' }} />
-    </div>
-  );
-};
+import { Gmap } from '../../services/google-map';
 
 export enum MapMode {
   PREVIEW,
@@ -32,13 +24,6 @@ export type GoogleMapProps = {
   initialPos?: LatLngLiteral;
 };
 
-// Testing utility because imports cannot be changed
-export function resetGlobalMap() {
-  GLOBAL_MAP = undefined;
-}
-
-export let GLOBAL_MAP: google.maps.Map | undefined;
-
 const GoogleMap = ({
   mode,
   scores,
@@ -49,16 +34,8 @@ const GoogleMap = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const mapDiv = document.getElementById('__GMAP__')!;
-    const parking = document.getElementById('__GMAP__CONTAINER__')!;
-
-    if (!GLOBAL_MAP) {
-      GLOBAL_MAP = new google.maps.Map(mapDiv);
-      console.log('Created new global Map instance');
-    }
-
     if (ref.current) {
-      const undoToggle = unsafeToggleHTMLElement(mapDiv, parking, ref.current);
+      const undoToggle = Gmap.toggle(ref.current);
       return () => {
         undoToggle();
       };
@@ -66,38 +43,36 @@ const GoogleMap = ({
   }, []);
 
   useEffect(() => {
-    if (GLOBAL_MAP) {
-      GLOBAL_MAP.setOptions({
-        ...config.map,
-      });
-      const map = MAPS[activeMapId];
-      const sw = new google.maps.LatLng(map.computed.bbLiteral.SW);
-      const ne = new google.maps.LatLng(map.computed.bbLiteral.NE);
+    Gmap.map.setOptions({
+      ...config.map,
+    });
+    const map = MAPS[activeMapId];
+    const sw = new google.maps.LatLng(map.computed.bbLiteral.SW);
+    const ne = new google.maps.LatLng(map.computed.bbLiteral.NE);
 
-      /* Order in constructor is important! SW, NE  */
-      const mapBounds = new google.maps.LatLngBounds(sw, ne);
-      GLOBAL_MAP.fitBounds(mapBounds, 2);
-    }
+    /* Order in constructor is important! SW, NE  */
+    const mapBounds = new google.maps.LatLngBounds(sw, ne);
+    Gmap.map.fitBounds(mapBounds, 2);
   }, [activeMapId]);
 
   /* If the map is used in preview mode */
   useEffect(() => {
-    if (GLOBAL_MAP && mode === MapMode.PREVIEW) {
-      GLOBAL_MAP.setOptions({
+    if (mode === MapMode.PREVIEW) {
+      Gmap.map.setOptions({
         ...config.map,
         mapTypeId: 'roadmap',
         mapTypeControl: false,
         gestureHandling: 'none',
       });
-      const features = GLOBAL_MAP.data.addGeoJson(MAPS[activeMapId].geo);
-      GLOBAL_MAP.data.setStyle({
+      const features = Gmap.map.data.addGeoJson(MAPS[activeMapId].geo);
+      Gmap.map.data.setStyle({
         fillColor: '#003d80',
         fillOpacity: 0.2,
         strokeWeight: 0.8,
       });
       return () => {
         features.forEach(feat => {
-          GLOBAL_MAP?.data.remove(feat);
+          Gmap.map?.data.remove(feat);
         });
       };
     }
@@ -105,16 +80,16 @@ const GoogleMap = ({
 
   /* Map in actual game mode */
   useEffect(() => {
-    if (GLOBAL_MAP && mode === MapMode.PLAY) {
-      GLOBAL_MAP.setOptions({
+    if (mode === MapMode.PLAY) {
+      Gmap.map.setOptions({
         ...config.map,
       });
       const marker = new google.maps.Marker();
-      const listener = GLOBAL_MAP.addListener(
+      const listener = Gmap.map.addListener(
         'click',
         ({ latLng }: { latLng: google.maps.LatLng }) => {
           marker.setPosition(latLng);
-          marker.setMap(GLOBAL_MAP!);
+          marker.setMap(Gmap.map!);
 
           dispatch(
             updateSelectedPosition({ lat: latLng.lat(), lng: latLng.lng() })
@@ -130,22 +105,22 @@ const GoogleMap = ({
 
   /* End of round, display markers */
   useEffect(() => {
-    if (GLOBAL_MAP && scores && initialPos && mode === MapMode.RESULT) {
-      GLOBAL_MAP.setOptions({
+    if (scores && initialPos && mode === MapMode.RESULT) {
+      Gmap.map.setOptions({
         ...config.map,
       });
       const gMarkers: google.maps.Marker[] = [];
       gMarkers.push(
         new window.google.maps.Marker({
           position: initialPos,
-          map: GLOBAL_MAP,
+          map: Gmap.map,
         })
       );
       scores.forEach((p, idx) => {
         gMarkers.push(
           new window.google.maps.Marker({
             position: p.selected,
-            map: GLOBAL_MAP,
+            map: Gmap.map,
             label: {
               text: p.name,
               color: 'white',

@@ -13,10 +13,10 @@ export function formatDur(seconds: number): string {
 }
 
 // Formats distance
-export function formatDist(meter: number, toFixed = 1): string {
+export function formatDist(meter: number, toFixed = 3): string {
   if (meter < 0) return '-';
   if (meter < 1000) {
-    return meter.toFixed(toFixed) + ' m';
+    return meter.toFixed(1) + ' m';
   }
   return (meter / 1000).toFixed(toFixed) + ' km';
 }

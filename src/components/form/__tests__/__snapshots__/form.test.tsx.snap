@@ -283,7 +283,7 @@ Array [
     role="button"
     tabindex="0"
   >
-    Alpen
+    Custom map
   </div>,
   <button
     class="MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-1hf04jj-MuiButtonBase-root-MuiIconButton-root"
