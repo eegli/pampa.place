@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { render, RenderOptions } from '@testing-library/react';
-import React from 'react';
+import { FC, ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import { ThemeWrapper } from '../pages/_app.page';
 import { rootReducer } from '../redux/store';
@@ -14,13 +14,13 @@ export function createMockStore() {
 }
 
 const customRender = (
-  ui: React.ReactElement,
+  ui: ReactElement,
   store?: ReturnType<typeof createMockStore>,
   options?: Omit<RenderOptions, 'wrapper'>
 ) => {
   const providerStore = store || createMockStore();
 
-  const Wrapper: React.FC = ({ children }) => {
+  const Wrapper: FC = ({ children }) => {
     return (
       <Provider store={providerStore}>
         <ThemeWrapper>

@@ -1,7 +1,7 @@
 import { Status, Wrapper } from '@googlemaps/react-wrapper';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import type { AppProps, NextWebVitalsMetric } from 'next/app';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import Login from '../components/login';
 import LoadingProgress from '../components/progress';
@@ -17,7 +17,7 @@ export function reportWebVitals(metric: NextWebVitalsMetric) {
   // console.log(metric);
 }
 
-const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
+const AuthWrapper = ({ children }: { children: ReactNode }) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
   if (!apiKey) return <Login />;
 
@@ -50,7 +50,7 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   return <Wrapper apiKey={apiKey} render={render} />;
 };
 
-export const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
+export const ThemeWrapper = ({ children }: { children: ReactNode }) => {
   const activeTheme = useAppSelector((s: RootState) => s.app.theme);
   const theme = createTheme({ palette: { mode: activeTheme } });
 

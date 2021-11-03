@@ -8,11 +8,13 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
+
 type MapPreviewProps = {
   title: string;
   open: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  children?: React.ReactNode;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  children?: ReactNode;
 };
 
 const MapPreview = ({ title, open, setIsOpen, children }: MapPreviewProps) => {

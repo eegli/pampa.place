@@ -5,6 +5,7 @@ import { setPlayers } from '@/redux/slices/game';
 import { min } from '@/utils/misc';
 import RoomIcon from '@mui/icons-material/Room';
 import { Box, Fade, InputAdornment, TextField } from '@mui/material';
+import { ChangeEvent } from 'react';
 
 const MAX_PLAYERS = config.maxPlayers;
 
@@ -13,7 +14,7 @@ const FormPlayers = () => {
   const dispatch = useAppDispatch();
 
   const handlePlayerChange =
-    (inputId: number) => (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    (inputId: number) => (e: ChangeEvent<HTMLTextAreaElement>) => {
       const existing = [...players];
       existing[inputId] = e.target.value;
       dispatch(setPlayers(existing));
