@@ -21,7 +21,7 @@ const GamePage = () => {
 
   function render() {
     switch (status) {
-      case STATUS.ROUND_INTERMISSION:
+      case STATUS.PENDING_PLAYER:
         return <RoundIntermission />;
       case STATUS.ROUND_STARTED:
         return <Play />;

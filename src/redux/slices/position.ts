@@ -66,6 +66,7 @@ export const getRandomStreetView = createAsyncThunk<
   const service = new window.google.maps.StreetViewService();
   const reqDefaults: google.maps.StreetViewLocationRequest = {
     preference: randomPreference,
+    source: google.maps.StreetViewSource.OUTDOOR,
     radius: 1000,
   };
 

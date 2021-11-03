@@ -26,7 +26,6 @@ const Play = () => {
         selected: selectedPos,
       })
     );
-    console.log('loser');
   }
 
   return (

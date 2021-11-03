@@ -24,18 +24,23 @@ const GoogleStreetView = ({ staticPos = false }: GoogleStreetViewProps) => {
   }, []);
 
   useEffect(() => {
-    if (panoId) {
-      Gstv.stv.setPano(panoId);
+    Gstv.stv.setPano(panoId);
 
-      let opts = config.streetview;
+    let opts = config.streetview;
 
-      if (staticPos) {
-        opts = { ...opts, clickToGo: false, disableDoubleClickZoom: true };
-      }
-      Gstv.stv.setOptions({
+    if (staticPos) {
+      opts = {
         ...opts,
-      });
+        clickToGo: false,
+        disableDoubleClickZoom: true,
+        disableDefaultUI: true,
+      };
     }
+    Gstv.stv.setOptions(opts);
+
+    return () => {
+      Gstv.stv.setOptions(config.streetview);
+    };
   }, [panoId, staticPos]);
 
   return (
