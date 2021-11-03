@@ -24,7 +24,15 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const render = (status: Status) => {
     if (status === Status.LOADING)
       return (
-        <PageContentContainer height="100%">
+        <PageContentContainer
+          id="spinner"
+          sx={{
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <Spinner />
         </PageContentContainer>
       );

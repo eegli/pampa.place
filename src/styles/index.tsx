@@ -38,7 +38,7 @@ export const SlimContainer = ({
 );
 
 interface PageContentContainerProps extends ContainerProps {
-  height: string;
+  height?: string;
 }
 
 // A default container that should be used to wrap all pages. It is
@@ -48,7 +48,6 @@ interface PageContentContainerProps extends ContainerProps {
 export const PageContentContainer = ({
   children,
   height: customHeight,
-  ...rest
 }: PageContentContainerProps) => {
   return (
     <Box
@@ -68,10 +67,9 @@ export const PageContentContainer = ({
           color: 'text.primary',
           display: 'flex',
           alignItems: 'center',
-          height: customHeight,
+          height: customHeight || '100%',
           flexFlow: 'column',
         }}
-        {...rest}
       >
         {children}
       </Container>
