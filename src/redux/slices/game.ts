@@ -79,7 +79,7 @@ export const gameSlice = createSlice({
     },
     setMap(state, action: PayloadAction<string>) {
       state.mapId = action.payload;
-      state.mapName = MAPS[action.payload].geo.properties.name;
+      state.mapName = MAPS[action.payload].feature.properties.name;
     },
     initGame(state) {
       if (!state.players.names.length) {
@@ -120,7 +120,7 @@ export const gameSlice = createSlice({
       // User managed to set a location
       if (payload.selected && payload.initial) {
         dist = calcDist(payload.initial, payload.selected);
-        score = calcScore(MAPS[state.mapId].computed.area, dist);
+        score = calcScore(MAPS[state.mapId].area, dist);
         selected = payload.selected;
       }
 
