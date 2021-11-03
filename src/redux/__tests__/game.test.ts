@@ -1,4 +1,4 @@
-import { DeepPartial, PickActualPartial } from '@/utils/types';
+import { DeepPartial } from '@/utils/types';
 import gameReducer, {
   gameSlice,
   GameState,
@@ -9,7 +9,7 @@ export const {
   reset,
   initGame,
   startRound,
-  finishRound,
+  endRound,
   resetRound,
   setPlayerScore,
   setRounds,
@@ -18,41 +18,7 @@ export const {
   setTimeLimit,
 } = gameSlice.actions;
 
-describe('Redux, game state e2e', () => {
-  it('inits game with default players if none are present', () => {
-    const state = gameReducer(initialState, initGame);
-    expect(state).toMatchObject<DeepPartial<GameState>>({
-      players: {
-        names: ['Player 1'],
-        scores: {
-          'Player 1': {
-            totalScore: 0,
-            results: [],
-          },
-        },
-      },
-    });
-    expect(state.rounds).toMatchObject<PickActualPartial<GameState, 'rounds'>>({
-      current: 1,
-      progress: 0,
-    });
-    expect(state.status).toEqual('PENDING_PLAYER');
-  });
-  it('sets up and inits game', () => {
-    const state = gameReducer(
-      initialState,
-      setPlayers([
-        '',
-        'player',
-        'eric eric eric eric eric eric eric eric eric eric',
-      ])
-    );
-    expect(state.players.names).toEqual(['player', 'eric eric eric eric eric']);
-  });
-});
-
-// TODO e2e
-describe('Redux, game state', () => {
+describe('Redux, game actions', () => {
   it('filters invalid and truncates long player names', () => {
     const state = gameReducer(
       initialState,
@@ -77,41 +43,68 @@ describe('Redux, game state', () => {
         },
       },
     });
-    expect(state.rounds).toMatchObject<PickActualPartial<GameState, 'rounds'>>({
-      current: 1,
-      progress: 0,
-    });
-    expect(state.status).toEqual('PENDING_PLAYER');
   });
-  it('sets player scores and resets round', () => {
-    let state = gameReducer(initialState, initGame);
+});
+
+describe('Redux, game', () => {
+  let state = initialState;
+  it('passes e2e test', () => {
+    state = gameReducer(state, setPlayers(['p1', 'p2']));
+    state = gameReducer(state, setRounds(2));
+    expect(state).toMatchSnapshot('Add players and set rounds');
+    state = gameReducer(state, initGame);
+    expect(state).toMatchSnapshot('Game initialized');
+    /* Round 1 */
+    state = gameReducer(state, startRound);
+    expect(state).toMatchSnapshot('Started round 1');
     state = gameReducer(
       state,
-      setPlayerScore({ selected: null, initial: null })
+      setPlayerScore({
+        selected: null,
+        initial: null,
+      })
     );
-    expect(state).toMatchSnapshot('Set score, round 1');
-    let secondState = gameReducer(
+    expect(state).toMatchSnapshot('Round 1, player 1 scored');
+    state = gameReducer(
       state,
-      setPlayerScore({ selected: null, initial: null })
+      setPlayerScore({
+        selected: null,
+        initial: null,
+      })
     );
-    secondState = gameReducer(secondState, finishRound);
-    expect(secondState).toMatchSnapshot('Set score, round 2');
-    let thirdState = gameReducer(secondState, resetRound);
-    expect(thirdState).toMatchSnapshot('Reset round 2');
-    expect(thirdState).toEqual(state);
-  });
-  it('finishes game or round depending on progress', () => {
-    let state: GameState = {
-      ...initialState,
-      rounds: {
-        total: 1,
-        current: 0,
-        progress: 1,
-      },
-    };
-    state = gameReducer(state, finishRound);
-    expect({ ...state.rounds, status: state.status }).toMatchSnapshot();
-    state = gameReducer(state, finishRound);
-    expect({ ...state.rounds, status: state.status }).toMatchSnapshot();
+    expect(state).toMatchSnapshot('Round 1, player 2 scored');
+    state = gameReducer(state, endRound);
+    expect(state).toMatchSnapshot('Finished round 1');
+    /* Round 2 */
+    state = gameReducer(state, startRound);
+    expect(state).toMatchSnapshot('Started round 2');
+    state = gameReducer(
+      state,
+      setPlayerScore({
+        selected: null,
+        initial: null,
+      })
+    );
+    expect(state).toMatchSnapshot('Round 2, player 1 scored');
+    state = gameReducer(state, resetRound);
+    expect(state).toMatchSnapshot('Round 2, reset');
+    state = gameReducer(
+      state,
+      setPlayerScore({
+        selected: null,
+        initial: null,
+      })
+    );
+    expect(state).toMatchSnapshot('Round 2, player 1 scored');
+    state = gameReducer(
+      state,
+      setPlayerScore({
+        selected: null,
+        initial: null,
+      })
+    );
+    expect(state).toMatchSnapshot('Round 2, player 2 scored');
+    state = gameReducer(state, endRound);
+    expect(state).toMatchSnapshot('Finished round 2, game ended');
   });
 });

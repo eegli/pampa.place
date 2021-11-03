@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getRoundScores, isFinished } from '@/redux/selectors/game';
-import { finishRound } from '@/redux/slices/game';
+import { endRound } from '@/redux/slices/game';
 import { formatDist } from '@/utils/misc';
 import {
   Box,
@@ -43,7 +43,7 @@ const RoundEnd = () => {
   );
 
   function handleClick() {
-    dispatch(finishRound());
+    dispatch(endRound());
   }
 
   const text = isGameFinished

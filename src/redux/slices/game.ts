@@ -19,7 +19,7 @@ type Player = {
 export enum STATUS {
   UNINITIALIZED = 'UNINITIALIZED',
   ROUND_STARTED = 'ROUND_STARTED',
-  PENDING_PLAYER = 'PENDING_PLAYER',
+  ROUND_INTERMISSION = 'ROUND_INTERMISSION',
   ROUND_ENDED = 'ROUND_ENDED',
   FINISHED = 'FINISHED',
 }
@@ -95,7 +95,7 @@ export const gameSlice = createSlice({
       state.rounds.current = 1;
       state.rounds.progress = 0;
 
-      state.status = STATUS.PENDING_PLAYER;
+      state.status = STATUS.ROUND_INTERMISSION;
     },
     startRound(state) {
       state.status = STATUS.ROUND_STARTED;
@@ -149,7 +149,7 @@ export const gameSlice = createSlice({
       // Same round, wait for player change
       if (state.rounds.progress < state.players.names.length) {
         // Display popup
-        state.status = STATUS.PENDING_PLAYER;
+        state.status = STATUS.ROUND_INTERMISSION;
         // Round is over, reset round progress
       } else {
         // Update overall score and force a new random location
@@ -177,9 +177,9 @@ export const gameSlice = createSlice({
       state.rounds.progress = 0;
 
       // Set zero for current round scores
-      state.status = STATUS.PENDING_PLAYER;
+      state.status = STATUS.ROUND_INTERMISSION;
     },
-    finishRound(state) {
+    endRound(state) {
       state.rounds.current++;
       state.rounds.progress = 0;
 
@@ -187,7 +187,7 @@ export const gameSlice = createSlice({
       if (state.rounds.total < state.rounds.current) {
         state.status = STATUS.FINISHED;
       } else {
-        state.status = STATUS.PENDING_PLAYER;
+        state.status = STATUS.ROUND_INTERMISSION;
       }
     },
   },
@@ -197,7 +197,7 @@ export const {
   reset,
   initGame,
   startRound,
-  finishRound,
+  endRound,
   resetRound,
   setPlayerScore,
   setRounds,
