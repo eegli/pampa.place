@@ -17,9 +17,9 @@ type Player = {
 } & { results: Result[] };
 
 export enum STATUS {
-  PENDING_START = 'PENDING_START', // Uninitialized
+  UNINITIALIZED = 'UNINITIALIZED',
   ROUND_STARTED = 'ROUND_STARTED',
-  INTERMISSION = 'INTERMISSION',
+  PENDING_PLAYER = 'PENDING_PLAYER',
   ROUND_ENDED = 'ROUND_ENDED',
   FINISHED = 'FINISHED',
 }
@@ -41,7 +41,7 @@ export interface GameState {
 }
 
 export const initialState: GameState = {
-  status: STATUS.PENDING_START,
+  status: STATUS.UNINITIALIZED,
   mapId: CUSTOM_MAP_IDS[0].id,
   mapName: CUSTOM_MAP_IDS[0].name,
   players: {
@@ -95,44 +95,10 @@ export const gameSlice = createSlice({
       state.rounds.current = 1;
       state.rounds.progress = 0;
 
-      state.status = STATUS.INTERMISSION;
-    },
-    finishRound(state) {
-      state.rounds.current++;
-      state.rounds.progress = 0;
-
-      // Game has ended
-      if (state.rounds.total < state.rounds.current) {
-        state.status = STATUS.FINISHED;
-      } else {
-        state.status = STATUS.INTERMISSION;
-      }
+      state.status = STATUS.PENDING_PLAYER;
     },
     startRound(state) {
       state.status = STATUS.ROUND_STARTED;
-    },
-    resetRound(state) {
-      // Rotate to first player again
-      for (let i = 0; i < state.rounds.progress; i++) {
-        const playerName = state.players.names.pop();
-        if (playerName) {
-          // Remove score from this round
-          const result = state.players.scores[playerName].results.pop();
-
-          // Subtract score from this round from total score
-          if (result)
-            state.players.scores[playerName].totalScore -= result.score;
-
-          // Rotate player
-          state.players.names.unshift(playerName);
-        }
-      }
-
-      // Reset round progress
-      state.rounds.progress = 0;
-
-      // Set zero for current round scores
-      state.status = STATUS.INTERMISSION;
     },
     setPlayerScore(
       state,
@@ -183,11 +149,45 @@ export const gameSlice = createSlice({
       // Same round, wait for player change
       if (state.rounds.progress < state.players.names.length) {
         // Display popup
-        state.status = STATUS.INTERMISSION;
+        state.status = STATUS.PENDING_PLAYER;
         // Round is over, reset round progress
       } else {
         // Update overall score and force a new random location
         state.status = STATUS.ROUND_ENDED;
+      }
+    },
+    resetRound(state) {
+      // Rotate to first player again
+      for (let i = 0; i < state.rounds.progress; i++) {
+        const playerName = state.players.names.pop();
+        if (playerName) {
+          // Remove score from this round
+          const result = state.players.scores[playerName].results.pop();
+
+          // Subtract score from this round from total score
+          if (result)
+            state.players.scores[playerName].totalScore -= result.score;
+
+          // Rotate player
+          state.players.names.unshift(playerName);
+        }
+      }
+
+      // Reset round progress
+      state.rounds.progress = 0;
+
+      // Set zero for current round scores
+      state.status = STATUS.PENDING_PLAYER;
+    },
+    finishRound(state) {
+      state.rounds.current++;
+      state.rounds.progress = 0;
+
+      // Game has ended
+      if (state.rounds.total < state.rounds.current) {
+        state.status = STATUS.FINISHED;
+      } else {
+        state.status = STATUS.PENDING_PLAYER;
       }
     },
   },

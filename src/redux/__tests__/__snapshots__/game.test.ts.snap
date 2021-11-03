@@ -1,26 +1,127 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Redux, game state creates game with default players if none are present 1`] = `
+exports[`Redux, game state finishes game or round depending on progress 1`] = `
 Object {
-  "mapId": "eJmFZpriK7QX",
-  "mapName": "Alpen",
+  "current": 1,
+  "progress": 0,
+  "status": "PENDING_PLAYER",
+  "total": 1,
+}
+`;
+
+exports[`Redux, game state finishes game or round depending on progress 2`] = `
+Object {
+  "current": 2,
+  "progress": 0,
+  "status": "FINISHED",
+  "total": 1,
+}
+`;
+
+exports[`Redux, game state sets player scores and resets round: Reset round 2 1`] = `
+Object {
+  "mapId": "1mSRVyWP3tLQ",
+  "mapName": "Custom map",
   "players": Object {
     "names": Array [
       "Player 1",
     ],
     "scores": Object {
       "Player 1": Object {
-        "results": Array [],
+        "results": Array [
+          Object {
+            "dist": -1,
+            "round": 1,
+            "score": 0,
+            "selected": null,
+          },
+          Object {
+            "dist": -1,
+            "round": 1,
+            "score": 0,
+            "selected": null,
+          },
+        ],
+        "totalScore": 0,
+      },
+    },
+  },
+  "rounds": Object {
+    "current": 2,
+    "progress": 0,
+    "total": 3,
+  },
+  "status": "PENDING_PLAYER",
+  "timeLimit": 60,
+}
+`;
+
+exports[`Redux, game state sets player scores and resets round: Set score, round 1 1`] = `
+Object {
+  "mapId": "1mSRVyWP3tLQ",
+  "mapName": "Custom map",
+  "players": Object {
+    "names": Array [
+      "Player 1",
+    ],
+    "scores": Object {
+      "Player 1": Object {
+        "results": Array [
+          Object {
+            "dist": -1,
+            "round": 1,
+            "score": 0,
+            "selected": null,
+          },
+        ],
         "totalScore": 0,
       },
     },
   },
   "rounds": Object {
     "current": 1,
+    "progress": 1,
+    "total": 3,
+  },
+  "status": "ROUND_ENDED",
+  "timeLimit": 60,
+}
+`;
+
+exports[`Redux, game state sets player scores and resets round: Set score, round 2 1`] = `
+Object {
+  "mapId": "1mSRVyWP3tLQ",
+  "mapName": "Custom map",
+  "players": Object {
+    "names": Array [
+      "Player 1",
+    ],
+    "scores": Object {
+      "Player 1": Object {
+        "results": Array [
+          Object {
+            "dist": -1,
+            "round": 1,
+            "score": 0,
+            "selected": null,
+          },
+          Object {
+            "dist": -1,
+            "round": 1,
+            "score": 0,
+            "selected": null,
+          },
+        ],
+        "totalScore": 0,
+      },
+    },
+  },
+  "rounds": Object {
+    "current": 2,
     "progress": 0,
     "total": 3,
   },
-  "status": "INTERMISSION",
+  "status": "PENDING_PLAYER",
   "timeLimit": 60,
 }
 `;

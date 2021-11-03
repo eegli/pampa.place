@@ -44,7 +44,7 @@ describe('Form', () => {
     const submit = querySubmitButton();
     fireEvent.click(submit);
 
-    expect(store.getState().game.status).not.toEqual(STATUS.PENDING_START);
+    expect(store.getState().game.status).not.toEqual(STATUS.UNINITIALIZED);
   });
 });
 
@@ -65,23 +65,6 @@ describe('Form, player name input', () => {
       fireEvent.change(inputs[i], { target: { value: `player ${i}` } });
     }
     expect(queryPlayerInput()).toHaveLength(config.maxPlayers);
-  });
-
-  it('displays player names and filters empty inputs', () => {
-    render(<FormPlayers />);
-    fireEvent.change(queryPlayerInput()[0], { target: { value: 'eric' } });
-    expect(queryPlayerInput()[0]).toHaveValue('eric');
-    fireEvent.change(queryPlayerInput()[1], { target: { value: 'eric 2' } });
-    expect(queryPlayerInput()[1]).toHaveValue('eric 2');
-    fireEvent.change(queryPlayerInput()[0], { target: { value: '' } });
-    expect(queryPlayerInput()[0]).toHaveValue('eric 2');
-  });
-  it('truncates long inputs', () => {
-    render(<FormPlayers />);
-    fireEvent.change(queryPlayerInput()[0], {
-      target: { value: 'eric eric eric eric eric eric eric eric eric eric ' },
-    });
-    expect(queryPlayerInput()[0]).toHaveValue('eric eric eric eric eric');
   });
 });
 
