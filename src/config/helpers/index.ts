@@ -8,7 +8,7 @@ import { MapIdCollection, Maps } from '../types';
 
 export function computeMapData<
   P extends Record<string, string>,
-  T extends FeatureCollection<Polygon | MultiPolygon, P> = any
+  T extends FeatureCollection<Polygon | MultiPolygon, P>
 >(m: T): Maps {
   return m.features.reduce((acc, curr) => {
     const bb = Tbbox(curr);
@@ -30,31 +30,29 @@ export function computeMapData<
 
     // Use an ID in order to avoid collisions between custom and default maps
     acc[nanoid(12)] = {
-      geo: {
+      feature: {
         ...curr,
         properties,
       },
-      computed: {
-        area: Tarea(curr.geometry) * 1e-6,
-        center: { lng: center[0], lat: center[1] },
-        bb,
-        bbLiteral: {
-          SW: {
-            lng: bbPoly.geometry.coordinates[0][0][0],
-            lat: bbPoly.geometry.coordinates[0][0][1],
-          },
-          SE: {
-            lng: bbPoly.geometry.coordinates[0][1][0],
-            lat: bbPoly.geometry.coordinates[0][1][1],
-          },
-          NE: {
-            lng: bbPoly.geometry.coordinates[0][2][0],
-            lat: bbPoly.geometry.coordinates[0][2][1],
-          },
-          NW: {
-            lng: bbPoly.geometry.coordinates[0][3][0],
-            lat: bbPoly.geometry.coordinates[0][3][1],
-          },
+
+      area: Tarea(curr.geometry) * 1e-6,
+      bb,
+      bbLiteral: {
+        SW: {
+          lng: bbPoly.geometry.coordinates[0][0][0],
+          lat: bbPoly.geometry.coordinates[0][0][1],
+        },
+        SE: {
+          lng: bbPoly.geometry.coordinates[0][1][0],
+          lat: bbPoly.geometry.coordinates[0][1][1],
+        },
+        NE: {
+          lng: bbPoly.geometry.coordinates[0][2][0],
+          lat: bbPoly.geometry.coordinates[0][2][1],
+        },
+        NW: {
+          lng: bbPoly.geometry.coordinates[0][3][0],
+          lat: bbPoly.geometry.coordinates[0][3][1],
         },
       },
     };
@@ -65,7 +63,7 @@ export function computeMapData<
 
 export function computeMapIds(m: Maps) {
   const ids = Object.entries(m).reduce((acc, [id, data]) => {
-    acc.push({ name: data.geo.properties.name, id });
+    acc.push({ name: data.feature.properties.name, id });
 
     return acc;
   }, [] as MapIdCollection);

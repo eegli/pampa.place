@@ -47,8 +47,8 @@ const GoogleMap = ({
       ...config.map,
     });
     const map = MAPS[activeMapId];
-    const sw = new google.maps.LatLng(map.computed.bbLiteral.SW);
-    const ne = new google.maps.LatLng(map.computed.bbLiteral.NE);
+    const sw = new google.maps.LatLng(map.bbLiteral.SW);
+    const ne = new google.maps.LatLng(map.bbLiteral.NE);
 
     /* Order in constructor is important! SW, NE  */
     const mapBounds = new google.maps.LatLngBounds(sw, ne);
@@ -64,7 +64,7 @@ const GoogleMap = ({
         mapTypeControl: false,
         gestureHandling: 'none',
       });
-      const features = Gmap.map.data.addGeoJson(MAPS[activeMapId].geo);
+      const features = Gmap.map.data.addGeoJson(MAPS[activeMapId].feature);
       Gmap.map.data.setStyle({
         fillColor: '#003d80',
         fillOpacity: 0.2,

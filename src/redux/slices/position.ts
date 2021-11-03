@@ -74,7 +74,7 @@ export const getRandomStreetView = createAsyncThunk<
     const map = MAPS[game.mapId];
     const { data } = await service.getPanorama({
       ...reqDefaults,
-      location: randomPointInMap(map.computed.bb, map.geo),
+      location: randomPointInMap(map.bb, map.feature),
     });
 
     console.log(data);

@@ -50,18 +50,15 @@ export type MapCollection<T> = FeatureCollection<Polygon | MultiPolygon, T>;
 export type Maps<T = BaseProperties> = Record<
   string,
   {
-    computed: {
-      // Area in km^2
-      area: number;
-      // Not needed for now
-      center: LatLngLiteral;
-      // Used to generate a random point
-      bb: BBox;
-      // Poly bounding box: SW SE NE NW
-      bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
-    };
+    // Area in km^2
+    area: number;
+    // Used to generate a random point
+    bb: BBox;
+    // Poly bounding box: SW SE NE NW
+    bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
+
     // Base can be used directly with google maps
-    geo: Feature<Polygon | MultiPolygon, T>;
+    feature: Feature<Polygon | MultiPolygon, T>;
   }
 >;
 
