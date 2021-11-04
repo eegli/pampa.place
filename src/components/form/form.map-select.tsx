@@ -1,4 +1,4 @@
-import { CUSTOM_MAP_IDS, DEFAULT_MAP_IDS } from '@/config/maps';
+import { MAP_IDS } from '@/config/maps';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
@@ -7,7 +7,6 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
-  ListSubheader,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -63,15 +62,8 @@ const FormMapSelect = () => {
             </InputAdornment>
           }
         >
-          <ListSubheader color="inherit">Custom</ListSubheader>
-          {CUSTOM_MAP_IDS.map(map => (
-            <MenuItem sx={{ maxWidth: 330 }} key={map.id} value={map.id}>
-              {map.name}
-            </MenuItem>
-          ))}
-
-          <ListSubheader color="inherit">Switzerland</ListSubheader>
-          {DEFAULT_MAP_IDS.map(map => (
+          {/*  <ListSubheader color="inherit">Maps</ListSubheader> */}
+          {MAP_IDS.map(map => (
             <MenuItem sx={{ maxWidth: 330 }} key={map.id} value={map.id}>
               {map.name}
             </MenuItem>

@@ -32,22 +32,26 @@ export type GameConfig = {
 
 export type LatLngLiteral = { lat: number; lng: number };
 
-// All maps eventually only need the name property
-export type BaseProperties = {
+export type MapProperties = {
   name: string;
+  category: string;
 };
 
-export type EUMapProperties = {
+export type SwissMapProperties = {
   CNTR_CODE: string;
   NAME_LATN: string;
   NUTS_ID: string;
   FID: string;
 };
 
-export type MapCollection<T> = FeatureCollection<Polygon | MultiPolygon, T>;
+/* Input map data */
+export type MapFeatureCollection<T = MapProperties> = FeatureCollection<
+  Polygon | MultiPolygon,
+  T
+>;
 
-// Full, computed map data
-export type Maps<T = BaseProperties> = Record<
+/* Full, computed map data */
+export type MapDataCollection<T = MapProperties> = Record<
   string,
   {
     // Area in km^2
@@ -56,7 +60,6 @@ export type Maps<T = BaseProperties> = Record<
     bb: BBox;
     // Poly bounding box: SW SE NE NW
     bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
-
     // Base can be used directly with google maps
     feature: Feature<Polygon | MultiPolygon, T>;
   }
@@ -64,5 +67,6 @@ export type Maps<T = BaseProperties> = Record<
 
 export type MapIdCollection = {
   name: string;
+  category: string;
   id: string;
 }[];

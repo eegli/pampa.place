@@ -1,34 +1,42 @@
 import Tarea from '@turf/area';
 import Tbbox from '@turf/bbox';
 import TbboxPolygon from '@turf/bbox-polygon';
-import Tcenter from '@turf/center';
 import { FeatureCollection, MultiPolygon, Polygon } from '@turf/helpers';
 import { nanoid } from 'nanoid';
-import { MapIdCollection, Maps } from '../types';
+import {
+  MapDataCollection,
+  MapIdCollection,
+  MapProperties,
+  SwissMapProperties,
+} from '../types';
 
 export function computeMapData<
-  P extends Record<string, string>,
-  T extends FeatureCollection<Polygon | MultiPolygon, P>
->(m: T): Maps {
+  T extends FeatureCollection<
+    Polygon | MultiPolygon,
+    MapProperties | SwissMapProperties
+  >
+>(m: T): MapDataCollection {
   return m.features.reduce((acc, curr) => {
     const bb = Tbbox(curr);
     const bbPoly = TbboxPolygon(bb);
-    const center = Tcenter(curr.geometry).geometry.coordinates;
 
-    const properties = {
-      name: '',
+    const properties: MapProperties = {
+      name: 'unknown',
+      category: 'unknown',
     };
 
-    // Narrow down type
-    if (curr.properties.NAME_LATN) {
+    // Narrow down type - Swiss or custom maps
+    if ('NAME_LATN' in curr.properties) {
       properties.name = curr.properties.NAME_LATN;
-    } else if (curr.properties.name) {
-      properties.name = curr.properties.name;
+      properties.category = 'switzerland';
     } else {
-      properties.name = 'unknown';
+      properties.name = curr.properties.name;
+      properties.category = 'custom';
     }
 
-    // Use an ID in order to avoid collisions between custom and default maps
+    delete curr.id;
+
+    // Use an ID in order to avoid collisions between custom and Swiss maps
     acc[nanoid(12)] = {
       feature: {
         ...curr,
@@ -58,12 +66,16 @@ export function computeMapData<
     };
     acc;
     return acc;
-  }, {} as Maps);
+  }, {} as MapDataCollection);
 }
 
-export function computeMapIds(m: Maps) {
-  const ids = Object.entries(m).reduce((acc, [id, data]) => {
-    acc.push({ name: data.feature.properties.name, id });
+export function computeMapIds(m: MapDataCollection) {
+  const ids = Object.entries(m).reduce((acc, [mapId, data]) => {
+    acc.push({
+      name: data.feature.properties.name,
+      category: data.feature.properties.category,
+      id: mapId,
+    });
 
     return acc;
   }, [] as MapIdCollection);
