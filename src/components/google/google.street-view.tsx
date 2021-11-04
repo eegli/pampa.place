@@ -37,10 +37,6 @@ const GoogleStreetView = ({ staticPos = false }: GoogleStreetViewProps) => {
       };
     }
     Gstv.stv.setOptions(opts);
-
-    return () => {
-      Gstv.stv.setOptions(config.streetview);
-    };
   }, [panoId, staticPos]);
 
   return (
