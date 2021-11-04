@@ -61,5 +61,6 @@ export const MAP_IDS: MapIdCollection = [
   {
     name: 'Custom map',
     id: testMapId,
+    category: 'custom',
   },
 ];
