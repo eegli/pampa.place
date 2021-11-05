@@ -1,31 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Redux, game passes e2e test: Add players and set rounds 1`] = `
-Object {
-  "mapId": "1mSRVyWP3tLQ",
-  "mapName": "Custom map",
-  "players": Array [
-    "p1",
-    "p2",
-  ],
-  "rounds": Object {
-    "current": 1,
-    "progress": 0,
-    "total": 2,
-  },
-  "scores": Array [],
-  "status": "UNINITIALIZED",
-  "timeLimit": 60,
-}
-`;
-
 exports[`Redux, game passes e2e test: Finished round 1 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
   "players": Array [
-    "p1",
-    "p2",
+    "Player 1",
   ],
   "rounds": Object {
     "current": 2,
@@ -36,15 +16,13 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p1",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
       Object {
         "dist": -1,
-        "name": "p2",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
@@ -61,8 +39,7 @@ Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
   "players": Array [
-    "p2",
-    "p1",
+    "Player 1",
   ],
   "rounds": Object {
     "current": 3,
@@ -73,15 +50,13 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p1",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
       Object {
         "dist": -1,
-        "name": "p2",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
@@ -89,15 +64,13 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p2",
-        "round": 2,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
       Object {
         "dist": -1,
-        "name": "p1",
-        "round": 2,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
@@ -108,35 +81,12 @@ Object {
 }
 `;
 
-exports[`Redux, game passes e2e test: Game initialized 1`] = `
-Object {
-  "mapId": "1mSRVyWP3tLQ",
-  "mapName": "Custom map",
-  "players": Array [
-    "p1",
-    "p2",
-  ],
-  "rounds": Object {
-    "current": 1,
-    "progress": 0,
-    "total": 2,
-  },
-  "scores": Array [
-    Array [],
-    Array [],
-  ],
-  "status": "PENDING_PLAYER",
-  "timeLimit": 60,
-}
-`;
-
 exports[`Redux, game passes e2e test: Round 1, player 1 scored 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
   "players": Array [
-    "p2",
-    "p1",
+    "Player 1",
   ],
   "rounds": Object {
     "current": 1,
@@ -147,15 +97,14 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p1",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
     ],
     Array [],
   ],
-  "status": "PENDING_PLAYER",
+  "status": "ROUND_ENDED",
   "timeLimit": 60,
 }
 `;
@@ -165,8 +114,7 @@ Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
   "players": Array [
-    "p1",
-    "p2",
+    "Player 1",
   ],
   "rounds": Object {
     "current": 1,
@@ -177,15 +125,13 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p1",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
       Object {
         "dist": -1,
-        "name": "p2",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
@@ -202,8 +148,7 @@ Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
   "players": Array [
-    "p2",
-    "p1",
+    "Player 1",
   ],
   "rounds": Object {
     "current": 2,
@@ -214,15 +159,13 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p1",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
       Object {
         "dist": -1,
-        "name": "p2",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
@@ -230,14 +173,13 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p1",
-        "round": 2,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
     ],
   ],
-  "status": "PENDING_PLAYER",
+  "status": "ROUND_ENDED",
   "timeLimit": 60,
 }
 `;
@@ -247,8 +189,7 @@ Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
   "players": Array [
-    "p1",
-    "p2",
+    "Player 1",
   ],
   "rounds": Object {
     "current": 2,
@@ -259,15 +200,13 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p1",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
       Object {
         "dist": -1,
-        "name": "p2",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
@@ -275,14 +214,13 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p2",
-        "round": 2,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
     ],
   ],
-  "status": "PENDING_PLAYER",
+  "status": "ROUND_ENDED",
   "timeLimit": 60,
 }
 `;
@@ -292,8 +230,7 @@ Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
   "players": Array [
-    "p2",
-    "p1",
+    "Player 1",
   ],
   "rounds": Object {
     "current": 2,
@@ -304,15 +241,13 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p1",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
       Object {
         "dist": -1,
-        "name": "p2",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
@@ -320,15 +255,13 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p2",
-        "round": 2,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
       Object {
         "dist": -1,
-        "name": "p1",
-        "round": 2,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
@@ -344,8 +277,7 @@ Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
   "players": Array [
-    "p2",
-    "p1",
+    "Player 1",
   ],
   "rounds": Object {
     "current": 2,
@@ -356,15 +288,13 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p1",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
       Object {
         "dist": -1,
-        "name": "p2",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
@@ -381,8 +311,7 @@ Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
   "players": Array [
-    "p1",
-    "p2",
+    "Player 1",
   ],
   "rounds": Object {
     "current": 1,
@@ -403,8 +332,7 @@ Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
   "players": Array [
-    "p1",
-    "p2",
+    "Player 1",
   ],
   "rounds": Object {
     "current": 2,
@@ -415,15 +343,13 @@ Object {
     Array [
       Object {
         "dist": -1,
-        "name": "p1",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },
       Object {
         "dist": -1,
-        "name": "p2",
-        "round": 1,
+        "name": "Player 1",
         "score": 0,
         "selected": null,
       },

@@ -18,10 +18,12 @@ export const {
   setTimeLimit,
 } = gameSlice.actions;
 
-describe('Redux, game actions', () => {
-  it('filters invalid and truncates long player names', () => {
-    const state = gameReducer(
-      initialState,
+describe('Redux, game', () => {
+  let state = initialState;
+  it('passes e2e test', () => {
+    /* Initialization */
+    state = gameReducer(
+      state,
       setPlayers([
         '',
         'player',
@@ -29,23 +31,20 @@ describe('Redux, game actions', () => {
       ])
     );
     expect(state.players).toEqual(['player', 'eric eric eric eric eric']);
-  });
-  it('inits game with default players if none are present', () => {
-    const state = gameReducer(initialState, initGame);
+    state = gameReducer(state, setPlayers(['p1', 'p2']));
+    expect(state.players).toEqual(['p1', 'p2']);
+    state = gameReducer(state, setRounds(2));
+    expect(state).toMatchObject<DeepPartial<GameState>>({
+      rounds: {
+        total: 2,
+      },
+    });
+    state = gameReducer(state, setPlayers([]));
+    state = gameReducer(state, initGame);
     expect(state).toMatchObject<DeepPartial<GameState>>({
       players: ['Player 1'],
     });
-  });
-});
 
-describe('Redux, game', () => {
-  let state = initialState;
-  it('passes e2e test', () => {
-    state = gameReducer(state, setPlayers(['p1', 'p2']));
-    state = gameReducer(state, setRounds(2));
-    expect(state).toMatchSnapshot('Add players and set rounds');
-    state = gameReducer(state, initGame);
-    expect(state).toMatchSnapshot('Game initialized');
     /* Round 1 */
     state = gameReducer(state, startRound);
     expect(state).toMatchSnapshot('Started round 1');

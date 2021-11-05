@@ -12,10 +12,6 @@ export type Result = {
   score: number;
 };
 
-type Score = {
-  totalScore: number;
-} & { results: Result[] };
-
 export enum STATUS {
   UNINITIALIZED = 'UNINITIALIZED',
   ROUND_STARTED = 'ROUND_STARTED',
@@ -30,7 +26,6 @@ export interface GameState {
   mapName: string;
   players: string[];
   scores: {
-    round: number;
     selected: OrNull<LatLngLiteral>;
     dist: number;
     score: number;
@@ -87,10 +82,13 @@ export const gameSlice = createSlice({
       }
       state.scores = [];
 
-      // Prepare scores array - empty [] for each round
-      for (let i = 0; i < state.rounds.total; i++) {
-        state.scores.push([]);
-      }
+      state.scores = Array.from(
+        {
+          length: state.rounds.total,
+        },
+        () => []
+      );
+
       state.rounds.current = 1;
       state.rounds.progress = 0;
 
@@ -122,7 +120,7 @@ export const gameSlice = createSlice({
 
       state.scores[state.rounds.current - 1].push({
         name: state.players[0],
-        round: state.rounds.current,
+
         selected,
         dist,
         score,
