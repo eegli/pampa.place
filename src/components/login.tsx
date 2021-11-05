@@ -16,8 +16,8 @@ const Login = () => {
 
   // Speed up things in development
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_KEY) {
-      dispatch(setApiKey(process.env.NEXT_PUBLIC_KEY));
+    if (process.env.NODE_ENV === 'development') {
+      dispatch(setApiKey(''));
     }
   }, [dispatch]);
 

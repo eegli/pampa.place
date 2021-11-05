@@ -12,7 +12,7 @@ export type Result = {
   score: number;
 };
 
-type Player = {
+type Score = {
   totalScore: number;
 } & { results: Result[] };
 
@@ -28,10 +28,14 @@ export interface GameState {
   status: STATUS;
   mapId: string;
   mapName: string;
-  players: {
-    names: string[];
-    scores: Record<string, Player>;
-  };
+  players: string[];
+  scores: {
+    round: number;
+    selected: OrNull<LatLngLiteral>;
+    dist: number;
+    score: number;
+    name: string;
+  }[][];
   timeLimit: number;
   rounds: {
     current: number;
@@ -44,10 +48,8 @@ export const initialState: GameState = {
   status: STATUS.UNINITIALIZED,
   mapId: MAP_IDS[0].id,
   mapName: MAP_IDS[0].name,
-  players: {
-    names: [],
-    scores: {},
-  },
+  players: [],
+  scores: [],
   timeLimit: config.timeLimitsDefault,
   rounds: {
     current: 1,
@@ -67,9 +69,7 @@ export const gameSlice = createSlice({
       state = initialState;
     },
     setPlayers(state, action: PayloadAction<string[]>) {
-      state.players.names = action.payload
-        .filter(Boolean)
-        .map(el => el.slice(0, 24));
+      state.players = action.payload.filter(Boolean).map(el => el.slice(0, 24));
     },
     setRounds(state, action: PayloadAction<number>) {
       state.rounds.total = action.payload;
@@ -82,16 +82,15 @@ export const gameSlice = createSlice({
       state.mapName = MAPS[action.payload].feature.properties.name;
     },
     initGame(state) {
-      if (!state.players.names.length) {
-        state.players.names = ['Player 1'];
+      if (!state.players.length) {
+        state.players = ['Player 1'];
       }
+      state.scores = [];
 
-      state.players.scores = {};
-
-      state.players.names.forEach(name => {
-        state.players.scores[name] = { totalScore: 0, results: [] };
-      });
-
+      // Prepare scores array - empty [] for each round
+      for (let i = 0; i < state.rounds.total; i++) {
+        state.scores.push([]);
+      }
       state.rounds.current = 1;
       state.rounds.progress = 0;
 
@@ -109,9 +108,6 @@ export const gameSlice = createSlice({
         initial: OrNull<LatLngLiteral>;
       }>
     ) {
-      // Set current round score
-      const player = state.players.scores[state.players.names[0]];
-
       // Payload when the user fails to set a location in time
       let score = 0;
       let dist = -1;
@@ -124,30 +120,23 @@ export const gameSlice = createSlice({
         selected = payload.selected;
       }
 
-      const newScore = player.totalScore + score;
-      const existingResults = player.results;
-      state.players.scores[state.players.names[0]] = {
-        totalScore: newScore,
-        results: [
-          ...existingResults,
-          {
-            round: state.rounds.current,
-            selected,
-            dist,
-            score,
-          },
-        ],
-      };
+      state.scores[state.rounds.current - 1].push({
+        name: state.players[0],
+        round: state.rounds.current,
+        selected,
+        dist,
+        score,
+      });
 
       // Set round progress
       state.rounds.progress++;
 
       // Rotate players
-      const last = state.players.names.pop();
-      if (last) state.players.names.unshift(last);
+      const last = state.players.pop();
+      if (last) state.players.unshift(last);
 
       // Same round, wait for player change
-      if (state.rounds.progress < state.players.names.length) {
+      if (state.rounds.progress < state.players.length) {
         // Display popup
         state.status = STATUS.PENDING_PLAYER;
         // Round is over, reset round progress
@@ -157,24 +146,19 @@ export const gameSlice = createSlice({
       }
     },
     resetRound(state) {
-      // Rotate to first player again
-      for (let i = 0; i < state.rounds.progress; i++) {
-        const playerName = state.players.names.pop();
-        if (playerName) {
-          // Remove score from this round
-          const result = state.players.scores[playerName].results.pop();
-
-          // Subtract score from this round from total score
-          if (result)
-            state.players.scores[playerName].totalScore -= result.score;
-
-          // Rotate player
-          state.players.names.unshift(playerName);
-        }
-      }
+      // Reset score for this round
+      state.scores[state.rounds.current - 1] = [];
 
       // Reset round progress
       state.rounds.progress = 0;
+
+      // Rotate to first player again
+      for (let i = 0; i < state.rounds.progress; i++) {
+        const playerName = state.players.pop();
+        if (playerName) {
+          state.players.unshift(playerName);
+        }
+      }
 
       // Set zero for current round scores
       state.status = STATUS.PENDING_PLAYER;

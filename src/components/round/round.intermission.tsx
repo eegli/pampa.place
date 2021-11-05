@@ -12,7 +12,7 @@ import { SlimContainer } from '../../styles';
 const RoundIntermission = () => {
   const dispatch = useAppDispatch();
 
-  const players = useAppSelector(({ game }) => game.players.names);
+  const players = useAppSelector(({ game }) => game.players);
   const currentRound = useAppSelector(({ game }) => game.rounds.current);
   const totalRounds = useAppSelector(({ game }) => game.rounds.total);
   const shouldGetNewSV = useAppSelector(shouldRequestNewSV);

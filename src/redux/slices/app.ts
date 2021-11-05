@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AppState {
   authError: boolean;
-  apiKey: string;
+  apiKey: string | undefined;
   theme: 'dark' | 'light';
 }
 
 const initialState: AppState = {
   authError: false,
-  apiKey: '',
+  apiKey: undefined,
   theme: 'dark',
 };
 

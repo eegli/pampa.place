@@ -10,7 +10,7 @@ import { ChangeEvent } from 'react';
 const MAX_PLAYERS = config.maxPlayers;
 
 const FormPlayers = () => {
-  const players = useAppSelector(({ game }) => game.players.names);
+  const players = useAppSelector(({ game }) => game.players);
   const dispatch = useAppDispatch();
 
   const handlePlayerChange =

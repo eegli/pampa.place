@@ -19,7 +19,7 @@ export function reportWebVitals(metric: NextWebVitalsMetric) {
 
 const AuthWrapper = ({ children }: { children: ReactNode }) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
-  if (!apiKey) return <Login />;
+  if (apiKey === undefined) return <Login />;
 
   const render = (status: Status) => {
     if (status === Status.LOADING)
