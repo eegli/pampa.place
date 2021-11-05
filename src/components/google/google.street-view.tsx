@@ -9,7 +9,6 @@ type GoogleStreetViewProps = {
 };
 
 const GoogleStreetView = ({ staticPos = false }: GoogleStreetViewProps) => {
-  console.log(staticPos);
   const ref = useRef<HTMLDivElement>(null);
   const panoId = useAppSelector(({ position }) => position.panoId);
 

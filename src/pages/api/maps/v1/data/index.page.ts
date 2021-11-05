@@ -29,7 +29,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     return res.status(404).json({ error: `Map with id ${nameQuery} found` });
   }
-  console.log(req.query);
+
   return res.status(200).json({
     data: data.MAPS,
   });

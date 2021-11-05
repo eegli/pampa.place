@@ -2,7 +2,13 @@ import { setApiKey } from '@/redux/app/app.slice';
 import { useAppDispatch } from '@/redux/redux.hooks';
 import { Box, Button, TextField, Tooltip, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  KeyboardEvent,
+  useEffect,
+  useState,
+} from 'react';
 import { AuthReq, AuthRes } from '../pages/api/auth.page';
 import { PageContentContainer } from '../styles';
 
@@ -13,6 +19,15 @@ const Login = () => {
 
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  useEffect(() => {
+    if (
+      router.query.hasOwnProperty('apikey') &&
+      typeof router.query.apikey === 'string'
+    ) {
+      dispatch(setApiKey(router.query.apikey));
+    }
+  }, [router.query]);
 
   async function handleSubmit() {
     if (!inputPassword && !inputApiKey) {

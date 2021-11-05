@@ -23,7 +23,6 @@ export function calcScore(area: number, dist: number): number {
   if (dist < 0) return 0;
   const c = Math.log(area * dist + 1) * Math.sqrt(area * dist);
   const score = 5000 * Math.E ** -(dist / c);
-  console.log(score);
   return Math.round(score);
 }
 // Returns distance between two points in kilometers
