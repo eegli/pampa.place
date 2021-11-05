@@ -1,21 +1,14 @@
 import { DeepPartial } from '@/utils/types';
-import gameReducer, {
-  gameSlice,
-  GameState,
-  initialState,
-} from '../slices/game';
+import gameReducer, { gameSlice, GameState, initialState } from '../game.slice';
 
-export const {
-  reset,
+const {
   initGame,
   startRound,
   endRound,
   resetRound,
   setPlayerScore,
   setRounds,
-  setMap,
   setPlayers,
-  setTimeLimit,
 } = gameSlice.actions;
 
 describe('Redux, game', () => {

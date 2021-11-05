@@ -1,10 +1,10 @@
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { shouldRequestNewSV } from '@/redux/selectors/game';
-import { startRound } from '@/redux/slices/game';
+import { shouldRequestNewSV } from '@/redux/game/game.selectors';
+import { startRound } from '@/redux/game/game.slice';
 import {
   getRandomStreetView,
   resetSelectedPosition,
-} from '@/redux/slices/position';
+} from '@/redux/position/position.slice';
+import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
 import { Button, Divider, Stack, Typography } from '@mui/material';
 import { useLayoutEffect } from 'react';
 import { SlimContainer } from '../../styles';

@@ -1,7 +1,7 @@
 import { config } from '@/config/google';
 import { MAPS } from '@/config/maps';
 import { LatLngLiteral } from '@/config/types';
-import { RootState } from '@/redux/store';
+import { RootState } from '@/redux/redux.store';
 import { randomPointInMap } from '@/utils/geo';
 import { OrNull } from '@/utils/types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';

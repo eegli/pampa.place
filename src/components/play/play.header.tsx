@@ -1,4 +1,4 @@
-import { useAppSelector } from '@/redux/hooks';
+import { useAppSelector } from '@/redux/redux.hooks';
 import { formatDur } from '@/utils/misc';
 import { Box, Divider, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';

@@ -1,3 +1,4 @@
+import { toggleTheme } from '@/redux/app/app.slice';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -11,9 +12,8 @@ import {
   Paper,
   Toolbar,
 } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { toggleTheme } from '../redux/slices/app';
-import { RootState } from '../redux/store';
+import { useAppDispatch, useAppSelector } from '../redux/redux.hooks';
+import { RootState } from '../redux/redux.store';
 
 const Header = () => {
   const activeTheme = useAppSelector((s: RootState) => s.app.theme);

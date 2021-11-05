@@ -1,4 +1,4 @@
-import { useAppSelector } from '@/redux/hooks';
+import { useAppSelector } from '@/redux/redux.hooks';
 import { Box, LinearProgress } from '@mui/material';
 
 const LoadingProgress = () => {

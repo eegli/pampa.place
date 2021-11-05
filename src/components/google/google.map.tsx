@@ -2,11 +2,11 @@ import { config } from '@/config/google';
 import { MAPS } from '@/config/maps';
 import { markers } from '@/config/markers';
 import { LatLngLiteral } from '@/config/types';
-import { useAppDispatch } from '@/redux/hooks';
-import { updateSelectedPosition } from '@/redux/slices/position';
+import { updateSelectedPosition } from '@/redux/position/position.slice';
+import { useAppDispatch } from '@/redux/redux.hooks';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
-import { Result } from '../../redux/slices/game';
+import { Result } from '../../redux/game/game.slice';
 import { Gmap } from '../../services/google-map';
 
 export enum MapMode {

@@ -1,6 +1,6 @@
 import { config } from '@/config/game';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setRounds } from '@/redux/slices/game';
+import { setRounds } from '@/redux/game/game.slice';
+import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
 import {
   FormControl,
   FormControlLabel,

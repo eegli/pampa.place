@@ -1,5 +1,5 @@
 import { config } from '@/config/google';
-import { useAppSelector } from '@/redux/hooks';
+import { useAppSelector } from '@/redux/redux.hooks';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { Gstv } from '../../services/google-sv';

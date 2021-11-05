@@ -1,5 +1,5 @@
-import { useAppSelector } from '@/redux/hooks';
-import { getTotalScores } from '@/redux/selectors/game';
+import { getTotalScores } from '@/redux/game/game.selectors';
+import { useAppSelector } from '@/redux/redux.hooks';
 import {
   Button,
   Stack,

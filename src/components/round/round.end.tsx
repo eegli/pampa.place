@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { getRoundScores, isFinished } from '@/redux/selectors/game';
-import { endRound } from '@/redux/slices/game';
+import { getRoundScores, isFinished } from '@/redux/game/game.selectors';
+import { endRound } from '@/redux/game/game.slice';
+import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
 import { formatDist } from '@/utils/misc';
 import {
   Box,

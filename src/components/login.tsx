@@ -1,5 +1,5 @@
-import { useAppDispatch } from '@/redux/hooks';
-import { setApiKey } from '@/redux/slices/app';
+import { setApiKey } from '@/redux/app/app.slice';
+import { useAppDispatch } from '@/redux/redux.hooks';
 import { Box, Button, TextField, Tooltip, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';

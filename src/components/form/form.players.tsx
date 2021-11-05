@@ -1,7 +1,7 @@
 import { config } from '@/config/game';
 import { markers } from '@/config/markers';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setPlayers } from '@/redux/slices/game';
+import { setPlayers } from '@/redux/game/game.slice';
+import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
 import { min } from '@/utils/misc';
 import RoomIcon from '@mui/icons-material/Room';
 import { Box, Fade, InputAdornment, TextField } from '@mui/material';

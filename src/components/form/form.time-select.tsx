@@ -1,6 +1,6 @@
 import { config } from '@/config/game';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setTimeLimit } from '@/redux/slices/game';
+import { setTimeLimit } from '@/redux/game/game.slice';
+import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
 import { formatDur } from '@/utils/misc';
 import {
   FormControl,

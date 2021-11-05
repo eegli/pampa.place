@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { getActivePlayer } from '@/redux/selectors/game';
-import { setPlayerScore } from '@/redux/slices/game';
+import { getActivePlayer } from '@/redux/game/game.selectors';
+import { setPlayerScore } from '@/redux/game/game.slice';
+import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
 import { Box, Button } from '@mui/material';
 import { useState } from 'react';
 import Map, { MapMode } from '../google/google.map';

@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { RootState } from '../redux.store';
 
 export const getActivePlayer = (s: RootState) => s.game.players[0];
 

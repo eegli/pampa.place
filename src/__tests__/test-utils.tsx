@@ -3,7 +3,7 @@ import { render, RenderOptions } from '@testing-library/react';
 import { FC, ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import { ThemeWrapper } from '../pages/_app.page';
-import { rootReducer } from '../redux/store';
+import { rootReducer } from '../redux/redux.store';
 import { GmapContainer } from '../services/google-map';
 import { GstvContainer } from '../services/google-sv';
 

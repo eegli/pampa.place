@@ -1,5 +1,5 @@
-import { useAppDispatch } from '@/redux/hooks';
-import { initGame, reset } from '@/redux/slices/game';
+import { initGame, reset } from '@/redux/game/game.slice';
+import { useAppDispatch } from '@/redux/redux.hooks';
 import { Box, Button } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';

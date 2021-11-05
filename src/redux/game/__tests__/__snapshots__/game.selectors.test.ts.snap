@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Redux, game selectors calculates round scores 1`] = `
+Array [
+  Object {
+    "dist": 2,
+    "name": "Player 1",
+    "score": 10,
+    "selected": null,
+  },
+  Object {
+    "dist": 2,
+    "name": "Player 2",
+    "score": 5,
+    "selected": null,
+  },
+]
+`;

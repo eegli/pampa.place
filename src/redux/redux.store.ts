@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import app from './slices/app';
-import game from './slices/game';
-import position from './slices/position';
+import app from './app/app.slice';
+import game from './game/game.slice';
+import position from './position/position.slice';
 
 export const rootReducer = combineReducers({
   position,

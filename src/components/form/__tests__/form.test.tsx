@@ -1,5 +1,5 @@
 import { config } from '@/config/game';
-import { STATUS } from '@/redux/slices/game';
+import { STATUS } from '@/redux/game/game.slice';
 import {
   ByRoleOptions,
   createMockStore,

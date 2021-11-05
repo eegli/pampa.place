@@ -1,5 +1,6 @@
 import { MAP_IDS } from '@/config/maps';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setMap } from '@/redux/game/game.slice';
+import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box,
@@ -13,7 +14,6 @@ import {
   Tooltip,
 } from '@mui/material';
 import { useState } from 'react';
-import { setMap } from '../../redux/slices/game';
 import Map, { MapMode } from '../google/google.map';
 import MapPreview from './form.map-preview';
 
