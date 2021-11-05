@@ -18,11 +18,11 @@ export default function handler(
   res: NextApiResponse<AuthRes>
 ) {
   if (!envApiKey) {
-    throw new Error('Missing API keys');
+    throw new Error('Missing env API keys');
   }
 
   if (!envAccessPW) {
-    throw new Error('No password defined');
+    throw new Error('No env password defined');
   }
 
   if (!req.query.pw) {

@@ -1,8 +1,8 @@
 import { useAppDispatch } from '@/redux/hooks';
 import { setApiKey } from '@/redux/slices/app';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Tooltip, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { AuthReq, AuthRes } from '../pages/api/auth.page';
 import { PageContentContainer } from '../styles';
 
@@ -14,20 +14,11 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  // Speed up things in development
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      dispatch(setApiKey(''));
-    }
-  }, [dispatch]);
-
   async function handleSubmit() {
     if (!inputPassword && !inputApiKey) {
       setInputError('Either a password or API key must be provided');
-      // User provided their own api key
     } else if (inputApiKey) {
       dispatch(setApiKey(inputApiKey));
-      // User provided password, use it to get api key from env
     } else if (inputPassword) {
       const params: AuthReq = {
         pw: inputPassword,
@@ -42,6 +33,10 @@ const Login = () => {
       }
     }
     router.push('/');
+  }
+
+  function handleDevMode() {
+    dispatch(setApiKey(''));
   }
 
   function handlePasswordInput(
@@ -101,16 +96,32 @@ const Login = () => {
           onChange={handleApiKeyInput}
           onKeyUp={handleKeyUp}
         />
-        <Button
-          sx={{
-            my: 2,
-          }}
-          variant="contained"
-          color="primary"
-          onClick={handleSubmit}
-        >
-          Enter
-        </Button>
+        <Box>
+          <Tooltip title="No maps API key required - play in development mode">
+            <Button
+              sx={{
+                my: 2,
+                mr: 2,
+              }}
+              variant="outlined"
+              color="primary"
+              onClick={handleDevMode}
+            >
+              Dev mode
+            </Button>
+          </Tooltip>
+
+          <Button
+            sx={{
+              my: 2,
+            }}
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+          >
+            Enter
+          </Button>
+        </Box>
       </Box>
     </PageContentContainer>
   );
