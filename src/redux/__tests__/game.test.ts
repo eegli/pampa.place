@@ -28,20 +28,12 @@ describe('Redux, game actions', () => {
         'eric eric eric eric eric eric eric eric eric eric',
       ])
     );
-    expect(state.players.names).toEqual(['player', 'eric eric eric eric eric']);
+    expect(state.players).toEqual(['player', 'eric eric eric eric eric']);
   });
   it('inits game with default players if none are present', () => {
     const state = gameReducer(initialState, initGame);
     expect(state).toMatchObject<DeepPartial<GameState>>({
-      players: {
-        names: ['Player 1'],
-        scores: {
-          'Player 1': {
-            totalScore: 0,
-            results: [],
-          },
-        },
-      },
+      players: ['Player 1'],
     });
   });
 });

@@ -4,18 +4,16 @@ exports[`Redux, game passes e2e test: Add players and set rounds 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
-  "players": Object {
-    "names": Array [
-      "p1",
-      "p2",
-    ],
-    "scores": Object {},
-  },
+  "players": Array [
+    "p1",
+    "p2",
+  ],
   "rounds": Object {
     "current": 1,
     "progress": 0,
     "total": 2,
   },
+  "scores": Array [],
   "status": "UNINITIALIZED",
   "timeLimit": 60,
 }
@@ -25,41 +23,34 @@ exports[`Redux, game passes e2e test: Finished round 1 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
-  "players": Object {
-    "names": Array [
-      "p1",
-      "p2",
-    ],
-    "scores": Object {
-      "p1": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-      "p2": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-    },
-  },
+  "players": Array [
+    "p1",
+    "p2",
+  ],
   "rounds": Object {
     "current": 2,
     "progress": 0,
     "total": 2,
   },
+  "scores": Array [
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p1",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+      Object {
+        "dist": -1,
+        "name": "p2",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+    Array [],
+  ],
   "status": "PENDING_PLAYER",
   "timeLimit": 60,
 }
@@ -69,53 +60,49 @@ exports[`Redux, game passes e2e test: Finished round 2, game ended 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
-  "players": Object {
-    "names": Array [
-      "p1",
-      "p2",
-    ],
-    "scores": Object {
-      "p1": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-          Object {
-            "dist": -1,
-            "round": 2,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-      "p2": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-          Object {
-            "dist": -1,
-            "round": 2,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-    },
-  },
+  "players": Array [
+    "p2",
+    "p1",
+  ],
   "rounds": Object {
     "current": 3,
     "progress": 0,
     "total": 2,
   },
+  "scores": Array [
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p1",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+      Object {
+        "dist": -1,
+        "name": "p2",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p2",
+        "round": 2,
+        "score": 0,
+        "selected": null,
+      },
+      Object {
+        "dist": -1,
+        "name": "p1",
+        "round": 2,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+  ],
   "status": "FINISHED",
   "timeLimit": 60,
 }
@@ -125,27 +112,19 @@ exports[`Redux, game passes e2e test: Game initialized 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
-  "players": Object {
-    "names": Array [
-      "p1",
-      "p2",
-    ],
-    "scores": Object {
-      "p1": Object {
-        "results": Array [],
-        "totalScore": 0,
-      },
-      "p2": Object {
-        "results": Array [],
-        "totalScore": 0,
-      },
-    },
-  },
+  "players": Array [
+    "p1",
+    "p2",
+  ],
   "rounds": Object {
     "current": 1,
     "progress": 0,
     "total": 2,
   },
+  "scores": Array [
+    Array [],
+    Array [],
+  ],
   "status": "PENDING_PLAYER",
   "timeLimit": 60,
 }
@@ -155,34 +134,27 @@ exports[`Redux, game passes e2e test: Round 1, player 1 scored 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
-  "players": Object {
-    "names": Array [
-      "p2",
-      "p1",
-    ],
-    "scores": Object {
-      "p1": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-      "p2": Object {
-        "results": Array [],
-        "totalScore": 0,
-      },
-    },
-  },
+  "players": Array [
+    "p2",
+    "p1",
+  ],
   "rounds": Object {
     "current": 1,
     "progress": 1,
     "total": 2,
   },
+  "scores": Array [
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p1",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+    Array [],
+  ],
   "status": "PENDING_PLAYER",
   "timeLimit": 60,
 }
@@ -192,41 +164,34 @@ exports[`Redux, game passes e2e test: Round 1, player 2 scored 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
-  "players": Object {
-    "names": Array [
-      "p1",
-      "p2",
-    ],
-    "scores": Object {
-      "p1": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-      "p2": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-    },
-  },
+  "players": Array [
+    "p1",
+    "p2",
+  ],
   "rounds": Object {
     "current": 1,
     "progress": 2,
     "total": 2,
   },
+  "scores": Array [
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p1",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+      Object {
+        "dist": -1,
+        "name": "p2",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+    Array [],
+  ],
   "status": "ROUND_ENDED",
   "timeLimit": 60,
 }
@@ -236,47 +201,42 @@ exports[`Redux, game passes e2e test: Round 2, player 1 scored 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
-  "players": Object {
-    "names": Array [
-      "p2",
-      "p1",
-    ],
-    "scores": Object {
-      "p1": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-          Object {
-            "dist": -1,
-            "round": 2,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-      "p2": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-    },
-  },
+  "players": Array [
+    "p2",
+    "p1",
+  ],
   "rounds": Object {
     "current": 2,
     "progress": 1,
     "total": 2,
   },
+  "scores": Array [
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p1",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+      Object {
+        "dist": -1,
+        "name": "p2",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p1",
+        "round": 2,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+  ],
   "status": "PENDING_PLAYER",
   "timeLimit": 60,
 }
@@ -286,47 +246,42 @@ exports[`Redux, game passes e2e test: Round 2, player 1 scored 2`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
-  "players": Object {
-    "names": Array [
-      "p2",
-      "p1",
-    ],
-    "scores": Object {
-      "p1": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-          Object {
-            "dist": -1,
-            "round": 2,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-      "p2": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-    },
-  },
+  "players": Array [
+    "p1",
+    "p2",
+  ],
   "rounds": Object {
     "current": 2,
     "progress": 1,
     "total": 2,
   },
+  "scores": Array [
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p1",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+      Object {
+        "dist": -1,
+        "name": "p2",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p2",
+        "round": 2,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+  ],
   "status": "PENDING_PLAYER",
   "timeLimit": 60,
 }
@@ -336,53 +291,49 @@ exports[`Redux, game passes e2e test: Round 2, player 2 scored 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
-  "players": Object {
-    "names": Array [
-      "p1",
-      "p2",
-    ],
-    "scores": Object {
-      "p1": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-          Object {
-            "dist": -1,
-            "round": 2,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-      "p2": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-          Object {
-            "dist": -1,
-            "round": 2,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-    },
-  },
+  "players": Array [
+    "p2",
+    "p1",
+  ],
   "rounds": Object {
     "current": 2,
     "progress": 2,
     "total": 2,
   },
+  "scores": Array [
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p1",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+      Object {
+        "dist": -1,
+        "name": "p2",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p2",
+        "round": 2,
+        "score": 0,
+        "selected": null,
+      },
+      Object {
+        "dist": -1,
+        "name": "p1",
+        "round": 2,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+  ],
   "status": "ROUND_ENDED",
   "timeLimit": 60,
 }
@@ -392,41 +343,34 @@ exports[`Redux, game passes e2e test: Round 2, reset 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
-  "players": Object {
-    "names": Array [
-      "p1",
-      "p2",
-    ],
-    "scores": Object {
-      "p1": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-      "p2": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-    },
-  },
+  "players": Array [
+    "p2",
+    "p1",
+  ],
   "rounds": Object {
     "current": 2,
     "progress": 0,
     "total": 2,
   },
+  "scores": Array [
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p1",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+      Object {
+        "dist": -1,
+        "name": "p2",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+    Array [],
+  ],
   "status": "PENDING_PLAYER",
   "timeLimit": 60,
 }
@@ -436,27 +380,19 @@ exports[`Redux, game passes e2e test: Started round 1 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
-  "players": Object {
-    "names": Array [
-      "p1",
-      "p2",
-    ],
-    "scores": Object {
-      "p1": Object {
-        "results": Array [],
-        "totalScore": 0,
-      },
-      "p2": Object {
-        "results": Array [],
-        "totalScore": 0,
-      },
-    },
-  },
+  "players": Array [
+    "p1",
+    "p2",
+  ],
   "rounds": Object {
     "current": 1,
     "progress": 0,
     "total": 2,
   },
+  "scores": Array [
+    Array [],
+    Array [],
+  ],
   "status": "ROUND_STARTED",
   "timeLimit": 60,
 }
@@ -466,41 +402,34 @@ exports[`Redux, game passes e2e test: Started round 2 1`] = `
 Object {
   "mapId": "1mSRVyWP3tLQ",
   "mapName": "Custom map",
-  "players": Object {
-    "names": Array [
-      "p1",
-      "p2",
-    ],
-    "scores": Object {
-      "p1": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-      "p2": Object {
-        "results": Array [
-          Object {
-            "dist": -1,
-            "round": 1,
-            "score": 0,
-            "selected": null,
-          },
-        ],
-        "totalScore": 0,
-      },
-    },
-  },
+  "players": Array [
+    "p1",
+    "p2",
+  ],
   "rounds": Object {
     "current": 2,
     "progress": 0,
     "total": 2,
   },
+  "scores": Array [
+    Array [
+      Object {
+        "dist": -1,
+        "name": "p1",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+      Object {
+        "dist": -1,
+        "name": "p2",
+        "round": 1,
+        "score": 0,
+        "selected": null,
+      },
+    ],
+    Array [],
+  ],
   "status": "ROUND_STARTED",
   "timeLimit": 60,
 }
