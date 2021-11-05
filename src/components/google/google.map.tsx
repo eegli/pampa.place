@@ -3,10 +3,10 @@ import { MAPS } from '@/config/maps';
 import { markers } from '@/config/markers';
 import { LatLngLiteral } from '@/config/types';
 import { useAppDispatch } from '@/redux/hooks';
-import { Result } from '@/redux/slices/game';
 import { updateSelectedPosition } from '@/redux/slices/position';
 import { Fade } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
+import { Result } from '../../redux/slices/game';
 import { Gmap } from '../../services/google-map';
 
 export enum MapMode {
@@ -18,9 +18,7 @@ export enum MapMode {
 export type GoogleMapProps = {
   activeMapId: string;
   mode?: MapMode;
-  scores?: (Result & {
-    name: string;
-  })[];
+  scores?: Result[];
   initialPos?: LatLngLiteral;
 };
 

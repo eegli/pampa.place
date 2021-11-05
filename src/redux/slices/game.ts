@@ -6,7 +6,7 @@ import { OrNull } from '@/utils/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type Result = {
-  round: number;
+  name: string;
   selected: OrNull<LatLngLiteral>;
   dist: number;
   score: number;
@@ -25,12 +25,7 @@ export interface GameState {
   mapId: string;
   mapName: string;
   players: string[];
-  scores: {
-    selected: OrNull<LatLngLiteral>;
-    dist: number;
-    score: number;
-    name: string;
-  }[][];
+  scores: Result[][];
   timeLimit: number;
   rounds: {
     current: number;
