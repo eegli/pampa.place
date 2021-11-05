@@ -11,7 +11,7 @@ export type AuthRes = {
 };
 
 const envAccessPW = env.APP_ACCESS_PW;
-const envApiKey = env.MAPS_API_KEY_PUBLIC;
+const envApiKey = env.MAPS_API_KEY;
 
 export default function handler(
   req: NextApiRequest,
