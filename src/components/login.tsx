@@ -2,14 +2,14 @@ import { setApiKey } from '@/redux/app/app.slice';
 import { useAppDispatch } from '@/redux/redux.hooks';
 import { Box, Button, TextField, Tooltip, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react';
 import { AuthReq, AuthRes } from '../pages/api/auth.page';
 import { PageContentContainer } from '../styles';
 
 const Login = () => {
   const [inputError, setInputError] = useState<string>('');
-  const [inputPassword, inputSetPassword] = useState<string>('');
-  const [inputApiKey, inputSetApiKey] = useState<string>('');
+  const [inputPassword, setInputPassword] = useState<string>('');
+  const [inputApiKey, setInputApiKey] = useState<string>('');
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -39,16 +39,12 @@ const Login = () => {
     dispatch(setApiKey(''));
   }
 
-  function handlePasswordInput(
-    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) {
-    inputSetPassword(e.target.value);
+  function handlePasswordInput(e: ChangeEvent<HTMLInputElement>) {
+    setInputPassword(e.target.value);
   }
 
-  function handleApiKeyInput(
-    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) {
-    inputSetApiKey(e.target.value);
+  function handleApiKeyInput(e: ChangeEvent<HTMLInputElement>) {
+    setInputApiKey(e.target.value);
   }
 
   function handleKeyUp(e: KeyboardEvent<HTMLInputElement>) {
@@ -57,10 +53,14 @@ const Login = () => {
     }
   }
 
+  function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+  }
+
   return (
     <PageContentContainer height="100%">
       <Box
-        onSubmit={(e: any) => e.preventDefault()}
+        onSubmit={handleFormSubmit}
         height="100%"
         component="form"
         noValidate
