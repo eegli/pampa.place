@@ -5,7 +5,7 @@ export const getActivePlayer = (s: RootState) => s.game.players[0];
 
 export const getPlayerCount = (s: RootState) => s.game.players.length;
 
-// TODO use memoization once redux toolkit exports reselect 4.1
+// TODO use memoization once redux toolkit exports reselect v4.1
 export const getRoundScores = createSelector(
   [
     (s: RootState) => s.game.scores,

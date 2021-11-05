@@ -2,7 +2,6 @@
 
 import { MarkerConfig } from './types';
 
-// TODO put in palette
 const markerConfig: MarkerConfig = {
   colors: {
     yellow: 'FFD166',

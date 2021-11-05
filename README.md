@@ -13,11 +13,8 @@ The maps and related data conform to the [GeoJSON standard](https://en.wikipedia
 - [NUTS Regions 2021](https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2021-units.html)
 - [NUTS Classification](https://ec.europa.eu/eurostat/web/nuts/background)
 - [More map data](https://hub.arcgis.com/datasets/252471276c9941729543be8789e06e12_0/explore?location=6.177935%2C-7.522465%2C4.59)
-- [Map data](https://github.com/openlayers/openlayers/blob/main/examples/data/geojson/countries.geojson)
-- [Country polygons](https://github.com/johan/world.geo.json/blob/master/countries.geo.json)
 - [GeoJSON stuff](https://macwright.com/2015/03/23/geojson-second-bite.html#features)
 - [https://geojson.io/](https://geojson.io/)
-- [Country polygon data](https://datahub.io/core/geo-countries#resource-geo-countries_zip)
 
 ## Getting Started
 
