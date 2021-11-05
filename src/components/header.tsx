@@ -7,16 +7,22 @@ import {
   AppBar,
   Box,
   Divider,
+  Drawer,
   IconButton,
   Link,
+  List,
+  ListItem,
+  ListItemText,
   Paper,
   Toolbar,
 } from '@mui/material';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/redux.hooks';
 import { RootState } from '../redux/redux.store';
 
 const Header = () => {
   const activeTheme = useAppSelector((s: RootState) => s.app.theme);
+  const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   function handleClick() {
@@ -30,6 +36,7 @@ const Header = () => {
           <Toolbar sx={{ py: 1 }}>
             <Box sx={{ flexGrow: 1 }}>
               <IconButton
+                onClick={() => setDrawerIsOpen(true)}
                 size="large"
                 edge="start"
                 color="inherit"
@@ -37,6 +44,33 @@ const Header = () => {
               >
                 <MenuIcon />
               </IconButton>
+              <Drawer
+                anchor="left"
+                open={drawerIsOpen}
+                onClose={() => setDrawerIsOpen(false)}
+              >
+                <Box p={2}>
+                  <List>
+                    {[
+                      'How to play',
+                      'Customization guide',
+                      'About',
+                      'Privacy',
+                    ].map(text => (
+                      <ListItem
+                        button
+                        key={text}
+                        onClick={() => setDrawerIsOpen(false)}
+                      >
+                        <ListItemText
+                          primary={text}
+                          secondary={'Coming soon!'}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Box>
+              </Drawer>
             </Box>
 
             <IconButton
