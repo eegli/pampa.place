@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "build:local": "cross-env ANALYZE=true next build",
-    "prod": "yarn test && yarn build",
+    "prod": "jest && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
