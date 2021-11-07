@@ -1,4 +1,4 @@
-import { toggleTheme } from '@/redux/app/app.slice';
+import { removeApiKey, toggleTheme } from '@/redux/app/app.slice';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -16,7 +16,6 @@ import {
   Paper,
   Toolbar,
 } from '@mui/material';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/redux.hooks';
 import { RootState } from '../redux/redux.store';
@@ -25,7 +24,6 @@ const Header = () => {
   const activeTheme = useAppSelector((s: RootState) => s.app.theme);
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   function handleClick() {
     dispatch(toggleTheme());
@@ -33,7 +31,7 @@ const Header = () => {
 
   function handleChangeKey() {
     window.sessionStorage.removeItem('gapikey');
-    window.location.reload();
+    dispatch(removeApiKey());
   }
 
   return (
@@ -57,6 +55,7 @@ const Header = () => {
                 onClose={() => setDrawerIsOpen(false)}
               >
                 <Box p={2}>
+                  {/* TODO */}
                   <List>
                     {[
                       'How to play',
@@ -79,6 +78,11 @@ const Header = () => {
                       button
                       key={'Change API key'}
                       onClick={handleChangeKey}
+                      id="item 4"
+                      sx={{
+                        width: '100%',
+                        maxWidth: '15rem',
+                      }}
                     >
                       <ListItemText
                         primary="Change API key"
