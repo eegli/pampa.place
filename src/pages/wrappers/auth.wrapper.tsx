@@ -1,8 +1,8 @@
-import { useAppSelector } from '@/redux/redux.hooks';
 import { Status, Wrapper } from '@googlemaps/react-wrapper';
 import { ReactNode } from 'react';
 import Login from '../../components/login';
 import Spinner from '../../components/spinner';
+import { useAppSelector } from '../../redux/redux.hooks';
 import { PageContentContainer } from '../../styles';
 
 export const AuthWrapper = ({ children }: { children: ReactNode }) => {
@@ -11,7 +11,7 @@ export const AuthWrapper = ({ children }: { children: ReactNode }) => {
   // An empty string as api key is allowed for development mode
   if (apiKey === undefined) return <Login />;
 
-  const render = (status: Status) => {
+  function render(status: Status) {
     switch (status) {
       case Status.SUCCESS:
         return <>{children}</>;
@@ -37,7 +37,7 @@ export const AuthWrapper = ({ children }: { children: ReactNode }) => {
           </PageContentContainer>
         );
     }
-  };
+  }
 
   return <Wrapper apiKey={apiKey} render={render} />;
 };

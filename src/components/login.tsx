@@ -9,6 +9,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import { useSessionStorage } from 'react-use';
 import { AuthReq, AuthRes } from '../pages/api/auth.page';
 import { PageContentContainer } from '../styles';
 
@@ -17,23 +18,33 @@ const Login = () => {
   const [inputPassword, setInputPassword] = useState<string>('');
   const [inputApiKey, setInputApiKey] = useState<string>('');
 
+  const [sessionApiKey, setSessionApiKey] =
+    useSessionStorage<string>('gapikey');
+
   const dispatch = useAppDispatch();
   const router = useRouter();
 
   useEffect(() => {
+    if (sessionApiKey !== undefined) {
+      dispatch(setApiKey(sessionApiKey));
+      router.push('/');
+    }
+  }, [sessionApiKey]);
+
+  /*   useEffect(() => {
     if (
       router.query.hasOwnProperty('apikey') &&
       typeof router.query.apikey === 'string'
     ) {
       dispatch(setApiKey(router.query.apikey));
     }
-  }, [router.query]);
+  }, [router.query]); */
 
   async function handleSubmit() {
     if (!inputPassword && !inputApiKey) {
       setInputError('Either a password or API key must be provided');
     } else if (inputApiKey) {
-      dispatch(setApiKey(inputApiKey));
+      setSessionApiKey(inputApiKey);
     } else if (inputPassword) {
       const params: AuthReq = {
         pw: inputPassword,
@@ -42,7 +53,7 @@ const Login = () => {
         const res: AuthRes = await (
           await fetch('api/auth?' + new URLSearchParams(params))
         ).json();
-        dispatch(setApiKey(res.apikey));
+        setSessionApiKey(res.apikey);
       } catch (e) {
         setInputError('Invalid password');
       }
@@ -51,7 +62,7 @@ const Login = () => {
   }
 
   function handleDevMode() {
-    dispatch(setApiKey(''));
+    setSessionApiKey('');
   }
 
   function handlePasswordInput(e: ChangeEvent<HTMLInputElement>) {

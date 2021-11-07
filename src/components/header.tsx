@@ -16,6 +16,7 @@ import {
   Paper,
   Toolbar,
 } from '@mui/material';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/redux.hooks';
 import { RootState } from '../redux/redux.store';
@@ -24,9 +25,15 @@ const Header = () => {
   const activeTheme = useAppSelector((s: RootState) => s.app.theme);
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   function handleClick() {
     dispatch(toggleTheme());
+  }
+
+  function handleChangeKey() {
+    window.sessionStorage.removeItem('gapikey');
+    window.location.reload();
   }
 
   return (
@@ -68,6 +75,16 @@ const Header = () => {
                         />
                       </ListItem>
                     ))}
+                    <ListItem
+                      button
+                      key={'Change API key'}
+                      onClick={handleChangeKey}
+                    >
+                      <ListItemText
+                        primary="Change API key"
+                        secondary="Play with a different API key or change into development mode"
+                      />
+                    </ListItem>
                   </List>
                 </Box>
               </Drawer>
