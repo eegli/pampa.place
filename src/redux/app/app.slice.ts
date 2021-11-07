@@ -16,9 +16,6 @@ const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    removeApiKey: state => {
-      state.apiKey = undefined;
-    },
     setApiKey(state, { payload }: PayloadAction<string>) {
       state.apiKey = payload;
     },
@@ -28,5 +25,5 @@ const appSlice = createSlice({
   },
 });
 
-export const { removeApiKey, setApiKey, toggleTheme } = appSlice.actions;
+export const { setApiKey, toggleTheme } = appSlice.actions;
 export default appSlice.reducer;

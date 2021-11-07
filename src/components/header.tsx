@@ -1,4 +1,4 @@
-import { removeApiKey, toggleTheme } from '@/redux/app/app.slice';
+import { toggleTheme } from '@/redux/app/app.slice';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -31,7 +31,9 @@ const Header = () => {
 
   function handleChangeKey() {
     window.sessionStorage.removeItem('gapikey');
-    dispatch(removeApiKey());
+    // In order to load a new API key, the page must be reloaded so
+    // that Google maps can properly set the new key
+    window.location.reload();
   }
 
   return (
