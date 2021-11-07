@@ -4,35 +4,17 @@ import TbboxPolygon from '@turf/bbox-polygon';
 import { FeatureCollection, MultiPolygon, Polygon } from '@turf/helpers';
 import { nanoid } from 'nanoid';
 import {
+  BaseMapProperties,
   MapDataCollection,
   MapIdCollection,
-  MapProperties,
-  SwissMapProperties,
 } from '../types';
 
 export function computeMapData<
-  T extends FeatureCollection<
-    Polygon | MultiPolygon,
-    MapProperties | SwissMapProperties
-  >
->(m: T): MapDataCollection {
+  T extends FeatureCollection<Polygon | MultiPolygon, BaseMapProperties>
+>(m: T, category: string): MapDataCollection {
   return m.features.reduce((acc, curr) => {
     const bb = Tbbox(curr);
     const bbPoly = TbboxPolygon(bb);
-
-    const properties: MapProperties = {
-      name: 'unknown',
-      category: 'unknown',
-    };
-
-    // Narrow down type - Swiss or custom maps
-    if ('NAME_LATN' in curr.properties) {
-      properties.name = curr.properties.NAME_LATN;
-      properties.category = 'switzerland';
-    } else {
-      properties.name = curr.properties.name;
-      properties.category = 'custom';
-    }
 
     delete curr.id;
 
@@ -40,7 +22,10 @@ export function computeMapData<
     acc[nanoid(12)] = {
       feature: {
         ...curr,
-        properties,
+        properties: {
+          name: curr.properties.name,
+          category: category,
+        },
       },
 
       area: Tarea(curr.geometry) * 1e-6,

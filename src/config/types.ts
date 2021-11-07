@@ -32,26 +32,22 @@ export type GameConfig = {
 
 export type LatLngLiteral = { lat: number; lng: number };
 
-export type MapProperties = {
+export interface BaseMapProperties {
   name: string;
-  category: string;
-};
+}
 
-export type SwissMapProperties = {
-  CNTR_CODE: string;
-  NAME_LATN: string;
-  NUTS_ID: string;
-  FID: string;
-};
+export interface MapProperties extends BaseMapProperties {
+  category: string;
+}
 
 /* Input map data */
-export type MapFeatureCollection<T = MapProperties> = FeatureCollection<
+export type MapFeatureCollection = FeatureCollection<
   Polygon | MultiPolygon,
-  T
+  BaseMapProperties
 >;
 
 /* Full, computed map data */
-export type MapDataCollection<T = MapProperties> = Record<
+export type MapDataCollection = Record<
   string,
   {
     // Area in km^2
@@ -61,7 +57,7 @@ export type MapDataCollection<T = MapProperties> = Record<
     // Poly bounding box: SW SE NE NW
     bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
     // Base can be used directly with google maps
-    feature: Feature<Polygon | MultiPolygon, T>;
+    feature: Feature<Polygon | MultiPolygon, MapProperties>;
   }
 >;
 
