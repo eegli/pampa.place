@@ -19,7 +19,10 @@ export default class MyDocument extends Document {
         <title>Geoguesseric</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
-        <meta name="description" content="Geoguesseric - Play with friends" />
+        <meta
+          name="description"
+          content="Pampa.place - Where in the pampa am I?"
+        />
 
         <link
           rel="stylesheet"

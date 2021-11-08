@@ -108,7 +108,7 @@ const Header = () => {
 
             <Divider orientation="vertical" variant="middle" flexItem />
             <Link
-              href="https://www.github.com/eegli/geoguesser"
+              href="https://github.com/eegli/pampa.place"
               target="_blank"
               rel="noopener"
               color="text.primary"
