@@ -15,6 +15,7 @@ The maps and related data conform to the [GeoJSON standard](https://en.wikipedia
 - [More map data](https://hub.arcgis.com/datasets/252471276c9941729543be8789e06e12_0/explore?location=6.177935%2C-7.522465%2C4.59)
 - [GeoJSON stuff](https://macwright.com/2015/03/23/geojson-second-bite.html#features)
 - [https://geojson.io/](https://geojson.io/)
+- [Fancy retro title by Yoav Kadosh on Codepen](https://codepen.io/ykadosh/pen/zYNxVKr?__cf_chl_jschl_tk__)
 
 ## Getting Started
 
