@@ -11,7 +11,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "scripts:make-map": "node scripts/map-property-maker.js"
+    "scripts:make-map": "node scripts/geojson-property-maker.js"
   },
   "dependencies": {
     "@emotion/react": "^11.4.1",
