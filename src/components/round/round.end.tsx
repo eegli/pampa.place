@@ -17,7 +17,7 @@ import {
   Typography,
 } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
-import { SlimContainer } from '../../styles';
+import { SlimContainer } from '../../styles/containers';
 import GoogleMap, { MapMode } from '../google/google.map';
 import GoogleStreetView from '../google/google.street-view';
 import TabPanel from '../tabs-panel';

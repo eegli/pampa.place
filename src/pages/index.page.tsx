@@ -1,17 +1,16 @@
 import { Box } from '@mui/system';
+import React from 'react';
 import Form from '../components/form/form';
 import Header from '../components/header';
-import { PageContentContainer, RetroTitle } from '../styles';
+import FancyRetroTitle from '../components/typography/typography';
+import { PageContentContainer } from '../styles/containers';
 
 const HomePage = () => {
   return (
     <PageContentContainer height="auto" disableGutters>
       <Header />
       <Box mx={2} display="flex" flexDirection="column">
-        <RetroTitle>
-          <span>GeoGuessEric</span>
-          <span>GeoGuessEric</span>
-        </RetroTitle>
+        <FancyRetroTitle primary="PAMPA" secondary="PLACE" />
         <Form />
       </Box>
     </PageContentContainer>
