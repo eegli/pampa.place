@@ -7,7 +7,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
 import { Button, Divider, Stack, Typography } from '@mui/material';
 import { useLayoutEffect } from 'react';
-import { SlimContainer } from '../../styles';
+import { SlimContainer } from '../../styles/containers';
 
 const RoundIntermission = () => {
   const dispatch = useAppDispatch();

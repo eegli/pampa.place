@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useRouter } from 'next/router';
-import { SlimContainer } from '../../styles';
+import { SlimContainer } from '../../styles/containers';
 
 const RoundResult = () => {
   const result = useAppSelector(getTotalScores);

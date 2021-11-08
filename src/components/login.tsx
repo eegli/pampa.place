@@ -11,7 +11,7 @@ import React, {
 } from 'react';
 import { useSessionStorage } from 'react-use';
 import { AuthReq, AuthRes } from '../pages/api/auth.page';
-import { PageContentContainer } from '../styles';
+import { PageContentContainer } from '../styles/containers';
 
 const Login = () => {
   const [inputError, setInputError] = useState<string>('');

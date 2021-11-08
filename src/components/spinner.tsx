@@ -1,5 +1,5 @@
 import { CircularProgress } from '@mui/material';
-import { SlimContainer } from '../styles';
+import { SlimContainer } from '../styles/containers';
 
 const Spinner = () => {
   return (

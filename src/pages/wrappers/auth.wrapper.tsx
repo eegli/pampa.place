@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import Login from '../../components/login';
 import Spinner from '../../components/spinner';
 import { useAppSelector } from '../../redux/redux.hooks';
-import { PageContentContainer } from '../../styles';
+import { PageContentContainer } from '../../styles/containers';
 
 export const AuthWrapper = ({ children }: { children: ReactNode }) => {
   const apiKey = useAppSelector(s => s.app.apiKey);

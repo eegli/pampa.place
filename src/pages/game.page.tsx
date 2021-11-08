@@ -7,7 +7,7 @@ import RoundIntermission from '../components/round/round.intermission';
 import RoundResult from '../components/round/round.result';
 import BasicSpeedDial from '../components/speed-dial/speed-dial';
 import { useAppDispatch, useAppSelector } from '../redux/redux.hooks';
-import { PageContentContainer } from '../styles';
+import { PageContentContainer } from '../styles/containers';
 
 const GamePage = () => {
   const dispatch = useAppDispatch();
