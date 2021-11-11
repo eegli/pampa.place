@@ -1,7 +1,6 @@
 import { setApiKey } from '@/redux/app/app.slice';
 import { useAppDispatch } from '@/redux/redux.hooks';
 import { Box, Button, TextField, Tooltip, Typography } from '@mui/material';
-import { useRouter } from 'next/router';
 import React, {
   ChangeEvent,
   FormEvent,
@@ -22,12 +21,9 @@ const Login = () => {
     useSessionStorage<string>('gapikey');
 
   const dispatch = useAppDispatch();
-  const router = useRouter();
-
   useEffect(() => {
     if (sessionApiKey !== undefined) {
       dispatch(setApiKey(sessionApiKey));
-      router.push('/');
     }
   }, [sessionApiKey]);
 
@@ -58,7 +54,6 @@ const Login = () => {
         setInputError('Invalid password');
       }
     }
-    router.push('/');
   }
 
   function handleDevMode() {
