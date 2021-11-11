@@ -1,13 +1,13 @@
-import { config } from '@/config/google';
-import { MAPS } from '@/config/maps';
-import { markers } from '@/config/markers';
-import { LatLngLiteral } from '@/config/types';
-import { updateSelectedPosition } from '@/redux/position/position.slice';
-import { useAppDispatch } from '@/redux/redux.hooks';
-import { Fade } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
-import { Result } from '../../redux/game/game.slice';
-import { Gmap } from '../../services/google-map';
+import {config} from '@/config/google';
+import {MAPS} from '@/config/maps';
+import {markers} from '@/config/markers';
+import {LatLngLiteral} from '@/config/types';
+import {updateSelectedPosition} from '@/redux/position/position.slice';
+import {useAppDispatch} from '@/redux/redux.hooks';
+import {Fade} from '@mui/material';
+import React, {useEffect, useRef} from 'react';
+import {Result} from '../../redux/game/game.slice';
+import {Gmap} from '../../services/google-map';
 
 export enum MapMode {
   PREVIEW,
@@ -22,12 +22,7 @@ export type GoogleMapProps = {
   initialPos?: LatLngLiteral;
 };
 
-const GoogleMap = ({
-  mode,
-  scores,
-  initialPos,
-  activeMapId,
-}: GoogleMapProps) => {
+const GoogleMap = ({mode, scores, initialPos, activeMapId}: GoogleMapProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
 
@@ -85,12 +80,12 @@ const GoogleMap = ({
       const marker = new google.maps.Marker();
       const listener = Gmap.map.addListener(
         'click',
-        ({ latLng }: { latLng: google.maps.LatLng }) => {
+        ({latLng}: {latLng: google.maps.LatLng}) => {
           marker.setPosition(latLng);
           marker.setMap(Gmap.map!);
 
           dispatch(
-            updateSelectedPosition({ lat: latLng.lat(), lng: latLng.lng() })
+            updateSelectedPosition({lat: latLng.lat(), lng: latLng.lng()})
           );
         }
       );

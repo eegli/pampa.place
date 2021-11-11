@@ -1,9 +1,9 @@
-import { unsafeToggleHTMLElement } from '@/utils/misc';
+import {unsafeToggleHTMLElement} from '@/utils/misc';
 
 export const GstvContainer = () => {
   return (
     <div id="__GSTV__CONTAINER__">
-      <div id="__GSTV__" style={{ height: '100%' }} />
+      <div id="__GSTV__" style={{height: '100%'}} />
     </div>
   );
 };

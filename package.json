@@ -8,6 +8,7 @@
     "build:local": "cross-env ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "prettier --write src scripts",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",

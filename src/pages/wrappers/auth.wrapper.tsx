@@ -1,11 +1,11 @@
-import { Status, Wrapper } from '@googlemaps/react-wrapper';
-import { ReactNode } from 'react';
+import {Status, Wrapper} from '@googlemaps/react-wrapper';
+import {ReactNode} from 'react';
 import Login from '../../components/login';
 import Spinner from '../../components/spinner';
-import { useAppSelector } from '../../redux/redux.hooks';
-import { PageContentContainer } from '../../styles/containers';
+import {useAppSelector} from '../../redux/redux.hooks';
+import {PageContentContainer} from '../../styles/containers';
 
-export const AuthWrapper = ({ children }: { children: ReactNode }) => {
+export const AuthWrapper = ({children}: {children: ReactNode}) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
 
   // An empty string as api key is allowed for development mode

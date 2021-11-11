@@ -1,5 +1,5 @@
-import { Box, BoxProps } from '@mui/material';
-import { ReactNode } from 'react';
+import {Box, BoxProps} from '@mui/material';
+import {ReactNode} from 'react';
 
 interface TabPanelProps extends BoxProps {
   children?: ReactNode;
@@ -8,7 +8,7 @@ interface TabPanelProps extends BoxProps {
 }
 
 const TabPanel = (props: TabPanelProps) => {
-  const { children, selected, index, ...rest } = props;
+  const {children, selected, index, ...rest} = props;
   const shouldDisplay = selected === index;
   if (shouldDisplay) {
     return (

@@ -1,20 +1,20 @@
-import { shouldRequestNewSV } from '@/redux/game/game.selectors';
-import { startRound } from '@/redux/game/game.slice';
+import {shouldRequestNewSV} from '@/redux/game/game.selectors';
+import {startRound} from '@/redux/game/game.slice';
 import {
   getRandomStreetView,
   resetSelectedPosition,
 } from '@/redux/position/position.slice';
-import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
-import { Button, Divider, Stack, Typography } from '@mui/material';
-import { useLayoutEffect } from 'react';
-import { SlimContainer } from '../../styles/containers';
+import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
+import {Button, Divider, Stack, Typography} from '@mui/material';
+import {useLayoutEffect} from 'react';
+import {SlimContainer} from '../../styles/containers';
 
 const RoundIntermission = () => {
   const dispatch = useAppDispatch();
 
-  const players = useAppSelector(({ game }) => game.players);
-  const currentRound = useAppSelector(({ game }) => game.rounds.current);
-  const totalRounds = useAppSelector(({ game }) => game.rounds.total);
+  const players = useAppSelector(({game}) => game.players);
+  const currentRound = useAppSelector(({game}) => game.rounds.current);
+  const totalRounds = useAppSelector(({game}) => game.rounds.total);
   const shouldGetNewSV = useAppSelector(shouldRequestNewSV);
 
   useLayoutEffect(() => {

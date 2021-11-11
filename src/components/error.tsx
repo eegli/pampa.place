@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Box, Button } from '@mui/material';
+import {Alert, AlertTitle, Box, Button} from '@mui/material';
 import Link from 'next/link';
 type ErrorPros = {
   callback?: () => void;
@@ -21,19 +21,19 @@ const Error = ({
         <p>
           <strong>Message:</strong>
         </p>
-        <pre style={{ whiteSpace: 'pre-wrap', overflow: 'auto' }}>{reason}</pre>
+        <pre style={{whiteSpace: 'pre-wrap', overflow: 'auto'}}>{reason}</pre>
       </Alert>
       {callback && (
         <Box
           textAlign="center"
           display="flex"
           justifyContent="space-between"
-          sx={{ mt: 2 }}
+          sx={{mt: 2}}
         >
           <Link href="/" passHref>
             <Button>Choose different map</Button>
           </Link>
-          <Button variant="contained" onClick={callback} sx={{ mr: 3 }}>
+          <Button variant="contained" onClick={callback} sx={{mr: 3}}>
             Retry
           </Button>
         </Box>

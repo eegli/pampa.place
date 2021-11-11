@@ -1,4 +1,4 @@
-import { toggleTheme } from '@/redux/app/app.slice';
+import {toggleTheme} from '@/redux/app/app.slice';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -16,9 +16,9 @@ import {
   Paper,
   Toolbar,
 } from '@mui/material';
-import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../redux/redux.hooks';
-import { RootState } from '../redux/redux.store';
+import {useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../redux/redux.hooks';
+import {RootState} from '../redux/redux.store';
 
 const Header = () => {
   const activeTheme = useAppSelector((s: RootState) => s.app.theme);
@@ -40,14 +40,14 @@ const Header = () => {
     <>
       <AppBar position="fixed">
         <Paper elevation={1}>
-          <Toolbar sx={{ py: 1 }}>
-            <Box sx={{ flexGrow: 1 }}>
+          <Toolbar sx={{py: 1}}>
+            <Box sx={{flexGrow: 1}}>
               <IconButton
                 onClick={() => setDrawerIsOpen(true)}
                 size="large"
                 edge="start"
                 color="inherit"
-                sx={{ mr: 2 }}
+                sx={{mr: 2}}
               >
                 <MenuIcon />
               </IconButton>
@@ -100,7 +100,7 @@ const Header = () => {
               size="large"
               edge="start"
               color="inherit"
-              sx={{ mx: 1 }}
+              sx={{mx: 1}}
               onClick={handleClick}
             >
               {activeTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
@@ -117,7 +117,7 @@ const Header = () => {
                 size="large"
                 edge="start"
                 color="inherit"
-                sx={{ mx: 1 }}
+                sx={{mx: 1}}
               >
                 <GitHubIcon />
               </IconButton>
@@ -125,7 +125,7 @@ const Header = () => {
           </Toolbar>
         </Paper>
       </AppBar>
-      <Toolbar sx={{ py: 1 }} />
+      <Toolbar sx={{py: 1}} />
     </>
   );
 };

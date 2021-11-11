@@ -27,9 +27,9 @@ export const SlimContainer = ({
     flexWrap="wrap"
     width="100%"
     sx={{
-      maxWidth: ({ breakpoints }) => breakpoints.values[breakpoint],
-      margin: ({ spacing }) => `${spacing(1)} auto ${spacing(1)} auto`,
-      padding: ({ spacing }) => spacing(2),
+      maxWidth: ({breakpoints}) => breakpoints.values[breakpoint],
+      margin: ({spacing}) => `${spacing(1)} auto ${spacing(1)} auto`,
+      padding: ({spacing}) => spacing(2),
     }}
     {...rest}
   >

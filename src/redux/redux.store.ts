@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import app from './app/app.slice';
 import game from './game/game.slice';
@@ -28,8 +28,8 @@ export const store = configureStore({
   reducer: rootReducer,
   middleware: getDefault =>
     isDev
-      ? getDefault({ serializableCheck: false }).concat(devMiddleware)
-      : getDefault({ serializableCheck: false }),
+      ? getDefault({serializableCheck: false}).concat(devMiddleware)
+      : getDefault({serializableCheck: false}),
 });
 
 /* const persistor = persistStore(store); */

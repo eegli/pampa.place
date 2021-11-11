@@ -1,7 +1,7 @@
-import { initGame, reset } from '@/redux/game/game.slice';
-import { useAppDispatch } from '@/redux/redux.hooks';
-import { Box, Button } from '@mui/material';
-import { useRouter } from 'next/router';
+import {initGame, reset} from '@/redux/game/game.slice';
+import {useAppDispatch} from '@/redux/redux.hooks';
+import {Box, Button} from '@mui/material';
+import {useRouter} from 'next/router';
 import React from 'react';
 import FormMapSelect from './form.map-select';
 import FormPlayers from './form.players';
@@ -56,7 +56,7 @@ const Form = () => {
         </Button>
         {/* Debug */}
 
-        <Button sx={{ alignSelf: 'end' }} onClick={handleReset} type="submit">
+        <Button sx={{alignSelf: 'end'}} onClick={handleReset} type="submit">
           Reset
         </Button>
       </Box>

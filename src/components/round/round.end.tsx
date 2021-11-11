@@ -1,7 +1,7 @@
-import { getRoundScores, isFinished } from '@/redux/game/game.selectors';
-import { endRound } from '@/redux/game/game.slice';
-import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
-import { formatDist } from '@/utils/misc';
+import {getRoundScores, isFinished} from '@/redux/game/game.selectors';
+import {endRound} from '@/redux/game/game.slice';
+import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
+import {formatDist} from '@/utils/misc';
 import {
   Box,
   Button,
@@ -16,9 +16,9 @@ import {
   Tabs,
   Typography,
 } from '@mui/material';
-import { SyntheticEvent, useState } from 'react';
-import { SlimContainer } from '../../styles/containers';
-import GoogleMap, { MapMode } from '../google/google.map';
+import {SyntheticEvent, useState} from 'react';
+import {SlimContainer} from '../../styles/containers';
+import GoogleMap, {MapMode} from '../google/google.map';
 import GoogleStreetView from '../google/google.street-view';
 import TabPanel from '../tabs-panel';
 
@@ -31,15 +31,15 @@ const RoundEnd = () => {
   const dispatch = useAppDispatch();
 
   const scores = useAppSelector(getRoundScores);
-  const currentRound = useAppSelector(({ game }) => game.rounds.current);
+  const currentRound = useAppSelector(({game}) => game.rounds.current);
   const initialPosition = useAppSelector(
-    ({ position }) => position.initialPosition
+    ({position}) => position.initialPosition
   );
-  const activeMapId = useAppSelector(({ game }) => game.mapId);
+  const activeMapId = useAppSelector(({game}) => game.mapId);
   const isGameFinished = useAppSelector(isFinished);
 
   const panoDescription = useAppSelector(
-    ({ position }) => position.panoDescription
+    ({position}) => position.panoDescription
   );
 
   function handleClick() {
@@ -134,10 +134,10 @@ const RoundEnd = () => {
             Location info
           </Typography>
 
-          <Paper sx={{ p: 2, mb: 1 }} elevation={1}>
+          <Paper sx={{p: 2, mb: 1}} elevation={1}>
             Panorama description: {panoDescription}
           </Paper>
-          <Paper sx={{ p: 2 }}>
+          <Paper sx={{p: 2}}>
             Coordinates (lat/lng): {initialPosition?.lat},{' '}
             {initialPosition?.lng}
           </Paper>

@@ -1,16 +1,16 @@
-import { config } from '@/config/game';
-import { markers } from '@/config/markers';
-import { setPlayers } from '@/redux/game/game.slice';
-import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
-import { min } from '@/utils/misc';
+import {config} from '@/config/game';
+import {markers} from '@/config/markers';
+import {setPlayers} from '@/redux/game/game.slice';
+import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
+import {min} from '@/utils/misc';
 import RoomIcon from '@mui/icons-material/Room';
-import { Box, Fade, InputAdornment, TextField } from '@mui/material';
-import { ChangeEvent } from 'react';
+import {Box, Fade, InputAdornment, TextField} from '@mui/material';
+import {ChangeEvent} from 'react';
 
 const MAX_PLAYERS = config.maxPlayers;
 
 const FormPlayers = () => {
-  const players = useAppSelector(({ game }) => game.players);
+  const players = useAppSelector(({game}) => game.players);
   const dispatch = useAppDispatch();
 
   const handlePlayerChange =
@@ -23,7 +23,7 @@ const FormPlayers = () => {
   return (
     <Box display="flex" flexDirection="column">
       {/* Always have an additional input field to write to */}
-      {Array.from({ length: min(players.length + 1, MAX_PLAYERS) }).map(
+      {Array.from({length: min(players.length + 1, MAX_PLAYERS)}).map(
         (_, idx) => {
           const id = `player-name-${idx + 1}`;
           return (
@@ -49,7 +49,7 @@ const FormPlayers = () => {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <RoomIcon style={{ color: markers.colors[idx] }} />
+                      <RoomIcon style={{color: markers.colors[idx]}} />
                     </InputAdornment>
                   ),
                 }}

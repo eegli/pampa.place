@@ -1,4 +1,4 @@
-import { Box, styled } from '@mui/system';
+import {Box, styled} from '@mui/system';
 
 const H1 = styled('h1')`
   position: relative;
@@ -79,7 +79,7 @@ type RetroTitleProps = {
   secondary: string;
 };
 
-const FancyRetroTitle = ({ primary, secondary }: RetroTitleProps) => (
+const FancyRetroTitle = ({primary, secondary}: RetroTitleProps) => (
   <StyledBox>
     <H1>
       <span>{primary}</span>

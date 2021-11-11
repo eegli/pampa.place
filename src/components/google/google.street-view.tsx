@@ -1,16 +1,16 @@
-import { config } from '@/config/google';
-import { useAppSelector } from '@/redux/redux.hooks';
-import { Fade } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
-import { Gstv } from '../../services/google-sv';
+import {config} from '@/config/google';
+import {useAppSelector} from '@/redux/redux.hooks';
+import {Fade} from '@mui/material';
+import React, {useEffect, useRef} from 'react';
+import {Gstv} from '../../services/google-sv';
 
 type GoogleStreetViewProps = {
   staticPos?: boolean;
 };
 
-const GoogleStreetView = ({ staticPos = false }: GoogleStreetViewProps) => {
+const GoogleStreetView = ({staticPos = false}: GoogleStreetViewProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const panoId = useAppSelector(({ position }) => position.panoId);
+  const panoId = useAppSelector(({position}) => position.panoId);
 
   // Initialization
   useEffect(() => {

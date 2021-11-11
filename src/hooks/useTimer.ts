@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
 export function useTimer(startTime: number) {
   const [seconds, setSeconds] = useState<number>(startTime);

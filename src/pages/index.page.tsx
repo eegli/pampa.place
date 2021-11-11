@@ -1,9 +1,9 @@
-import { Box } from '@mui/system';
+import {Box} from '@mui/system';
 import React from 'react';
 import Form from '../components/form/form';
 import Header from '../components/header';
 import FancyRetroTitle from '../components/typography/typography';
-import { PageContentContainer } from '../styles/containers';
+import {PageContentContainer} from '../styles/containers';
 
 const HomePage = () => {
   return (

@@ -6,9 +6,9 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import {Dispatch, ReactNode, SetStateAction} from 'react';
 
 type MapPreviewProps = {
   title: string;
@@ -17,7 +17,7 @@ type MapPreviewProps = {
   children?: ReactNode;
 };
 
-const MapPreview = ({ title, open, setIsOpen, children }: MapPreviewProps) => {
+const MapPreview = ({title, open, setIsOpen, children}: MapPreviewProps) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return (
@@ -25,7 +25,7 @@ const MapPreview = ({ title, open, setIsOpen, children }: MapPreviewProps) => {
       open={open}
       onClose={() => setIsOpen(false)}
       fullScreen={fullScreen}
-      PaperProps={{ elevation: 1 }}
+      PaperProps={{elevation: 1}}
       sx={{
         borderRadius: 10,
       }}

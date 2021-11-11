@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { env } from 'process';
+import type {NextApiRequest, NextApiResponse} from 'next';
+import {env} from 'process';
 
 export type AuthReq = {
   pw: string;
@@ -29,7 +29,7 @@ export default function handler(
     res.status(400).end('Resource not found');
   }
   if (req.query.pw === envAccessPW) {
-    res.status(200).json({ apikey: envApiKey });
+    res.status(200).json({apikey: envApiKey});
   } else {
     res.status(401).end('Invalid password');
   }

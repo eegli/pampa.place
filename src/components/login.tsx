@@ -1,6 +1,6 @@
-import { setApiKey } from '@/redux/app/app.slice';
-import { useAppDispatch } from '@/redux/redux.hooks';
-import { Box, Button, TextField, Tooltip, Typography } from '@mui/material';
+import {setApiKey} from '@/redux/app/app.slice';
+import {useAppDispatch} from '@/redux/redux.hooks';
+import {Box, Button, TextField, Tooltip, Typography} from '@mui/material';
 import React, {
   ChangeEvent,
   FormEvent,
@@ -8,9 +8,9 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { useSessionStorage } from 'react-use';
-import { AuthReq, AuthRes } from '../pages/api/auth.page';
-import { PageContentContainer } from '../styles/containers';
+import {useSessionStorage} from 'react-use';
+import {AuthReq, AuthRes} from '../pages/api/auth.page';
+import {PageContentContainer} from '../styles/containers';
 
 const Login = () => {
   const [inputError, setInputError] = useState<string>('');
@@ -92,7 +92,7 @@ const Login = () => {
         alignItems="flex-end"
         width="80%"
         maxWidth={400}
-        sx={{ mt: 2 }}
+        sx={{mt: 2}}
       >
         <TextField
           fullWidth

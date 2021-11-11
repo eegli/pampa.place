@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { data, nthQuery } from '../../common';
+import {NextApiRequest, NextApiResponse} from 'next';
+import {data, nthQuery} from '../../common';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const nameQuery = nthQuery(req.query.name);
@@ -16,7 +16,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         data: map,
       });
     }
-    return res.status(404).json({ error: `Map with name ${nameQuery} found` });
+    return res.status(404).json({error: `Map with name ${nameQuery} found`});
   }
 
   if (idQuery) {
@@ -27,7 +27,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         data: map,
       });
     }
-    return res.status(404).json({ error: `Map with id ${nameQuery} found` });
+    return res.status(404).json({error: `Map with id ${nameQuery} found`});
   }
 
   return res.status(200).json({

@@ -30,7 +30,7 @@ export type GameConfig = {
   timeLimitsDefault: number;
 };
 
-export type LatLngLiteral = { lat: number; lng: number };
+export type LatLngLiteral = {lat: number; lng: number};
 
 export interface BaseMapProperties {
   name: string;

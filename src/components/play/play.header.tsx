@@ -1,16 +1,16 @@
-import { useAppSelector } from '@/redux/redux.hooks';
-import { formatDur } from '@/utils/misc';
-import { Box, Divider, Stack, Typography } from '@mui/material';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { useTimer } from '../../hooks/useTimer';
+import {useAppSelector} from '@/redux/redux.hooks';
+import {formatDur} from '@/utils/misc';
+import {Box, Divider, Stack, Typography} from '@mui/material';
+import {useRouter} from 'next/router';
+import {useEffect} from 'react';
+import {useTimer} from '../../hooks/useTimer';
 
 type PlayHeaderProps = {
   player: string;
   timerCallback: () => void;
 };
 
-const PlayHeader = ({ player, timerCallback }: PlayHeaderProps) => {
+const PlayHeader = ({player, timerCallback}: PlayHeaderProps) => {
   const router = useRouter();
   const timeLimit = useAppSelector(s => s.game.timeLimit);
   const [timeRemaining] = useTimer(timeLimit);

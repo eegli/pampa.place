@@ -1,19 +1,19 @@
-import { LatLngLiteral } from '@/config/types';
+import {LatLngLiteral} from '@/config/types';
 import Tdistance from '@turf/distance';
-import { BBox, point, Units } from '@turf/helpers';
+import {BBox, point, Units} from '@turf/helpers';
 import TpointsWithinPolygon from '@turf/points-within-polygon';
-import { randomPoint as TrandomPoint } from '@turf/random';
+import {randomPoint as TrandomPoint} from '@turf/random';
 
 export function randomPointInMap(
   bbox: BBox,
   polygon: Parameters<typeof TpointsWithinPolygon>[1]
 ): LatLngLiteral {
   do {
-    const random = TrandomPoint(20, { bbox });
+    const random = TrandomPoint(20, {bbox});
     const ptsWithin = TpointsWithinPolygon(random, polygon);
     if (ptsWithin.features.length) {
       const pt = ptsWithin.features[0].geometry.coordinates;
-      return { lng: pt[0], lat: pt[1] };
+      return {lng: pt[0], lat: pt[1]};
     }
   } while (true);
 }
@@ -34,5 +34,5 @@ export function calcDist(
 ): number {
   const from = point([p1.lng, p1.lat]);
   const to = point([p2.lng, p2.lat]);
-  return Tdistance(from, to, { units });
+  return Tdistance(from, to, {units});
 }

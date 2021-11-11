@@ -1,10 +1,10 @@
-import { config } from '@/config/google';
-import { MAPS } from '@/config/maps';
-import { LatLngLiteral } from '@/config/types';
-import { RootState } from '@/redux/redux.store';
-import { randomPointInMap } from '@/utils/geo';
-import { OrNull } from '@/utils/types';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {config} from '@/config/google';
+import {MAPS} from '@/config/maps';
+import {LatLngLiteral} from '@/config/types';
+import {RootState} from '@/redux/redux.store';
+import {randomPointInMap} from '@/utils/geo';
+import {OrNull} from '@/utils/types';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 interface ValidationErrors {
   code: 'ZERO_RESULTS';
@@ -43,7 +43,7 @@ const initialState: PositionState = {
   error: null,
 };
 
-type RandomSVRes = { pos: LatLngLiteral } & Pick<
+type RandomSVRes = {pos: LatLngLiteral} & Pick<
   PositionState,
   'panoDescription' | 'panoId'
 >;
@@ -55,8 +55,8 @@ export const getRandomStreetView = createAsyncThunk<
     rejectValue: ValidationErrors;
     state: RootState;
   }
->('location/getRandomStreetView', async (_, { rejectWithValue, getState }) => {
-  const { game } = getState();
+>('location/getRandomStreetView', async (_, {rejectWithValue, getState}) => {
+  const {game} = getState();
 
   const randomPreference =
     Math.random() > 0.5
@@ -72,7 +72,7 @@ export const getRandomStreetView = createAsyncThunk<
 
   try {
     const map = MAPS[game.mapId];
-    const { data } = await service.getPanorama({
+    const {data} = await service.getPanorama({
       ...reqDefaults,
       location: randomPointInMap(map.bb, map.feature),
     });
@@ -87,7 +87,7 @@ export const getRandomStreetView = createAsyncThunk<
     const panoId = data.location?.pano || '';
     const panoDescription = data.location?.description || '';
 
-    return { pos: { lat, lng }, panoId, panoDescription };
+    return {pos: {lat, lng}, panoId, panoDescription};
   } catch (e) {
     let err = e as ValidationErrors;
     return rejectWithValue(err);
@@ -130,6 +130,6 @@ const positonSlice = createSlice({
   },
 });
 
-export const { updateSelectedPosition, resetSelectedPosition } =
+export const {updateSelectedPosition, resetSelectedPosition} =
   positonSlice.actions;
 export default positonSlice.reducer;

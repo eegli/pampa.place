@@ -1,4 +1,4 @@
-import { GoogleConfig } from './types';
+import {GoogleConfig} from './types';
 
 export const config: GoogleConfig = {
   svRequest: {

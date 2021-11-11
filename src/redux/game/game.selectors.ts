@@ -1,5 +1,5 @@
-import { createSelector } from '@reduxjs/toolkit';
-import { RootState } from '../redux.store';
+import {createSelector} from '@reduxjs/toolkit';
+import {RootState} from '../redux.store';
 
 export const getActivePlayer = (s: RootState) => s.game.players[0];
 
@@ -22,7 +22,7 @@ export const getRoundScores = createSelector(
 export const getTotalScores = createSelector(
   [(s: RootState) => s.game.scores, (s: RootState) => s.game.players],
   (scores, players) => {
-    const total = Array.from({ length: players.length }, (_, idx) => ({
+    const total = Array.from({length: players.length}, (_, idx) => ({
       name: players[idx],
       score: 0,
     }));

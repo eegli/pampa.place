@@ -1,8 +1,8 @@
-import { render } from '@/tests/test-utils';
-import { initialize, Map } from '@googlemaps/jest-mocks';
+import {render} from '@/tests/test-utils';
+import {initialize, Map} from '@googlemaps/jest-mocks';
 import React from 'react';
-import { Gmap } from '../../../services/google-map';
-import GoogleMap, { MapMode } from '../google.map';
+import {Gmap} from '../../../services/google-map';
+import GoogleMap, {MapMode} from '../google.map';
 
 beforeEach(() => {
   initialize();
@@ -28,14 +28,14 @@ Map.prototype.data = {
 
 describe('Google Map', () => {
   it('renders google map', () => {
-    const { container } = render(<GoogleMap activeMapId="1mSRVyWP3tLQ" />);
+    const {container} = render(<GoogleMap activeMapId="1mSRVyWP3tLQ" />);
 
     expect(Gmap.map.fitBounds).toHaveBeenCalledTimes(1);
     expect(container.querySelector('#__GMAP__CONTAINER__')).toBeInTheDocument();
     expect(container.querySelector('#__GMAP__')).toHaveStyle('height:100%');
   });
   it('has preview mode', () => {
-    const { unmount } = render(
+    const {unmount} = render(
       <GoogleMap activeMapId="1mSRVyWP3tLQ" mode={MapMode.PREVIEW} />
     );
 

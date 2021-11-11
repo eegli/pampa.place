@@ -1,11 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { render, RenderOptions } from '@testing-library/react';
-import { FC, ReactElement } from 'react';
-import { Provider } from 'react-redux';
-import { ThemeWrapper } from '../pages/wrappers/theme.wrapper';
-import { rootReducer } from '../redux/redux.store';
-import { GmapContainer } from '../services/google-map';
-import { GstvContainer } from '../services/google-sv';
+import {configureStore} from '@reduxjs/toolkit';
+import {render, RenderOptions} from '@testing-library/react';
+import {FC, ReactElement} from 'react';
+import {Provider} from 'react-redux';
+import {ThemeWrapper} from '../pages/wrappers/theme.wrapper';
+import {rootReducer} from '../redux/redux.store';
+import {GmapContainer} from '../services/google-map';
+import {GstvContainer} from '../services/google-sv';
 
 export function createMockStore() {
   return configureStore({
@@ -20,7 +20,7 @@ const customRender = (
 ) => {
   const providerStore = store || createMockStore();
 
-  const Wrapper: FC = ({ children }) => {
+  const Wrapper: FC = ({children}) => {
     return (
       <Provider store={providerStore}>
         <ThemeWrapper>
@@ -39,4 +39,4 @@ const customRender = (
 };
 
 export * from '@testing-library/react';
-export { customRender as render };
+export {customRender as render};

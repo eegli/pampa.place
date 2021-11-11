@@ -34,7 +34,7 @@ const ConfirmationDialog = ({
         open={open}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        PaperProps={{ elevation: 2 }}
+        PaperProps={{elevation: 2}}
       >
         <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         {message && (
