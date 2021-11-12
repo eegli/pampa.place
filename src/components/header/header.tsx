@@ -17,8 +17,8 @@ import {
   Toolbar,
 } from '@mui/material';
 import {useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../redux/redux.hooks';
-import {RootState} from '../redux/redux.store';
+import {useAppDispatch, useAppSelector} from '../../redux/redux.hooks';
+import {RootState} from '../../redux/redux.store';
 
 const Header = () => {
   const activeTheme = useAppSelector((s: RootState) => s.app.theme);
@@ -38,9 +38,9 @@ const Header = () => {
 
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar position="fixed" id="header">
         <Paper elevation={1}>
-          <Toolbar sx={{py: 1}}>
+          <Toolbar sx={{py: 1}} id="gaggi">
             <Box sx={{flexGrow: 1}}>
               <IconButton
                 onClick={() => setDrawerIsOpen(true)}
@@ -56,7 +56,7 @@ const Header = () => {
                 open={drawerIsOpen}
                 onClose={() => setDrawerIsOpen(false)}
               >
-                <Box p={2}>
+                <Box p={2} width="100%" maxWidth="17rem">
                   {/* TODO */}
                   <List>
                     {[
@@ -81,10 +81,6 @@ const Header = () => {
                       key={'Change API key'}
                       onClick={handleChangeKey}
                       id="item 4"
-                      sx={{
-                        width: '100%',
-                        maxWidth: '15rem',
-                      }}
                     >
                       <ListItemText
                         primary="Change API key"
@@ -125,7 +121,7 @@ const Header = () => {
           </Toolbar>
         </Paper>
       </AppBar>
-      <Toolbar sx={{py: 1}} />
+      {/*  <Toolbar sx={{py: 1}} id="gaggi 2" /> */}
     </>
   );
 };

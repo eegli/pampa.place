@@ -7,7 +7,7 @@ import RoundIntermission from '../components/round/round.intermission';
 import RoundResult from '../components/round/round.result';
 import BasicSpeedDial from '../components/speed-dial/speed-dial';
 import {useAppDispatch, useAppSelector} from '../redux/redux.hooks';
-import {PageContentContainer} from '../styles/containers';
+import {PageContentWrapper} from '../styles/containers';
 
 const GamePage = () => {
   const dispatch = useAppDispatch();
@@ -39,15 +39,15 @@ const GamePage = () => {
   // take the remaining height. The header is 48p by default
   /* 
    <GameHeader />
-      <PageContentContainer height="calc(100% - 48px)">
+      <PageContentWrapper height="calc(100% - 48px)">
         {render()}
-      </PageContentContainer>
+      </PageContentWrapper>
     </>
   
   */
   return (
     <>
-      <PageContentContainer height="100%" disableGutters>
+      <PageContentWrapper height="100%" id="game-page">
         {positionError ? (
           <Error
             callback={handleRetry}
@@ -60,7 +60,7 @@ const GamePage = () => {
           render()
         )}
         <BasicSpeedDial />
-      </PageContentContainer>
+      </PageContentWrapper>
     </>
   );
 };
