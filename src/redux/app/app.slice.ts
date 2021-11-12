@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 interface AppState {
   authError: boolean;
@@ -16,7 +16,7 @@ const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setApiKey(state, { payload }: PayloadAction<string>) {
+    setApiKey(state, {payload}: PayloadAction<string>) {
       state.apiKey = payload;
     },
     toggleTheme(state) {
@@ -25,5 +25,5 @@ const appSlice = createSlice({
   },
 });
 
-export const { setApiKey, toggleTheme } = appSlice.actions;
+export const {setApiKey, toggleTheme} = appSlice.actions;
 export default appSlice.reducer;

@@ -1,5 +1,5 @@
-import { DeepPartial } from '@/utils/types';
-import gameReducer, { gameSlice, GameState, initialState } from '../game.slice';
+import {DeepPartial} from '@/utils/types';
+import gameReducer, {gameSlice, GameState, initialState} from '../game.slice';
 
 const {
   initGame,

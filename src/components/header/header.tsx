@@ -1,4 +1,4 @@
-import { toggleTheme } from '@/redux/app/app.slice';
+import {toggleTheme} from '@/redux/app/app.slice';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -16,10 +16,10 @@ import {
   Paper,
   Toolbar,
 } from '@mui/material';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../redux/redux.hooks';
-import { RootState } from '../redux/redux.store';
+import {useRouter} from 'next/router';
+import {useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../../redux/redux.hooks';
+import {RootState} from '../../redux/redux.store';
 
 const Header = () => {
   const activeTheme = useAppSelector((s: RootState) => s.app.theme);
@@ -41,16 +41,16 @@ const Header = () => {
 
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar position="fixed" id="header">
         <Paper elevation={1}>
-          <Toolbar sx={{ py: 1 }}>
-            <Box sx={{ flexGrow: 1 }}>
+          <Toolbar sx={{py: 1}} id="gaggi">
+            <Box sx={{flexGrow: 1}}>
               <IconButton
                 onClick={() => setDrawerIsOpen(true)}
                 size="large"
                 edge="start"
                 color="inherit"
-                sx={{ mr: 2 }}
+                sx={{mr: 2}}
               >
                 <MenuIcon />
               </IconButton>
@@ -59,7 +59,7 @@ const Header = () => {
                 open={drawerIsOpen}
                 onClose={() => setDrawerIsOpen(false)}
               >
-                <Box p={2}>
+                <Box p={2} width="100%" maxWidth="17rem">
                   {/* TODO */}
                   <List>
                     {[
@@ -84,10 +84,6 @@ const Header = () => {
                       key={'Change API key'}
                       onClick={handleChangeKey}
                       id="item 4"
-                      sx={{
-                        width: '100%',
-                        maxWidth: '15rem',
-                      }}
                     >
                       <ListItemText
                         primary="Change API key"
@@ -115,7 +111,7 @@ const Header = () => {
               size="large"
               edge="start"
               color="inherit"
-              sx={{ mx: 1 }}
+              sx={{mx: 1}}
               onClick={handleClick}
             >
               {activeTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
@@ -132,7 +128,7 @@ const Header = () => {
                 size="large"
                 edge="start"
                 color="inherit"
-                sx={{ mx: 1 }}
+                sx={{mx: 1}}
               >
                 <GitHubIcon />
               </IconButton>
@@ -140,7 +136,7 @@ const Header = () => {
           </Toolbar>
         </Paper>
       </AppBar>
-      <Toolbar sx={{ py: 1 }} />
+      {/*  <Toolbar sx={{py: 1}} id="gaggi 2" /> */}
     </>
   );
 };

@@ -1,6 +1,6 @@
-import { MAP_IDS } from '@/config/maps';
-import { setMap } from '@/redux/game/game.slice';
-import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
+import {MAP_IDS} from '@/config/maps';
+import {setMap} from '@/redux/game/game.slice';
+import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box,
@@ -13,16 +13,16 @@ import {
   SelectChangeEvent,
   Tooltip,
 } from '@mui/material';
-import { useState } from 'react';
-import Map, { MapMode } from '../google/google.map';
+import {useState} from 'react';
+import Map, {MapMode} from '../google/google.map';
 import MapPreview from './form.map-preview';
 
 const FormMapSelect = () => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
-  const activeMapId = useAppSelector(({ game }) => game.mapId);
-  const activeMapName = useAppSelector(({ game }) => game.mapName);
+  const activeMapId = useAppSelector(({game}) => game.mapId);
+  const activeMapName = useAppSelector(({game}) => game.mapName);
 
   const handleMapSelect = (e: SelectChangeEvent<string>) => {
     dispatch(setMap(e.target.value));
@@ -38,7 +38,7 @@ const FormMapSelect = () => {
           label="Select map"
           onChange={handleMapSelect}
           MenuProps={{
-            style: { padding: 0 },
+            style: {padding: 0},
             anchorOrigin: {
               vertical: 'bottom',
               horizontal: 'left',
@@ -53,7 +53,7 @@ const FormMapSelect = () => {
               <IconButton
                 onClick={() => setPreviewMap(!previewMap)}
                 edge="end"
-                sx={{ mr: 1 }}
+                sx={{mr: 1}}
               >
                 <Tooltip title="Preview map">
                   <VisibilityIcon />
@@ -64,7 +64,7 @@ const FormMapSelect = () => {
         >
           {/*  <ListSubheader color="inherit">Maps</ListSubheader> */}
           {MAP_IDS.map(map => (
-            <MenuItem sx={{ maxWidth: 330 }} key={map.id} value={map.id}>
+            <MenuItem sx={{maxWidth: 330}} key={map.id} value={map.id}>
               {map.name}
             </MenuItem>
           ))}

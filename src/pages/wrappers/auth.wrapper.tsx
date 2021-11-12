@@ -1,11 +1,11 @@
-import { Status, Wrapper } from '@googlemaps/react-wrapper';
-import { ReactNode } from 'react';
+import {Status, Wrapper} from '@googlemaps/react-wrapper';
+import {ReactNode} from 'react';
 import Login from '../../components/login';
 import Spinner from '../../components/spinner';
-import { useAppSelector } from '../../redux/redux.hooks';
-import { PageContentContainer } from '../../styles/containers';
+import {useAppSelector} from '../../redux/redux.hooks';
+import {PageContentWrapper} from '../../styles/containers';
 
-export const AuthWrapper = ({ children }: { children: ReactNode }) => {
+export const AuthWrapper = ({children}: {children: ReactNode}) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
 
   // An empty string as api key is allowed for development mode
@@ -17,24 +17,16 @@ export const AuthWrapper = ({ children }: { children: ReactNode }) => {
         return <>{children}</>;
       case Status.LOADING:
         return (
-          <PageContentContainer
-            id="spinner"
-            sx={{
-              height: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <PageContentWrapper id="spinner">
             <Spinner />
-          </PageContentContainer>
+          </PageContentWrapper>
         );
 
       default:
         return (
-          <PageContentContainer height="100%">
-            <div>fail</div>
-          </PageContentContainer>
+          <PageContentWrapper id="spinner">
+            <div>mega fail</div>
+          </PageContentWrapper>
         );
     }
   }

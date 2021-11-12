@@ -1,9 +1,9 @@
-import { config } from '@/config/game';
-import { MAPS, MAP_IDS } from '@/config/maps';
-import { LatLngLiteral } from '@/config/types';
-import { calcDist, calcScore } from '@/utils/geo';
-import { OrNull } from '@/utils/types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {config} from '@/config/game';
+import {MAPS, MAP_IDS} from '@/config/maps';
+import {LatLngLiteral} from '@/config/types';
+import {calcDist, calcScore} from '@/utils/geo';
+import {OrNull} from '@/utils/types';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 export type Result = {
   name: string;

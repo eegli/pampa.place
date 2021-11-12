@@ -1,7 +1,6 @@
-import { setApiKey } from '@/redux/app/app.slice';
-import { useAppDispatch } from '@/redux/redux.hooks';
-import { Box, Button, TextField, Tooltip, Typography } from '@mui/material';
-import { useRouter } from 'next/router';
+import {setApiKey} from '@/redux/app/app.slice';
+import {useAppDispatch} from '@/redux/redux.hooks';
+import {Box, Button, TextField, Tooltip, Typography} from '@mui/material';
 import React, {
   ChangeEvent,
   FormEvent,
@@ -9,9 +8,9 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { useSessionStorage } from 'react-use';
-import { AuthReq, AuthRes } from '../pages/api/auth.page';
-import { PageContentContainer } from '../styles/containers';
+import {useSessionStorage} from 'react-use';
+import {AuthReq, AuthRes} from '../pages/api/auth.page';
+import {PageContentWrapper} from '../styles/containers';
 
 const Login = () => {
   const [inputError, setInputError] = useState<string>('');
@@ -22,14 +21,12 @@ const Login = () => {
     useSessionStorage<string>('gapikey');
 
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   useEffect(() => {
     if (sessionApiKey !== undefined) {
       dispatch(setApiKey(sessionApiKey));
-      router.push('/');
     }
-  }, [sessionApiKey]);
+  }, [sessionApiKey, dispatch]);
 
   /*   useEffect(() => {
     if (
@@ -58,7 +55,6 @@ const Login = () => {
         setInputError('Invalid password');
       }
     }
-    router.push('/');
   }
 
   function handleDevMode() {
@@ -84,7 +80,7 @@ const Login = () => {
   }
 
   return (
-    <PageContentContainer height="100%">
+    <PageContentWrapper id="login">
       <Box
         onSubmit={handleFormSubmit}
         height="100%"
@@ -97,7 +93,6 @@ const Login = () => {
         alignItems="flex-end"
         width="80%"
         maxWidth={400}
-        sx={{ mt: 2 }}
       >
         <TextField
           fullWidth
@@ -149,7 +144,7 @@ const Login = () => {
           </Button>
         </Box>
       </Box>
-    </PageContentContainer>
+    </PageContentWrapper>
   );
 };
 

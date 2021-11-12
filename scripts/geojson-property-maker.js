@@ -1,4 +1,4 @@
-const { readFileSync, readdirSync, writeFileSync } = require('fs');
+const {readFileSync, readdirSync, writeFileSync} = require('fs');
 const path = require('path');
 const inquirer = require('inquirer');
 
@@ -97,10 +97,10 @@ const required = 'name';
             return acc;
           }, []);
 
-          return { newFileName, newFeatures };
+          return {newFileName, newFeatures};
         }
       )
-      .then(({ newFileName, newFeatures }) => {
+      .then(({newFileName, newFeatures}) => {
         geojson.features = newFeatures;
 
         writeFileSync(

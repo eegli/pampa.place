@@ -1,6 +1,6 @@
 /* http://localhost:3000/api/maps/mocks */
 
-import { MapDataCollection, MapIdCollection } from '../types';
+import {MapDataCollection, MapIdCollection} from '../types';
 
 export const testMapId = '1mSRVyWP3tLQ';
 

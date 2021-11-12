@@ -1,13 +1,9 @@
 import Tarea from '@turf/area';
 import Tbbox from '@turf/bbox';
 import TbboxPolygon from '@turf/bbox-polygon';
-import { FeatureCollection, MultiPolygon, Polygon } from '@turf/helpers';
-import { nanoid } from 'nanoid';
-import {
-  BaseMapProperties,
-  MapDataCollection,
-  MapIdCollection,
-} from '../types';
+import {FeatureCollection, MultiPolygon, Polygon} from '@turf/helpers';
+import {nanoid} from 'nanoid';
+import {BaseMapProperties, MapDataCollection, MapIdCollection} from '../types';
 
 export function computeMapData<
   T extends FeatureCollection<Polygon | MultiPolygon, BaseMapProperties>

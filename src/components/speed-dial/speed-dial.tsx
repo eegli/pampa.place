@@ -1,7 +1,7 @@
-import { toggleTheme } from '@/redux/app/app.slice';
-import { resetRound } from '@/redux/game/game.slice';
-import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
-import { RootState } from '@/redux/redux.store';
+import {toggleTheme} from '@/redux/app/app.slice';
+import {resetRound} from '@/redux/game/game.slice';
+import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
+import {RootState} from '@/redux/redux.store';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import FlagIcon from '@mui/icons-material/Flag';
 import HomeIcon from '@mui/icons-material/Home';
@@ -11,9 +11,9 @@ import ShortcutIcon from '@mui/icons-material/Shortcut';
 import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import Dialog, { DialogProps } from './dialog';
+import {useRouter} from 'next/router';
+import {useState} from 'react';
+import Dialog, {DialogProps} from './dialog';
 
 export default function SpeedDialTooltipOpen() {
   const [dialog, setDialog] = useState<DialogProps>({} as DialogProps);
@@ -39,7 +39,7 @@ export default function SpeedDialTooltipOpen() {
       >
         <SpeedDial
           ariaLabel="SpeedDial tooltip example"
-          sx={{ position: 'absolute', bottom: 16, left: 16, zIndex: 100 }}
+          sx={{position: 'absolute', bottom: 16, left: 16, zIndex: 100}}
           icon={<ShortcutIcon />}
         >
           <SpeedDialAction
@@ -56,7 +56,7 @@ export default function SpeedDialTooltipOpen() {
                 },
                 open: true,
                 cancel: function () {
-                  setDialog({ ...dialog, open: false });
+                  setDialog({...dialog, open: false});
                 },
               })
             }
@@ -74,11 +74,11 @@ export default function SpeedDialTooltipOpen() {
                 callbackTitle: 'Restart round',
                 callback: function () {
                   dispatch(resetRound());
-                  setDialog({ ...dialog, open: false });
+                  setDialog({...dialog, open: false});
                 },
                 open: true,
                 cancel: function () {
-                  setDialog({ ...dialog, open: false });
+                  setDialog({...dialog, open: false});
                 },
               })
             }
@@ -97,7 +97,7 @@ export default function SpeedDialTooltipOpen() {
                 },
                 open: true,
                 cancel: function () {
-                  setDialog({ ...dialog, open: false });
+                  setDialog({...dialog, open: false});
                 },
               })
             }

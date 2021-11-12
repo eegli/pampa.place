@@ -1,10 +1,4 @@
-import {
-  Box,
-  BoxProps,
-  Breakpoint,
-  Container,
-  ContainerProps,
-} from '@mui/material';
+import {Box, BoxProps, Breakpoint} from '@mui/material';
 
 // Shared container that can be applied to all "info" screens -
 // intermissions, round ends and final result. Accepts an optional
@@ -27,9 +21,9 @@ export const SlimContainer = ({
     flexWrap="wrap"
     width="100%"
     sx={{
-      maxWidth: ({ breakpoints }) => breakpoints.values[breakpoint],
-      margin: ({ spacing }) => `${spacing(1)} auto ${spacing(1)} auto`,
-      padding: ({ spacing }) => spacing(2),
+      maxWidth: ({breakpoints}) => breakpoints.values[breakpoint],
+      margin: ({spacing}) => `${spacing(1)} auto ${spacing(1)} auto`,
+      padding: ({spacing}) => spacing(2),
     }}
     {...rest}
   >
@@ -41,38 +35,30 @@ export const SlimContainer = ({
 // especially useful when a header is used - a height calc can be
 // passed so that the container takes the remaining height, see
 // /pages/game
-interface PageContentContainerProps extends ContainerProps {
-  height?: string;
+
+interface PageContainerWrapperProps extends BoxProps {
+  headerGutter?: boolean;
+  id: string;
 }
 
-export const PageContentContainer = ({
+export const PageContentWrapper = ({
   children,
-  height: customHeight,
-}: PageContentContainerProps) => {
+  headerGutter,
+  id,
+  ...rest
+}: PageContainerWrapperProps) => {
   return (
     <Box
       width="100%"
-      height="100%"
-      sx={{
-        bgcolor: 'background.default',
-        color: 'text.primary',
-      }}
+      height={headerGutter ? 'calc(100%-64px)' : '100%'}
+      margin={`${headerGutter ? '64px' : '0'} auto 0 auto`}
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      id={id}
+      {...rest}
     >
-      <Container
-        maxWidth={false} // "xl"
-        sx={{
-          // Required for darkmode to work, see example:
-          // https://next.material-ui.com/customization/palette/#toggling-color-mode
-          bgcolor: 'background.default',
-          color: 'text.primary',
-          display: 'flex',
-          alignItems: 'center',
-          height: customHeight || '100%',
-          flexFlow: 'column',
-        }}
-      >
-        {children}
-      </Container>
+      {children}
     </Box>
   );
 };

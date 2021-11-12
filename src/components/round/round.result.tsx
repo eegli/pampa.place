@@ -1,5 +1,5 @@
-import { getTotalScores } from '@/redux/game/game.selectors';
-import { useAppSelector } from '@/redux/redux.hooks';
+import {getTotalScores} from '@/redux/game/game.selectors';
+import {useAppSelector} from '@/redux/redux.hooks';
 import {
   Button,
   Stack,
@@ -10,8 +10,8 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { useRouter } from 'next/router';
-import { SlimContainer } from '../../styles/containers';
+import {useRouter} from 'next/router';
+import {SlimContainer} from '../../styles/containers';
 
 const RoundResult = () => {
   const result = useAppSelector(getTotalScores);

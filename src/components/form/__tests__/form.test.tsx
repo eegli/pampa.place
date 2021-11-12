@@ -1,5 +1,5 @@
-import { config } from '@/config/game';
-import { STATUS } from '@/redux/game/game.slice';
+import {config} from '@/config/game';
+import {STATUS} from '@/redux/game/game.slice';
 import {
   ByRoleOptions,
   createMockStore,
@@ -29,7 +29,7 @@ function getRadios(opts?: ByRoleOptions) {
 
 describe('Form', () => {
   function querySubmitButton() {
-    return screen.getByRole('button', { name: /start/i });
+    return screen.getByRole('button', {name: /start/i});
   }
 
   it('has submit button', () => {
@@ -62,7 +62,7 @@ describe('Form, player name input', () => {
     render(<FormPlayers />);
     for (let i = 0; i < config.maxPlayers; i++) {
       const inputs = queryPlayerInput();
-      fireEvent.change(inputs[i], { target: { value: `player ${i}` } });
+      fireEvent.change(inputs[i], {target: {value: `player ${i}`}});
     }
     expect(queryPlayerInput()).toHaveLength(config.maxPlayers);
   });
@@ -71,7 +71,7 @@ describe('Form, player name input', () => {
 describe('Form, round select', () => {
   it('renders round select options', () => {
     render(<FormRoundSelect />);
-    expect(getRadios({ checked: true })).toHaveLength(1);
+    expect(getRadios({checked: true})).toHaveLength(1);
     expect(getRadios()).toHaveLength(config.rounds.length);
   });
 
@@ -87,10 +87,10 @@ describe('Form, round select', () => {
 
 describe('Form, duration select', () => {
   it('renders duration select options', () => {
-    const { container } = render(<FormTimeLimitSelect />);
+    const {container} = render(<FormTimeLimitSelect />);
     expect(container).toMatchSnapshot();
 
-    expect(getRadios({ checked: true })).toHaveLength(1);
+    expect(getRadios({checked: true})).toHaveLength(1);
     expect(getRadios()).toHaveLength(config.timeLimits.length);
   });
 
@@ -119,11 +119,11 @@ describe('Form, map select', () => {
 // TODO
 describe('Form, map preview', () => {
   it('renders map options', () => {
-    const { container: c1 } = render(
+    const {container: c1} = render(
       <MapPreview title="test map" open={true} setIsOpen={() => {}} />
     );
     expect(c1).toMatchSnapshot();
-    const { container: c2 } = render(
+    const {container: c2} = render(
       <MapPreview title="test map" open={false} setIsOpen={() => {}} />
     );
     expect(c2).toMatchSnapshot();

@@ -1,6 +1,6 @@
 import customMapData from '../../maps/custom.json';
 import defaultMapData from '../../maps/switzerland.json';
-import { computeMapData, computeMapIds } from './helpers/creator';
+import {computeMapData, computeMapIds} from './helpers/creator';
 import {
   MapDataCollection,
   MapFeatureCollection,
@@ -21,7 +21,7 @@ const customMaps: MapDataCollection = computeMapData(
   'custom'
 );
 
-export const MAPS: MapDataCollection = { ...swissMaps, ...customMaps };
+export const MAPS: MapDataCollection = {...swissMaps, ...customMaps};
 
 export const MAP_IDS: MapIdCollection = computeMapIds(MAPS);
 

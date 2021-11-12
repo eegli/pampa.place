@@ -1,9 +1,9 @@
-import { unsafeToggleHTMLElement } from '@/utils/misc';
+import {unsafeToggleHTMLElement} from '@/utils/misc';
 
 export const GmapContainer = () => {
   return (
     <div id="__GMAP__CONTAINER__">
-      <div id="__GMAP__" style={{ height: '100%' }} />
+      <div id="__GMAP__" style={{height: '100%'}} />
     </div>
   );
 };

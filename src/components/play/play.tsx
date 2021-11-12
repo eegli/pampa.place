@@ -1,23 +1,21 @@
-import { getActivePlayer } from '@/redux/game/game.selectors';
-import { setPlayerScore } from '@/redux/game/game.slice';
-import { useAppDispatch, useAppSelector } from '@/redux/redux.hooks';
-import { Box, Button } from '@mui/material';
-import { useState } from 'react';
-import Map, { MapMode } from '../google/google.map';
+import {getActivePlayer} from '@/redux/game/game.selectors';
+import {setPlayerScore} from '@/redux/game/game.slice';
+import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
+import {Box, Button} from '@mui/material';
+import {useState} from 'react';
+import Map, {MapMode} from '../google/google.map';
 import StreetView from '../google/google.street-view';
 import PlayHeader from './play.header';
-import { StyledMapOverlay } from './play.styles';
+import {StyledMapOverlay} from './play.styles';
 
 const Play = () => {
   const dispatch = useAppDispatch();
   const [showMap, setShowMap] = useState<boolean>(false);
 
-  const activeMapId = useAppSelector(({ game }) => game.mapId);
+  const activeMapId = useAppSelector(({game}) => game.mapId);
   const activePlayer = useAppSelector(getActivePlayer);
-  const initialPos = useAppSelector(({ position }) => position.initialPosition);
-  const selectedPos = useAppSelector(
-    ({ position }) => position.selectedPosition
-  );
+  const initialPos = useAppSelector(({position}) => position.initialPosition);
+  const selectedPos = useAppSelector(({position}) => position.selectedPosition);
 
   function submitScore() {
     dispatch(
