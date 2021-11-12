@@ -21,11 +21,12 @@ const Login = () => {
     useSessionStorage<string>('gapikey');
 
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (sessionApiKey !== undefined) {
       dispatch(setApiKey(sessionApiKey));
     }
-  }, [sessionApiKey]);
+  }, [sessionApiKey, dispatch]);
 
   /*   useEffect(() => {
     if (
