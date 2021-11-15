@@ -21,7 +21,7 @@ const FormPlayers = () => {
     };
 
   return (
-    <Box display="flex" flexDirection="column">
+    <Box display="flex" flexDirection="column" id="form-players">
       {/* Always have an additional input field to write to */}
       {Array.from({length: min(players.length + 1, MAX_PLAYERS)}).map(
         (_, idx) => {

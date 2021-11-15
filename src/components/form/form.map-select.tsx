@@ -4,6 +4,12 @@ import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   IconButton,
   InputAdornment,
@@ -12,28 +18,31 @@ import {
   Select,
   SelectChangeEvent,
   Tooltip,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import {useState} from 'react';
 import Map, {MapMode} from '../google/google.map';
-import MapPreview from './form.map-preview';
 
 const FormMapSelect = () => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
+  const theme = useTheme();
   const activeMapId = useAppSelector(({game}) => game.mapId);
   const activeMapName = useAppSelector(({game}) => game.mapName);
+
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleMapSelect = (e: SelectChangeEvent<string>) => {
     dispatch(setMap(e.target.value));
   };
 
   return (
-    <Box>
+    <Box id="form-map-select">
       <FormControl fullWidth component="fieldset">
         <InputLabel>Select map</InputLabel>
         <Select
-          id="form-map-select"
           value={activeMapId}
           label="Select map"
           onChange={handleMapSelect}
@@ -54,6 +63,7 @@ const FormMapSelect = () => {
                 onClick={() => setPreviewMap(!previewMap)}
                 edge="end"
                 sx={{mr: 1}}
+                data-testid="map-preview-button"
               >
                 <Tooltip title="Preview map">
                   <VisibilityIcon />
@@ -72,15 +82,28 @@ const FormMapSelect = () => {
       </FormControl>
 
       {previewMap && (
-        <MapPreview
-          title={activeMapName}
+        <Dialog
           open={previewMap}
-          setIsOpen={setPreviewMap}
+          onClose={() => setPreviewMap(false)}
+          fullScreen={fullScreen}
+          PaperProps={{elevation: 1}}
+          sx={{
+            borderRadius: 10,
+          }}
         >
-          <Box height={500}>
-            <Map mode={MapMode.PREVIEW} activeMapId={activeMapId} />
-          </Box>
-        </MapPreview>
+          <DialogTitle>{activeMapName}</DialogTitle>
+          <DialogContent>
+            <Box height={500} width={400}>
+              <Map mode={MapMode.PREVIEW} activeMapId={activeMapId} />
+            </Box>
+            <DialogContentText mt={2}>
+              Rough bounds of the map &quot;{activeMapName}&quot;.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setPreviewMap(false)}>Close</Button>
+          </DialogActions>
+        </Dialog>
       )}
     </Box>
   );

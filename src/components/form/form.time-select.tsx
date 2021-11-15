@@ -20,7 +20,7 @@ const FormTimeLimitSelect = () => {
     dispatch(setTimeLimit(num));
   }
   return (
-    <FormControl component="fieldset" sx={{mb: 3}}>
+    <FormControl component="fieldset" sx={{mb: 3}} id="form-timelimit">
       <FormLabel component="legend">Time limit</FormLabel>
       <RadioGroup row onChange={handleChange} name="form-time-select">
         {config.timeLimits.map(val => {
