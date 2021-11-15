@@ -9,8 +9,8 @@ import React, {
   useState,
 } from 'react';
 import {useSessionStorage} from 'react-use';
-import {AuthReq, AuthRes} from '../pages/api/auth.page';
-import {PageContentWrapper} from '../styles/containers';
+import {AuthReq, AuthRes} from '../../pages/api/auth.page';
+import {PageContentWrapper} from '../../styles/containers';
 
 const Login = () => {
   const [inputError, setInputError] = useState<string>('');

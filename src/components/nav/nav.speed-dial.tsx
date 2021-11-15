@@ -13,9 +13,9 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import {useRouter} from 'next/router';
 import {useState} from 'react';
-import Dialog, {DialogProps} from './dialog';
+import Dialog, {DialogProps} from './nav.dialog';
 
-export default function SpeedDialTooltipOpen() {
+const SpeedDialNav = () => {
   const [dialog, setDialog] = useState<DialogProps>({} as DialogProps);
 
   const router = useRouter();
@@ -116,4 +116,6 @@ export default function SpeedDialTooltipOpen() {
       <Dialog {...dialog} />
     </>
   );
-}
+};
+
+export default SpeedDialNav;

@@ -1,11 +1,12 @@
 import {STATUS} from '@/redux/game/game.slice';
 import {getRandomStreetView} from '@/redux/position/position.slice';
-import Error from '../components/error';
+import React from 'react';
+import Error from '../components/feedback/feedback.error';
+import SpeedDialNav from '../components/nav/nav.speed-dial';
 import Play from '../components/play/play';
 import RoundEnd from '../components/round/round.end';
 import RoundIntermission from '../components/round/round.intermission';
 import RoundResult from '../components/round/round.result';
-import BasicSpeedDial from '../components/speed-dial/speed-dial';
 import {useAppDispatch, useAppSelector} from '../redux/redux.hooks';
 import {PageContentWrapper} from '../styles/containers';
 
@@ -59,7 +60,7 @@ const GamePage = () => {
         ) : (
           render()
         )}
-        <BasicSpeedDial />
+        <SpeedDialNav />
       </PageContentWrapper>
     </>
   );

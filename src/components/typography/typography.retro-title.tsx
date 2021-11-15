@@ -79,7 +79,7 @@ type RetroTitleProps = {
   secondary: string;
 };
 
-const FancyRetroTitle = ({primary, secondary}: RetroTitleProps) => (
+export const FancyRetroTitle = ({primary, secondary}: RetroTitleProps) => (
   <StyledBox>
     <H1>
       <span>{primary}</span>
@@ -88,5 +88,3 @@ const FancyRetroTitle = ({primary, secondary}: RetroTitleProps) => (
     <H2>{secondary}</H2>
   </StyledBox>
 );
-
-export default FancyRetroTitle;

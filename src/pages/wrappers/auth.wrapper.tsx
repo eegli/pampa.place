@@ -1,7 +1,7 @@
 import {Status, Wrapper} from '@googlemaps/react-wrapper';
 import {ReactNode} from 'react';
-import Login from '../../components/login';
-import Spinner from '../../components/spinner';
+import Spinner from '../../components/feedback/feedback.spinner';
+import Login from '../../components/login/login';
 import {useAppSelector} from '../../redux/redux.hooks';
 import {PageContentWrapper} from '../../styles/containers';
 

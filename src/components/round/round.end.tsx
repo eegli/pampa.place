@@ -20,7 +20,7 @@ import {SyntheticEvent, useState} from 'react';
 import {SlimContainer} from '../../styles/containers';
 import GoogleMap, {MapMode} from '../google/google.map';
 import GoogleStreetView from '../google/google.street-view';
-import TabPanel from '../tabs-panel';
+import TabPanel from './round.tabs-panel';
 
 const RoundEnd = () => {
   const [selectedPanel, setSelectedPanel] = useState(0);
@@ -80,7 +80,7 @@ const RoundEnd = () => {
               Round {currentRound} is over!
             </Typography>
 
-            <Table size="small" aria-label="a dense table">
+            <Table size="small">
               <TableHead>
                 <TableRow>
                   <TableCell align="left">#</TableCell>

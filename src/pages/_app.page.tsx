@@ -1,6 +1,6 @@
 import type {AppProps, NextWebVitalsMetric} from 'next/app';
 import {Provider} from 'react-redux';
-import LoadingProgress from '../components/progress';
+import LoadingProgress from '../components/feedback/feedback.progress';
 import {store} from '../redux/redux.store';
 import {GmapContainer} from '../services/google-map';
 import {GstvContainer} from '../services/google-sv';
