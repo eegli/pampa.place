@@ -19,7 +19,7 @@ const FormRoundSelect = () => {
     dispatch(setRounds(val));
   }
   return (
-    <FormControl component="fieldset" sx={{mb: 3}}>
+    <FormControl component="fieldset" sx={{mb: 3}} id="form-rounds">
       <FormLabel component="legend">Rounds</FormLabel>
       <RadioGroup row onChange={handleChange} name="row-radio-buttons-group">
         {config.rounds.map(val => {

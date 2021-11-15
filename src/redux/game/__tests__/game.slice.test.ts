@@ -15,15 +15,6 @@ describe('Redux, game', () => {
   let state = initialState;
   it('passes e2e test', () => {
     /* Initialization */
-    state = gameReducer(
-      state,
-      setPlayers([
-        '',
-        'player',
-        'eric eric eric eric eric eric eric eric eric eric',
-      ])
-    );
-    expect(state.players).toEqual(['player', 'eric eric eric eric eric']);
     state = gameReducer(state, setPlayers(['p1', 'p2']));
     expect(state.players).toEqual(['p1', 'p2']);
     state = gameReducer(state, setRounds(2));

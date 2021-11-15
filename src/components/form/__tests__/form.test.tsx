@@ -8,8 +8,8 @@ import {
   screen,
 } from '@/tests/test-utils';
 import React from 'react';
+import {Gmap} from '../../../services/google-map';
 import Form from '../form';
-import MapPreview from '../form.map-preview';
 import FormMapSelect from '../form.map-select';
 import FormPlayers from '../form.players';
 import FormRoundSelect from '../form.round-select';
@@ -58,13 +58,32 @@ describe('Form, player name input', () => {
     expect(queryPlayerInput()).toHaveLength(1);
     expect(queryPlayerInput()[0]).toHaveValue('');
   });
-  it('does not create more inputs than defined', () => {
+  it('does not create more inputs than configured', () => {
     render(<FormPlayers />);
-    for (let i = 0; i < config.maxPlayers; i++) {
+
+    for (let i = 0; i < config.maxPlayers + 2; i++) {
       const inputs = queryPlayerInput();
-      fireEvent.change(inputs[i], {target: {value: `player ${i}`}});
+      if (inputs[i]) {
+        fireEvent.change(inputs[i], {target: {value: `player ${i}`}});
+      } else {
+        break;
+      }
     }
     expect(queryPlayerInput()).toHaveLength(config.maxPlayers);
+  });
+  it('truncates long and filters invalid player names', () => {
+    render(<FormPlayers />);
+    fireEvent.change(queryPlayerInput()[0], {
+      target: {value: `eric eric eric eric eric eric eric eric eric eric`},
+    });
+    expect(queryPlayerInput()[0]).toHaveValue('eric eric eric eric eric');
+    fireEvent.change(queryPlayerInput()[1], {
+      target: {value: 'player 2'},
+    });
+    fireEvent.change(queryPlayerInput()[0], {
+      target: {value: ''},
+    });
+    expect(queryPlayerInput()[0]).toHaveValue('player 2');
   });
 });
 
@@ -105,27 +124,20 @@ describe('Form, duration select', () => {
 });
 
 // TODO
-describe('Form, map select', () => {
-  function queryMapOps() {
-    return screen.getAllByRole('button');
-  }
+describe('Form, map selection and preview', () => {
+  const toggleSpy = jest.spyOn(Gmap, 'toggle');
 
-  it('renders map options', () => {
+  beforeEach(() => {
     render(<FormMapSelect />);
-    expect(queryMapOps()).toMatchSnapshot();
   });
-});
 
-// TODO
-describe('Form, map preview', () => {
-  it('renders map options', () => {
-    const {container: c1} = render(
-      <MapPreview title="test map" open={true} setIsOpen={() => {}} />
-    );
-    expect(c1).toMatchSnapshot();
-    const {container: c2} = render(
-      <MapPreview title="test map" open={false} setIsOpen={() => {}} />
-    );
-    expect(c2).toMatchSnapshot();
+  it('displays maps', () => {
+    const mapSelection = screen.getByRole('button', {name: /custom map/i});
+    expect(mapSelection).toBeInTheDocument();
+  });
+  it('displays map preview', () => {
+    const previewMapButton = screen.getByTestId('map-preview-button');
+    fireEvent.click(previewMapButton);
+    expect(toggleSpy).toHaveBeenCalledTimes(1);
   });
 });
