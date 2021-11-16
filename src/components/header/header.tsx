@@ -90,18 +90,6 @@ const Header = () => {
                         secondary="Play with a different API key or change into development mode"
                       />
                     </ListItem>
-                    <ListItem
-                      button
-                      key={'Markdown'}
-                      onClick={() => router.push('/markdown')}
-                      id="item 4"
-                      sx={{
-                        width: '100%',
-                        maxWidth: '15rem',
-                      }}
-                    >
-                      <ListItemText primary="Markdown test" />
-                    </ListItem>
                   </List>
                 </Box>
               </Drawer>
