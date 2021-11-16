@@ -65,7 +65,7 @@ const GoogleMap = ({mode, scores, initialPos, activeMapId}: GoogleMapProps) => {
       });
       return () => {
         features.forEach(feat => {
-          Gmap.map?.data.remove(feat);
+          Gmap.map.data.remove(feat);
         });
       };
     }
@@ -78,19 +78,21 @@ const GoogleMap = ({mode, scores, initialPos, activeMapId}: GoogleMapProps) => {
         ...config.map,
       });
       const marker = new google.maps.Marker();
+      marker.setMap(Gmap.map);
+
       const listener = Gmap.map.addListener(
         'click',
         ({latLng}: {latLng: google.maps.LatLng}) => {
           marker.setPosition(latLng);
-          marker.setMap(Gmap.map!);
 
           dispatch(
             updateSelectedPosition({lat: latLng.lat(), lng: latLng.lng()})
           );
         }
       );
+
       return () => {
-        listener.remove();
+        google.maps.event.removeListener(listener);
         marker.setMap(null);
       };
     }

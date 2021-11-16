@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Google Map has preview mode: preview settings 1`] = `
+Array [
+  Object {
+    "clickableIcons": false,
+    "disableDefaultUI": true,
+    "draggableCursor": "crosshair",
+    "gestureHandling": "auto",
+    "mapTypeControl": true,
+    "mapTypeControlOptions": Object {
+      "mapTypeIds": Array [
+        "hybrid",
+        "roadmap",
+      ],
+    },
+    "mapTypeId": "roadmap",
+  },
+]
+`;

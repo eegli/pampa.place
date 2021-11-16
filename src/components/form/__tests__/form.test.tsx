@@ -127,15 +127,13 @@ describe('Form, duration select', () => {
 describe('Form, map selection and preview', () => {
   const toggleSpy = jest.spyOn(Gmap, 'toggle');
 
-  beforeEach(() => {
-    render(<FormMapSelect />);
-  });
-
   it('displays maps', () => {
+    render(<FormMapSelect />);
     const mapSelection = screen.getByRole('button', {name: /custom map/i});
     expect(mapSelection).toBeInTheDocument();
   });
   it('displays map preview', () => {
+    render(<FormMapSelect />);
     const previewMapButton = screen.getByTestId('map-preview-button');
     fireEvent.click(previewMapButton);
     expect(toggleSpy).toHaveBeenCalledTimes(1);
