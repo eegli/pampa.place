@@ -10,7 +10,7 @@ jest.spyOn(React, 'useRef').mockReturnValue({
 
 describe('Google Map', () => {
   it('renders google map', () => {
-    render(<GoogleMap activeMapId="1mSRVyWP3tLQ" />);
+    render(<GoogleMap />);
 
     expect(Gmap.map.fitBounds).toHaveBeenCalledTimes(1);
 
@@ -23,9 +23,7 @@ describe('Google Map', () => {
     const removeGeoJsonSpy = jest.spyOn(Map.prototype.data, 'remove');
     const setOptonsSpy = jest.spyOn(Gmap.map, 'setOptions');
 
-    const {unmount} = render(
-      <GoogleMap activeMapId="1mSRVyWP3tLQ" mode={MapMode.PREVIEW} />
-    );
+    const {unmount} = render(<GoogleMap mode={MapMode.PREVIEW} />);
     expect(setOptonsSpy.mock.calls[0]).toMatchSnapshot('preview settings');
     expect(addGeoJsonSpy).toHaveBeenCalledTimes(1);
     expect(setStyleSpy).toHaveBeenCalledTimes(1);
@@ -34,14 +32,8 @@ describe('Google Map', () => {
   });
 
   it('has play mode', () => {
-    const mockMarker = google.maps.Marker as jest.Mocked<
-      typeof google.maps.Marker
-    >;
-    const {unmount} = render(
-      <GoogleMap activeMapId="1mSRVyWP3tLQ" mode={MapMode.PLAY} />
-    );
+    const {unmount} = render(<GoogleMap mode={MapMode.PLAY} />);
 
-    expect(google.maps.Marker.prototype.setMap).toHaveBeenCalledTimes(1);
     expect(Gmap.map.addListener).toHaveBeenCalledTimes(1);
 
     unmount();

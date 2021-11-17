@@ -35,7 +35,7 @@ const RoundEnd = () => {
   const initialPosition = useAppSelector(
     ({position}) => position.initialPosition
   );
-  const activeMapId = useAppSelector(({game}) => game.mapId);
+
   const isGameFinished = useAppSelector(isFinished);
 
   const panoDescription = useAppSelector(
@@ -114,8 +114,7 @@ const RoundEnd = () => {
           {initialPosition && (
             <GoogleMap
               mode={MapMode.RESULT}
-              activeMapId={activeMapId}
-              scores={scores}
+              results={scores}
               initialPos={initialPosition}
             />
           )}

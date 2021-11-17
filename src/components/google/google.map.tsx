@@ -3,7 +3,7 @@ import {MAPS} from '@/config/maps';
 import {markers} from '@/config/markers';
 import {LatLngLiteral} from '@/config/types';
 import {updateSelectedPosition} from '@/redux/position/position.slice';
-import {useAppDispatch} from '@/redux/redux.hooks';
+import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
 import {Fade} from '@mui/material';
 import React, {useEffect, useRef} from 'react';
 import {Result} from '../../redux/game/game.slice';
@@ -16,13 +16,13 @@ export enum MapMode {
 }
 
 export type GoogleMapProps = {
-  activeMapId: string;
   mode?: MapMode;
-  scores?: Result[];
+  results?: Result[];
   initialPos?: LatLngLiteral;
 };
 
-const GoogleMap = ({mode, scores, initialPos, activeMapId}: GoogleMapProps) => {
+const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
+  const activeMapId = useAppSelector(({game}) => game.mapId);
   const ref = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
 
@@ -75,10 +75,14 @@ const GoogleMap = ({mode, scores, initialPos, activeMapId}: GoogleMapProps) => {
         Gmap.map.setOptions({
           ...config.map,
         });
-        let marker: google.maps.Marker | null = new google.maps.Marker({
+        0;
+        let marker: google.maps.Marker | null = new google.maps.Marker();
+
+        marker.setOptions({
           draggable: true,
-          map: Gmap.map,
         });
+
+        marker.setMap(Gmap.map);
 
         Gmap.map.addListener(
           'click',
@@ -110,8 +114,8 @@ const GoogleMap = ({mode, scores, initialPos, activeMapId}: GoogleMapProps) => {
             map: Gmap.map,
           })
         );
-        scores &&
-          scores.forEach((p, idx) => {
+        results &&
+          results.forEach((p, idx) => {
             gMarkers.push(
               new window.google.maps.Marker({
                 position: p.selected,
@@ -145,7 +149,7 @@ const GoogleMap = ({mode, scores, initialPos, activeMapId}: GoogleMapProps) => {
           gMarkers.length = 0;
         };
     }
-  }, [mode, activeMapId, scores, initialPos, dispatch]);
+  }, [mode, activeMapId, results, initialPos, dispatch]);
 
   return (
     <Fade in timeout={500}>
@@ -161,5 +165,5 @@ const GoogleMap = ({mode, scores, initialPos, activeMapId}: GoogleMapProps) => {
 };
 
 export default React.memo(GoogleMap, (prev, curr) => {
-  return prev.mode === curr.mode && prev.activeMapId === curr.activeMapId;
+  return prev.mode === curr.mode;
 });

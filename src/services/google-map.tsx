@@ -10,7 +10,6 @@ export const GmapContainer = () => {
 
 export class Gmap {
   static _map: google.maps.Map | undefined;
-  static markers: google.maps.Marker[] = [];
 
   static get div() {
     return document.getElementById('__GMAP__')!;
@@ -25,10 +24,6 @@ export class Gmap {
       console.log('Created new global Map instance');
     }
     return Gmap._map;
-  }
-
-  static addMarker(marker: google.maps.Marker) {
-    Gmap.markers.push(marker);
   }
 
   static toggle(tempContainer: Parameters<typeof unsafeToggleHTMLElement>[2]) {
