@@ -34,13 +34,17 @@ describe('Google Map', () => {
   });
 
   it('has play mode', () => {
-    const eventSpy = jest.spyOn(google.maps.event, 'removeListener');
-
+    const mockMarker = google.maps.Marker as jest.Mocked<
+      typeof google.maps.Marker
+    >;
     const {unmount} = render(
       <GoogleMap activeMapId="1mSRVyWP3tLQ" mode={MapMode.PLAY} />
     );
 
+    expect(google.maps.Marker.prototype.setMap).toHaveBeenCalledTimes(1);
+    expect(Gmap.map.addListener).toHaveBeenCalledTimes(1);
+
     unmount();
-    expect(eventSpy).toHaveBeenCalledTimes(1);
+    expect(google.maps.event.clearInstanceListeners).toHaveBeenCalledTimes(1);
   });
 });

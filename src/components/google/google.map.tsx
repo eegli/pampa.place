@@ -48,100 +48,104 @@ const GoogleMap = ({mode, scores, initialPos, activeMapId}: GoogleMapProps) => {
     Gmap.map.fitBounds(mapBounds, 2);
   }, [activeMapId]);
 
-  /* If the map is used in preview mode */
   useEffect(() => {
-    if (mode === MapMode.PREVIEW) {
-      Gmap.map.setOptions({
-        ...config.map,
-        mapTypeId: 'roadmap',
-        mapTypeControl: false,
-        gestureHandling: 'none',
-      });
-      const features = Gmap.map.data.addGeoJson(MAPS[activeMapId].feature);
-      Gmap.map.data.setStyle({
-        fillColor: '#003d80',
-        fillOpacity: 0.2,
-        strokeWeight: 0.8,
-      });
-      return () => {
-        features.forEach(feat => {
-          Gmap.map.data.remove(feat);
+    switch (mode) {
+      case MapMode.PREVIEW:
+        console.log('PREVIEW');
+        Gmap.map.setOptions({
+          ...config.map,
+          mapTypeId: 'roadmap',
+          mapTypeControl: false,
+          gestureHandling: 'none',
         });
-      };
-    }
-  }, [mode, activeMapId]);
-
-  /* Map in actual game mode */
-  useEffect(() => {
-    if (mode === MapMode.PLAY) {
-      Gmap.map.setOptions({
-        ...config.map,
-      });
-      const marker = new google.maps.Marker();
-      marker.setMap(Gmap.map);
-
-      const listener = Gmap.map.addListener(
-        'click',
-        ({latLng}: {latLng: google.maps.LatLng}) => {
-          marker.setPosition(latLng);
-
-          dispatch(
-            updateSelectedPosition({lat: latLng.lat(), lng: latLng.lng()})
-          );
-        }
-      );
-
-      return () => {
-        google.maps.event.removeListener(listener);
-        marker.setMap(null);
-      };
-    }
-  }, [mode, dispatch]);
-
-  /* End of round, display markers */
-  useEffect(() => {
-    if (scores && initialPos && mode === MapMode.RESULT) {
-      Gmap.map.setOptions({
-        ...config.map,
-      });
-      const gMarkers: google.maps.Marker[] = [];
-      gMarkers.push(
-        new window.google.maps.Marker({
-          position: initialPos,
+        const features = Gmap.map.data.addGeoJson(MAPS[activeMapId].feature);
+        Gmap.map.data.setStyle({
+          fillColor: '#003d80',
+          fillOpacity: 0.2,
+          strokeWeight: 0.8,
+        });
+        return () => {
+          console.log('PREVIEW UNMOUNT');
+          features.forEach(feat => {
+            Gmap.map.data.remove(feat);
+          });
+        };
+      case MapMode.PLAY:
+        console.log('PLAY');
+        Gmap.map.setOptions({
+          ...config.map,
+        });
+        let marker: google.maps.Marker | null = new google.maps.Marker({
+          draggable: true,
           map: Gmap.map,
-        })
-      );
-      scores.forEach((p, idx) => {
+        });
+
+        Gmap.map.addListener(
+          'click',
+          ({latLng}: {latLng: google.maps.LatLng}) => {
+            if (marker) {
+              marker.setPosition(latLng);
+              dispatch(
+                updateSelectedPosition({lat: latLng.lat(), lng: latLng.lng()})
+              );
+            }
+          }
+        );
+
+        return () => {
+          console.log('PLAY UNMOUNT');
+          google.maps.event.clearInstanceListeners(Gmap.map);
+          marker?.setMap(null);
+          marker = null;
+        };
+      case MapMode.RESULT:
+        console.log('RESULT');
+        Gmap.map.setOptions({
+          ...config.map,
+        });
+        const gMarkers: google.maps.Marker[] = [];
         gMarkers.push(
           new window.google.maps.Marker({
-            position: p.selected,
+            position: initialPos,
             map: Gmap.map,
-            label: {
-              text: p.name,
-              color: 'white',
-              className: 'map-marker',
-            },
-            icon: {
-              path: markers.marker.path,
-              fillColor: `#${markers.colors[idx]}`,
-              fillOpacity: 1,
-              anchor: new google.maps.Point(
-                markers.marker.anchor[0],
-                markers.marker.anchor[1]
-              ),
-              strokeWeight: 0,
-              scale: 1,
-              labelOrigin: new google.maps.Point(15, 60),
-            },
           })
         );
-      });
+        scores &&
+          scores.forEach((p, idx) => {
+            gMarkers.push(
+              new window.google.maps.Marker({
+                position: p.selected,
+                map: Gmap.map,
 
-      return () => {
-        gMarkers.forEach(marker => marker.setMap(null));
-      };
+                label: {
+                  text: p.name,
+                  color: 'white',
+                  className: 'map-marker',
+                },
+                icon: {
+                  path: markers.marker.path,
+                  fillColor: `#${markers.colors[idx]}`,
+                  fillOpacity: 1,
+                  anchor: new google.maps.Point(
+                    markers.marker.anchor[0],
+                    markers.marker.anchor[1]
+                  ),
+                  strokeWeight: 0,
+                  scale: 1,
+                  labelOrigin: new google.maps.Point(15, 60),
+                },
+              })
+            );
+          });
+
+        return () => {
+          console.log('RESULT UNMOUNT');
+          // https://developers.google.com/maps/documentation/javascript/markers#remove
+          gMarkers.forEach(marker => marker.setMap(null));
+          gMarkers.length = 0;
+        };
     }
-  }, [scores, initialPos, mode]);
+  }, [mode, activeMapId, scores, initialPos, dispatch]);
 
   return (
     <Fade in timeout={500}>

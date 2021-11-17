@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Google Map has play mode 1`] = `undefined`;
+
 exports[`Google Map has preview mode: preview settings 1`] = `
 Array [
   Object {
