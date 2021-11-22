@@ -57,7 +57,6 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
           ...config.map,
           mapTypeId: 'roadmap',
           mapTypeControl: false,
-          gestureHandling: 'none',
         });
         const features = Gmap.map.data.addGeoJson(MAPS[activeMapId].feature);
         Gmap.map.data.setStyle({
