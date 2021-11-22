@@ -29,19 +29,20 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
     if (ref.current) {
       const undoToggle = Gmap.toggle(ref.current);
       Gmap.map.setOptions(config.map);
-      const map = MAPS[activeMapId];
-      const sw = new google.maps.LatLng(map.bbLiteral.SW);
-      const ne = new google.maps.LatLng(map.bbLiteral.NE);
-
-      /* Order in constructor is important! SW, NE  */
-      const mapBounds = new google.maps.LatLngBounds(sw, ne);
-      Gmap.map.fitBounds(mapBounds, 1);
-
       return () => {
         undoToggle();
-        Gmap.map.fitBounds(mapBounds, 1);
       };
     }
+  }, []);
+
+  useEffect(() => {
+    const map = MAPS[activeMapId];
+    const sw = new google.maps.LatLng(map.bbLiteral.SW);
+    const ne = new google.maps.LatLng(map.bbLiteral.NE);
+
+    /* Order in constructor is important! SW, NE  */
+    const mapBounds = new google.maps.LatLngBounds(sw, ne);
+    Gmap.map.fitBounds(mapBounds, 0);
   }, [activeMapId]);
 
   useEffect(() => {
@@ -67,13 +68,10 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
       case MapMode.PLAY:
         console.info('PLAY MODE MOUNT');
 
-        let marker: google.maps.Marker | null = new google.maps.Marker();
-
-        marker.setOptions({
+        let marker: google.maps.Marker | null = new google.maps.Marker({
           draggable: true,
+          map: Gmap.map,
         });
-
-        marker.setMap(Gmap.map);
 
         Gmap.map.addListener(
           'click',
