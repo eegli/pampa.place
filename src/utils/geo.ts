@@ -1,12 +1,12 @@
 import {LatLngLiteral} from '@/config/types';
 import Tdistance from '@turf/distance';
-import {BBox, point, Units} from '@turf/helpers';
+import {BBox, MultiPolygon, point, Polygon, Units} from '@turf/helpers';
 import TpointsWithinPolygon from '@turf/points-within-polygon';
 import {randomPoint as TrandomPoint} from '@turf/random';
 
 export function randomPointInMap(
   bbox: BBox,
-  polygon: Parameters<typeof TpointsWithinPolygon>[1]
+  polygon: Polygon | MultiPolygon
 ): LatLngLiteral {
   do {
     const random = TrandomPoint(20, {bbox});

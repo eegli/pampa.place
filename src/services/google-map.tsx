@@ -26,7 +26,7 @@ export class Gmap {
     return Gmap._map;
   }
 
-  static toggle(tempContainer: Parameters<typeof unsafeToggleHTMLElement>[2]) {
+  static toggle<T extends HTMLElement>(tempContainer: T) {
     const undo = unsafeToggleHTMLElement(
       Gmap.div,
       Gmap.container,

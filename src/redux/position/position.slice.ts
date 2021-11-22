@@ -1,20 +1,9 @@
-import {config} from '@/config/google';
-import {MAPS} from '@/config/maps';
 import {LatLngLiteral} from '@/config/types';
-import {RootState} from '@/redux/redux.store';
-import {randomPointInMap} from '@/utils/geo';
 import {OrNull} from '@/utils/types';
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {getRandomStreetView, ValidationError} from './position.thunks';
 
-interface ValidationErrors {
-  code: 'ZERO_RESULTS';
-  endpoint: string;
-  message: string;
-  name: 'MapsRequestError';
-  stack: string;
-}
-
-interface PositionState {
+export interface PositionState {
   // The initial position is a random location on Google Maps with
   // StreetView available. To keep things simple, it is always
   // considered truthy, which means that it needs to be set on root
@@ -27,9 +16,7 @@ interface PositionState {
 
   panoId: string;
   panoDescription: string;
-  searchRadius: number;
-
-  error: OrNull<ValidationErrors>;
+  error: OrNull<ValidationError>;
   loading: boolean;
 }
 
@@ -38,61 +25,9 @@ const initialState: PositionState = {
   selectedPosition: null,
   panoId: '',
   panoDescription: '',
-  searchRadius: config.svRequest.radius,
   loading: false,
   error: null,
 };
-
-type RandomSVRes = {pos: LatLngLiteral} & Pick<
-  PositionState,
-  'panoDescription' | 'panoId'
->;
-
-export const getRandomStreetView = createAsyncThunk<
-  RandomSVRes,
-  void,
-  {
-    rejectValue: ValidationErrors;
-    state: RootState;
-  }
->('location/getRandomStreetView', async (_, {rejectWithValue, getState}) => {
-  const {game} = getState();
-
-  const randomPreference =
-    Math.random() > 0.5
-      ? google.maps.StreetViewPreference.BEST
-      : google.maps.StreetViewPreference.NEAREST;
-
-  const service = new window.google.maps.StreetViewService();
-  const reqDefaults: google.maps.StreetViewLocationRequest = {
-    preference: randomPreference,
-    source: google.maps.StreetViewSource.OUTDOOR,
-    radius: 1000,
-  };
-
-  try {
-    const map = MAPS[game.mapId];
-    const {data} = await service.getPanorama({
-      ...reqDefaults,
-      location: randomPointInMap(map.bb, map.feature),
-    });
-
-    console.log(data);
-
-    // Avoid non-serializable data through redux
-    const location = data.location?.latLng;
-    const lat = location?.lat() || 0;
-    const lng = location?.lng() || 0;
-
-    const panoId = data.location?.pano || '';
-    const panoDescription = data.location?.description || '';
-
-    return {pos: {lat, lng}, panoId, panoDescription};
-  } catch (e) {
-    let err = e as ValidationErrors;
-    return rejectWithValue(err);
-  }
-});
 
 const positonSlice = createSlice({
   name: 'position',
@@ -106,27 +41,27 @@ const positonSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(
-      getRandomStreetView.fulfilled,
-      (state, action: PayloadAction<RandomSVRes>) => {
-        state.initialPosition = action.payload.pos;
-        state.panoId = action.payload.panoId;
-        state.panoDescription = action.payload.panoDescription;
-        state.loading = false;
-        state.error = null;
-        state.searchRadius = config.svRequest.radius;
-      }
-    );
+    builder.addCase(getRandomStreetView.fulfilled, (state, action) => {
+      state.initialPosition = action.payload.pos;
+      state.panoId = action.payload.panoId;
+      state.panoDescription = action.payload.panoDescription;
+      state.loading = false;
+      state.error = null;
+    });
     builder.addCase(getRandomStreetView.pending, state => {
       state.loading = true;
-    }),
-      builder.addCase(getRandomStreetView.rejected, (state, action) => {
-        if (action.payload) {
-          state.loading = false;
-          state.error = action.payload;
-          state.searchRadius = state.searchRadius * 100;
-        }
-      });
+      state.error = null;
+    });
+    builder.addCase(getRandomStreetView.rejected, (state, action) => {
+      state.initialPosition = null;
+      state.selectedPosition = null;
+      state.loading = false;
+
+      if (action.payload) {
+        // Being that we passed in ValidationErrors to rejectType in `createAsyncThunk`, the payload will be available here.
+        state.error = action.payload;
+      }
+    });
   },
 });
 

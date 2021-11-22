@@ -1,5 +1,5 @@
 import {STATUS} from '@/redux/game/game.slice';
-import {getRandomStreetView} from '@/redux/position/position.slice';
+import {getRandomStreetView} from '@/redux/position/position.thunks';
 import React from 'react';
 import Error from '../components/feedback/feedback.error';
 import SpeedDialNav from '../components/nav/nav.speed-dial';
@@ -17,7 +17,7 @@ const GamePage = () => {
   const positionError = useAppSelector(({position}) => position.error);
 
   async function handleRetry() {
-    await dispatch(getRandomStreetView());
+    dispatch(getRandomStreetView());
   }
 
   function render() {

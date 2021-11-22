@@ -1,17 +1,17 @@
 import {shouldRequestNewSV} from '@/redux/game/game.selectors';
 import {startRound} from '@/redux/game/game.slice';
-import {
-  getRandomStreetView,
-  resetSelectedPosition,
-} from '@/redux/position/position.slice';
+import {resetSelectedPosition} from '@/redux/position/position.slice';
+import {getRandomStreetView} from '@/redux/position/position.thunks';
 import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
 import {Button, Divider, Stack, Typography} from '@mui/material';
 import {useLayoutEffect} from 'react';
 import {SlimContainer} from '../../styles/containers';
+import Spinner from '../feedback/feedback.spinner';
 
 const RoundIntermission = () => {
   const dispatch = useAppDispatch();
 
+  const isLoadingStreetView = useAppSelector(s => s.position.loading);
   const players = useAppSelector(({game}) => game.players);
   const currentRound = useAppSelector(({game}) => game.rounds.current);
   const totalRounds = useAppSelector(({game}) => game.rounds.total);
@@ -19,9 +19,8 @@ const RoundIntermission = () => {
 
   useLayoutEffect(() => {
     if (shouldGetNewSV) {
-      (async () => {
-        await dispatch(getRandomStreetView());
-      })();
+      console.log('dispatched');
+      dispatch(getRandomStreetView());
     }
   }, [dispatch, shouldGetNewSV]);
 
@@ -46,8 +45,19 @@ const RoundIntermission = () => {
           Round {currentRound}/{totalRounds}
         </Typography>
 
-        <Button onClick={handleClick} variant="contained" color="primary">
-          Start
+        <Button
+          onClick={handleClick}
+          variant="contained"
+          color="primary"
+          disabled={isLoadingStreetView}
+        >
+          {isLoadingStreetView ? (
+            <>
+              'Getting a random Street View...' <Spinner />
+            </>
+          ) : (
+            'Start Round'
+          )}
         </Button>
       </Stack>
     </SlimContainer>

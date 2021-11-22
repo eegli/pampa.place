@@ -40,7 +40,7 @@ export const getTotalScores = createSelector(
 );
 
 export const shouldRequestNewSV = (s: RootState) =>
-  s.game.rounds.progress === 0;
+  s.game.rounds.progress === 0 && !s.position.loading;
 
 export const isFinished = (s: RootState) =>
   s.game.rounds.progress === s.game.players.length &&

@@ -1,17 +1,24 @@
-const {readFileSync, readdirSync, writeFileSync} = require('fs');
+const {readFileSync, readdirSync, writeFileSync, readdir} = require('fs');
 const path = require('path');
 const inquirer = require('inquirer');
 
-const inputDir = 'data';
-const outDir = 'maps';
-const required = 'name';
+const INPUT_DIR = 'data';
+const OUT_DIR = 'maps';
+const REQUIRED_PROP = 'name';
 
 (async () => {
-  for await (const fileName of readdirSync(inputDir)) {
-    console.log(`Reading files from dir "./${inputDir}"...`);
+  console.log(
+    `
+    Every map used in the game needs at least a GeoJSON property with the name "${REQUIRED_PROP}".
+    You'll be taken through each file in ./${INPUT_DIR} to decide what
+    current property you want to use for "${REQUIRED_PROP}".
+    `
+  );
+  for await (const fileName of readdirSync(INPUT_DIR)) {
+    console.log(`Reading files from dir "./${INPUT_DIR}"...`);
     /** @type {import('@turf/helpers').FeatureCollection} */
     const geojson = JSON.parse(
-      readFileSync(path.join(inputDir, fileName), 'utf8')
+      readFileSync(path.join(INPUT_DIR, fileName), 'utf8')
     );
 
     if (!geojson.features.length) {
@@ -27,7 +34,7 @@ const required = 'name';
       .prompt([
         {
           name: 'propToRename',
-          message: `${fileName}: Select property to use as "${required}":`,
+          message: `${fileName}: Select property to use as "${REQUIRED_PROP}":`,
           type: 'list',
           choices: properties,
           pageSize: properties.length,
@@ -38,23 +45,23 @@ const required = 'name';
           type: 'confirm',
         },
         {
-          name: 'shouldFilterBy',
-          message: `${fileName}: Do you want to filter by a property (e.g. country)?`,
+          name: 'shouldFilter',
+          message: `${fileName}: Do you want to filter maps by a specific property (e.g. country code)?`,
           type: 'confirm',
         },
         {
-          name: 'filterByProp',
-          message: `${fileName}: Select property to filter by:`,
+          name: 'propToExclude',
+          message: `${fileName}: Select property to filter by. Maps that don't match this property will be skipped:`,
           type: 'list',
           choices: properties,
           pageSize: properties.length,
-          when: answers => answers.shouldFilterBy,
+          when: answers => answers.shouldFilter,
         },
         {
-          name: 'filterByPropValue',
+          name: 'propToExcludeValue',
           message: `${fileName}: Enter value for filter property:`,
           type: 'input',
-          when: answers => answers.shouldFilterBy,
+          when: answers => answers.shouldFilter,
         },
         {
           name: 'newFileName',
@@ -68,26 +75,26 @@ const required = 'name';
         ({
           propToRename,
           shouldDeleteOtherProps,
-          shouldFilterBy,
-          filterByProp,
-          filterByPropValue,
+          shouldFilter,
+          propToExclude,
+          propToExcludeValue,
           newFileName,
         }) => {
           const newFeatures = geojson.features.reduce((acc, curr) => {
-            const re = new RegExp(filterByPropValue, 'ig');
+            const re = new RegExp(propToExcludeValue, 'ig');
             // Skip feature if filter is active
-            if (shouldFilterBy && !curr.properties[filterByProp].match(re)) {
+            if (shouldFilter && !curr.properties[propToExclude].match(re)) {
               return acc;
             }
 
-            // Create required property
-            curr.properties[required] = curr.properties[propToRename];
+            // Create REQUIRED_PROP property
+            curr.properties[REQUIRED_PROP] = curr.properties[propToRename];
             delete curr.properties[propToRename];
 
             if (shouldDeleteOtherProps) {
               // Delete other properties
               Object.keys(curr.properties).forEach(prop => {
-                if (prop !== required) {
+                if (prop !== REQUIRED_PROP) {
                   delete curr.properties[prop];
                 }
               });
@@ -104,7 +111,7 @@ const required = 'name';
         geojson.features = newFeatures;
 
         writeFileSync(
-          path.join(outDir, newFileName + '.json'),
+          path.join(OUT_DIR, newFileName + '.json'),
           JSON.stringify(geojson),
           'utf8'
         );
