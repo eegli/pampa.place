@@ -51,7 +51,7 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
   useEffect(() => {
     switch (mode) {
       case MapMode.PREVIEW:
-        console.log('PREVIEW');
+        console.log('PREVIEW MODE MOUNT');
         Gmap.map.setOptions({
           ...config.map,
           mapTypeId: 'roadmap',
@@ -65,13 +65,13 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
           strokeWeight: 0.8,
         });
         return () => {
-          console.log('PREVIEW UNMOUNT');
+          console.log('PREVIEW MODE UNMOUNT');
           features.forEach(feat => {
             Gmap.map.data.remove(feat);
           });
         };
       case MapMode.PLAY:
-        console.log('PLAY');
+        console.log('PLAY MODE MOUNT');
         Gmap.map.setOptions({
           ...config.map,
         });
@@ -97,13 +97,13 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
         );
 
         return () => {
-          console.log('PLAY UNMOUNT');
+          console.log('PLAY MODE UNMOUNT');
           google.maps.event.clearInstanceListeners(Gmap.map);
           marker?.setMap(null);
           marker = null;
         };
       case MapMode.RESULT:
-        console.log('RESULT');
+        console.log('RESULT MODE MOUNT');
         Gmap.map.setOptions({
           ...config.map,
         });
@@ -143,7 +143,7 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
           });
 
         return () => {
-          console.log('RESULT UNMOUNT');
+          console.log('RESULT MODE UNMOUNT');
           // https://developers.google.com/maps/documentation/javascript/markers#remove
           gMarkers.forEach(marker => marker.setMap(null));
           gMarkers.length = 0;

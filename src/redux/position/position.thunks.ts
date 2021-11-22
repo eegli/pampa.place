@@ -59,7 +59,7 @@ export const getRandomStreetView = createAsyncThunk<
         if (!retries) {
           throw err;
         } else {
-          console.log('no sv found');
+          console.error('Unable to find random Street View, retrying');
           retries--;
         }
       }
