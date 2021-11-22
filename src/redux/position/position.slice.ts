@@ -13,7 +13,6 @@ export interface PositionState {
 
   // The user selected position
   selectedPosition: OrNull<LatLngLiteral>;
-
   panoId: string;
   panoDescription: string;
   error: OrNull<ValidationError>;
@@ -49,16 +48,13 @@ const positonSlice = createSlice({
       state.error = null;
     });
     builder.addCase(getRandomStreetView.pending, state => {
-      state.loading = true;
-      state.error = null;
-    });
-    builder.addCase(getRandomStreetView.rejected, (state, action) => {
       state.initialPosition = null;
       state.selectedPosition = null;
+      state.loading = true;
+    });
+    builder.addCase(getRandomStreetView.rejected, (state, action) => {
       state.loading = false;
-
       if (action.payload) {
-        // Being that we passed in ValidationErrors to rejectType in `createAsyncThunk`, the payload will be available here.
         state.error = action.payload;
       }
     });

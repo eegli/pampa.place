@@ -6,20 +6,18 @@ import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
 import {Button, Divider, Stack, Typography} from '@mui/material';
 import {useLayoutEffect} from 'react';
 import {SlimContainer} from '../../styles/containers';
-import Spinner from '../feedback/feedback.spinner';
 
 const RoundIntermission = () => {
   const dispatch = useAppDispatch();
 
-  const isLoadingStreetView = useAppSelector(s => s.position.loading);
-  const players = useAppSelector(({game}) => game.players);
+  const isLoadingStreetView = useAppSelector(({position}) => position.loading);
+  const currentPlayer = useAppSelector(({game}) => game.players[0]);
   const currentRound = useAppSelector(({game}) => game.rounds.current);
   const totalRounds = useAppSelector(({game}) => game.rounds.total);
   const shouldGetNewSV = useAppSelector(shouldRequestNewSV);
 
   useLayoutEffect(() => {
     if (shouldGetNewSV) {
-      console.log('dispatched');
       dispatch(getRandomStreetView());
     }
   }, [dispatch, shouldGetNewSV]);
@@ -33,7 +31,7 @@ const RoundIntermission = () => {
     <SlimContainer height="100%" id="c-round-intermission">
       <Stack direction="column" alignItems="center" spacing={3} margin="auto">
         <Typography variant="h4" align="center">
-          {players[0]}, it&apos;s your turn!
+          {currentPlayer}, it&apos;s your turn!
         </Typography>
         <Divider orientation="horizontal" flexItem />
         <Typography
@@ -51,13 +49,9 @@ const RoundIntermission = () => {
           color="primary"
           disabled={isLoadingStreetView}
         >
-          {isLoadingStreetView ? (
-            <>
-              'Getting a random Street View...' <Spinner />
-            </>
-          ) : (
-            'Start Round'
-          )}
+          {isLoadingStreetView
+            ? 'Getting a random Street View...'
+            : 'Start Round'}
         </Button>
       </Stack>
     </SlimContainer>
