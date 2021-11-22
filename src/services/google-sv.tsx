@@ -20,7 +20,7 @@ export class Gstv {
   static get stv() {
     if (!Gstv._stv) {
       Gstv._stv = new google.maps.StreetViewPanorama(Gstv.div);
-      console.log('Created new global Map instance');
+      console.log('%cCreated new global Street View instance', 'color: green');
     }
     return Gstv._stv;
   }

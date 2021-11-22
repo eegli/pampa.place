@@ -21,7 +21,7 @@ export class Gmap {
   static get map() {
     if (!Gmap._map) {
       Gmap._map = new google.maps.Map(Gmap.div);
-      console.log('Created new global Map instance');
+      console.log('%cCreated new global Map instance', 'color: green');
     }
     return Gmap._map;
   }
