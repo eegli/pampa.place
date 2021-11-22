@@ -1,5 +1,5 @@
 import {render, screen} from '@/tests/test-utils';
-import {Map} from '@googlemaps/jest-mocks';
+import {Map, Marker} from '@googlemaps/jest-mocks';
 import React from 'react';
 import {Gmap} from '../../../services/google-map';
 import GoogleMap, {MapMode} from '../google.map';
@@ -33,6 +33,9 @@ describe('Google Map', () => {
 
   it('has play mode', () => {
     const {unmount} = render(<GoogleMap mode={MapMode.PLAY} />);
+    console.info(google.maps.Marker.prototype);
+
+    expect(Marker.prototype.setMap).toHaveBeenCalledTimes(1);
 
     expect(Gmap.map.addListener).toHaveBeenCalledTimes(1);
 

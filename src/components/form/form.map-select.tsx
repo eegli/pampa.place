@@ -94,7 +94,7 @@ const FormMapSelect = () => {
           <DialogTitle>{activeMapName}</DialogTitle>
           <DialogContent>
             <Box height={500} width={400}>
-              <Map mode={MapMode.PREVIEW} activeMapId={activeMapId} />
+              <Map mode={MapMode.PREVIEW} />
             </Box>
             <DialogContentText mt={2}>
               Rough bounds of the map &quot;{activeMapName}&quot;.
