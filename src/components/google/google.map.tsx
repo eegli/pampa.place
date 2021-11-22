@@ -28,7 +28,7 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
   useEffect(() => {
     if (ref.current) {
       const undoToggle = Gmap.toggle(ref.current);
-      Gmap.map.setOptions(config.map);
+
       return () => {
         undoToggle();
       };
@@ -42,7 +42,9 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
 
     /* Order in constructor is important! SW, NE  */
     const mapBounds = new google.maps.LatLngBounds(sw, ne);
-    Gmap.map.fitBounds(mapBounds, 0);
+    Gmap.map.fitBounds(mapBounds);
+    console.log('centered map');
+    Gmap.map.setOptions(config.map);
   }, [activeMapId]);
 
   useEffect(() => {
