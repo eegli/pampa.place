@@ -29,22 +29,20 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
     if (ref.current) {
       const undoToggle = Gmap.toggle(ref.current);
 
+      const map = MAPS[activeMapId];
+      const sw = new google.maps.LatLng(map.bbLiteral.SW);
+      const ne = new google.maps.LatLng(map.bbLiteral.NE);
+
+      /* Order in constructor is important! SW, NE  */
+      const mapBounds = new google.maps.LatLngBounds(sw, ne);
+
+      Gmap.map.fitBounds(mapBounds, 1);
+      console.log('centered map');
+      Gmap.map.setOptions(config.map);
       return () => {
         undoToggle();
       };
     }
-  }, []);
-
-  useEffect(() => {
-    const map = MAPS[activeMapId];
-    const sw = new google.maps.LatLng(map.bbLiteral.SW);
-    const ne = new google.maps.LatLng(map.bbLiteral.NE);
-
-    /* Order in constructor is important! SW, NE  */
-    const mapBounds = new google.maps.LatLngBounds(sw, ne);
-    Gmap.map.fitBounds(mapBounds);
-    console.log('centered map');
-    Gmap.map.setOptions(config.map);
   }, [activeMapId]);
 
   useEffect(() => {
