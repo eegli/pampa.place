@@ -45,7 +45,6 @@ export const getRandomStreetView = createAsyncThunk<
   const map = MAPS[game.mapId];
 
   try {
-    console.group('Searching for a random Street View');
     while (true) {
       let data: google.maps.StreetViewPanoramaData | null = null;
       const randomLocation = randomPointInMap(map.bb, map.feature.geometry);
@@ -57,7 +56,6 @@ export const getRandomStreetView = createAsyncThunk<
         data = svData;
       } catch (err) {
         if (!retries) {
-          console.groupEnd();
           throw err;
         } else {
           console.warn(`Unable to find random Street View`);

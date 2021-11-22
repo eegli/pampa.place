@@ -50,4 +50,5 @@ const GoogleStreetView = ({staticPos = false}: GoogleStreetViewProps) => {
     </Fade>
   );
 };
+
 export default GoogleStreetView;

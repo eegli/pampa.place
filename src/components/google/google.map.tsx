@@ -2,11 +2,10 @@ import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
 import {markers} from '@/config/markers';
 import {LatLngLiteral} from '@/config/types';
+import {Result} from '@/redux/game/game.slice';
 import {updateSelectedPosition} from '@/redux/position/position.slice';
 import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
-import {Fade} from '@mui/material';
 import React, {useEffect, useRef} from 'react';
-import {Result} from '../../redux/game/game.slice';
 import {Gmap} from '../../services/google-map';
 
 export enum MapMode {
@@ -24,29 +23,25 @@ export type GoogleMapProps = {
 const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
-
   const activeMapId = useAppSelector(({game}) => game.mapId);
 
   useEffect(() => {
     if (ref.current) {
       const undoToggle = Gmap.toggle(ref.current);
+      Gmap.map.setOptions(config.map);
+      const map = MAPS[activeMapId];
+      const sw = new google.maps.LatLng(map.bbLiteral.SW);
+      const ne = new google.maps.LatLng(map.bbLiteral.NE);
+
+      /* Order in constructor is important! SW, NE  */
+      const mapBounds = new google.maps.LatLngBounds(sw, ne);
+      Gmap.map.fitBounds(mapBounds, 1);
+
       return () => {
         undoToggle();
+        Gmap.map.fitBounds(mapBounds, 1);
       };
     }
-  }, []);
-
-  useEffect(() => {
-    Gmap.map.setOptions({
-      ...config.map,
-    });
-    const map = MAPS[activeMapId];
-    const sw = new google.maps.LatLng(map.bbLiteral.SW);
-    const ne = new google.maps.LatLng(map.bbLiteral.NE);
-
-    /* Order in constructor is important! SW, NE  */
-    const mapBounds = new google.maps.LatLngBounds(sw, ne);
-    Gmap.map.fitBounds(mapBounds, 2);
   }, [activeMapId]);
 
   useEffect(() => {
@@ -54,7 +49,6 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
       case MapMode.PREVIEW:
         console.info('PREVIEW MODE MOUNT');
         Gmap.map.setOptions({
-          ...config.map,
           mapTypeId: 'roadmap',
           mapTypeControl: false,
         });
@@ -72,10 +66,7 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
         };
       case MapMode.PLAY:
         console.info('PLAY MODE MOUNT');
-        Gmap.map.setOptions({
-          ...config.map,
-        });
-        0;
+
         let marker: google.maps.Marker | null = new google.maps.Marker();
 
         marker.setOptions({
@@ -104,9 +95,6 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
         };
       case MapMode.RESULT:
         console.info('RESULT MODE MOUNT');
-        Gmap.map.setOptions({
-          ...config.map,
-        });
         const gMarkers: google.maps.Marker[] = [];
         gMarkers.push(
           new window.google.maps.Marker({
@@ -152,18 +140,14 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
   }, [mode, activeMapId, results, initialPos, dispatch]);
 
   return (
-    <Fade in timeout={500}>
-      <div
-        ref={ref}
-        style={{
-          height: '100%',
-          width: '100%',
-        }}
-      />
-    </Fade>
+    <div
+      ref={ref}
+      style={{
+        height: '100%',
+        width: '100%',
+      }}
+    />
   );
 };
 
-export default React.memo(GoogleMap, (prev, curr) => {
-  return prev.mode === curr.mode;
-});
+export default GoogleMap;

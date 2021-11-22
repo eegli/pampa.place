@@ -26,10 +26,10 @@ export function unsafeToggleHTMLElement<T extends HTMLElement>(
   originContainer: T,
   tempContainer: T
 ) {
-  el.style.display = 'block';
+  el.style.visibility = 'visible';
   tempContainer.appendChild(el);
   return () => {
-    el.style.display = 'none';
+    el.style.visibility = 'hidden';
     originContainer.appendChild(el);
   };
 }
