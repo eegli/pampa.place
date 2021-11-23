@@ -15,9 +15,9 @@ const GoogleStreetView = ({staticPos = false}: GoogleStreetViewProps) => {
   // Initialization
   useEffect(() => {
     if (ref.current) {
-      const undoToggle = Gstv.toggle(ref.current);
+      const unmount = Gstv.mount(ref.current);
       return () => {
-        undoToggle();
+        unmount();
       };
     }
   }, []);

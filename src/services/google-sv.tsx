@@ -25,14 +25,14 @@ export class Gstv {
     return Gstv._stv;
   }
 
-  static toggle<T extends HTMLElement>(tempContainer: T) {
-    const undo = unsafeToggleHTMLElement(
+  static mount<T extends HTMLElement>(tempContainer: T) {
+    const unmount = unsafeToggleHTMLElement(
       Gstv.div,
       Gstv.container,
       tempContainer
     );
     return () => {
-      undo();
+      unmount();
     };
   }
 }

@@ -26,14 +26,15 @@ export class Gmap {
     return Gmap._map;
   }
 
-  static toggle<T extends HTMLElement>(tempContainer: T) {
-    const undo = unsafeToggleHTMLElement(
+  static mount<T extends HTMLElement>(tempContainer: T) {
+    const unmount = unsafeToggleHTMLElement(
       Gmap.div,
       Gmap.container,
       tempContainer
     );
+
     return () => {
-      undo();
+      unmount();
     };
   }
 }

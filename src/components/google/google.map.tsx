@@ -1,6 +1,6 @@
 import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
-import {markers} from '@/config/markers';
+import {markers as markerConfig} from '@/config/markers';
 import {LatLngLiteral} from '@/config/types';
 import {Result} from '@/redux/game/game.slice';
 import {updateSelectedPosition} from '@/redux/position/position.slice';
@@ -27,122 +27,124 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
 
   useEffect(() => {
     if (ref.current) {
-      const undoToggle = Gmap.toggle(ref.current);
-
+      const unmount = Gmap.mount(ref.current);
       const map = MAPS[activeMapId];
-      const sw = new google.maps.LatLng(map.bbLiteral.SW);
-      const ne = new google.maps.LatLng(map.bbLiteral.NE);
-
       /* Order in constructor is important! SW, NE  */
-      const mapBounds = new google.maps.LatLngBounds(sw, ne);
+      const mapBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(map.bbLiteral.SW),
+        new google.maps.LatLng(map.bbLiteral.NE)
+      );
 
-      Gmap.map.fitBounds(mapBounds, 1);
-      console.log('centered map');
+      google.maps.event.addListenerOnce(Gmap.map, 'idle', () => {
+        Gmap.map.fitBounds(mapBounds);
+      });
       Gmap.map.setOptions(config.map);
       return () => {
-        undoToggle();
+        unmount();
       };
     }
   }, [activeMapId]);
 
   useEffect(() => {
-    switch (mode) {
-      case MapMode.PREVIEW:
-        console.info('PREVIEW MODE MOUNT');
-        Gmap.map.setOptions({
-          mapTypeId: 'roadmap',
-          mapTypeControl: false,
+    if (mode === MapMode.PREVIEW) {
+      console.info('PREVIEW MODE MOUNT');
+      Gmap.map.setOptions({
+        mapTypeId: 'roadmap',
+        mapTypeControl: false,
+      });
+      const features = Gmap.map.data.addGeoJson(MAPS[activeMapId].feature);
+      Gmap.map.data.setStyle({
+        fillColor: '#003d80',
+        fillOpacity: 0.2,
+        strokeWeight: 0.8,
+      });
+      return () => {
+        console.info('PREVIEW MODE UNMOUNT');
+        features.forEach(feat => {
+          Gmap.map.data.remove(feat);
         });
-        const features = Gmap.map.data.addGeoJson(MAPS[activeMapId].feature);
-        Gmap.map.data.setStyle({
-          fillColor: '#003d80',
-          fillOpacity: 0.2,
-          strokeWeight: 0.8,
-        });
-        return () => {
-          console.info('PREVIEW MODE UNMOUNT');
-          features.forEach(feat => {
-            Gmap.map.data.remove(feat);
-          });
-        };
-      case MapMode.PLAY:
-        console.info('PLAY MODE MOUNT');
+      };
+    }
+  }, [mode, activeMapId]);
 
-        let marker: google.maps.Marker | null = new google.maps.Marker({
+  useEffect(() => {
+    if (mode === MapMode.PLAY) {
+      console.info('PLAY MODE MOUNT');
+      const markers = [
+        new google.maps.Marker({
           draggable: true,
           map: Gmap.map,
-        });
+        }),
+      ];
+      const listener = Gmap.map.addListener(
+        'click',
+        ({latLng}: {latLng: google.maps.LatLng}) => {
+          markers[0].setPosition(latLng);
+          dispatch(
+            updateSelectedPosition({lat: latLng.lat(), lng: latLng.lng()})
+          );
+        }
+      );
+      return () => {
+        console.info('PLAY MODE UNMOUNT');
+        listener.remove();
+        markers[0].setMap(null);
+        markers.length = 0;
+      };
+    }
+  }, [mode, dispatch]);
 
-        Gmap.map.addListener(
-          'click',
-          ({latLng}: {latLng: google.maps.LatLng}) => {
-            if (marker) {
-              marker.setPosition(latLng);
-              dispatch(
-                updateSelectedPosition({lat: latLng.lat(), lng: latLng.lng()})
-              );
-            }
-          }
-        );
-
-        return () => {
-          console.info('PLAY MODE UNMOUNT');
-          google.maps.event.clearInstanceListeners(Gmap.map);
-          marker?.setMap(null);
-          marker = null;
-        };
-      case MapMode.RESULT:
-        console.info('RESULT MODE MOUNT');
-        const gMarkers: google.maps.Marker[] = [];
-        gMarkers.push(
+  useEffect(() => {
+    if (mode === MapMode.RESULT && results) {
+      console.info('RESULT MODE MOUNT');
+      const markers: google.maps.Marker[] = [];
+      markers.push(
+        new window.google.maps.Marker({
+          position: initialPos,
+          map: Gmap.map,
+        })
+      );
+      results.forEach((p, idx) => {
+        markers.push(
           new window.google.maps.Marker({
-            position: initialPos,
+            position: p.selected,
             map: Gmap.map,
+
+            label: {
+              text: p.name,
+              color: 'white',
+              className: 'map-marker',
+            },
+            icon: {
+              path: markerConfig.marker.path,
+              fillColor: `#${markerConfig.colors[idx]}`,
+              fillOpacity: 1,
+              anchor: new google.maps.Point(
+                markerConfig.marker.anchor[0],
+                markerConfig.marker.anchor[1]
+              ),
+              strokeWeight: 0,
+              scale: 1,
+              labelOrigin: new google.maps.Point(15, 60),
+            },
           })
         );
-        results &&
-          results.forEach((p, idx) => {
-            gMarkers.push(
-              new window.google.maps.Marker({
-                position: p.selected,
-                map: Gmap.map,
+      });
 
-                label: {
-                  text: p.name,
-                  color: 'white',
-                  className: 'map-marker',
-                },
-                icon: {
-                  path: markers.marker.path,
-                  fillColor: `#${markers.colors[idx]}`,
-                  fillOpacity: 1,
-                  anchor: new google.maps.Point(
-                    markers.marker.anchor[0],
-                    markers.marker.anchor[1]
-                  ),
-                  strokeWeight: 0,
-                  scale: 1,
-                  labelOrigin: new google.maps.Point(15, 60),
-                },
-              })
-            );
-          });
-
-        return () => {
-          console.info('RESULT MODE UNMOUNT');
-          // https://developers.google.com/maps/documentation/javascript/markers#remove
-          gMarkers.forEach(marker => marker.setMap(null));
-          gMarkers.length = 0;
-        };
+      return () => {
+        console.info('RESULT MODE UNMOUNT');
+        // https://developers.google.com/maps/documentation/javascript/markers#remove
+        markers.forEach(marker => marker.setMap(null));
+        markers.length = 0;
+      };
     }
-  }, [mode, activeMapId, results, initialPos, dispatch]);
+  }, [mode, initialPos, results]);
 
   return (
     <div
       ref={ref}
       style={{
         height: '100%',
-        width: '100%',
       }}
     />
   );
