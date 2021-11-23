@@ -22,7 +22,7 @@ import {
   useTheme,
 } from '@mui/material';
 import {useState} from 'react';
-import Map, {MapMode} from '../google/google.map';
+import GoogleMap, {MapMode} from '../google/google.map';
 
 const FormMapSelect = () => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
@@ -31,7 +31,6 @@ const FormMapSelect = () => {
   const theme = useTheme();
   const activeMapId = useAppSelector(({game}) => game.mapId);
   const activeMapName = useAppSelector(({game}) => game.mapName);
-
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleMapSelect = (e: SelectChangeEvent<string>) => {
@@ -94,7 +93,7 @@ const FormMapSelect = () => {
           <DialogTitle>{activeMapName}</DialogTitle>
           <DialogContent>
             <Box height={500} width={400}>
-              <Map mode={MapMode.PREVIEW} />
+              <GoogleMap mapId={activeMapId} mode={MapMode.PREVIEW} />
             </Box>
             <DialogContentText mt={2}>
               Rough bounds of the map &quot;{activeMapName}&quot;.

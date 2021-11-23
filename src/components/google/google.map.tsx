@@ -4,8 +4,8 @@ import {markers as markerConfig} from '@/config/markers';
 import {LatLngLiteral} from '@/config/types';
 import {Result} from '@/redux/game/game.slice';
 import {updateSelectedPosition} from '@/redux/position/position.slice';
-import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
-import React, {useEffect, useRef} from 'react';
+import {useAppDispatch} from '@/redux/redux.hooks';
+import {useEffect, useRef} from 'react';
 import {Gmap} from '../../services/google-map';
 
 export enum MapMode {
@@ -18,41 +18,41 @@ export type GoogleMapProps = {
   mode?: MapMode;
   results?: Result[];
   initialPos?: LatLngLiteral;
+  mapId: string;
 };
 
-const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
+const GoogleMap = ({mode, results, initialPos, mapId}: GoogleMapProps) => {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
-  const activeMapId = useAppSelector(({game}) => game.mapId);
 
   useEffect(() => {
     if (ref.current) {
       const unmount = Gmap.mount(ref.current);
-      const map = MAPS[activeMapId];
+      const map = MAPS[mapId];
       /* Order in constructor is important! SW, NE  */
-      const mapBounds = new google.maps.LatLngBounds(
+      const bounds = new google.maps.LatLngBounds(
         new google.maps.LatLng(map.bbLiteral.SW),
         new google.maps.LatLng(map.bbLiteral.NE)
       );
-
       google.maps.event.addListenerOnce(Gmap.map, 'idle', () => {
-        Gmap.map.fitBounds(mapBounds);
+        Gmap.map.fitBounds(bounds, 0);
       });
       Gmap.map.setOptions(config.map);
       return () => {
         unmount();
       };
     }
-  }, [activeMapId]);
+  }, []);
 
   useEffect(() => {
     if (mode === MapMode.PREVIEW) {
       console.log('PREVIEW MODE MOUNT');
       Gmap.map.setOptions({
+        gestureHandling: 'none',
         mapTypeId: 'roadmap',
         mapTypeControl: false,
       });
-      const features = Gmap.map.data.addGeoJson(MAPS[activeMapId].feature);
+      const features = Gmap.map.data.addGeoJson(MAPS[mapId].feature);
       Gmap.map.data.setStyle({
         fillColor: '#003d80',
         fillOpacity: 0.2,
@@ -65,7 +65,7 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
         });
       };
     }
-  }, [mode, activeMapId]);
+  }, [mode]);
 
   useEffect(() => {
     if (mode === MapMode.PLAY) {
@@ -87,7 +87,7 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
       );
       return () => {
         console.log('PLAY MODE UNMOUNT');
-        google.maps.event.clearInstanceListeners(Gmap.map);
+        google.maps.event.clearListeners(Gmap.map, 'click');
         markers[0].setMap(null);
         markers.length = 0;
       };

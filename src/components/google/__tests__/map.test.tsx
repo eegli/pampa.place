@@ -1,3 +1,4 @@
+import {testMapId} from '@/config/__mocks__/maps';
 import {render, screen} from '@/tests/test-utils';
 import {Map} from '@googlemaps/jest-mocks';
 import React from 'react';
@@ -10,7 +11,7 @@ jest.spyOn(React, 'useRef').mockReturnValue({
 
 describe('Google Map', () => {
   it('renders google map', () => {
-    render(<GoogleMap />);
+    render(<GoogleMap mapId={testMapId} />);
     expect(screen.getByTestId('__GMAP__CONTAINER__')).toBeInTheDocument();
     expect(screen.getByTestId('__GMAP__')).toHaveStyle('height:100%');
   });
@@ -20,7 +21,9 @@ describe('Google Map', () => {
     const removeGeoJsonSpy = jest.spyOn(Map.prototype.data, 'remove');
     const setOptonsSpy = jest.spyOn(Gmap.map, 'setOptions');
 
-    const {unmount} = render(<GoogleMap mode={MapMode.PREVIEW} />);
+    const {unmount} = render(
+      <GoogleMap mapId={testMapId} mode={MapMode.PREVIEW} />
+    );
     expect(setOptonsSpy.mock.calls[0]).toMatchSnapshot('preview settings');
     expect(addGeoJsonSpy).toHaveBeenCalledTimes(1);
     expect(setStyleSpy).toHaveBeenCalledTimes(1);
@@ -29,6 +32,8 @@ describe('Google Map', () => {
   });
 
   it('has play mode', () => {
-    const {unmount} = render(<GoogleMap mode={MapMode.PLAY} />);
+    const {unmount} = render(
+      <GoogleMap mapId={testMapId} mode={MapMode.PLAY} />
+    );
   });
 });

@@ -29,7 +29,7 @@ const RoundEnd = () => {
     setSelectedPanel(newValue);
   };
   const dispatch = useAppDispatch();
-
+  const activeMapId = useAppSelector(({game}) => game.mapId);
   const scores = useAppSelector(getRoundScores);
   const currentRound = useAppSelector(({game}) => game.rounds.current);
   const initialPosition = useAppSelector(
@@ -114,6 +114,7 @@ const RoundEnd = () => {
           {initialPosition && (
             <GoogleMap
               mode={MapMode.RESULT}
+              mapId={activeMapId}
               results={scores}
               initialPos={initialPosition}
             />
