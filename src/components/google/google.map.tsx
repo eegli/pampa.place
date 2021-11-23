@@ -42,7 +42,7 @@ const GoogleMap = ({mode, results, initialPos, mapId}: GoogleMapProps) => {
         unmount();
       };
     }
-  }, []);
+  }, [mapId]);
 
   useEffect(() => {
     if (mode === MapMode.PREVIEW) {
@@ -65,7 +65,7 @@ const GoogleMap = ({mode, results, initialPos, mapId}: GoogleMapProps) => {
         });
       };
     }
-  }, [mode]);
+  }, [mode, mapId]);
 
   useEffect(() => {
     if (mode === MapMode.PLAY) {
