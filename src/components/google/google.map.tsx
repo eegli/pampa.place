@@ -47,7 +47,7 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
 
   useEffect(() => {
     if (mode === MapMode.PREVIEW) {
-      console.info('PREVIEW MODE MOUNT');
+      console.log('PREVIEW MODE MOUNT');
       Gmap.map.setOptions({
         mapTypeId: 'roadmap',
         mapTypeControl: false,
@@ -59,7 +59,7 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
         strokeWeight: 0.8,
       });
       return () => {
-        console.info('PREVIEW MODE UNMOUNT');
+        console.log('PREVIEW MODE UNMOUNT');
         features.forEach(feat => {
           Gmap.map.data.remove(feat);
         });
@@ -69,14 +69,14 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
 
   useEffect(() => {
     if (mode === MapMode.PLAY) {
-      console.info('PLAY MODE MOUNT');
+      console.log('PLAY MODE MOUNT');
       const markers = [
         new google.maps.Marker({
           draggable: true,
           map: Gmap.map,
         }),
       ];
-      const listener = Gmap.map.addListener(
+      Gmap.map.addListener(
         'click',
         ({latLng}: {latLng: google.maps.LatLng}) => {
           markers[0].setPosition(latLng);
@@ -86,8 +86,8 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
         }
       );
       return () => {
-        console.info('PLAY MODE UNMOUNT');
-        listener.remove();
+        console.log('PLAY MODE UNMOUNT');
+        google.maps.event.clearInstanceListeners(Gmap.map);
         markers[0].setMap(null);
         markers.length = 0;
       };
@@ -96,7 +96,7 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
 
   useEffect(() => {
     if (mode === MapMode.RESULT && results) {
-      console.info('RESULT MODE MOUNT');
+      console.log('RESULT MODE MOUNT');
       const markers: google.maps.Marker[] = [];
       markers.push(
         new window.google.maps.Marker({
@@ -132,7 +132,7 @@ const GoogleMap = ({mode, results, initialPos}: GoogleMapProps) => {
       });
 
       return () => {
-        console.info('RESULT MODE UNMOUNT');
+        console.log('RESULT MODE UNMOUNT');
         // https://developers.google.com/maps/documentation/javascript/markers#remove
         markers.forEach(marker => marker.setMap(null));
         markers.length = 0;

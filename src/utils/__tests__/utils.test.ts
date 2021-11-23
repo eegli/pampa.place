@@ -34,11 +34,9 @@ describe('Utils, misc', () => {
     const undo = unsafeToggleHTMLElement(child, originContainer, tempContainer);
     expect(originContainer.hasChildNodes()).toBeFalsy();
     expect(tempContainer.hasChildNodes()).toBeTruthy();
-    expect(child).toHaveStyle('display:block');
 
     undo();
     expect(originContainer.hasChildNodes()).toBeTruthy();
     expect(tempContainer.hasChildNodes()).toBeFalsy();
-    expect(child).toHaveStyle('display:none');
   });
 });

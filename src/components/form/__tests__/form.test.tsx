@@ -125,7 +125,7 @@ describe('Form, duration select', () => {
 
 // TODO
 describe('Form, map selection and preview', () => {
-  const toggleSpy = jest.spyOn(Gmap, 'toggle');
+  const toggleSpy = jest.spyOn(Gmap, 'mount');
 
   it('displays maps', () => {
     render(<FormMapSelect />);
