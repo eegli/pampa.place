@@ -26,9 +26,9 @@ import GoogleMap, {MapMode} from '../google/google.map';
 
 const FormMapSelect = () => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
-
   const dispatch = useAppDispatch();
   const theme = useTheme();
+
   const activeMapId = useAppSelector(({game}) => game.mapId);
   const activeMapName = useAppSelector(({game}) => game.mapName);
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -92,7 +92,14 @@ const FormMapSelect = () => {
         >
           <DialogTitle>{activeMapName}</DialogTitle>
           <DialogContent>
-            <Box height={500} width={400}>
+            <Box
+              sx={{
+                height: 600,
+                margin: 'auto',
+                maxWidth: '100%',
+                width: ({breakpoints}) => breakpoints.values.sm,
+              }}
+            >
               <GoogleMap mapId={activeMapId} mode={MapMode.PREVIEW} />
             </Box>
             <DialogContentText mt={2}>
