@@ -1,11 +1,10 @@
-import {createSelector} from '@reduxjs/toolkit';
+import {createSelector} from 'reselect';
 import {RootState} from '../redux.store';
 
 export const getActivePlayer = (s: RootState) => s.game.players[0];
 
 export const getPlayerCount = (s: RootState) => s.game.players.length;
 
-// TODO use memoization once redux toolkit exports reselect v4.1
 export const getRoundScores = createSelector(
   [
     (s: RootState) => s.game.scores,
@@ -36,6 +35,13 @@ export const getTotalScores = createSelector(
     return total.sort((a, b) =>
       a.score > b.score ? -1 : b.score > a.score ? 1 : 0
     );
+  },
+  {
+    memoizeOptions: {
+      equalityCheck: (a, b) => {
+        return a[0].score === b[0].score;
+      },
+    },
   }
 );
 
