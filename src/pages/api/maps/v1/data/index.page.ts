@@ -1,7 +1,7 @@
-import {NextApiRequest, NextApiResponse} from 'next';
-import {data, nthQuery} from '../../common';
+import {MapData} from '@/config/types';
+import {ApiJSONHandler, data, nthQuery} from '../../utils';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+const handler: ApiJSONHandler<MapData> = (req, res) => {
   const nameQuery = nthQuery(req.query.name);
   const idQuery = nthQuery(req.query.id);
 
@@ -13,7 +13,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
     if (map) {
       return res.status(200).json({
-        data: map,
+        data: [map],
       });
     }
     return res.status(404).json({error: `Map with name ${nameQuery} found`});
@@ -24,13 +24,15 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
     if (map) {
       return res.status(200).json({
-        data: map,
+        data: [map],
       });
     }
-    return res.status(404).json({error: `Map with id ${nameQuery} found`});
+    return res.status(404).json({error: `Map with id ${idQuery} found`});
   }
 
   return res.status(200).json({
-    data: data.MAPS,
+    data: Object.values(data.MAPS),
   });
-}
+};
+
+export default handler;

@@ -46,20 +46,19 @@ export type MapFeatureCollection = FeatureCollection<
   BaseMapProperties
 >;
 
+export type MapData = {
+  // Area in km^2
+  area: number;
+  // Used to generate a random point
+  bb: BBox;
+  // Poly bounding box: SW SE NE NW
+  bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
+  // Base can be used directly with google maps
+  feature: Feature<Polygon | MultiPolygon, MapProperties>;
+};
+
 /* Full, computed map data */
-export type MapDataCollection = Record<
-  string,
-  {
-    // Area in km^2
-    area: number;
-    // Used to generate a random point
-    bb: BBox;
-    // Poly bounding box: SW SE NE NW
-    bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
-    // Base can be used directly with google maps
-    feature: Feature<Polygon | MultiPolygon, MapProperties>;
-  }
->;
+export type MapDataCollection = Record<string, MapData>;
 
 export type MapIdCollection = {
   name: string;
