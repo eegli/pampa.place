@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "ci": "yarn install --frozen-lockfile",
+    "ci": "yarn install --frozen-lockfile --ignore-optional",
     "dev": "next dev",
     "build": "next build",
     "build:local": "cross-env ANALYZE=true next build",
