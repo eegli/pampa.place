@@ -20,4 +20,4 @@ jobs:
           node-version: ${{ env.NVMRC }}
 
       - name: Install dependencies
-        run: yarn install:ci
+        run: yarn ci
