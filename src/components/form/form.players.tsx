@@ -23,8 +23,9 @@ const FormPlayers = () => {
   return (
     <Box display="flex" flexDirection="column" id="form-players">
       {/* Always have an additional input field to write to */}
-      {Array.from({length: min(players.length + 1, MAX_PLAYERS)}).map(
-        (_, idx) => {
+      {Array(min(players.length + 1, MAX_PLAYERS))
+        .fill(0)
+        .map((_, idx) => {
           const id = `player-name-${idx + 1}`;
           return (
             <Fade in timeout={500} key={idx}>
@@ -56,8 +57,7 @@ const FormPlayers = () => {
               />
             </Fade>
           );
-        }
-      )}
+        })}
     </Box>
   );
 };

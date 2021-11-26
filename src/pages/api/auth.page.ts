@@ -10,21 +10,21 @@ export type AuthRes = {
   apikey: string;
 };
 
-const envAccessPW = env.APP_ACCESS_PW;
-const envApiKey = env.MAPS_API_KEY;
+const envAccessPW = env.APP_ACCESS_PW || '';
+const envApiKey = env.MAPS_API_KEY || '';
+
+if (!envApiKey) {
+  throw new Error('Missing env API keys');
+}
+
+if (!envAccessPW) {
+  throw new Error('No env password defined');
+}
 
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<AuthRes>
 ) {
-  if (!envApiKey) {
-    throw new Error('Missing env API keys');
-  }
-
-  if (!envAccessPW) {
-    throw new Error('No env password defined');
-  }
-
   if (!req.query.pw) {
     res.status(400).end('Resource not found');
   }

@@ -37,7 +37,7 @@ const GoogleMap = ({mode, results, initialPos, mapId}: GoogleMapProps) => {
       google.maps.event.addListenerOnce(Gmap.map, 'idle', () => {
         Gmap.map.fitBounds(bounds, 0);
       });
-      Gmap.map.setOptions(config.map);
+
       return () => {
         unmount();
       };
@@ -70,6 +70,7 @@ const GoogleMap = ({mode, results, initialPos, mapId}: GoogleMapProps) => {
   useEffect(() => {
     if (mode === MapMode.PLAY) {
       console.log('PLAY MODE MOUNT');
+      Gmap.map.setOptions(config.map);
       const markers = [
         new google.maps.Marker({
           draggable: true,
@@ -97,6 +98,7 @@ const GoogleMap = ({mode, results, initialPos, mapId}: GoogleMapProps) => {
   useEffect(() => {
     if (mode === MapMode.RESULT && results) {
       console.log('RESULT MODE MOUNT');
+      Gmap.map.setOptions(config.map);
       const markers: google.maps.Marker[] = [];
       markers.push(
         new window.google.maps.Marker({

@@ -76,17 +76,9 @@ export const gameSlice = createSlice({
         state.players = ['Player 1'];
       }
       state.scores = [];
-
-      state.scores = Array.from(
-        {
-          length: state.rounds.total,
-        },
-        () => []
-      );
-
+      state.scores = Array(state.rounds.total).fill([]);
       state.rounds.current = 1;
       state.rounds.progress = 0;
-
       state.status = STATUS.PENDING_PLAYER;
     },
     startRound(state) {

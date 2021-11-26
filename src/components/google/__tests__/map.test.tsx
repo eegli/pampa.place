@@ -17,10 +17,25 @@ afterEach(() => {
 });
 
 describe('Google Map', () => {
-  it('renders google map', () => {
+  it('renders and has containers in document', () => {
+    // Store a reference to the events that are called when the map is mounted
+    const events: {event: string; func: Function}[] = [];
+    jest
+      .spyOn(mockGoogle.event, 'addListenerOnce')
+      .mockImplementation((_, event, handler) => {
+        events.push({event, func: handler});
+        return {remove: jest.fn()};
+      });
+
     render(<GoogleMap mapId={testMapId} />);
+
     expect(screen.getByTestId('__GMAP__CONTAINER__')).toBeInTheDocument();
     expect(screen.getByTestId('__GMAP__')).toHaveStyle('height:100%');
+    expect(mockGmap.map.setOptions).not.toHaveBeenCalled();
+    expect(events).toHaveLength(1);
+    expect(events[0].event).toBe('idle');
+    events[0].func();
+    expect(mockGmap.map.fitBounds).toHaveBeenCalledTimes(1);
   });
   it('has preview mode', () => {
     const {unmount} = render(
@@ -37,13 +52,23 @@ describe('Google Map', () => {
   });
 
   it('has play mode', () => {
+    let event: string = '';
+
+    jest
+      .spyOn(mockGmap.map, 'addListener')
+      .mockImplementation((_event, handler) => {
+        event = _event;
+        return {remove: jest.fn()};
+      });
     const {unmount} = render(
       <GoogleMap mapId={testMapId} mode={MapMode.PLAY} />
     );
-
-    expect(google.maps.event.addListenerOnce).toHaveBeenCalledTimes(1);
+    expect(event).toBe('click');
     expect(mockGmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
       'play settings'
     );
+    unmount();
+    expect(mockGoogle.event.clearListeners).toHaveBeenCalledTimes(1);
+    expect(mockGoogle.event.clearListeners.mock.calls[0][1]).toBe('click');
   });
 });
