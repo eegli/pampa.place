@@ -10,6 +10,17 @@ export const GmapContainer = () => {
 
 export class Gmap {
   static _map: google.maps.Map | undefined;
+  static markers: google.maps.Marker[] = [];
+
+  static addMarker(m: google.maps.Marker) {
+    Gmap.markers.push(m);
+    return m;
+  }
+  // https://developers.google.com/maps/documentation/javascript/markers#remove
+  static clearMarkers() {
+    Gmap.markers.forEach(m => m.setMap(null));
+    Gmap.markers.length = 0;
+  }
 
   static get div() {
     return document.getElementById('__GMAP__')!;

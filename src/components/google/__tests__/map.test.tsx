@@ -5,30 +5,41 @@ import {mocked} from 'ts-jest/utils';
 import {Gmap} from '../../../services/google-map';
 import GoogleMap, {MapMode} from '../google.map';
 
+const mockGmap = mocked(Gmap, true);
+const mockGoogle = mocked(google.maps, true);
+
+// Store a reference to the events that are called when the map is mounted
+const events: {event: string; func: Function}[] = [];
+const removeEventListener = jest.fn();
+
+jest
+  .spyOn(mockGoogle.event, 'addListenerOnce')
+  .mockImplementation((_, event, handler) => {
+    events.push({event, func: handler});
+    return {remove: removeEventListener};
+  });
+
+jest.spyOn(mockGmap.map, 'addListener').mockImplementation((event, handler) => {
+  events.push({event, func: handler});
+  return {remove: removeEventListener};
+});
+
 jest.spyOn(React, 'useRef').mockReturnValue({
   current: document.createElement('div'),
 });
 
-const mockGmap = mocked(Gmap, true);
-const mockGoogle = mocked(google.maps, true);
-
 afterEach(() => {
   jest.clearAllMocks();
+  events.length = 0;
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
 });
 
 describe('Google Map', () => {
   it('renders and has containers in document', () => {
-    // Store a reference to the events that are called when the map is mounted
-    const events: {event: string; func: Function}[] = [];
-    jest
-      .spyOn(mockGoogle.event, 'addListenerOnce')
-      .mockImplementation((_, event, handler) => {
-        events.push({event, func: handler});
-        return {remove: jest.fn()};
-      });
-
     render(<GoogleMap mapId={testMapId} />);
-
     expect(screen.getByTestId('__GMAP__CONTAINER__')).toBeInTheDocument();
     expect(screen.getByTestId('__GMAP__')).toHaveStyle('height:100%');
     expect(mockGmap.map.setOptions).not.toHaveBeenCalled();
@@ -47,28 +58,26 @@ describe('Google Map', () => {
     expect(mockGoogle.Map.prototype.data.setStyle).toHaveBeenCalledTimes(1);
     expect(mockGoogle.Map.prototype.data.addGeoJson).toHaveBeenCalledTimes(1);
     expect(mockGoogle.Map.prototype.data.setStyle).toHaveBeenCalledTimes(1);
+
     unmount();
+
     expect(mockGoogle.Map.prototype.data.remove).toHaveBeenCalledTimes(3);
   });
 
   it('has play mode', () => {
-    let event: string = '';
-
-    jest
-      .spyOn(mockGmap.map, 'addListener')
-      .mockImplementation((_event, handler) => {
-        event = _event;
-        return {remove: jest.fn()};
-      });
     const {unmount} = render(
       <GoogleMap mapId={testMapId} mode={MapMode.PLAY} />
     );
-    expect(event).toBe('click');
+
     expect(mockGmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
       'play settings'
     );
+    expect(mockGmap.markers.length).toBe(1);
+    expect(events.length).toBe(2);
+    expect(events[1].event).toBe('click');
+
     unmount();
-    expect(mockGoogle.event.clearListeners).toHaveBeenCalledTimes(1);
-    expect(mockGoogle.event.clearListeners.mock.calls[0][1]).toBe('click');
+    expect(removeEventListener).toHaveBeenCalledTimes(1);
+    expect(mockGmap.markers.length).toBe(0);
   });
 });
