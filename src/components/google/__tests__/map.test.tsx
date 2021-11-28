@@ -19,7 +19,9 @@ jest
     return {remove: removeEventListener};
   });
 
-// Mock implementation for listeners. The handler will be caught and called with the event it would get from google.maps.Map's click event.
+// Mock implementation for listeners. The handler will be caught and
+// called with the event it would get from google.maps.Map's click
+// event. Unfortunately, this event has no official types
 jest.spyOn(mockGmap.map, 'addListener').mockImplementation((event, handler) => {
   const clickEvent = {latLng: {lat: () => 8, lng: () => 8}};
   const func = () => handler(clickEvent);
@@ -76,7 +78,9 @@ describe('Google Map', () => {
     expect(events[1].event).toBe('click');
     events[1].func();
     expect(mockGmap.markers[0].setPosition).toHaveBeenCalledTimes(1);
-    expect(store.getState().position.selectedPosition).toMatchSnapshot();
+    expect(store.getState().position.selectedPosition).toMatchSnapshot(
+      'update selected position'
+    );
     unmount();
     expect(removeEventListener).toHaveBeenCalledTimes(1);
     expect(mockGmap.markers.length).toBe(0);
@@ -95,7 +99,6 @@ describe('Google Map', () => {
       'result settings'
     );
     expect(mockGmap.markers.length).toBe(3);
-    expect(mockGmap.markers).toMatchSnapshot('result markers');
     unmount();
     expect(mockGmap.markers.length).toBe(0);
   });

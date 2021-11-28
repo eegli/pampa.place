@@ -1,12 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Google Map has play mode 1`] = `
-Object {
-  "lat": 8,
-  "lng": 8,
-}
-`;
-
 exports[`Google Map has play mode: play settings 1`] = `
 Array [
   Object {
@@ -26,6 +19,13 @@ Array [
 ]
 `;
 
+exports[`Google Map has play mode: update selected position 1`] = `
+Object {
+  "lat": 8,
+  "lng": 8,
+}
+`;
+
 exports[`Google Map has preview mode: preview settings 1`] = `
 Array [
   Object {
@@ -41,125 +41,6 @@ Array [
       ],
     },
     "mapTypeId": "roadmap",
-  },
-]
-`;
-
-exports[`Google Map has result mode: result markers 1`] = `
-Array [
-  Marker {
-    "addListener": [MockFunction],
-    "bindTo": [MockFunction],
-    "changed": [MockFunction],
-    "get": [MockFunction],
-    "getAnimation": [MockFunction],
-    "getClickable": [MockFunction],
-    "getCursor": [MockFunction],
-    "getDraggable": [MockFunction],
-    "getIcon": [MockFunction],
-    "getLabel": [MockFunction],
-    "getMap": [MockFunction],
-    "getOpacity": [MockFunction],
-    "getPosition": [MockFunction],
-    "getShape": [MockFunction],
-    "getTitle": [MockFunction],
-    "getVisible": [MockFunction],
-    "getZIndex": [MockFunction],
-    "notify": [MockFunction],
-    "set": [MockFunction],
-    "setAnimation": [MockFunction],
-    "setClickable": [MockFunction],
-    "setCursor": [MockFunction],
-    "setDraggable": [MockFunction],
-    "setIcon": [MockFunction],
-    "setLabel": [MockFunction],
-    "setMap": [MockFunction],
-    "setOpacity": [MockFunction],
-    "setOptions": [MockFunction],
-    "setPosition": [MockFunction],
-    "setShape": [MockFunction],
-    "setTitle": [MockFunction],
-    "setValues": [MockFunction],
-    "setVisible": [MockFunction],
-    "setZIndex": [MockFunction],
-    "unbind": [MockFunction],
-    "unbindAll": [MockFunction],
-  },
-  Marker {
-    "addListener": [MockFunction],
-    "bindTo": [MockFunction],
-    "changed": [MockFunction],
-    "get": [MockFunction],
-    "getAnimation": [MockFunction],
-    "getClickable": [MockFunction],
-    "getCursor": [MockFunction],
-    "getDraggable": [MockFunction],
-    "getIcon": [MockFunction],
-    "getLabel": [MockFunction],
-    "getMap": [MockFunction],
-    "getOpacity": [MockFunction],
-    "getPosition": [MockFunction],
-    "getShape": [MockFunction],
-    "getTitle": [MockFunction],
-    "getVisible": [MockFunction],
-    "getZIndex": [MockFunction],
-    "notify": [MockFunction],
-    "set": [MockFunction],
-    "setAnimation": [MockFunction],
-    "setClickable": [MockFunction],
-    "setCursor": [MockFunction],
-    "setDraggable": [MockFunction],
-    "setIcon": [MockFunction],
-    "setLabel": [MockFunction],
-    "setMap": [MockFunction],
-    "setOpacity": [MockFunction],
-    "setOptions": [MockFunction],
-    "setPosition": [MockFunction],
-    "setShape": [MockFunction],
-    "setTitle": [MockFunction],
-    "setValues": [MockFunction],
-    "setVisible": [MockFunction],
-    "setZIndex": [MockFunction],
-    "unbind": [MockFunction],
-    "unbindAll": [MockFunction],
-  },
-  Marker {
-    "addListener": [MockFunction],
-    "bindTo": [MockFunction],
-    "changed": [MockFunction],
-    "get": [MockFunction],
-    "getAnimation": [MockFunction],
-    "getClickable": [MockFunction],
-    "getCursor": [MockFunction],
-    "getDraggable": [MockFunction],
-    "getIcon": [MockFunction],
-    "getLabel": [MockFunction],
-    "getMap": [MockFunction],
-    "getOpacity": [MockFunction],
-    "getPosition": [MockFunction],
-    "getShape": [MockFunction],
-    "getTitle": [MockFunction],
-    "getVisible": [MockFunction],
-    "getZIndex": [MockFunction],
-    "notify": [MockFunction],
-    "set": [MockFunction],
-    "setAnimation": [MockFunction],
-    "setClickable": [MockFunction],
-    "setCursor": [MockFunction],
-    "setDraggable": [MockFunction],
-    "setIcon": [MockFunction],
-    "setLabel": [MockFunction],
-    "setMap": [MockFunction],
-    "setOpacity": [MockFunction],
-    "setOptions": [MockFunction],
-    "setPosition": [MockFunction],
-    "setShape": [MockFunction],
-    "setTitle": [MockFunction],
-    "setValues": [MockFunction],
-    "setVisible": [MockFunction],
-    "setZIndex": [MockFunction],
-    "unbind": [MockFunction],
-    "unbindAll": [MockFunction],
   },
 ]
 `;
