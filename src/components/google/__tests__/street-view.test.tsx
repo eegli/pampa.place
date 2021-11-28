@@ -1,10 +1,10 @@
 import {render, screen} from '@/tests/test-utils';
 import React from 'react';
 import {mocked} from 'ts-jest/utils';
-import {Gstv} from '../../../services/google-sv';
+import {StreetViewService} from '../../../services/google-sv';
 import GoogleStreetView from '../google.street-view';
 
-const mockSv = mocked(Gstv, true);
+const mockSv = mocked(StreetViewService, true);
 
 jest.spyOn(React, 'useRef').mockReturnValue({
   current: document.createElement('div'),

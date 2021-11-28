@@ -2,10 +2,10 @@ import {testMapId} from '@/config/__mocks__/maps';
 import {createMockStore, render, screen} from '@/tests/test-utils';
 import React from 'react';
 import {mocked} from 'ts-jest/utils';
-import {Gmap} from '../../../services/google-map';
+import {MapService} from '../../../services/google-map';
 import GoogleMap, {GoogleMapProps} from '../google.map';
 
-const mockGmap = mocked(Gmap, true);
+const mockGmap = mocked(MapService, true);
 const mockGoogle = mocked(google.maps, true);
 
 // Store a reference to the events that are called when the map is mounted

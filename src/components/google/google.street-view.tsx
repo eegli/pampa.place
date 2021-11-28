@@ -2,7 +2,7 @@ import {config} from '@/config/google';
 import {useAppSelector} from '@/redux/redux.hooks';
 import {Fade} from '@mui/material';
 import React, {useEffect, useRef} from 'react';
-import {Gstv} from '../../services/google-sv';
+import {StreetViewService} from '../../services/google-sv';
 
 type GoogleStreetViewProps = {
   staticPos?: boolean;
@@ -15,7 +15,7 @@ const GoogleStreetView = ({staticPos = false}: GoogleStreetViewProps) => {
   // Initialization
   useEffect(() => {
     if (ref.current) {
-      const unmount = Gstv.mount(ref.current);
+      const unmount = StreetViewService.mount(ref.current);
       return () => {
         unmount();
       };
@@ -23,7 +23,7 @@ const GoogleStreetView = ({staticPos = false}: GoogleStreetViewProps) => {
   }, []);
 
   useEffect(() => {
-    Gstv.sv.setPano(panoId);
+    StreetViewService.sv.setPano(panoId);
 
     let opts = config.streetview;
 
@@ -35,7 +35,7 @@ const GoogleStreetView = ({staticPos = false}: GoogleStreetViewProps) => {
         disableDefaultUI: true,
       };
     }
-    Gstv.sv.setOptions(opts);
+    StreetViewService.sv.setOptions(opts);
   }, [panoId, staticPos]);
 
   return (

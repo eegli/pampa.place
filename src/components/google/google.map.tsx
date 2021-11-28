@@ -6,7 +6,7 @@ import {Result} from '@/redux/game/game.slice';
 import {updateSelectedPosition} from '@/redux/position/position.slice';
 import {useAppDispatch} from '@/redux/redux.hooks';
 import {useEffect, useRef} from 'react';
-import {Gmap} from '../../services/google-map';
+import {MapService} from '../../services/google-map';
 
 export type GoogleMapProps = {
   mapId: string;
@@ -21,15 +21,15 @@ const GoogleMap = ({mode, mapId, results, initialPosition}: GoogleMapProps) => {
 
   useEffect(() => {
     if (ref.current) {
-      const unmount = Gmap.mount(ref.current);
+      const unmount = MapService.mount(ref.current);
       const map = MAPS[mapId];
       /* Order in constructor is important! SW, NE  */
       const bounds = new google.maps.LatLngBounds(
         new google.maps.LatLng(map.bbLiteral.SW),
         new google.maps.LatLng(map.bbLiteral.NE)
       );
-      google.maps.event.addListenerOnce(Gmap.map, 'idle', () => {
-        Gmap.map.fitBounds(bounds, 0);
+      google.maps.event.addListenerOnce(MapService.map, 'idle', () => {
+        MapService.map.fitBounds(bounds, 0);
       });
 
       return () => {
@@ -41,14 +41,14 @@ const GoogleMap = ({mode, mapId, results, initialPosition}: GoogleMapProps) => {
   useEffect(() => {
     if (mode === 'preview') {
       console.log('PREVIEW MODE MOUNT');
-      Gmap.map.setOptions({
+      MapService.map.setOptions({
         ...config.map,
         gestureHandling: 'none',
         mapTypeId: 'roadmap',
         mapTypeControl: false,
       });
-      const features = Gmap.map.data.addGeoJson(MAPS[mapId].feature);
-      Gmap.map.data.setStyle({
+      const features = MapService.map.data.addGeoJson(MAPS[mapId].feature);
+      MapService.map.data.setStyle({
         fillColor: '#003d80',
         fillOpacity: 0.2,
         strokeWeight: 0.8,
@@ -56,7 +56,7 @@ const GoogleMap = ({mode, mapId, results, initialPosition}: GoogleMapProps) => {
       return () => {
         console.log('PREVIEW MODE UNMOUNT');
         features.forEach(feat => {
-          Gmap.map.data.remove(feat);
+          MapService.map.data.remove(feat);
         });
       };
     }
@@ -65,15 +65,15 @@ const GoogleMap = ({mode, mapId, results, initialPosition}: GoogleMapProps) => {
   useEffect(() => {
     if (mode === 'play') {
       console.log('PLAY MODE MOUNT');
-      Gmap.map.setOptions(config.map);
-      const marker = Gmap.addMarker(
+      MapService.map.setOptions(config.map);
+      const marker = MapService.addMarker(
         new google.maps.Marker({
           draggable: true,
-          map: Gmap.map,
+          map: MapService.map,
         })
       );
       // This Google Map event is not typed unfortunately
-      const listener = Gmap.map.addListener('click', (e: unknown) => {
+      const listener = MapService.map.addListener('click', (e: unknown) => {
         const {latLng} = e as {latLng: google.maps.LatLng};
         marker.setPosition(latLng);
         dispatch(
@@ -83,7 +83,7 @@ const GoogleMap = ({mode, mapId, results, initialPosition}: GoogleMapProps) => {
       return () => {
         console.log('PLAY MODE UNMOUNT');
         listener.remove();
-        Gmap.clearMarkers();
+        MapService.clearMarkers();
       };
     }
   }, [mode, dispatch]);
@@ -91,19 +91,19 @@ const GoogleMap = ({mode, mapId, results, initialPosition}: GoogleMapProps) => {
   useEffect(() => {
     if (mode === 'result' && results) {
       console.log('RESULT MODE MOUNT');
-      Gmap.map.setOptions(config.map);
-      Gmap.addMarker(
+      MapService.map.setOptions(config.map);
+      MapService.addMarker(
         new window.google.maps.Marker({
           position: initialPosition,
-          map: Gmap.map,
+          map: MapService.map,
         })
       );
 
       results.forEach((p, idx) => {
-        Gmap.addMarker(
+        MapService.addMarker(
           new window.google.maps.Marker({
             position: p.selected,
-            map: Gmap.map,
+            map: MapService.map,
 
             label: {
               text: p.name,
@@ -129,7 +129,7 @@ const GoogleMap = ({mode, mapId, results, initialPosition}: GoogleMapProps) => {
       return () => {
         console.log('RESULT MODE UNMOUNT');
         // https://developers.google.com/maps/documentation/javascript/markers#remove
-        Gmap.clearMarkers();
+        MapService.clearMarkers();
       };
     }
   }, [mode, initialPosition, results]);

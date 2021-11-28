@@ -8,7 +8,7 @@ import {
   screen,
 } from '@/tests/test-utils';
 import React from 'react';
-import {Gmap} from '../../../services/google-map';
+import {MapService} from '../../../services/google-map';
 import Form from '../form';
 import FormMapSelect from '../form.map-select';
 import FormPlayers from '../form.players';
@@ -123,7 +123,7 @@ describe('Form, duration select', () => {
 
 // TODO
 describe('Form, map selection and preview', () => {
-  const toggleSpy = jest.spyOn(Gmap, 'mount');
+  const toggleSpy = jest.spyOn(MapService, 'mount');
 
   it('displays maps', () => {
     render(<FormMapSelect />);

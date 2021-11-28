@@ -8,18 +8,18 @@ export const GmapContainer = () => {
   );
 };
 
-export class Gmap {
+export class MapService {
   static _map: google.maps.Map | undefined;
   static markers: google.maps.Marker[] = [];
 
   static addMarker(m: google.maps.Marker) {
-    Gmap.markers.push(m);
+    MapService.markers.push(m);
     return m;
   }
   // https://developers.google.com/maps/documentation/javascript/markers#remove
   static clearMarkers() {
-    Gmap.markers.forEach(m => m.setMap(null));
-    Gmap.markers.length = 0;
+    MapService.markers.forEach(m => m.setMap(null));
+    MapService.markers.length = 0;
   }
 
   static get div() {
@@ -30,17 +30,17 @@ export class Gmap {
   }
 
   static get map() {
-    if (!Gmap._map) {
-      Gmap._map = new google.maps.Map(Gmap.div);
+    if (!MapService._map) {
+      MapService._map = new google.maps.Map(MapService.div);
       console.log('%cCreated new global Map instance', 'color: green');
     }
-    return Gmap._map;
+    return MapService._map;
   }
 
   static mount<T extends HTMLElement>(tempContainer: T) {
     const unmount = unsafeToggleHTMLElement(
-      Gmap.div,
-      Gmap.container,
+      MapService.div,
+      MapService.container,
       tempContainer
     );
 

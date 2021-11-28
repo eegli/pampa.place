@@ -8,7 +8,7 @@ export const GstvContainer = () => {
   );
 };
 
-export class Gstv {
+export class StreetViewService {
   static get div() {
     return document.getElementById('__GSTV__')!;
   }
@@ -18,17 +18,19 @@ export class Gstv {
   private static _sv: google.maps.StreetViewPanorama | undefined;
 
   static get sv() {
-    if (!Gstv._sv) {
-      Gstv._sv = new google.maps.StreetViewPanorama(Gstv.div);
+    if (!StreetViewService._sv) {
+      StreetViewService._sv = new google.maps.StreetViewPanorama(
+        StreetViewService.div
+      );
       console.log('%cCreated new global Street View instance', 'color: green');
     }
-    return Gstv._sv;
+    return StreetViewService._sv;
   }
 
   static mount<T extends HTMLElement>(tempContainer: T) {
     const unmount = unsafeToggleHTMLElement(
-      Gstv.div,
-      Gstv.container,
+      StreetViewService.div,
+      StreetViewService.container,
       tempContainer
     );
     return () => {
