@@ -8,20 +8,14 @@ import {useAppDispatch} from '@/redux/redux.hooks';
 import {useEffect, useRef} from 'react';
 import {Gmap} from '../../services/google-map';
 
-export enum MapMode {
-  PREVIEW,
-  PLAY,
-  RESULT,
-}
-
 export type GoogleMapProps = {
-  mode?: MapMode;
-  results?: Result[];
-  initialPos?: LatLngLiteral;
   mapId: string;
+  mode?: 'preview' | 'play' | 'result';
+  results?: Pick<Result, 'selected' | 'name'>[];
+  initialPosition?: LatLngLiteral;
 };
 
-const GoogleMap = ({mode, results, initialPos, mapId}: GoogleMapProps) => {
+const GoogleMap = ({mode, mapId, results, initialPosition}: GoogleMapProps) => {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -45,9 +39,10 @@ const GoogleMap = ({mode, results, initialPos, mapId}: GoogleMapProps) => {
   }, [mapId]);
 
   useEffect(() => {
-    if (mode === MapMode.PREVIEW) {
+    if (mode === 'preview') {
       console.log('PREVIEW MODE MOUNT');
       Gmap.map.setOptions({
+        ...config.map,
         gestureHandling: 'none',
         mapTypeId: 'roadmap',
         mapTypeControl: false,
@@ -68,7 +63,7 @@ const GoogleMap = ({mode, results, initialPos, mapId}: GoogleMapProps) => {
   }, [mode, mapId]);
 
   useEffect(() => {
-    if (mode === MapMode.PLAY) {
+    if (mode === 'play') {
       console.log('PLAY MODE MOUNT');
       Gmap.map.setOptions(config.map);
       const marker = Gmap.addMarker(
@@ -94,12 +89,12 @@ const GoogleMap = ({mode, results, initialPos, mapId}: GoogleMapProps) => {
   }, [mode, dispatch]);
 
   useEffect(() => {
-    if (mode === MapMode.RESULT && results) {
+    if (mode === 'result' && results) {
       console.log('RESULT MODE MOUNT');
       Gmap.map.setOptions(config.map);
       Gmap.addMarker(
         new window.google.maps.Marker({
-          position: initialPos,
+          position: initialPosition,
           map: Gmap.map,
         })
       );
@@ -137,7 +132,7 @@ const GoogleMap = ({mode, results, initialPos, mapId}: GoogleMapProps) => {
         Gmap.clearMarkers();
       };
     }
-  }, [mode, initialPos, results]);
+  }, [mode, initialPosition, results]);
 
   return (
     <div

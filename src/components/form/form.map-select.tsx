@@ -22,7 +22,7 @@ import {
   useTheme,
 } from '@mui/material';
 import {useState} from 'react';
-import GoogleMap, {MapMode} from '../google/google.map';
+import GoogleMap from '../google/google.map';
 
 const FormMapSelect = () => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
@@ -100,7 +100,7 @@ const FormMapSelect = () => {
                 width: ({breakpoints}) => breakpoints.values.sm,
               }}
             >
-              <GoogleMap mapId={activeMapId} mode={MapMode.PREVIEW} />
+              <GoogleMap mapId={activeMapId} mode="preview" />
             </Box>
             <DialogContentText mt={2}>
               Rough bounds of the map &quot;{activeMapName}&quot;.

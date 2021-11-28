@@ -3,7 +3,7 @@ import {setPlayerScore} from '@/redux/game/game.slice';
 import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
 import {Box, Button} from '@mui/material';
 import {useState} from 'react';
-import GoogleMap, {MapMode} from '../google/google.map';
+import GoogleMap from '../google/google.map';
 import StreetView from '../google/google.street-view';
 import PlayHeader from './play.header';
 import {StyledMapOverlay} from './play.styles';
@@ -65,7 +65,7 @@ const Play = () => {
           {initialPos && <StreetView />}
         </div>
 
-        <GoogleMap mapId={activeMapId} mode={MapMode.PLAY} />
+        <GoogleMap mapId={activeMapId} mode="play" />
       </Box>
     </Box>
   );

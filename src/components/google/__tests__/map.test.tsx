@@ -1,9 +1,9 @@
 import {testMapId} from '@/config/__mocks__/maps';
-import {render, screen} from '@/tests/test-utils';
+import {createMockStore, render, screen} from '@/tests/test-utils';
 import React from 'react';
 import {mocked} from 'ts-jest/utils';
 import {Gmap} from '../../../services/google-map';
-import GoogleMap, {MapMode} from '../google.map';
+import GoogleMap, {GoogleMapProps} from '../google.map';
 
 const mockGmap = mocked(Gmap, true);
 const mockGoogle = mocked(google.maps, true);
@@ -19,8 +19,11 @@ jest
     return {remove: removeEventListener};
   });
 
+// Mock implementation for listeners. The handler will be caught and called with the event it would get from google.maps.Map's click event.
 jest.spyOn(mockGmap.map, 'addListener').mockImplementation((event, handler) => {
-  events.push({event, func: handler});
+  const clickEvent = {latLng: {lat: () => 8, lng: () => 8}};
+  const func = () => handler(clickEvent);
+  events.push({event, func});
   return {remove: removeEventListener};
 });
 
@@ -49,35 +52,51 @@ describe('Google Map', () => {
     expect(mockGmap.map.fitBounds).toHaveBeenCalledTimes(1);
   });
   it('has preview mode', () => {
-    const {unmount} = render(
-      <GoogleMap mapId={testMapId} mode={MapMode.PREVIEW} />
-    );
+    const {unmount} = render(<GoogleMap mapId={testMapId} mode="preview" />);
     expect(mockGmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
       'preview settings'
     );
     expect(mockGoogle.Map.prototype.data.setStyle).toHaveBeenCalledTimes(1);
     expect(mockGoogle.Map.prototype.data.addGeoJson).toHaveBeenCalledTimes(1);
     expect(mockGoogle.Map.prototype.data.setStyle).toHaveBeenCalledTimes(1);
-
     unmount();
-
     expect(mockGoogle.Map.prototype.data.remove).toHaveBeenCalledTimes(3);
   });
-
   it('has play mode', () => {
+    const store = createMockStore();
     const {unmount} = render(
-      <GoogleMap mapId={testMapId} mode={MapMode.PLAY} />
+      <GoogleMap mapId={testMapId} mode="play" />,
+      store
     );
-
     expect(mockGmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
       'play settings'
     );
     expect(mockGmap.markers.length).toBe(1);
     expect(events.length).toBe(2);
     expect(events[1].event).toBe('click');
-
+    events[1].func();
+    expect(mockGmap.markers[0].setPosition).toHaveBeenCalledTimes(1);
+    expect(store.getState().position.selectedPosition).toMatchSnapshot();
     unmount();
     expect(removeEventListener).toHaveBeenCalledTimes(1);
+    expect(mockGmap.markers.length).toBe(0);
+  });
+  it('has result mode', () => {
+    const props: GoogleMapProps = {
+      mapId: testMapId,
+      mode: 'result',
+      results: [
+        {name: 'a', selected: {lat: 1, lng: 1}},
+        {name: 'b', selected: {lat: 1, lng: 1}},
+      ],
+    };
+    const {unmount} = render(<GoogleMap {...props} />);
+    expect(mockGmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
+      'result settings'
+    );
+    expect(mockGmap.markers.length).toBe(3);
+    expect(mockGmap.markers).toMatchSnapshot('result markers');
+    unmount();
     expect(mockGmap.markers.length).toBe(0);
   });
 });

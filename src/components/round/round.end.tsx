@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import {SyntheticEvent, useState} from 'react';
 import {SlimContainer} from '../../styles/containers';
-import GoogleMap, {MapMode} from '../google/google.map';
+import GoogleMap from '../google/google.map';
 import GoogleStreetView from '../google/google.street-view';
 import TabPanel from './round.tabs-panel';
 
@@ -113,10 +113,10 @@ const RoundEnd = () => {
         <Box height="100%" id="round-end-map">
           {initialPosition && (
             <GoogleMap
-              mode={MapMode.RESULT}
+              mode="result"
               mapId={activeMapId}
               results={scores}
-              initialPos={initialPosition}
+              initialPosition={initialPosition}
             />
           )}
         </Box>
