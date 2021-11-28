@@ -23,7 +23,7 @@ const GoogleStreetView = ({staticPos = false}: GoogleStreetViewProps) => {
   }, []);
 
   useEffect(() => {
-    Gstv.stv.setPano(panoId);
+    Gstv.sv.setPano(panoId);
 
     let opts = config.streetview;
 
@@ -35,7 +35,7 @@ const GoogleStreetView = ({staticPos = false}: GoogleStreetViewProps) => {
         disableDefaultUI: true,
       };
     }
-    Gstv.stv.setOptions(opts);
+    Gstv.sv.setOptions(opts);
   }, [panoId, staticPos]);
 
   return (

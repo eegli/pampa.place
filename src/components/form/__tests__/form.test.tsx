@@ -106,9 +106,7 @@ describe('Form, round select', () => {
 
 describe('Form, duration select', () => {
   it('renders duration select options', () => {
-    const {container} = render(<FormTimeLimitSelect />);
-    expect(container).toMatchSnapshot();
-
+    render(<FormTimeLimitSelect />);
     expect(getRadios({checked: true})).toHaveLength(1);
     expect(getRadios()).toHaveLength(config.timeLimits.length);
   });

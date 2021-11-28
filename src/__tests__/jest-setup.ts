@@ -15,3 +15,7 @@ Map.prototype.data = {
 };
 
 initialize();
+
+global.google.maps.StreetViewPanorama = jest.fn().mockImplementation(() => {
+  return {setPano: jest.fn(), setOptions: jest.fn()};
+});
