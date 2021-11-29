@@ -1,8 +1,8 @@
 import {Status, Wrapper} from '@googlemaps/react-wrapper';
 import {ReactNode} from 'react';
-import Spinner from '../../components/feedback/feedback.spinner';
-import Login from '../../components/login/login';
-import {useAppSelector} from '../../redux/redux.hooks';
+import {Spinner} from '../../components/feedback/spinner';
+import {Login} from '../../components/login/login';
+import {useAppSelector} from '../../redux/hooks';
 import {PageContentWrapper} from '../../styles/containers';
 
 export const AuthWrapper = ({children}: {children: ReactNode}) => {

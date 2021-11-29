@@ -1,13 +1,13 @@
-import {shouldRequestNewSV} from '@/redux/game/game.selectors';
-import {startRound} from '@/redux/game/game.slice';
-import {resetSelectedPosition} from '@/redux/position/position.slice';
-import {getRandomStreetView} from '@/redux/position/position.thunks';
-import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
+import {startRound} from '@/redux/game';
+import {shouldRequestNewSV} from '@/redux/game/selectors';
+import {useAppDispatch, useAppSelector} from '@/redux/hooks';
+import {resetSelectedPosition} from '@/redux/position';
+import {getRandomStreetView} from '@/redux/position/thunks';
 import {Button, Divider, Stack, Typography} from '@mui/material';
 import {useLayoutEffect} from 'react';
-import {SlimContainer} from '../../styles/containers';
+import {SlimContainer} from '../../../styles/containers';
 
-const RoundIntermission = () => {
+export const RoundIntermission = () => {
   const dispatch = useAppDispatch();
 
   const isLoadingStreetView = useAppSelector(({position}) => position.loading);
@@ -57,4 +57,3 @@ const RoundIntermission = () => {
     </SlimContainer>
   );
 };
-export default RoundIntermission;

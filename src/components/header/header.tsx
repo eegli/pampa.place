@@ -1,4 +1,4 @@
-import {toggleTheme} from '@/redux/app/app.slice';
+import {toggleTheme} from '@/redux/app';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -18,10 +18,10 @@ import {
 } from '@mui/material';
 import {useRouter} from 'next/router';
 import {useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../redux/redux.hooks';
-import {RootState} from '../../redux/redux.store';
+import {useAppDispatch, useAppSelector} from '../../redux/hooks';
+import {RootState} from '../../redux/store';
 
-const Header = () => {
+export const Header = () => {
   const activeTheme = useAppSelector((s: RootState) => s.app.theme);
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -128,4 +128,3 @@ const Header = () => {
     </>
   );
 };
-export default Header;

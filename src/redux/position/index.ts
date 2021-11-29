@@ -1,7 +1,7 @@
 import {LatLngLiteral} from '@/config/types';
 import {OrNull} from '@/utils/types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {getRandomStreetView, ValidationError} from './position.thunks';
+import {getRandomStreetView, ValidationError} from './thunks';
 
 export interface PositionState {
   // The initial position is a random location on Google Maps with

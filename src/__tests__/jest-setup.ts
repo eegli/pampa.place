@@ -1,9 +1,9 @@
 import {initialize, Map} from '@googlemaps/jest-mocks';
 import '@testing-library/jest-dom/extend-expect';
 
-jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
-
 jest.mock('../config/maps');
+
+jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
 
 //@ts-expect-error
 Map.prototype.data = {

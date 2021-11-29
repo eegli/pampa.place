@@ -1,4 +1,4 @@
-import {useAppSelector} from '@/redux/redux.hooks';
+import {useAppSelector} from '@/redux/hooks';
 import {formatDur} from '@/utils/misc';
 import {Box, Divider, Stack, Typography} from '@mui/material';
 import {useRouter} from 'next/router';
@@ -10,7 +10,7 @@ type PlayHeaderProps = {
   timerCallback: () => void;
 };
 
-const PlayHeader = ({player, timerCallback}: PlayHeaderProps) => {
+export const PlayHeader = ({player, timerCallback}: PlayHeaderProps) => {
   const router = useRouter();
   const timeLimit = useAppSelector(s => s.game.timeLimit);
   const [timeRemaining] = useTimer(timeLimit);
@@ -73,4 +73,3 @@ const PlayHeader = ({player, timerCallback}: PlayHeaderProps) => {
     </Box>
   );
 };
-export default PlayHeader;

@@ -1,14 +1,14 @@
-import {getActivePlayer} from '@/redux/game/game.selectors';
-import {setPlayerScore} from '@/redux/game/game.slice';
-import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
+import {setPlayerScore} from '@/redux/game';
+import {getActivePlayer} from '@/redux/game/selectors';
+import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {Box, Button} from '@mui/material';
 import {useState} from 'react';
-import GoogleMap from '../google/google.map';
-import StreetView from '../google/google.street-view';
-import PlayHeader from './play.header';
-import {StyledMapOverlay} from './play.styles';
+import {GoogleMap} from '../google/map';
+import {GoogleStreetView} from '../google/street-view';
+import {PlayHeader} from './header';
+import {StyledMapOverlay} from './styles';
 
-const Play = () => {
+export const Play = () => {
   const dispatch = useAppDispatch();
   const [showMap, setShowMap] = useState<boolean>(false);
 
@@ -62,7 +62,7 @@ const Play = () => {
             height: '100%',
           }}
         >
-          {initialPos && <StreetView />}
+          {initialPos && <GoogleStreetView />}
         </div>
 
         <GoogleMap mapId={activeMapId} mode="play" />
@@ -70,5 +70,3 @@ const Play = () => {
     </Box>
   );
 };
-
-export default Play;

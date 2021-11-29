@@ -1,14 +1,13 @@
-import {initGame, reset} from '@/redux/game/game.slice';
-import {useAppDispatch} from '@/redux/redux.hooks';
+import {initGame, reset} from '@/redux/game';
+import {useAppDispatch} from '@/redux/hooks';
 import {Box, Button} from '@mui/material';
 import {useRouter} from 'next/router';
-import React from 'react';
-import FormMapSelect from './form.map-select';
-import FormPlayers from './form.players';
-import FormRoundSelect from './form.round-select';
-import FormTimeLimitSelect from './form.time-select';
+import {FormMapSelect} from './fields/select-map';
+import {FormRoundSelect} from './fields/select-round';
+import {FormTimeLimitSelect} from './fields/select-time';
+import {FormPlayers} from './fields/set-players';
 
-const Form = () => {
+export const Form = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -63,5 +62,3 @@ const Form = () => {
     </>
   );
 };
-
-export default Form;

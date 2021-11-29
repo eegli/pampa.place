@@ -1,5 +1,5 @@
-import {getTotalScores} from '@/redux/game/game.selectors';
-import {useAppSelector} from '@/redux/redux.hooks';
+import {getTotalScores} from '@/redux/game/selectors';
+import {useAppSelector} from '@/redux/hooks';
 import {
   Button,
   Stack,
@@ -11,9 +11,9 @@ import {
   Typography,
 } from '@mui/material';
 import {useRouter} from 'next/router';
-import {SlimContainer} from '../../styles/containers';
+import {SlimContainer} from '../../../styles/containers';
 
-const RoundFinalResult = () => {
+export const GameOverSummary = () => {
   const result = useAppSelector(getTotalScores);
 
   const router = useRouter();
@@ -53,4 +53,3 @@ const RoundFinalResult = () => {
     </SlimContainer>
   );
 };
-export default RoundFinalResult;

@@ -1,6 +1,6 @@
 import {config} from '@/config/game';
-import {setTimeLimit} from '@/redux/game/game.slice';
-import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
+import {setTimeLimit} from '@/redux/game';
+import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {formatDur} from '@/utils/misc';
 import {
   FormControl,
@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import {ChangeEvent} from 'react';
 
-const FormTimeLimitSelect = () => {
+export const FormTimeLimitSelect = () => {
   const selected = useAppSelector(({game}) => game.timeLimit);
   const dispatch = useAppDispatch();
 
@@ -39,5 +39,3 @@ const FormTimeLimitSelect = () => {
     </FormControl>
   );
 };
-
-export default FormTimeLimitSelect;

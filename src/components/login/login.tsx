@@ -1,7 +1,7 @@
-import {setApiKey} from '@/redux/app/app.slice';
-import {useAppDispatch} from '@/redux/redux.hooks';
+import {setApiKey} from '@/redux/app';
+import {useAppDispatch} from '@/redux/hooks';
 import {Box, Button, TextField, Tooltip, Typography} from '@mui/material';
-import React, {
+import {
   ChangeEvent,
   FormEvent,
   KeyboardEvent,
@@ -12,7 +12,7 @@ import {useSessionStorage} from 'react-use';
 import {AuthReq, AuthRes} from '../../pages/api/auth.page';
 import {PageContentWrapper} from '../../styles/containers';
 
-const Login = () => {
+export const Login = () => {
   const [inputError, setInputError] = useState<string>('');
   const [inputPassword, setInputPassword] = useState<string>('');
   const [inputApiKey, setInputApiKey] = useState<string>('');
@@ -147,5 +147,3 @@ const Login = () => {
     </PageContentWrapper>
   );
 };
-
-export default Login;

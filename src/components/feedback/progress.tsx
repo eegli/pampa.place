@@ -1,7 +1,7 @@
-import {useAppSelector} from '@/redux/redux.hooks';
+import {useAppSelector} from '@/redux/hooks';
 import {Box, LinearProgress} from '@mui/material';
 
-const LoadingProgress = () => {
+export const LoadingProgress = () => {
   const isLoadingStreetView = useAppSelector(s => s.position.loading);
 
   return isLoadingStreetView ? (
@@ -12,4 +12,3 @@ const LoadingProgress = () => {
     <></>
   );
 };
-export default LoadingProgress;

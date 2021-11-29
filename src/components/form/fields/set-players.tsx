@@ -1,7 +1,7 @@
 import {config} from '@/config/game';
 import {markers} from '@/config/markers';
-import {setPlayers} from '@/redux/game/game.slice';
-import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
+import {setPlayers} from '@/redux/game';
+import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {min} from '@/utils/misc';
 import RoomIcon from '@mui/icons-material/Room';
 import {Box, Fade, InputAdornment, TextField} from '@mui/material';
@@ -9,7 +9,7 @@ import {ChangeEvent} from 'react';
 
 const MAX_PLAYERS = config.maxPlayers;
 
-const FormPlayers = () => {
+export const FormPlayers = () => {
   const players = useAppSelector(({game}) => game.players);
   const dispatch = useAppDispatch();
 
@@ -61,4 +61,3 @@ const FormPlayers = () => {
     </Box>
   );
 };
-export default FormPlayers;

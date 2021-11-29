@@ -5,7 +5,7 @@ import {merge} from 'lodash';
 import {FC, ReactElement} from 'react';
 import {Provider} from 'react-redux';
 import {ThemeWrapper} from '../pages/wrappers/theme.wrapper';
-import {createStore, initialStates, RootState} from '../redux/redux.store';
+import {createStore, initialStates, RootState} from '../redux/store';
 
 function customRender(
   ui: ReactElement,
@@ -30,6 +30,10 @@ function customRender(
   });
 }
 
+function createMockState(state: DeepPartial<RootState> = {}) {
+  return merge({}, initialStates, state);
+}
+
 export * from '@testing-library/react';
 export {customRender as render};
 /*
@@ -38,6 +42,4 @@ state from the defined initial state, enrich it and pass it to
 createMockStore.
 */
 export {createStore as createMockStore};
-export function createMockState(state: DeepPartial<RootState> = {}) {
-  return merge({}, initialStates, state);
-}
+export {createMockState};

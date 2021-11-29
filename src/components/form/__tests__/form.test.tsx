@@ -1,5 +1,5 @@
 import {config} from '@/config/game';
-import {STATUS} from '@/redux/game/game.slice';
+import {STATUS} from '@/redux/game';
 import {MapService} from '@/services/google';
 import {
   ByRoleOptions,
@@ -8,12 +8,11 @@ import {
   render,
   screen,
 } from '@/tests/test-utils';
-import React from 'react';
-import Form from '../form';
-import FormMapSelect from '../form.map-select';
-import FormPlayers from '../form.players';
-import FormRoundSelect from '../form.round-select';
-import FormTimeLimitSelect from '../form.time-select';
+import {FormMapSelect} from '../fields/select-map';
+import {FormRoundSelect} from '../fields/select-round';
+import {FormTimeLimitSelect} from '../fields/select-time';
+import {FormPlayers} from '../fields/set-players';
+import {Form} from '../form';
 
 jest.mock('next/router', () => ({
   useRouter() {

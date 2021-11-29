@@ -1,13 +1,12 @@
-import {STATUS} from '@/redux/game/game.slice';
-import {getRandomStreetView} from '@/redux/position/position.thunks';
-import React from 'react';
-import Error from '../components/feedback/feedback.error';
-import SpeedDialNav from '../components/nav/nav.speed-dial';
-import Play from '../components/play/play';
-import RoundEnd from '../components/round/round.end';
-import RoundFinalResult from '../components/round/round.final-result';
-import RoundIntermission from '../components/round/round.intermission';
-import {useAppDispatch, useAppSelector} from '../redux/redux.hooks';
+import {STATUS} from '@/redux/game';
+import {getRandomStreetView} from '@/redux/position/thunks';
+import {Error} from '../components/feedback/error';
+import {SpeedDialNav} from '../components/nav/speed-dial';
+import {Play} from '../components/play/play';
+import {GameOverSummary} from '../components/round/states/game-over';
+import {RoundIntermission} from '../components/round/states/round-intermission';
+import {RoundOverSummary} from '../components/round/states/round-over';
+import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {PageContentWrapper} from '../styles/containers';
 
 const GamePage = () => {
@@ -27,9 +26,9 @@ const GamePage = () => {
       case STATUS.ROUND_STARTED:
         return <Play />;
       case STATUS.ROUND_ENDED:
-        return <RoundEnd />;
+        return <RoundOverSummary />;
       case STATUS.FINISHED:
-        return <RoundFinalResult />;
+        return <GameOverSummary />;
 
       default:
         return <div />;

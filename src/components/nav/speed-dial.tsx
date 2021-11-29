@@ -1,7 +1,7 @@
-import {toggleTheme} from '@/redux/app/app.slice';
-import {resetRound} from '@/redux/game/game.slice';
-import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
-import {RootState} from '@/redux/redux.store';
+import {toggleTheme} from '@/redux/app';
+import {resetRound} from '@/redux/game';
+import {useAppDispatch, useAppSelector} from '@/redux/hooks';
+import {RootState} from '@/redux/store';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import FlagIcon from '@mui/icons-material/Flag';
 import HomeIcon from '@mui/icons-material/Home';
@@ -13,10 +13,12 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import {useRouter} from 'next/router';
 import {useState} from 'react';
-import Dialog, {DialogProps} from './nav.dialog';
+import {ConfirmationDialog, ConfirmationDialogProps} from './dialog';
 
-const SpeedDialNav = () => {
-  const [dialog, setDialog] = useState<DialogProps>({} as DialogProps);
+export const SpeedDialNav = () => {
+  const [dialog, setDialog] = useState<ConfirmationDialogProps>(
+    {} as ConfirmationDialogProps
+  );
 
   const router = useRouter();
 
@@ -113,9 +115,7 @@ const SpeedDialNav = () => {
           />
         </SpeedDial>
       </Box>
-      <Dialog {...dialog} />
+      <ConfirmationDialog {...dialog} />
     </>
   );
 };
-
-export default SpeedDialNav;

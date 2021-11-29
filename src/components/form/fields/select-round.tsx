@@ -1,6 +1,6 @@
 import {config} from '@/config/game';
-import {setRounds} from '@/redux/game/game.slice';
-import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
+import {setRounds} from '@/redux/game';
+import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {
   FormControl,
   FormControlLabel,
@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import {ChangeEvent} from 'react';
 
-const FormRoundSelect = () => {
+export const FormRoundSelect = () => {
   const dispatch = useAppDispatch();
   const selected = useAppSelector(({game}) => game.rounds.total);
 
@@ -38,5 +38,3 @@ const FormRoundSelect = () => {
     </FormControl>
   );
 };
-
-export default FormRoundSelect;

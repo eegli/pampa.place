@@ -7,7 +7,7 @@ interface TabPanelProps extends BoxProps {
   selected: number;
 }
 
-const TabPanel = (props: TabPanelProps) => {
+export const TabPanel = (props: TabPanelProps) => {
   const {children, selected, index, ...rest} = props;
   const shouldDisplay = selected === index;
   if (shouldDisplay) {
@@ -23,7 +23,5 @@ const TabPanel = (props: TabPanelProps) => {
       </Box>
     );
   }
-  return <div />;
+  return null;
 };
-
-export default TabPanel;

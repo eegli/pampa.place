@@ -1,6 +1,6 @@
-import {getRoundScores, isFinished} from '@/redux/game/game.selectors';
-import {endRound} from '@/redux/game/game.slice';
-import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
+import {endRound} from '@/redux/game';
+import {getRoundScores, isFinished} from '@/redux/game/selectors';
+import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {formatDist} from '@/utils/misc';
 import {
   Box,
@@ -17,12 +17,12 @@ import {
   Typography,
 } from '@mui/material';
 import {SyntheticEvent, useState} from 'react';
-import {SlimContainer} from '../../styles/containers';
-import GoogleMap from '../google/google.map';
-import GoogleStreetView from '../google/google.street-view';
-import TabPanel from './round.tabs-panel';
+import {SlimContainer} from '../../../styles/containers';
+import {GoogleMap} from '../../google/map';
+import {GoogleStreetView} from '../../google/street-view';
+import {TabPanel} from './tabs-panel';
 
-const RoundEnd = () => {
+export const RoundOverSummary = () => {
   const [selectedPanel, setSelectedPanel] = useState(0);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
@@ -144,4 +144,3 @@ const RoundEnd = () => {
     </>
   );
 };
-export default RoundEnd;

@@ -3,7 +3,7 @@ import {MapService} from '@/services/google';
 import {createMockStore, render, screen} from '@/tests/test-utils';
 import React from 'react';
 import {mocked} from 'ts-jest/utils';
-import GoogleMap, {GoogleMapProps} from '../google.map';
+import {GoogleMap, GoogleMapProps} from '../map';
 
 const mockGmap = mocked(MapService, true);
 const mockGoogle = mocked(google.maps, true);
@@ -11,6 +11,10 @@ const mockGoogle = mocked(google.maps, true);
 // Store a reference to the events that are called when the map is mounted
 const events: {event: string; func: Function}[] = [];
 const removeEventListener = jest.fn();
+
+jest.spyOn(React, 'useRef').mockReturnValue({
+  current: document.createElement('div'),
+});
 
 jest
   .spyOn(mockGoogle.event, 'addListenerOnce')
@@ -27,10 +31,6 @@ jest.spyOn(mockGmap.map, 'addListener').mockImplementation((event, handler) => {
   const func = () => handler(clickEvent);
   events.push({event, func});
   return {remove: removeEventListener};
-});
-
-jest.spyOn(React, 'useRef').mockReturnValue({
-  current: document.createElement('div'),
 });
 
 afterEach(() => {

@@ -1,5 +1,6 @@
 import {Alert, AlertTitle, Box, Button} from '@mui/material';
 import Link from 'next/link';
+
 type ErrorPros = {
   callback?: () => void;
   title?: string;
@@ -7,7 +8,7 @@ type ErrorPros = {
   reason?: string;
 };
 
-const Error = ({
+export const Error = ({
   callback,
   title = 'Something went wrong',
   info,
@@ -41,4 +42,3 @@ const Error = ({
     </Box>
   );
 };
-export default Error;

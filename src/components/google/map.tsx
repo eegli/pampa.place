@@ -2,9 +2,9 @@ import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
 import {markers as markerConfig} from '@/config/markers';
 import {LatLngLiteral} from '@/config/types';
-import {Result} from '@/redux/game/game.slice';
-import {updateSelectedPosition} from '@/redux/position/position.slice';
-import {useAppDispatch} from '@/redux/redux.hooks';
+import {Result} from '@/redux/game';
+import {useAppDispatch} from '@/redux/hooks';
+import {updateSelectedPosition} from '@/redux/position';
 import {MapService} from '@/services/google';
 import {useEffect, useRef} from 'react';
 
@@ -15,7 +15,12 @@ export type GoogleMapProps = {
   initialPosition?: LatLngLiteral;
 };
 
-const GoogleMap = ({mode, mapId, results, initialPosition}: GoogleMapProps) => {
+export const GoogleMap = ({
+  mode,
+  mapId,
+  results,
+  initialPosition,
+}: GoogleMapProps) => {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -143,5 +148,3 @@ const GoogleMap = ({mode, mapId, results, initialPosition}: GoogleMapProps) => {
     />
   );
 };
-
-export default GoogleMap;
