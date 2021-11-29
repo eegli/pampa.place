@@ -1,6 +1,6 @@
 import {MAP_IDS} from '@/config/maps';
-import {setMap} from '@/redux/game/game.slice';
-import {useAppDispatch, useAppSelector} from '@/redux/redux.hooks';
+import {setMap} from '@/redux/game';
+import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box,
@@ -22,9 +22,9 @@ import {
   useTheme,
 } from '@mui/material';
 import {useState} from 'react';
-import GoogleMap from '../google/google.map';
+import {GoogleMap} from '../../google/map';
 
-const FormMapSelect = () => {
+export const FormMapSelect = () => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const theme = useTheme();
@@ -120,5 +120,3 @@ const FormMapSelect = () => {
     </Box>
   );
 };
-
-export default FormMapSelect;

@@ -1,8 +1,8 @@
 import {GmapContainer, GstvContainer} from '@/services/google';
 import type {AppProps, NextWebVitalsMetric} from 'next/app';
 import {Provider} from 'react-redux';
-import LoadingProgress from '../components/feedback/feedback.progress';
-import {store} from '../redux/redux.store';
+import {LoadingProgress} from '../components/feedback/progress';
+import {store} from '../redux/store';
 import {AuthWrapper} from './wrappers/auth.wrapper';
 import {ThemeWrapper} from './wrappers/theme.wrapper';
 

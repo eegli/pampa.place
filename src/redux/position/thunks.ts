@@ -1,10 +1,10 @@
 import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
 import {LatLngLiteral} from '@/config/types';
-import {RootState} from '@/redux/redux.store';
+import {RootState} from '@/redux/store';
 import {randomPointInMap} from '@/utils/geo';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {PositionState} from './position.slice';
+import {PositionState} from '.';
 
 export interface ValidationError {
   code?: 'ZERO_RESULTS';

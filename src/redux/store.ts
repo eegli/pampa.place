@@ -1,8 +1,8 @@
 import {configureStore, StateFromReducersMapObject} from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import app from './app/app.slice';
-import game from './game/game.slice';
-import position from './position/position.slice';
+import app from './app';
+import game from './game';
+import position from './position';
 
 const reducer = {
   position: position.reducer,

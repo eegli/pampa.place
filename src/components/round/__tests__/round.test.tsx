@@ -6,8 +6,8 @@ import {
   screen,
 } from '@/tests/test-utils';
 import React from 'react';
-import RoundEnd from '../round.end';
-import RoundFinalResult from '../round.final-result';
+import {GameOverSummary} from '../states/game-over';
+import {RoundOverSummary} from '../states/round-over';
 
 const mockPush = jest.fn();
 
@@ -38,7 +38,7 @@ describe('Round end', () => {
     });
 
     const store = createMockStore(state);
-    render(<RoundFinalResult />, store);
+    render(<GameOverSummary />, store);
     const colHeaders = screen.getAllByRole('columnheader');
     const rowHeaders = screen.getAllByRole('rowheader');
     const rows = screen.getAllByRole('row');
@@ -85,7 +85,7 @@ describe('Round end', () => {
     });
 
     const store = createMockStore(state);
-    render(<RoundEnd />, store);
+    render(<RoundOverSummary />, store);
     const colHeaders = screen.getAllByRole('columnheader');
     const rowHeaders = screen.getAllByRole('rowheader');
     const rows = screen.getAllByRole('row');

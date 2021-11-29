@@ -9,7 +9,7 @@ import game, {
   setPlayerScore,
   setRounds,
   startRound,
-} from '../game/game.slice';
+} from '../game';
 
 describe('Redux, game', () => {
   let state = createMockState().game;

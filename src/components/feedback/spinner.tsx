@@ -1,7 +1,7 @@
 import {CircularProgress} from '@mui/material';
 import {SlimContainer} from '../../styles/containers';
 
-const Spinner = () => {
+export const Spinner = () => {
   return (
     <SlimContainer
       display="flex"
@@ -13,4 +13,3 @@ const Spinner = () => {
     </SlimContainer>
   );
 };
-export default Spinner;

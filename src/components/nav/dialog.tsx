@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from '@mui/material';
 
-export type DialogProps = {
+export type ConfirmationDialogProps = {
   open: boolean;
   title: string;
   callback: () => void | (() => Promise<void>);
@@ -16,14 +16,14 @@ export type DialogProps = {
   message?: string;
 };
 
-const ConfirmationDialog = ({
+export const ConfirmationDialog = ({
   open,
   title,
   callback,
   cancel,
   message,
   callbackTitle,
-}: DialogProps) => {
+}: ConfirmationDialogProps) => {
   // Needed for smooth unmount transitions
   if (!open) {
     return <div />;
@@ -54,5 +54,3 @@ const ConfirmationDialog = ({
     </div>
   );
 };
-
-export default ConfirmationDialog;

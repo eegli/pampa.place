@@ -1,4 +1,4 @@
-import {RootState} from '@/redux/redux.store';
+import {RootState} from '@/redux/store';
 import {
   Container,
   createTheme,
@@ -6,7 +6,7 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import React, {ReactNode} from 'react';
-import {useAppSelector} from '../../redux/redux.hooks';
+import {useAppSelector} from '../../redux/hooks';
 import GlobalStyles from '../../styles/global';
 
 export const ThemeWrapper = ({children}: {children: ReactNode}) => {
