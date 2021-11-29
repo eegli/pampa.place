@@ -34,7 +34,7 @@ export interface GameState {
   };
 }
 
-export const initialState: GameState = {
+const initialState: GameState = {
   status: STATUS.UNINITIALIZED,
   mapId: MAP_IDS[0].id,
   mapName: MAP_IDS[0].name,
@@ -48,7 +48,7 @@ export const initialState: GameState = {
   },
 };
 
-export const gameSlice = createSlice({
+const gameSlice = createSlice({
   name: 'game',
   initialState,
 
@@ -174,4 +174,4 @@ export const {
   setPlayers,
   setTimeLimit,
 } = gameSlice.actions;
-export default gameSlice.reducer;
+export default gameSlice;

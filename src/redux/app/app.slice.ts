@@ -26,4 +26,4 @@ const appSlice = createSlice({
 });
 
 export const {setApiKey, toggleTheme} = appSlice.actions;
-export default appSlice.reducer;
+export default appSlice;

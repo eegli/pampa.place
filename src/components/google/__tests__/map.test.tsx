@@ -1,8 +1,8 @@
 import {testMapId} from '@/config/__mocks__/maps';
+import {MapService} from '@/services/google';
 import {createMockStore, render, screen} from '@/tests/test-utils';
 import React from 'react';
 import {mocked} from 'ts-jest/utils';
-import {MapService} from '../../../services/google-map';
 import GoogleMap, {GoogleMapProps} from '../google.map';
 
 const mockGmap = mocked(MapService, true);

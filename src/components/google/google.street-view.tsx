@@ -1,8 +1,8 @@
 import {config} from '@/config/google';
 import {useAppSelector} from '@/redux/redux.hooks';
+import {StreetViewService} from '@/services/google';
 import {Fade} from '@mui/material';
 import React, {useEffect, useRef} from 'react';
-import {StreetViewService} from '../../services/google-sv';
 
 type GoogleStreetViewProps = {
   staticPos?: boolean;

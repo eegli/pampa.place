@@ -5,8 +5,8 @@ import {LatLngLiteral} from '@/config/types';
 import {Result} from '@/redux/game/game.slice';
 import {updateSelectedPosition} from '@/redux/position/position.slice';
 import {useAppDispatch} from '@/redux/redux.hooks';
+import {MapService} from '@/services/google';
 import {useEffect, useRef} from 'react';
-import {MapService} from '../../services/google-map';
 
 export type GoogleMapProps = {
   mapId: string;

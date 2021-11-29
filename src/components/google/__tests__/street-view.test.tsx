@@ -1,7 +1,7 @@
+import {StreetViewService} from '@/services/google';
 import {render, screen} from '@/tests/test-utils';
 import React from 'react';
 import {mocked} from 'ts-jest/utils';
-import {StreetViewService} from '../../../services/google-sv';
 import GoogleStreetView from '../google.street-view';
 
 const mockSv = mocked(StreetViewService, true);

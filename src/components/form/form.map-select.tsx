@@ -91,18 +91,24 @@ const FormMapSelect = () => {
           }}
         >
           <DialogTitle>{activeMapName}</DialogTitle>
-          <DialogContent>
+          <DialogContent
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
             <Box
+              id="map-preview"
               sx={{
                 height: 600,
-                margin: 'auto',
-                maxWidth: '100%',
-                width: ({breakpoints}) => breakpoints.values.sm,
+                maxHeight: '100%',
+
+                width: 400,
               }}
             >
               <GoogleMap mapId={activeMapId} mode="preview" />
             </Box>
-            <DialogContentText mt={2}>
+            <DialogContentText py={2}>
               Rough bounds of the map &quot;{activeMapName}&quot;.
             </DialogContentText>
           </DialogContent>

@@ -1,38 +1,37 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import {configureStore, StateFromReducersMapObject} from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import app from './app/app.slice';
 import game from './game/game.slice';
 import position from './position/position.slice';
 
-export const rootReducer = combineReducers({
-  position,
-  game,
-  app,
-});
-
-/* const persistConfig = {
-  key: 'root',
-  storage,
+const reducer = {
+  position: position.reducer,
+  app: app.reducer,
+  game: game.reducer,
 };
- */
 
-/* const persistedReducer = persistReducer(persistConfig, rootReducer); */
+export const initialStates = {
+  position: position.reducer(undefined, {type: '@@INIT'}),
+  app: app.reducer(undefined, {type: '@@INIT'}),
+  game: game.reducer(undefined, {type: '@@INIT'}),
+};
 
+const isDev = process.env.NODE_ENV === 'development';
 const devMiddleware = [logger];
 
-const isDev = process.env.NODE_ENV !== 'production';
+export function createStore(preloadedState?: RootState) {
+  return configureStore({
+    reducer,
+    preloadedState,
+    devTools: false,
+    middleware: getDefault =>
+      isDev
+        ? getDefault({serializableCheck: false}).concat(devMiddleware)
+        : getDefault({serializableCheck: false}),
+  });
+}
 
-// Export for tests
+export const store = createStore();
 
-export const store = configureStore({
-  reducer: rootReducer,
-  middleware: getDefault =>
-    isDev
-      ? getDefault({serializableCheck: false}).concat(devMiddleware)
-      : getDefault({serializableCheck: false}),
-});
-
-/* const persistor = persistStore(store); */
-
-export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type RootState = StateFromReducersMapObject<typeof reducer>;

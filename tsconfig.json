@@ -12,10 +12,12 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noImplicitAny": true,
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
       "@/config/*": ["src/config/*"],
+      "@/services/*": ["src/services/*"],
       "@/redux/*": ["src/redux/*"],
       "@/utils/*": ["src/utils/*"],
       "@/tests/*": ["src/__tests__/*"]

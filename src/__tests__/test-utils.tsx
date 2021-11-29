@@ -1,28 +1,20 @@
-import {configureStore} from '@reduxjs/toolkit';
+import {GmapContainer, GstvContainer} from '@/services/google';
+import {DeepPartial} from '@/utils/types';
 import {render, RenderOptions} from '@testing-library/react';
+import {merge} from 'lodash';
 import {FC, ReactElement} from 'react';
 import {Provider} from 'react-redux';
 import {ThemeWrapper} from '../pages/wrappers/theme.wrapper';
-import {rootReducer} from '../redux/redux.store';
-import {GmapContainer} from '../services/google-map';
-import {GstvContainer} from '../services/google-sv';
+import {createStore, initialStates, RootState} from '../redux/redux.store';
 
-export function createMockStore() {
-  return configureStore({
-    reducer: rootReducer,
-  });
-}
-
-const customRender = (
+function customRender(
   ui: ReactElement,
-  store?: ReturnType<typeof createMockStore>,
+  store: ReturnType<typeof createStore> = createStore(),
   options?: Omit<RenderOptions, 'wrapper'>
-) => {
-  const providerStore = store || createMockStore();
-
+) {
   const Wrapper: FC = ({children}) => {
     return (
-      <Provider store={providerStore}>
+      <Provider store={store}>
         <ThemeWrapper>
           <GmapContainer />
           <GstvContainer />
@@ -36,7 +28,16 @@ const customRender = (
     wrapper: Wrapper,
     ...options,
   });
-};
+}
 
 export * from '@testing-library/react';
 export {customRender as render};
+/*
+createMockState and createMockStore can be used together. Create a
+state from the defined initial state, enrich it and pass it to
+createMockStore.
+*/
+export {createStore as createMockStore};
+export function createMockState(state: DeepPartial<RootState> = {}) {
+  return merge({}, initialStates, state);
+}

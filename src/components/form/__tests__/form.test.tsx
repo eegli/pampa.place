@@ -1,5 +1,6 @@
 import {config} from '@/config/game';
 import {STATUS} from '@/redux/game/game.slice';
+import {MapService} from '@/services/google';
 import {
   ByRoleOptions,
   createMockStore,
@@ -8,7 +9,6 @@ import {
   screen,
 } from '@/tests/test-utils';
 import React from 'react';
-import {MapService} from '../../../services/google-map';
 import Form from '../form';
 import FormMapSelect from '../form.map-select';
 import FormPlayers from '../form.players';

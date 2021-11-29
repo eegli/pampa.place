@@ -63,4 +63,4 @@ const positonSlice = createSlice({
 
 export const {updateSelectedPosition, resetSelectedPosition} =
   positonSlice.actions;
-export default positonSlice.reducer;
+export default positonSlice;
