@@ -6,10 +6,6 @@ import {GoogleStreetView} from '../street-view';
 
 const mockSv = mocked(StreetViewService, true);
 
-jest.spyOn(React, 'useRef').mockReturnValue({
-  current: document.createElement('div'),
-});
-
 afterEach(() => {
   jest.clearAllMocks();
 });
