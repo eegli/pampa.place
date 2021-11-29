@@ -5,7 +5,6 @@ import {
   render,
   screen,
 } from '@/tests/test-utils';
-import React from 'react';
 import {GameOverSummary} from '../states/game-over';
 import {RoundOverSummary} from '../states/round-over';
 

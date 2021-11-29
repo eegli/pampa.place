@@ -4,7 +4,7 @@ import {GetStaticProps} from 'next';
 import {MDXRemote, MDXRemoteSerializeResult} from 'next-mdx-remote';
 import {serialize} from 'next-mdx-remote/serialize';
 import fetch from 'node-fetch';
-import React, {ReactNode} from 'react';
+import {ReactNode} from 'react';
 import {SlimContainer} from '../styles/containers';
 
 const components: Record<string, ReactNode> = {

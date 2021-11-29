@@ -12,6 +12,10 @@ const mockGoogle = mocked(google.maps, true);
 const events: {event: string; func: Function}[] = [];
 const removeEventListener = jest.fn();
 
+jest.spyOn(React, 'useRef').mockReturnValue({
+  current: document.createElement('div'),
+});
+
 jest
   .spyOn(mockGoogle.event, 'addListenerOnce')
   .mockImplementation((_, event, handler) => {
@@ -27,10 +31,6 @@ jest.spyOn(mockGmap.map, 'addListener').mockImplementation((event, handler) => {
   const func = () => handler(clickEvent);
   events.push({event, func});
   return {remove: removeEventListener};
-});
-
-jest.spyOn(React, 'useRef').mockReturnValue({
-  current: document.createElement('div'),
 });
 
 afterEach(() => {

@@ -5,7 +5,7 @@ import {
   CssBaseline,
   ThemeProvider,
 } from '@mui/material';
-import React, {ReactNode} from 'react';
+import {ReactNode} from 'react';
 import {useAppSelector} from '../../redux/hooks';
 import GlobalStyles from '../../styles/global';
 
