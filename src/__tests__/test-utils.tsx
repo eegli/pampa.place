@@ -30,7 +30,7 @@ function customRender(
   });
 }
 
-function createMockState(state: DeepPartial<RootState> = {}) {
+function createMockState(state: DeepPartial<RootState> = {}): RootState {
   return merge({}, initialStates, state);
 }
 

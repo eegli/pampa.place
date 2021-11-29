@@ -25,6 +25,8 @@ export interface GameState {
   mapId: string;
   mapName: string;
   players: string[];
+  // Store the results for each round in the outer array. The innner
+  // array consists of player result objects.
   scores: Result[][];
   timeLimit: number;
   rounds: {
@@ -76,7 +78,8 @@ const gameSlice = createSlice({
         state.players = ['Player 1'];
       }
       state.scores = [];
-      state.scores = Array(state.rounds.total).fill([]);
+      // Empty score array for first round
+      state.scores.push([]);
       state.rounds.current = 1;
       state.rounds.progress = 0;
       state.status = STATUS.PENDING_PLAYER;
@@ -107,7 +110,6 @@ const gameSlice = createSlice({
 
       state.scores[state.rounds.current - 1].push({
         name: state.players[0],
-
         selected,
         dist,
         score,
@@ -149,13 +151,14 @@ const gameSlice = createSlice({
       state.status = STATUS.PENDING_PLAYER;
     },
     endRound(state) {
-      state.rounds.current++;
-      state.rounds.progress = 0;
-
       // Game has ended
-      if (state.rounds.total < state.rounds.current) {
+      if (state.rounds.total === state.rounds.current) {
         state.status = STATUS.FINISHED;
       } else {
+        // Prepare for next round
+        state.rounds.current++;
+        state.rounds.progress = 0;
+        state.scores.push([]);
         state.status = STATUS.PENDING_PLAYER;
       }
     },

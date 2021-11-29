@@ -1,5 +1,5 @@
 import {endRound} from '@/redux/game';
-import {getRoundScores, isFinished} from '@/redux/game/selectors';
+import {getCurrentRoundScores, isFinished} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {formatDist} from '@/utils/misc';
 import {
@@ -30,7 +30,7 @@ export const RoundOverSummary = () => {
   };
   const dispatch = useAppDispatch();
   const activeMapId = useAppSelector(({game}) => game.mapId);
-  const scores = useAppSelector(getRoundScores);
+  const scores = useAppSelector(getCurrentRoundScores);
   const currentRound = useAppSelector(({game}) => game.rounds.current);
   const initialPosition = useAppSelector(
     ({position}) => position.initialPosition

@@ -5,21 +5,23 @@ export const getActivePlayer = (s: RootState) => s.game.players[0];
 
 export const getPlayerCount = (s: RootState) => s.game.players.length;
 
-export const getRoundScores = createSelector(
-  [
-    (s: RootState) => s.game.scores,
-    (s: RootState) => s.game.rounds.current - 1,
-  ],
-  (scores, currentRound) => {
-    /* Sort on a copy, otherwise, Redux isn't happy: https://stackoverflow.com/a/66721870 */
-    return [...scores[currentRound]].sort((a, b) =>
-      a.score > b.score ? -1 : b.score > a.score ? 1 : 0
-    );
+function sortScores<T extends {score: number}[]>(scores: T): T {
+  return scores.sort((a, b) =>
+    a.score > b.score ? -1 : b.score > a.score ? 1 : 0
+  );
+}
+
+export const getCurrentRoundScores = createSelector(
+  (s: RootState) => s.game.scores,
+  scores => {
+    const lastScore = scores.length - 1;
+    return sortScores(Array.from(scores[lastScore]));
   }
 );
 
 export const getTotalScores = createSelector(
-  [(s: RootState) => s.game.scores, (s: RootState) => s.game.players],
+  (s: RootState) => s.game.scores,
+  (s: RootState) => s.game.players,
   (scores, players) => {
     const total = Array.from({length: players.length}, (_, idx) => ({
       name: players[idx],
@@ -32,9 +34,7 @@ export const getTotalScores = createSelector(
       });
     });
 
-    return total.sort((a, b) =>
-      a.score > b.score ? -1 : b.score > a.score ? 1 : 0
-    );
+    return sortScores(total);
   }
 );
 
