@@ -1,6 +1,5 @@
 import {createMockState} from '@/tests/test-utils';
 import {DeepPartial} from '@/utils/types';
-import * as selectors from '../game/game.selectors';
 import game, {
   endRound,
   GameState,
@@ -82,32 +81,5 @@ describe('Redux, game', () => {
     expect(state).toMatchSnapshot('Round 2, player 2 scored');
     state = game.reducer(state, endRound);
     expect(state).toMatchSnapshot('Finished round 2, game ended');
-  });
-});
-
-describe('Redux, game selectors', () => {
-  it('calculates round scores', () => {
-    const state = createMockState({
-      game: {
-        players: ['Player 1', 'Player 2'],
-        scores: [
-          [
-            {name: 'Player 1', selected: null, dist: 2, score: 10},
-            {name: 'Player 2', selected: null, dist: 2, score: 5},
-          ],
-          [
-            {name: 'Player 1', selected: null, dist: 2, score: 20},
-            {name: 'Player 2', selected: null, dist: 2, score: 10},
-          ],
-        ],
-        rounds: {
-          total: 2,
-          current: 1,
-          progress: 2,
-        },
-      },
-    });
-
-    expect(selectors.getRoundScores(state)).toMatchSnapshot();
   });
 });

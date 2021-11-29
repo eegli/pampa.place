@@ -35,13 +35,6 @@ export const getTotalScores = createSelector(
     return total.sort((a, b) =>
       a.score > b.score ? -1 : b.score > a.score ? 1 : 0
     );
-  },
-  {
-    memoizeOptions: {
-      equalityCheck: (a, b) => {
-        return a[0].score === b[0].score;
-      },
-    },
   }
 );
 

@@ -83,8 +83,7 @@ const RoundEnd = () => {
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">#</TableCell>
-                  <TableCell align="left">Name</TableCell>
+                  <TableCell>Name</TableCell>
                   <TableCell align="right">Distance</TableCell>
                   <TableCell align="right">Score</TableCell>
                 </TableRow>
@@ -92,10 +91,9 @@ const RoundEnd = () => {
               <TableBody>
                 {scores.map((p, idx) => (
                   <TableRow key={p.name}>
-                    <TableCell component="th" scope="row" align="left">
-                      {idx + 1}
+                    <TableCell component="th" scope="row">
+                      {p.name}
                     </TableCell>
-                    <TableCell align="left">{p.name}</TableCell>
                     <TableCell align="right">{formatDist(p.dist)}</TableCell>
                     <TableCell align="right">{p.score}</TableCell>
                   </TableRow>

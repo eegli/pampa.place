@@ -5,8 +5,8 @@ import Error from '../components/feedback/feedback.error';
 import SpeedDialNav from '../components/nav/nav.speed-dial';
 import Play from '../components/play/play';
 import RoundEnd from '../components/round/round.end';
+import RoundFinalResult from '../components/round/round.final-result';
 import RoundIntermission from '../components/round/round.intermission';
-import RoundResult from '../components/round/round.result';
 import {useAppDispatch, useAppSelector} from '../redux/redux.hooks';
 import {PageContentWrapper} from '../styles/containers';
 
@@ -29,7 +29,7 @@ const GamePage = () => {
       case STATUS.ROUND_ENDED:
         return <RoundEnd />;
       case STATUS.FINISHED:
-        return <RoundResult />;
+        return <RoundFinalResult />;
 
       default:
         return <div />;
