@@ -34,7 +34,7 @@ export const getRandomStreetView = createAsyncThunk<
       ? google.maps.StreetViewPreference.BEST
       : google.maps.StreetViewPreference.NEAREST;
 
-  const service = new window.google.maps.StreetViewService();
+  const service = new google.maps.StreetViewService();
   const reqDefaults: google.maps.StreetViewLocationRequest = {
     preference: randomPreference,
     source: google.maps.StreetViewSource.OUTDOOR,

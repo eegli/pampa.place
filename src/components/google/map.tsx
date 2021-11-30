@@ -98,7 +98,7 @@ export const GoogleMap = ({
       console.log('RESULT MODE MOUNT');
       MapService.map.setOptions(config.map);
       MapService.addMarker(
-        new window.google.maps.Marker({
+        new google.maps.Marker({
           position: initialPosition,
           map: MapService.map,
         })
@@ -106,7 +106,7 @@ export const GoogleMap = ({
 
       results.forEach((p, idx) => {
         MapService.addMarker(
-          new window.google.maps.Marker({
+          new google.maps.Marker({
             position: p.selected,
             map: MapService.map,
 

@@ -27,20 +27,12 @@ function getRadios(opts?: ByRoleOptions) {
 }
 
 describe('Form', () => {
-  function querySubmitButton() {
-    return screen.getByRole('button', {name: /start/i});
-  }
-
-  it('has submit button', () => {
-    render(<Form />);
-    const submit = querySubmitButton();
-    expect(submit).toBeInTheDocument();
-  });
-
   it('inits game on click', () => {
     const store = createMockStore();
     render(<Form />, store);
-    const submit = querySubmitButton();
+    const submit = screen.getByRole('button', {name: /start/i});
+    expect(submit).toBeInTheDocument();
+
     fireEvent.click(submit);
 
     expect(store.getState().game.status).not.toEqual(STATUS.UNINITIALIZED);
@@ -51,7 +43,6 @@ describe('Form, player name input', () => {
   function queryPlayerInput() {
     return screen.queryAllByLabelText(/^player/i);
   }
-
   it('always renders at least one player input field', () => {
     render(<FormPlayers />);
     expect(queryPlayerInput()).toHaveLength(1);
@@ -123,7 +114,6 @@ describe('Form, duration select', () => {
 // TODO
 describe('Form, map selection and preview', () => {
   const toggleSpy = jest.spyOn(MapService, 'mount');
-
   it('displays maps', () => {
     render(<FormMapSelect />);
     const mapSelection = screen.getByRole('button', {name: /custom map/i});

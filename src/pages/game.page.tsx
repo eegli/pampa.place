@@ -31,7 +31,7 @@ const GamePage = () => {
         return <GameOverSummary />;
 
       default:
-        return <div />;
+        return null;
     }
   }
 

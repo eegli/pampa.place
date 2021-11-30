@@ -26,7 +26,7 @@ export const ConfirmationDialog = ({
 }: ConfirmationDialogProps) => {
   // Needed for smooth unmount transitions
   if (!open) {
-    return <div />;
+    return null;
   }
   return (
     <div>

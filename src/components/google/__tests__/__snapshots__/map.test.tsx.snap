@@ -1,5 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Google Map has play mode: 1 1`] = `
+<div>
+  <div
+    class="MuiContainer-root css-vg1u2y-MuiContainer-root"
+    id="mother"
+  >
+    <div
+      data-testid="__GMAP__CONTAINER__"
+      id="__GMAP__CONTAINER__"
+    />
+    <div
+      data-testid="__GSTV__CONTAINER__"
+      id="__GSTV__CONTAINER__"
+    >
+      <div
+        data-testid="__GSTV__"
+        id="__GSTV__"
+        style="height: 100%;"
+      />
+    </div>
+    <div
+      style="height: 100%;"
+    >
+      <div
+        data-testid="__GMAP__"
+        id="__GMAP__"
+        style="height: 100%;"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Google Map has play mode: 2 1`] = `
+<div>
+  <div
+    class="MuiContainer-root css-vg1u2y-MuiContainer-root"
+    id="mother"
+  >
+    <div
+      data-testid="__GMAP__CONTAINER__"
+      id="__GMAP__CONTAINER__"
+    />
+    <div
+      data-testid="__GSTV__CONTAINER__"
+      id="__GSTV__CONTAINER__"
+    >
+      <div
+        data-testid="__GSTV__"
+        id="__GSTV__"
+        style="height: 100%;"
+      />
+    </div>
+    <div
+      style="height: 100%;"
+    >
+      <div
+        data-testid="__GMAP__"
+        id="__GMAP__"
+        style="height: 100%;"
+      />
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Google Map has play mode: play settings 1`] = `
 Array [
   Object {

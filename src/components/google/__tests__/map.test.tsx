@@ -8,12 +8,23 @@ import {GoogleMap, GoogleMapProps} from '../map';
 const mockGmap = mocked(MapService, true);
 const mockGoogle = mocked(google.maps, true);
 
+jest.spyOn(React, 'useRef').mockReturnValue({
+  current: document.createElement('div'),
+});
+
+// Mock implementation for listeners. The handler will be caught and
+// called with the event it would get from google.maps.Map's click
+// event. Unfortunately, this event has no official types
+
 // Store a reference to the events that are called when the map is mounted
 const events: {event: string; func: Function}[] = [];
 const removeEventListener = jest.fn();
 
-jest.spyOn(React, 'useRef').mockReturnValue({
-  current: document.createElement('div'),
+jest.spyOn(mockGmap.map, 'addListener').mockImplementation((event, handler) => {
+  const clickEvent = {latLng: {lat: () => 8, lng: () => 8}};
+  const func = () => handler(clickEvent);
+  events.push({event, func});
+  return {remove: removeEventListener};
 });
 
 jest
@@ -22,16 +33,6 @@ jest
     events.push({event, func: handler});
     return {remove: removeEventListener};
   });
-
-// Mock implementation for listeners. The handler will be caught and
-// called with the event it would get from google.maps.Map's click
-// event. Unfortunately, this event has no official types
-jest.spyOn(mockGmap.map, 'addListener').mockImplementation((event, handler) => {
-  const clickEvent = {latLng: {lat: () => 8, lng: () => 8}};
-  const func = () => handler(clickEvent);
-  events.push({event, func});
-  return {remove: removeEventListener};
-});
 
 afterEach(() => {
   jest.clearAllMocks();
