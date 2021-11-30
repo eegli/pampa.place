@@ -1,4 +1,4 @@
-import {startRound} from '@/redux/game';
+import {startOrResumeRound} from '@/redux/game';
 import {shouldRequestNewSV} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {resetSelectedPosition} from '@/redux/position';
@@ -24,7 +24,7 @@ export const RoundIntermission = () => {
 
   function handleClick() {
     dispatch(resetSelectedPosition());
-    dispatch(startRound());
+    dispatch(startOrResumeRound());
   }
 
   return (

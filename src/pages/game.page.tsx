@@ -23,7 +23,7 @@ const GamePage = () => {
     switch (status) {
       case STATUS.PENDING_PLAYER:
         return <RoundIntermission />;
-      case STATUS.ROUND_STARTED:
+      case STATUS.ROUND_ONGOING:
         return <Play />;
       case STATUS.ROUND_ENDED:
         return <RoundOverSummary />;

@@ -14,7 +14,7 @@ export type Result = {
 
 export enum STATUS {
   UNINITIALIZED = 'UNINITIALIZED',
-  ROUND_STARTED = 'ROUND_STARTED',
+  ROUND_ONGOING = 'ROUND_ONGOING',
   PENDING_PLAYER = 'PENDING_PLAYER',
   ROUND_ENDED = 'ROUND_ENDED',
   FINISHED = 'FINISHED',
@@ -84,8 +84,8 @@ const gameSlice = createSlice({
       state.rounds.progress = 0;
       state.status = STATUS.PENDING_PLAYER;
     },
-    startRound(state) {
-      state.status = STATUS.ROUND_STARTED;
+    startOrResumeRound(state) {
+      state.status = STATUS.ROUND_ONGOING;
     },
     setPlayerScore(
       state,
@@ -168,7 +168,7 @@ const gameSlice = createSlice({
 export const {
   reset,
   initGame,
-  startRound,
+  startOrResumeRound,
   endRound,
   resetRound,
   setPlayerScore,
