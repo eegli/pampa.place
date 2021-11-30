@@ -3,7 +3,8 @@
   "plugins": ["testing-library"],
   "rules": {
     // https://github.com/vercel/next.js/issues/28596
-    "@next/next/no-document-import-in-page": "off"
+    "@next/next/no-document-import-in-page": "off",
+    "react-hooks/exhaustive-deps": "error"
   },
   "overrides": [
     {
