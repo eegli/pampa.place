@@ -34,7 +34,7 @@
     "@turf/random": "^6.5.0",
     "lodash.merge": "^4.6.2",
     "nanoid": "^3.1.30",
-    "next": "12.0.3",
+    "next": "12.0.4",
     "next-mdx-remote": "^3.0.8",
     "node-fetch": "^3.1.0",
     "react": "17.0.2",
