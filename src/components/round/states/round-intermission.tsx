@@ -20,7 +20,7 @@ export const RoundIntermission = () => {
     if (shouldGetNewSV) {
       dispatch(getRandomStreetView());
     }
-  }, [shouldGetNewSV]);
+  }, [dispatch]);
 
   function handleClick() {
     dispatch(resetSelectedPosition());
