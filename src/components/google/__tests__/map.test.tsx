@@ -6,11 +6,6 @@ import {mocked} from 'ts-jest/utils';
 import {GoogleMap, GoogleMapProps} from '../map';
 
 const mockGmap = mocked(MapService, true);
-const mockGoogle = mocked(google.maps, true);
-
-jest.spyOn(React, 'useRef').mockReturnValue({
-  current: document.createElement('div'),
-});
 
 // Mock implementation for listeners. The handler will be caught and
 // called with the event it would get from google.maps.Map's click
@@ -28,11 +23,14 @@ jest.spyOn(mockGmap.map, 'addListener').mockImplementation((event, handler) => {
 });
 
 jest
-  .spyOn(mockGoogle.event, 'addListenerOnce')
+  .spyOn(google.maps.event, 'addListenerOnce')
   .mockImplementation((_, event, handler) => {
     events.push({event, func: handler});
     return {remove: removeEventListener};
   });
+
+// @ts-expect-error - fake at least one element in the array to check the cleanup function for the feature
+jest.spyOn(mockGmap.map.data, 'addGeoJson').mockReturnValue(['Feature 1']);
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -59,11 +57,11 @@ describe('Google Map', () => {
     expect(mockGmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
       'preview settings'
     );
-    expect(mockGoogle.Map.prototype.data.setStyle).toHaveBeenCalledTimes(1);
-    expect(mockGoogle.Map.prototype.data.addGeoJson).toHaveBeenCalledTimes(1);
-    expect(mockGoogle.Map.prototype.data.setStyle).toHaveBeenCalledTimes(1);
+    expect(mockGmap.map.data.setStyle).toHaveBeenCalledTimes(1);
+    expect(mockGmap.map.data.addGeoJson).toHaveBeenCalledTimes(1);
+    expect(mockGmap.map.data.setStyle).toHaveBeenCalledTimes(1);
     unmount();
-    expect(mockGoogle.Map.prototype.data.remove).toHaveBeenCalledTimes(3);
+    expect(mockGmap.map.data.remove).toHaveBeenCalledTimes(1);
   });
   it('has play mode', () => {
     const store = createMockStore();

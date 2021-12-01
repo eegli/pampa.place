@@ -15,10 +15,6 @@ import {Play} from '../play';
 const mockGoogle = mocked(google.maps, true);
 const mockGmap = mocked(MapService, true);
 
-jest.spyOn(React, 'useRef').mockReturnValue({
-  current: document.createElement('div'),
-});
-
 const removeEventListener = jest.fn();
 
 jest.spyOn(mockGmap.map, 'addListener').mockImplementation((event, handler) => {
