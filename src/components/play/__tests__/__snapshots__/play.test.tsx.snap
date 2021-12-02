@@ -1,104 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Play page renders 1`] = `
-<div>
-  <div
-    class="MuiContainer-root css-vg1u2y-MuiContainer-root"
-    id="mother"
-  >
-    <div
-      data-testid="__GMAP__CONTAINER__"
-      id="__GMAP__CONTAINER__"
-    />
-    <div
-      data-testid="__GSTV__CONTAINER__"
-      id="__GSTV__CONTAINER__"
-    >
-      <div
-        data-testid="__GSTV__"
-        id="__GSTV__"
-        style="height: 100%;"
-      />
-    </div>
-    <div
-      class="MuiBox-root css-kgpjue"
-    >
-      <div
-        class="MuiBox-root css-10dfrhn"
-      >
-        <div
-          class="css-197pqds-MuiStack-root"
-        >
-          <div
-            class="MuiBox-root css-s2uf1z"
-          >
-            <span
-              class="MuiTypography-root MuiTypography-caption css-1vsy5xt-MuiTypography-root"
-            >
-              Your turn
-            </span>
-            <h5
-              class="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
-            />
-          </div>
-          <hr
-            class="MuiDivider-root MuiDivider-fullWidth MuiDivider-vertical MuiDivider-flexItem css-1kpnj7b-MuiDivider-root"
-          />
-          <div
-            class="MuiBox-root css-0"
-          >
-            <span
-              class="MuiTypography-root MuiTypography-caption css-1vsy5xt-MuiTypography-root"
-            >
-              Time remaining
-            </span>
-            <h5
-              class="MuiTypography-root MuiTypography-h5 css-1v2udv1-MuiTypography-root"
-            >
-              <span>
-                1m
-              </span>
-            </h5>
-          </div>
-        </div>
-      </div>
-      <div
-        class="MuiBox-root css-ojqyia"
-      >
-        <div
-          class="MuiBox-root css-aj37i8"
-        >
-          <img
-            alt="map-icon"
-            src="/map.svg"
-          />
-        </div>
-        <div
-          class="MuiBox-root css-1dmpwk8"
-        >
-          <button
-            class="MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeLarge MuiButton-containedSizeLarge MuiButtonBase-root Mui-disabled css-1npud8i-MuiButtonBase-root-MuiButton-root"
-            disabled=""
-            tabindex="-1"
-            type="button"
-          >
-            Submit
-          </button>
-        </div>
-        <div
-          style="display: block; height: 100%;"
-        />
-        <div
-          style="height: 100%;"
-        >
-          <div
-            data-testid="__GMAP__"
-            id="__GMAP__"
-            style="height: 100%;"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+exports[`Play page dispatches no score when time runs out: no score 1`] = `
+Array [
+  Array [
+    Object {
+      "dist": -1,
+      "name": "player 1",
+      "score": 0,
+      "selected": null,
+    },
+  ],
+]
+`;
+
+exports[`Play page dispatches score when position is set: score 1`] = `
+Array [
+  Array [
+    Object {
+      "dist": 157225.64920708904,
+      "name": "player 1",
+      "score": 65,
+      "selected": Object {
+        "lat": 1,
+        "lng": 1,
+      },
+    },
+  ],
+]
 `;

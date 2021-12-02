@@ -1,9 +1,23 @@
 import {initialize, MVCObject} from '@googlemaps/jest-mocks';
 import '@testing-library/jest-dom/extend-expect';
+import {MapService} from '../services/google';
 
 jest.mock('../config/maps');
 jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
+
 initialize();
+
+jest
+  .spyOn(MapService.map, 'addListener')
+  .mockImplementation((event, handler) => {
+    return {remove: jest.fn()};
+  });
+
+jest
+  .spyOn(google.maps.event, 'addListenerOnce')
+  .mockImplementation((_, event, handler) => {
+    return {remove: jest.fn()};
+  });
 
 class MockGoogleStreetView
   extends MVCObject

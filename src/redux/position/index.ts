@@ -5,12 +5,8 @@ import {getRandomStreetView, ValidationError} from './thunks';
 
 export interface PositionState {
   // The initial position is a random location on Google Maps with
-  // StreetView available. To keep things simple, it is always
-  // considered truthy, which means that it needs to be set on root
-  // level as soon as the the app mounts (and before the game page can
-  // be accessed).
+  // StreetView available
   initialPosition: OrNull<LatLngLiteral>;
-
   // The user selected position
   selectedPosition: OrNull<LatLngLiteral>;
   panoId: string;

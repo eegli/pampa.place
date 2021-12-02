@@ -1,48 +1,90 @@
-import {updateSelectedPosition} from '@/redux/position';
 import {
   createMockState,
   createMockStore,
+  fireEvent,
   render,
   screen,
 } from '@/tests/test-utils';
 import React from 'react';
-import {mocked} from 'ts-jest/utils';
-import {MapService} from '../../../services/google';
+import * as timer from '../../../hooks/useTimer';
 import {Play} from '../play';
 
 /* WORK IN PROGRESS */
 
-const mockGoogle = mocked(google.maps, true);
-const mockGmap = mocked(MapService, true);
-
-const removeEventListener = jest.fn();
-
-jest.spyOn(mockGmap.map, 'addListener').mockImplementation((event, handler) => {
-  return {remove: removeEventListener};
-});
-
-jest
-  .spyOn(mockGoogle.event, 'addListenerOnce')
-  .mockImplementation((_, event, handler) => {
-    return {remove: removeEventListener};
-  });
-
-afterEach(() => {
-  jest.clearAllMocks();
-});
-
 describe('Play page', () => {
-  it('renders', () => {
-    const state = createMockState();
+  function getSubmitButton() {
+    return screen.getByRole('button', {name: /submit/i});
+  }
+  it('has disabled submit button state', () => {
+    const state = createMockState({
+      position: {
+        selectedPosition: null,
+      },
+    });
     const store = createMockStore(state);
-    const {container} = render(<Play />);
-    let button = screen.queryByRole('button', {name: /submit/i});
+    const {unmount} = render(<Play />, store);
+    const button = getSubmitButton();
     expect(button).toBeDisabled();
-    store.dispatch(updateSelectedPosition);
-    button = screen.queryByRole('button', {name: /submit/i});
-
-    expect(container).toMatchSnapshot();
-
     expect(button).toBeInTheDocument();
+    unmount();
+  });
+  it('has enabled button state', () => {
+    const state = createMockState({
+      position: {
+        selectedPosition: {
+          lat: 1,
+          lng: 1,
+        },
+      },
+    });
+    const store = createMockStore(state);
+    render(<Play />, store);
+    const button = getSubmitButton();
+    expect(button).not.toBeDisabled();
+    expect(button).toBeInTheDocument();
+  });
+  it('dispatches no score when time runs out', () => {
+    const useTimerSpy = jest.spyOn(timer, 'useTimer').mockImplementation(() => {
+      return [0] as const;
+    });
+    const state = createMockState({
+      position: {
+        selectedPosition: null,
+        initialPosition: {
+          lat: 2,
+          lng: 2,
+        },
+      },
+      game: {
+        players: ['player 1'],
+        scores: [[]],
+      },
+    });
+    const store = createMockStore(state);
+    render(<Play />, store);
+    expect(store.getState().game.scores).toMatchSnapshot('no score');
+    useTimerSpy.mockRestore();
+  });
+  it('dispatches score when position is set', () => {
+    const state = createMockState({
+      position: {
+        selectedPosition: {
+          lat: 1,
+          lng: 1,
+        },
+        initialPosition: {
+          lat: 2,
+          lng: 2,
+        },
+      },
+      game: {
+        players: ['player 1'],
+        scores: [[]],
+      },
+    });
+    const store = createMockStore(state);
+    render(<Play />, store);
+    fireEvent.click(getSubmitButton());
+    expect(store.getState().game.scores).toMatchSnapshot('score');
   });
 });

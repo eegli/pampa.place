@@ -11,7 +11,8 @@ const mockGmap = mocked(MapService, true);
 // called with the event it would get from google.maps.Map's click
 // event. Unfortunately, this event has no official types
 
-// Store a reference to the events that are called when the map is mounted
+// Store a reference to the events that are called when the map is
+// mounted
 const events: {event: string; func: Function}[] = [];
 const removeEventListener = jest.fn();
 
@@ -29,7 +30,8 @@ jest
     return {remove: removeEventListener};
   });
 
-// @ts-expect-error - fake at least one element in the array to check the cleanup function for the feature
+// @ts-expect-error - fake at least one element in the array to check
+// the cleanup function for the feature
 jest.spyOn(mockGmap.map.data, 'addGeoJson').mockReturnValue(['Feature 1']);
 
 afterEach(() => {
