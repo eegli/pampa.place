@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Round intermission fetches new random location at the start of round: new random location 1`] = `
+Object {
+  "error": null,
+  "initialPosition": Object {
+    "lat": 1,
+    "lng": 2,
+  },
+  "loading": false,
+  "panoDescription": "mock panorama description",
+  "panoId": "mock panorama id",
+  "selectedPosition": null,
+}
+`;

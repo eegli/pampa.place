@@ -19,10 +19,37 @@ jest
     return {remove: jest.fn()};
   });
 
-class MockGoogleStreetView
+global.google.maps.StreetViewPreference = {
+  // @ts-expect-error
+  BEST: 'best',
+  // @ts-expect-error
+  NEAREST: 'nearest',
+};
+
+global.google.maps.StreetViewSource = {
+  // @ts-expect-error
+  OUTDOOR: 'outdoor',
+  // @ts-expect-error
+  DEFAULT: 'default',
+};
+
+// @ts-expect-error
+global.google.maps.StreetViewService = class MockStreetViewService
+  implements google.maps.StreetViewService
+{
+  // @ts-expect-error
+  async getPanorama() {
+    return Promise.resolve({test: true});
+  }
+};
+
+global.google.maps.StreetViewPanorama = class MockStreetViewPanorama
   extends MVCObject
   implements google.maps.StreetViewPanorama
 {
+  constructor() {
+    super();
+  }
   controls = [];
   getLinks = jest.fn();
   registerPanoProvider = jest.fn();
@@ -51,6 +78,4 @@ class MockGoogleStreetView
   setMotionTrackingOptions = jest.fn();
   setMotionTrackingControlOptions = jest.fn();
   setZoomControlOptions = jest.fn();
-}
-
-global.google.maps.StreetViewPanorama = MockGoogleStreetView;
+};

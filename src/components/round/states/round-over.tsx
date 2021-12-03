@@ -20,7 +20,7 @@ import {SyntheticEvent, useState} from 'react';
 import {SlimContainer} from '../../../styles/containers';
 import {GoogleMap} from '../../google/map';
 import {GoogleStreetView} from '../../google/street-view';
-import {TabPanel} from './tabs-panel';
+import {TabPanel} from '../tabs-panel';
 
 export const RoundOverSummary = () => {
   const [selectedPanel, setSelectedPanel] = useState(0);

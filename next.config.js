@@ -6,6 +6,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const config = {
   reactStrictMode: true,
   pageExtensions: ['page.tsx', 'page.ts'],
+  /** @param {import('webpack').Configuration} config */
+  webpack: (config, options) => {
+    // TODO improve bundle splitting for server chunks
+    if (options.isServer) {
+      config.optimization.mergeDuplicateChunks = true;
+    }
+    return config;
+  },
   async redirects() {
     return [
       {
@@ -20,8 +28,8 @@ const config = {
       {
         source: '/api/maps/v1/:path*',
         headers: [
-          { key: 'Access-Control-Allow-Origin', value: '*' },
-          { key: 'Access-Control-Allow-Methods', value: 'GET' },
+          {key: 'Access-Control-Allow-Origin', value: '*'},
+          {key: 'Access-Control-Allow-Methods', value: 'GET'},
         ],
       },
     ];

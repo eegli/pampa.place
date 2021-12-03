@@ -35,6 +35,7 @@ export const getRandomStreetView = createAsyncThunk<
       : google.maps.StreetViewPreference.NEAREST;
 
   const service = new google.maps.StreetViewService();
+
   const reqDefaults: google.maps.StreetViewLocationRequest = {
     preference: randomPreference,
     source: google.maps.StreetViewSource.OUTDOOR,
@@ -48,11 +49,13 @@ export const getRandomStreetView = createAsyncThunk<
     while (true) {
       let data: google.maps.StreetViewPanoramaData | null = null;
       const randomLocation = randomPointInMap(map.bb, map.feature.geometry);
+
       try {
         let {data: svData} = await service.getPanorama({
           ...reqDefaults,
           location: randomLocation,
         });
+
         data = svData;
       } catch (err) {
         if (!retries) {
@@ -71,7 +74,6 @@ export const getRandomStreetView = createAsyncThunk<
 
         const panoId = data.location?.pano || '';
         const panoDescription = data.location?.description || '';
-
         return {pos: {lat, lng}, panoId, panoDescription};
       }
     }
