@@ -1,4 +1,4 @@
-import {createMockState, createMockStore, render} from '@/tests/test-utils';
+import {createMockState, createMockStore, render} from '@/tests/utils';
 import {ValidationError} from '../../../redux/position/thunks';
 import {RoundIntermission} from '../states/intermission';
 
@@ -12,8 +12,6 @@ jest.mock('next/router', () => ({
   },
 }));
 
-jest.spyOn(global.console, 'warn').mockImplementation(() => jest.fn());
-
 const getPanoramSpy = jest.spyOn(
   google.maps.StreetViewService.prototype,
   'getPanorama'
@@ -21,10 +19,6 @@ const getPanoramSpy = jest.spyOn(
 
 afterEach(() => {
   jest.resetAllMocks();
-});
-
-afterAll(() => {
-  jest.restoreAllMocks();
 });
 
 describe('Round intermission, ', () => {

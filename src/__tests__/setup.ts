@@ -3,7 +3,10 @@ import '@testing-library/jest-dom/extend-expect';
 import {MapService} from '../services/google';
 
 jest.mock('../config/maps');
+
 jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
+jest.spyOn(global.console, 'info').mockImplementation(() => jest.fn());
+jest.spyOn(global.console, 'warn').mockImplementation(() => jest.fn());
 
 initialize();
 
@@ -63,6 +66,7 @@ global.google.maps.StreetViewService = class StreetViewService
   }
 };
 
+// TODO
 global.google.maps.StreetViewPanorama = class MockStreetViewPanorama
   extends MVCObject
   implements google.maps.StreetViewPanorama

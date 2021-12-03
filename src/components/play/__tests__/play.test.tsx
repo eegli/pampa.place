@@ -4,7 +4,7 @@ import {
   fireEvent,
   render,
   screen,
-} from '@/tests/test-utils';
+} from '@/tests/utils';
 import React from 'react';
 import * as timer from '../../../hooks/useTimer';
 import {Play} from '../play';

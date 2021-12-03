@@ -7,7 +7,7 @@ import {
   fireEvent,
   render,
   screen,
-} from '@/tests/test-utils';
+} from '@/tests/utils';
 import {FormMapSelect} from '../fields/select-map';
 import {FormRoundSelect} from '../fields/select-round';
 import {FormTimeLimitSelect} from '../fields/select-time';

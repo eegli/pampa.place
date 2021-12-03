@@ -10,8 +10,8 @@
     "start": "next start",
     "lint": "next lint --no-cache --dir src --dir scripts",
     "format": "prettier --write src scripts",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --verbose",
+    "test:watch": "jest --verbose --watch",
     "test:coverage": "jest --coverage",
     "scripts:make-map": "node scripts/geojson-property-maker.js",
     "prepare": "husky install"

@@ -4,7 +4,7 @@ import {
   fireEvent,
   render,
   screen,
-} from '@/tests/test-utils';
+} from '@/tests/utils';
 import {RoundOverSummary} from '../states/round-over';
 
 const mockPush = jest.fn();

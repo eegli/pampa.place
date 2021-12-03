@@ -1,6 +1,6 @@
 import {testMapId} from '@/config/__mocks__/maps';
 import {MapService} from '@/services/google';
-import {createMockStore, render, screen} from '@/tests/test-utils';
+import {createMockStore, render, screen} from '@/tests/utils';
 import React from 'react';
 import {mocked} from 'ts-jest/utils';
 import {GoogleMap, GoogleMapProps} from '../map';
@@ -37,10 +37,6 @@ jest.spyOn(mockGmap.map.data, 'addGeoJson').mockReturnValue(['Feature 1']);
 afterEach(() => {
   jest.clearAllMocks();
   events.length = 0;
-});
-
-afterAll(() => {
-  jest.restoreAllMocks();
 });
 
 describe('Google Map', () => {
