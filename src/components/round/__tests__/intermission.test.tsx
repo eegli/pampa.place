@@ -20,7 +20,11 @@ const getPanoramSpy = jest.spyOn(
 );
 
 afterEach(() => {
-  getPanoramSpy.mockClear();
+  jest.resetAllMocks();
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
 });
 
 describe('Round intermission, ', () => {
@@ -75,5 +79,24 @@ describe('Round intermission, ', () => {
     await new Promise(r => setTimeout(r, 0));
     expect(getPanoramSpy).toHaveBeenCalledTimes(50);
     expect(store.getState().position).toMatchSnapshot('sv request, rejected');
+  });
+  it('requests new street view location, pending', async () => {
+    const state = createMockState({
+      game: {
+        players: ['player 1', 'player 2'],
+        rounds: {
+          total: 3,
+          current: 1,
+          progress: 0,
+        },
+      },
+      position: {
+        initialPosition: null,
+      },
+    });
+    const store = createMockStore(state);
+    render(<RoundIntermission />, store);
+    expect(getPanoramSpy).toHaveBeenCalledTimes(1);
+    expect(store.getState().position).toMatchSnapshot('sv request, pending');
   });
 });

@@ -14,6 +14,17 @@ Object {
 }
 `;
 
+exports[`Round intermission,  requests new street view location, pending: sv request, pending 1`] = `
+Object {
+  "error": null,
+  "initialPosition": null,
+  "loading": true,
+  "panoDescription": "",
+  "panoId": "",
+  "selectedPosition": null,
+}
+`;
+
 exports[`Round intermission,  requests new street view location, rejected: sv request, rejected 1`] = `
 Object {
   "error": Object {
