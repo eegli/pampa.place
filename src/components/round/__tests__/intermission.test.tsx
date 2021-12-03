@@ -1,4 +1,10 @@
-import {createMockState, createMockStore, render} from '@/tests/utils';
+import {
+  createMockState,
+  createMockStore,
+  fireEvent,
+  render,
+  screen,
+} from '@/tests/utils';
 import {ValidationError} from '../../../redux/position/thunks';
 import {RoundIntermission} from '../states/intermission';
 
@@ -43,6 +49,12 @@ describe('Round intermission, ', () => {
     // There seems to be a race condition with the store updating.
     // Resolve before calling store.getState()
     await new Promise(r => setTimeout(r, 0));
+    const button = screen.getAllByRole('button')[0];
+    expect(button).toHaveTextContent(/start/gi);
+    fireEvent.click(button);
+    expect(store.getState().game.status).toMatchInlineSnapshot(
+      `"ROUND_ONGOING"`
+    );
     expect(getPanoramSpy).toHaveBeenCalledTimes(1);
     expect(store.getState().position).toMatchSnapshot('sv request, fulfilled');
   });
@@ -90,6 +102,10 @@ describe('Round intermission, ', () => {
     });
     const store = createMockStore(state);
     render(<RoundIntermission />, store);
+    const button = screen.getAllByRole('button')[0];
+    expect(button).toHaveTextContent(/getting/gi);
+    expect(button).toHaveAttribute('disabled');
+    fireEvent.click(button);
     expect(getPanoramSpy).toHaveBeenCalledTimes(1);
     expect(store.getState().position).toMatchSnapshot('sv request, pending');
   });

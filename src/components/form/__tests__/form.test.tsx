@@ -1,5 +1,4 @@
 import {config} from '@/config/game';
-import {STATUS} from '@/redux/game';
 import {MapService} from '@/services/google';
 import {
   ByRoleOptions,
@@ -35,7 +34,9 @@ describe('Form', () => {
 
     fireEvent.click(submit);
 
-    expect(store.getState().game.status).not.toEqual(STATUS.UNINITIALIZED);
+    expect(store.getState().game.status).toMatchInlineSnapshot(
+      `"PENDING_PLAYER"`
+    );
   });
 });
 

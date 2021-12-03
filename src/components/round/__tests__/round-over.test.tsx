@@ -69,7 +69,9 @@ describe('Round over summary', () => {
     fireEvent.click(nextRoundButton);
     expect(store.getState().game.rounds.current).toBe(2);
     expect(store.getState().game.rounds.progress).toBe(0);
-    expect(store.getState().game.status).toBe('PENDING_PLAYER');
+    expect(store.getState().game.status).toMatchInlineSnapshot(
+      `"PENDING_PLAYER"`
+    );
   });
   it('finishes game after last round', () => {
     const state = createMockState({
@@ -91,6 +93,6 @@ describe('Round over summary', () => {
     fireEvent.click(endGameButton);
     expect(store.getState().game.rounds.current).toBe(2);
     expect(store.getState().game.rounds.progress).toBe(2);
-    expect(store.getState().game.status).toBe('FINISHED');
+    expect(store.getState().game.status).toMatchInlineSnapshot(`"FINISHED"`);
   });
 });
