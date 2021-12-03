@@ -1,6 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Round intermission,  new random location at the start of round (reject): random sv request, rejected 1`] = `
+exports[`Round intermission,  requests new street view location, fulfilled: sv request, fulfilled 1`] = `
+Object {
+  "error": null,
+  "initialPosition": Object {
+    "lat": 0,
+    "lng": 0,
+  },
+  "loading": false,
+  "panoDescription": "Fake panorama description",
+  "panoId": "69",
+  "selectedPosition": null,
+}
+`;
+
+exports[`Round intermission,  requests new street view location, rejected: sv request, rejected 1`] = `
 Object {
   "error": Object {
     "code": "ZERO_RESULTS",
@@ -13,20 +27,6 @@ Object {
   "loading": false,
   "panoDescription": "",
   "panoId": "",
-  "selectedPosition": null,
-}
-`;
-
-exports[`Round intermission,  requests new street view location, fulfilled: random sv request, fulfilled 1`] = `
-Object {
-  "error": null,
-  "initialPosition": Object {
-    "lat": 0,
-    "lng": 0,
-  },
-  "loading": false,
-  "panoDescription": "mock panorama description",
-  "panoId": "mock panorama id",
   "selectedPosition": null,
 }
 `;

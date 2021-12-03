@@ -33,31 +33,33 @@ global.google.maps.StreetViewSource = {
   DEFAULT: 'default',
 };
 
-global.google.maps.StreetViewService = class MockStreetViewService
+global.google.maps.StreetViewService = class StreetViewService
   implements google.maps.StreetViewService
 {
-  getPanorama() {
-    const res: google.maps.StreetViewResponse = {
-      data: {
-        copyright: 'copyright',
-        imageDate: 'sv image',
-        links: [],
-        location: {
-          description: 'mock panorama description',
-          pano: 'mock panorama id',
-          shortDescription: null,
-          latLng: new LatLng(1, 2),
+  constructor() {}
+  async getPanorama() {
+    {
+      const res: google.maps.StreetViewResponse = {
+        data: {
+          copyright: 'Copyright',
+          imageDate: 'August 2020',
+          links: [],
+          location: {
+            description: 'Fake panorama description',
+            pano: '69',
+            shortDescription: null,
+            latLng: new LatLng(1, 2),
+          },
+          tiles: {
+            centerHeading: 0,
+            getTileUrl: () => '',
+            tileSize: new Size(1, 1),
+            worldSize: new Size(1, 1),
+          },
         },
-        tiles: {
-          centerHeading: 0,
-          getTileUrl: () => '',
-          tileSize: new Size(1, 1),
-          worldSize: new Size(1, 1),
-        },
-      },
-    };
-
-    return Promise.resolve(res);
+      };
+      return Promise.resolve(res);
+    }
   }
 };
 

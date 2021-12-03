@@ -14,13 +14,13 @@ jest.mock('next/router', () => ({
 
 jest.spyOn(global.console, 'warn').mockImplementation(() => jest.fn());
 
-const streetViewServiceSpy = jest.spyOn(
+const getPanoramSpy = jest.spyOn(
   google.maps.StreetViewService.prototype,
   'getPanorama'
 );
 
 afterEach(() => {
-  streetViewServiceSpy.mockClear();
+  getPanoramSpy.mockClear();
 });
 
 describe('Round intermission, ', () => {
@@ -39,17 +39,16 @@ describe('Round intermission, ', () => {
         initialPosition: null,
       },
     });
-
     const store = createMockStore(state);
     render(<RoundIntermission />, store);
-    // Somehow this is necessary for the store to update.
+
+    // There seems to be a race condition with the store updating.
+    // Resolve before calling store.getState()
     await new Promise(r => setTimeout(r, 0));
-    expect(streetViewServiceSpy).toHaveBeenCalledTimes(1);
-    expect(store.getState().position).toMatchSnapshot(
-      'random sv request, fulfilled'
-    );
+    expect(getPanoramSpy).toHaveBeenCalledTimes(1);
+    expect(store.getState().position).toMatchSnapshot('sv request, fulfilled');
   });
-  it('new random location at the start of round (reject)', async () => {
+  it('requests new street view location, rejected', async () => {
     const mockResRejected: ValidationError = {
       code: 'ZERO_RESULTS',
       endpoint: 'google maps',
@@ -57,16 +56,13 @@ describe('Round intermission, ', () => {
       name: 'MapsRequestError',
       stack: 'stack',
     };
-
-    streetViewServiceSpy.mockRejectedValue(mockResRejected);
-
+    getPanoramSpy.mockRejectedValue(mockResRejected);
     const state = createMockState({
       game: {
         players: ['player 1', 'player 2'],
         rounds: {
           total: 3,
           current: 1,
-          // If round progress is 0, get a new location
           progress: 0,
         },
       },
@@ -74,14 +70,10 @@ describe('Round intermission, ', () => {
         initialPosition: null,
       },
     });
-
     const store = createMockStore(state);
     render(<RoundIntermission />, store);
-    // Somehow this is necessary for the store to update.
     await new Promise(r => setTimeout(r, 0));
-    expect(streetViewServiceSpy).toHaveBeenCalledTimes(50);
-    expect(store.getState().position).toMatchSnapshot(
-      'random sv request, rejected'
-    );
+    expect(getPanoramSpy).toHaveBeenCalledTimes(50);
+    expect(store.getState().position).toMatchSnapshot('sv request, rejected');
   });
 });
