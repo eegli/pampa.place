@@ -47,6 +47,7 @@ export const getRandomStreetView = createAsyncThunk<
 
   try {
     while (true) {
+      retries--;
       let data: google.maps.StreetViewPanoramaData | null = null;
       const randomLocation = randomPointInMap(map.bb, map.feature.geometry);
 
@@ -62,7 +63,6 @@ export const getRandomStreetView = createAsyncThunk<
           throw err;
         } else {
           console.warn(`Unable to find random Street View`);
-          retries--;
         }
       }
 

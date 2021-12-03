@@ -1,4 +1,4 @@
-import {initialize, MVCObject} from '@googlemaps/jest-mocks';
+import {initialize, LatLng, MVCObject, Size} from '@googlemaps/jest-mocks';
 import '@testing-library/jest-dom/extend-expect';
 import {MapService} from '../services/google';
 
@@ -33,13 +33,31 @@ global.google.maps.StreetViewSource = {
   DEFAULT: 'default',
 };
 
-// @ts-expect-error
 global.google.maps.StreetViewService = class MockStreetViewService
   implements google.maps.StreetViewService
 {
-  // @ts-expect-error
-  async getPanorama() {
-    return Promise.resolve({test: true});
+  getPanorama() {
+    const res: google.maps.StreetViewResponse = {
+      data: {
+        copyright: 'copyright',
+        imageDate: 'sv image',
+        links: [],
+        location: {
+          description: 'mock panorama description',
+          pano: 'mock panorama id',
+          shortDescription: null,
+          latLng: new LatLng(1, 2),
+        },
+        tiles: {
+          centerHeading: 0,
+          getTileUrl: () => '',
+          tileSize: new Size(1, 1),
+          worldSize: new Size(1, 1),
+        },
+      },
+    };
+
+    return Promise.resolve(res);
   }
 };
 

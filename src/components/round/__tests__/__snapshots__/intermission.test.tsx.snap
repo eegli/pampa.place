@@ -1,11 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Round intermission fetches new random location at the start of round: new random location 1`] = `
+exports[`Round intermission,  new random location at the start of round (reject): random sv request, rejected 1`] = `
+Object {
+  "error": Object {
+    "code": "ZERO_RESULTS",
+    "endpoint": "google maps",
+    "message": "unable to find sv",
+    "name": "MapsRequestError",
+    "stack": "stack",
+  },
+  "initialPosition": null,
+  "loading": false,
+  "panoDescription": "",
+  "panoId": "",
+  "selectedPosition": null,
+}
+`;
+
+exports[`Round intermission,  requests new street view location, fulfilled: random sv request, fulfilled 1`] = `
 Object {
   "error": null,
   "initialPosition": Object {
-    "lat": 1,
-    "lng": 2,
+    "lat": 0,
+    "lng": 0,
   },
   "loading": false,
   "panoDescription": "mock panorama description",
