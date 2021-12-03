@@ -3,7 +3,10 @@ const {compilerOptions} = require('./tsconfig.json');
 
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
-  collectCoverageFrom: ['<rootDir>/src/**/*.{js,jsx,ts,tsx}'],
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
+    '!<rootDir>/src/pages/**/*',
+  ],
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/',
