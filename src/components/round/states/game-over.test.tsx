@@ -5,7 +5,7 @@ import {
   render,
   screen,
 } from '@/tests/utils';
-import {GameOverSummary} from '../states/game-over';
+import {GameOverSummary} from './game-over';
 
 const mockPush = jest.fn();
 

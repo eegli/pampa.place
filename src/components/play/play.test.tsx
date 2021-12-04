@@ -6,8 +6,8 @@ import {
   screen,
 } from '@/tests/utils';
 import React from 'react';
-import * as timer from '../../../hooks/useTimer';
-import {Play} from '../play';
+import * as timer from '../../hooks/useTimer';
+import {Play} from './play';
 
 /* WORK IN PROGRESS */
 

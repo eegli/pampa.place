@@ -36,9 +36,7 @@ global.google.maps.StreetViewSource = {
   DEFAULT: 'default',
 };
 
-global.google.maps.StreetViewService = class StreetViewService
-  implements google.maps.StreetViewService
-{
+export class StreetViewService implements google.maps.StreetViewService {
   constructor() {}
   async getPanorama() {
     {
@@ -64,7 +62,9 @@ global.google.maps.StreetViewService = class StreetViewService
       return Promise.resolve(res);
     }
   }
-};
+}
+
+global.google.maps.StreetViewService = StreetViewService;
 
 // TODO
 global.google.maps.StreetViewPanorama = class MockStreetViewPanorama

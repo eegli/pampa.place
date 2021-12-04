@@ -7,11 +7,11 @@ import {
   render,
   screen,
 } from '@/tests/utils';
-import {FormMapSelect} from '../fields/select-map';
-import {FormRoundSelect} from '../fields/select-round';
-import {FormTimeLimitSelect} from '../fields/select-time';
-import {FormPlayers} from '../fields/set-players';
-import {Form} from '../form';
+import {FormMapSelect} from './fields/select-map';
+import {FormRoundSelect} from './fields/select-round';
+import {FormTimeLimitSelect} from './fields/select-time';
+import {FormPlayers} from './fields/set-players';
+import {Form} from './form';
 
 jest.mock('next/router', () => ({
   useRouter() {
