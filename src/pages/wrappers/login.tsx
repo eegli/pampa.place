@@ -9,23 +9,23 @@ import {
   useState,
 } from 'react';
 import {useSessionStorage} from 'react-use';
-import {AuthReq, AuthRes} from '../../pages/api/auth.page';
 import {PageContentWrapper} from '../../styles/containers';
+import {AuthReq, AuthRes} from '../api/auth.page';
 
 export const Login = () => {
   const [inputError, setInputError] = useState<string>('');
   const [inputPassword, setInputPassword] = useState<string>('');
   const [inputApiKey, setInputApiKey] = useState<string>('');
 
-  const [sessionApiKey, setSessionApiKey] =
-    useSessionStorage<string>('gapikey');
+  const [sessionApiKey, setSessionApiKey] = useSessionStorage<string>(
+    'gapikey',
+    undefined
+  );
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (sessionApiKey !== undefined) {
-      dispatch(setApiKey(sessionApiKey));
-    }
+    dispatch(setApiKey(sessionApiKey));
   }, [sessionApiKey, dispatch]);
 
   /*   useEffect(() => {
@@ -100,8 +100,8 @@ export const Login = () => {
           helperText={inputError}
           label="Enter password"
           placeholder="gugelhupf..."
-          id="password"
-          type="password"
+          id="password-input"
+          type="password-input"
           onChange={handlePasswordInput}
           onKeyUp={handleKeyUp}
         />
@@ -110,10 +110,11 @@ export const Login = () => {
         </Typography>
         <TextField
           fullWidth
+          name="apikey-input"
+          id="apikey-input"
           label="Enter Maps API key"
           placeholder="AIzaSyBXR..."
-          id="apikey"
-          type="password"
+          type="text"
           onChange={handleApiKeyInput}
           onKeyUp={handleKeyUp}
         />

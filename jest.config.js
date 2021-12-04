@@ -5,7 +5,7 @@ const {compilerOptions} = require('./tsconfig.json');
 const config = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
-    '!<rootDir>/src/pages/**/*',
+    '!<rootDir>/src/pages/api/**/*',
   ],
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
