@@ -64,7 +64,6 @@ describe('Round intermission, ', () => {
       endpoint: 'google maps',
       message: 'unable to find sv',
       name: 'MapsRequestError',
-      stack: 'stack',
     };
     getPanoramSpy.mockRejectedValue(mockResRejected);
     const state = createMockState({

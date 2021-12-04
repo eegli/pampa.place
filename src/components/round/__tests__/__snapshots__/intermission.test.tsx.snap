@@ -29,10 +29,9 @@ exports[`Round intermission,  requests new street view location, rejected: sv re
 Object {
   "error": Object {
     "code": "ZERO_RESULTS",
-    "endpoint": "google maps",
+    "endpoint": "getRandomPanorama",
     "message": "unable to find sv",
     "name": "MapsRequestError",
-    "stack": "stack",
   },
   "initialPosition": null,
   "loading": false,

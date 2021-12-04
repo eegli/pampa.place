@@ -1,4 +1,10 @@
-import {configureStore, StateFromReducersMapObject} from '@reduxjs/toolkit';
+import {
+  AnyAction,
+  configureStore,
+  Middleware,
+  StateFromReducersMapObject,
+  ThunkDispatch,
+} from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import app from './app';
 import game from './game';
@@ -16,6 +22,18 @@ export const initialStates = {
   game: game.reducer(undefined, {type: '@@INIT'}),
 };
 
+const testMiddleware: Middleware<
+  {},
+  unknown,
+  ThunkDispatch<unknown, unknown, AnyAction>
+> =
+  ({dispatch}) =>
+  next =>
+  async action => {
+    console.log(action);
+    return next(action);
+  };
+
 const isDev = process.env.NODE_ENV === 'development';
 const devMiddleware = [logger];
 
@@ -25,9 +43,7 @@ export function createStore(preloadedState?: RootState) {
     preloadedState,
     devTools: false,
     middleware: getDefault =>
-      isDev
-        ? getDefault({serializableCheck: false}).concat(devMiddleware)
-        : getDefault({serializableCheck: false}),
+      isDev ? getDefault().concat(devMiddleware) : getDefault(),
   });
 }
 

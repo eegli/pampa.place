@@ -31,5 +31,5 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
     }
   }
 
-  return <Wrapper apiKey={apiKey} render={render} version="weekly" />;
+  return <Wrapper apiKey={apiKey} render={render} version="3.47.2" />;
 };

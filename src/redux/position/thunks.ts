@@ -7,11 +7,10 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {PositionState} from '.';
 
 export interface ValidationError {
-  code?: 'ZERO_RESULTS';
-  endpoint?: string;
-  message?: string;
-  name?: 'MapsRequestError';
-  stack?: string;
+  code: 'UNKNOWN_ERROR' | 'ZERO_RESULTS';
+  name: 'MapsRequestError';
+  endpoint: string;
+  message: string;
 }
 
 type RandomStreetViewRes = {pos: LatLngLiteral} & Pick<
@@ -77,8 +76,18 @@ export const getRandomStreetView = createAsyncThunk<
         return {pos: {lat, lng}, panoId, panoDescription};
       }
     }
-  } catch (e) {
-    let err = e as ValidationError;
+  } catch (e: any) {
+    const err: ValidationError = {
+      code: 'UNKNOWN_ERROR',
+      name: 'MapsRequestError',
+      endpoint: 'getRandomPanorama',
+      message: 'Unknown error',
+    };
+    if (e.code === 'ZERO_RESULTS' && typeof e.message === 'string') {
+      err.message = e.message;
+      err.code = e.code;
+    }
+
     return rejectWithValue(err);
   }
 });
