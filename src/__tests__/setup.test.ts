@@ -6,7 +6,7 @@ defined initial implementation that can later be overwritten
 individually for each test. 
 */
 
-describe('Google global mock setup', () => {
+describe('__Google mock setup__', () => {
   it('street view service resolves', async () => {
     const service = new google.maps.StreetViewService();
     expect(service).toBeTruthy();

@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {formatDist} from '@/utils/misc';
 import {
   Box,
+  BoxProps,
   Button,
   Paper,
   Stack,
@@ -16,11 +17,35 @@ import {
   Tabs,
   Typography,
 } from '@mui/material';
-import {SyntheticEvent, useState} from 'react';
-import {SlimContainer} from '../../../styles/containers';
-import {GoogleMap} from '../../google/map';
-import {GoogleStreetView} from '../../google/street-view';
-import {TabPanel} from '../tabs-panel';
+import {ReactNode, SyntheticEvent, useState} from 'react';
+import {SlimContainer} from '../../styles/containers';
+import {GoogleMap} from '../google/map';
+import {GoogleStreetView} from '../google/street-view';
+
+interface TabPanelProps extends BoxProps {
+  children?: ReactNode;
+  index: number;
+  selected: number;
+}
+
+const TabPanel = (props: TabPanelProps) => {
+  const {children, selected, index, ...rest} = props;
+  const shouldDisplay = selected === index;
+  if (shouldDisplay) {
+    return (
+      <Box
+        height="100%"
+        width="100%"
+        id={`tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...rest}
+      >
+        {children}
+      </Box>
+    );
+  }
+  return null;
+};
 
 export const RoundOverSummary = () => {
   const [selectedPanel, setSelectedPanel] = useState(0);

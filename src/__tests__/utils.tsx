@@ -43,3 +43,4 @@ createMockStore.
 */
 export {createStore as createMockStore};
 export {createMockState};
+export {initialStates as __actualInitialAppState};

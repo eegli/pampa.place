@@ -1,0 +1,203 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Google Map has play mode: play settings 1`] = `
+Array [
+  Object {
+    "clickableIcons": false,
+    "disableDefaultUI": true,
+    "draggableCursor": "crosshair",
+    "gestureHandling": "auto",
+    "mapTypeControl": true,
+    "mapTypeControlOptions": Object {
+      "mapTypeIds": Array [
+        "hybrid",
+        "roadmap",
+      ],
+    },
+    "mapTypeId": "roadmap",
+  },
+]
+`;
+
+exports[`Google Map has play mode: update selected position 1`] = `
+Object {
+  "lat": 8,
+  "lng": 8,
+}
+`;
+
+exports[`Google Map has preview mode: preview settings 1`] = `
+Array [
+  Object {
+    "clickableIcons": false,
+    "disableDefaultUI": true,
+    "draggableCursor": "crosshair",
+    "gestureHandling": "none",
+    "mapTypeControl": false,
+    "mapTypeControlOptions": Object {
+      "mapTypeIds": Array [
+        "hybrid",
+        "roadmap",
+      ],
+    },
+    "mapTypeId": "roadmap",
+  },
+]
+`;
+
+exports[`Google Map has result mode: result settings 1`] = `
+Array [
+  Object {
+    "clickableIcons": false,
+    "disableDefaultUI": true,
+    "draggableCursor": "crosshair",
+    "gestureHandling": "auto",
+    "mapTypeControl": true,
+    "mapTypeControlOptions": Object {
+      "mapTypeIds": Array [
+        "hybrid",
+        "roadmap",
+      ],
+    },
+    "mapTypeId": "roadmap",
+  },
+]
+`;
+
+exports[`Google Street view has game mode: options default 1`] = `
+Object {
+  "addressControl": false,
+  "clickToGo": true,
+  "disableDoubleClickZoom": false,
+  "fullscreenControl": false,
+  "motionTracking": false,
+  "motionTrackingControl": false,
+  "pov": Object {
+    "heading": 35,
+    "pitch": 10,
+  },
+  "showRoadLabels": false,
+  "zoom": 0,
+  "zoomControl": false,
+}
+`;
+
+exports[`Google Street view has static review mode: options static 1`] = `
+Object {
+  "addressControl": false,
+  "clickToGo": false,
+  "disableDefaultUI": true,
+  "disableDoubleClickZoom": true,
+  "fullscreenControl": false,
+  "motionTracking": false,
+  "motionTrackingControl": false,
+  "pov": Object {
+    "heading": 35,
+    "pitch": 10,
+  },
+  "showRoadLabels": false,
+  "zoom": 0,
+  "zoomControl": false,
+}
+`;
+
+exports[`Google, Map has play mode: play settings 1`] = `
+Array [
+  Object {
+    "clickableIcons": false,
+    "disableDefaultUI": true,
+    "draggableCursor": "crosshair",
+    "gestureHandling": "auto",
+    "mapTypeControl": true,
+    "mapTypeControlOptions": Object {
+      "mapTypeIds": Array [
+        "hybrid",
+        "roadmap",
+      ],
+    },
+    "mapTypeId": "roadmap",
+  },
+]
+`;
+
+exports[`Google, Map has play mode: update selected position 1`] = `
+Object {
+  "lat": 8,
+  "lng": 8,
+}
+`;
+
+exports[`Google, Map has preview mode: preview settings 1`] = `
+Array [
+  Object {
+    "clickableIcons": false,
+    "disableDefaultUI": true,
+    "draggableCursor": "crosshair",
+    "gestureHandling": "none",
+    "mapTypeControl": false,
+    "mapTypeControlOptions": Object {
+      "mapTypeIds": Array [
+        "hybrid",
+        "roadmap",
+      ],
+    },
+    "mapTypeId": "roadmap",
+  },
+]
+`;
+
+exports[`Google, Map has result mode: result settings 1`] = `
+Array [
+  Object {
+    "clickableIcons": false,
+    "disableDefaultUI": true,
+    "draggableCursor": "crosshair",
+    "gestureHandling": "auto",
+    "mapTypeControl": true,
+    "mapTypeControlOptions": Object {
+      "mapTypeIds": Array [
+        "hybrid",
+        "roadmap",
+      ],
+    },
+    "mapTypeId": "roadmap",
+  },
+]
+`;
+
+exports[`Google, Street view has game mode: options default 1`] = `
+Object {
+  "addressControl": false,
+  "clickToGo": true,
+  "disableDoubleClickZoom": false,
+  "fullscreenControl": false,
+  "motionTracking": false,
+  "motionTrackingControl": false,
+  "pov": Object {
+    "heading": 35,
+    "pitch": 10,
+  },
+  "showRoadLabels": false,
+  "zoom": 0,
+  "zoomControl": false,
+}
+`;
+
+exports[`Google, Street view has static review mode: options static 1`] = `
+Object {
+  "addressControl": false,
+  "clickToGo": false,
+  "disableDefaultUI": true,
+  "disableDoubleClickZoom": true,
+  "fullscreenControl": false,
+  "motionTracking": false,
+  "motionTrackingControl": false,
+  "pov": Object {
+    "heading": 35,
+    "pitch": 10,
+  },
+  "showRoadLabels": false,
+  "zoom": 0,
+  "zoomControl": false,
+}
+`;

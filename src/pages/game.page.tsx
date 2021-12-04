@@ -3,9 +3,9 @@ import {getRandomStreetView} from '@/redux/position/thunks';
 import {Error} from '../components/feedback/error';
 import {SpeedDialNav} from '../components/nav/speed-dial';
 import {Play} from '../components/play/play';
-import {GameOverSummary} from '../components/round/states/game-over';
-import {RoundIntermission} from '../components/round/states/intermission';
-import {RoundOverSummary} from '../components/round/states/round-over';
+import {GameOverSummary} from '../components/round/game-over';
+import {RoundIntermission} from '../components/round/intermission';
+import {RoundOverSummary} from '../components/round/round-over';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {PageContentWrapper} from '../styles/containers';
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Play page dispatches no score when time runs out: no score 1`] = `
+exports[`Play dispatches no score when time runs out: no score 1`] = `
 Array [
   Array [
     Object {
@@ -13,7 +13,7 @@ Array [
 ]
 `;
 
-exports[`Play page dispatches score when position is set: score 1`] = `
+exports[`Play dispatches score when position is set: score 1`] = `
 Array [
   Array [
     Object {

@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import {useRouter} from 'next/router';
-import {SlimContainer} from '../../../styles/containers';
+import {SlimContainer} from '../../styles/containers';
 
 export const GameOverSummary = () => {
   const result = useAppSelector(getTotalScores);

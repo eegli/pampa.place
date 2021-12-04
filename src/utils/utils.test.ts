@@ -1,4 +1,4 @@
-import {formatDist, formatDur, min, unsafeToggleHTMLElement} from '../misc';
+import {formatDist, formatDur, min, unsafeToggleHTMLElement} from './misc';
 
 describe('Utils, misc', () => {
   test('min utility', () => {

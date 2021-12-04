@@ -5,7 +5,7 @@ import {resetSelectedPosition} from '@/redux/position';
 import {getRandomStreetView} from '@/redux/position/thunks';
 import {Button, Divider, Stack, Typography} from '@mui/material';
 import {useLayoutEffect} from 'react';
-import {SlimContainer} from '../../../styles/containers';
+import {SlimContainer} from '../../styles/containers';
 
 export const RoundIntermission = () => {
   const dispatch = useAppDispatch();

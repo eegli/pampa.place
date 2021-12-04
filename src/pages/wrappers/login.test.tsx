@@ -6,8 +6,8 @@ import {
   screen,
   waitFor,
 } from '@/tests/utils';
-import {AuthRes} from '../../../pages/api/auth.page';
-import {Login} from '../login';
+import {AuthRes} from '../api/auth.page';
+import {Login} from './login';
 
 const mockFetch = jest.fn() as jest.MockedFunction<typeof global.fetch>;
 

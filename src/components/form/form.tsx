@@ -16,7 +16,6 @@ export const Form = () => {
     router.push('/game');
   };
 
-  // TODO reset state
   const handleReset = () => {
     dispatch(reset());
   };
@@ -55,7 +54,7 @@ export const Form = () => {
         </Button>
         {/* Debug */}
 
-        <Button sx={{alignSelf: 'end'}} onClick={handleReset} type="submit">
+        <Button sx={{alignSelf: 'end'}} onClick={handleReset}>
           Reset
         </Button>
       </Box>

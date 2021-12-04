@@ -1,10 +1,12 @@
 import {testMapId} from '@/config/__mocks__/maps';
-import {MapService} from '@/services/google';
+import {MapService, StreetViewService} from '@/services/google';
 import {createMockStore, render, screen} from '@/tests/utils';
 import React from 'react';
 import {mocked} from 'ts-jest/utils';
 import {GoogleMap, GoogleMapProps} from './map';
+import {GoogleStreetView} from './street-view';
 
+const mockSv = mocked(StreetViewService, true);
 const mockGmap = mocked(MapService, true);
 
 // Mock implementation for listeners. The handler will be caught and
@@ -39,7 +41,7 @@ afterEach(() => {
   events.length = 0;
 });
 
-describe('Google Map', () => {
+describe('Google, Map', () => {
   it('renders and has containers in document', () => {
     render(<GoogleMap mapId={testMapId} />);
     expect(screen.getByTestId('__GMAP__CONTAINER__')).toBeInTheDocument();
@@ -98,5 +100,27 @@ describe('Google Map', () => {
     expect(mockGmap.markers.length).toBe(3);
     unmount();
     expect(mockGmap.markers.length).toBe(0);
+  });
+});
+
+describe('Google, Street view', () => {
+  it('renders and has containers in document', () => {
+    render(<GoogleStreetView />);
+    expect(screen.getByTestId('__GSTV__CONTAINER__')).toBeInTheDocument();
+    expect(screen.getByTestId('__GSTV__')).toHaveStyle('height:100%');
+  });
+  it('has game mode', () => {
+    render(<GoogleStreetView />);
+    expect(mockSv.sv.setPano).toHaveBeenCalledTimes(1);
+    expect(mockSv.sv.setOptions.mock.calls[0][0]).toMatchSnapshot(
+      'options default'
+    );
+  });
+  it('has static review mode', () => {
+    render(<GoogleStreetView staticPos />);
+    expect(mockSv.sv.setPano).toHaveBeenCalledTimes(1);
+    expect(mockSv.sv.setOptions.mock.calls[0][0]).toMatchSnapshot(
+      'options static'
+    );
   });
 });

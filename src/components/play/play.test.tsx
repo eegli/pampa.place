@@ -11,7 +11,7 @@ import {Play} from './play';
 
 /* WORK IN PROGRESS */
 
-describe('Play page', () => {
+describe('Play', () => {
   function getSubmitButton() {
     return screen.getByRole('button', {name: /submit/i});
   }

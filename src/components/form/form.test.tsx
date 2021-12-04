@@ -2,10 +2,12 @@ import {config} from '@/config/game';
 import {MapService} from '@/services/google';
 import {
   ByRoleOptions,
+  createMockState,
   createMockStore,
   fireEvent,
   render,
   screen,
+  __actualInitialAppState,
 } from '@/tests/utils';
 import {FormMapSelect} from './fields/select-map';
 import {FormRoundSelect} from './fields/select-round';
@@ -37,6 +39,26 @@ describe('Form', () => {
     expect(store.getState().game.status).toMatchInlineSnapshot(
       `"PENDING_PLAYER"`
     );
+  });
+  it('resets game state and fields', async () => {
+    const state = createMockState({
+      game: {
+        players: ['player 1', 'player 2'],
+        timeLimit: -100,
+        rounds: {
+          total: 200,
+          current: 100,
+          progress: 50,
+        },
+        mapId: 'hihihi',
+      },
+    });
+    const store = createMockStore(state);
+    render(<Form />, store);
+    const reset = screen.getByRole('button', {name: /reset/i});
+    expect(reset).toBeInTheDocument();
+    fireEvent.click(reset);
+    expect(store.getState()).toEqual(__actualInitialAppState);
   });
 });
 

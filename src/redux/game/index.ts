@@ -58,7 +58,7 @@ const gameSlice = createSlice({
   // when they are done
   reducers: {
     reset(state) {
-      state = initialState;
+      Object.assign(state, initialState);
     },
     setPlayers(state, action: PayloadAction<string[]>) {
       state.players = action.payload.filter(Boolean).map(el => el.slice(0, 24));
