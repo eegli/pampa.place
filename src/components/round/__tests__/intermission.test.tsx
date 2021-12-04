@@ -4,6 +4,7 @@ import {
   fireEvent,
   render,
   screen,
+  waitFor,
 } from '@/tests/utils';
 import {ValidationError} from '../../../redux/position/thunks';
 import {RoundIntermission} from '../states/intermission';
@@ -45,13 +46,12 @@ describe('Round intermission, ', () => {
     });
     const store = createMockStore(state);
     render(<RoundIntermission />, store);
-
-    // There seems to be a race condition with the store updating.
-    // Resolve before calling store.getState()
-    await new Promise(r => setTimeout(r, 0));
-    const button = screen.getAllByRole('button')[0];
-    expect(button).toHaveTextContent(/start/gi);
-    fireEvent.click(button);
+    let button: HTMLElement;
+    await waitFor(() => {
+      button = screen.getAllByRole('button')[0];
+      expect(button).toHaveTextContent(/start/gi);
+    });
+    fireEvent.click(button!);
     expect(store.getState().game.status).toMatchInlineSnapshot(
       `"ROUND_ONGOING"`
     );
@@ -82,8 +82,9 @@ describe('Round intermission, ', () => {
     });
     const store = createMockStore(state);
     render(<RoundIntermission />, store);
-    await new Promise(r => setTimeout(r, 0));
-    expect(getPanoramSpy).toHaveBeenCalledTimes(50);
+    await waitFor(() => {
+      expect(getPanoramSpy).toHaveBeenCalledTimes(50);
+    });
     expect(store.getState().position).toMatchSnapshot('sv request, rejected');
   });
   it('requests new street view location, pending', async () => {
@@ -102,6 +103,7 @@ describe('Round intermission, ', () => {
     });
     const store = createMockStore(state);
     render(<RoundIntermission />, store);
+    // Do NOT use waitFor - we want the pending state!
     const button = screen.getAllByRole('button')[0];
     expect(button).toHaveTextContent(/getting/gi);
     expect(button).toHaveAttribute('disabled');
