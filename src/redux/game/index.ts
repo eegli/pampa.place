@@ -12,7 +12,7 @@ export type Result = {
   score: number;
 };
 
-export enum STATUS {
+export const enum STATUS {
   UNINITIALIZED = 'UNINITIALIZED',
   ROUND_ONGOING = 'ROUND_ONGOING',
   PENDING_PLAYER = 'PENDING_PLAYER',
