@@ -30,8 +30,9 @@ function customRender(
   });
 }
 
-function createMockState(state: DeepPartial<RootState> = {}): RootState {
-  return merge({}, initialStates, state);
+function createMockState(partialState: DeepPartial<RootState> = {}): RootState {
+  if (!Object.keys(partialState).length) return initialStates;
+  return merge({}, initialStates, partialState);
 }
 
 export * from '@testing-library/react';

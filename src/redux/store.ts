@@ -19,8 +19,8 @@ const logger = createLogger({
 });
 
 const localStorage: Middleware<{}, RootState> = () => next => action => {
-  if (action.type.includes('setApiKey')) {
-    window.sessionStorage.setItem('gapikey', JSON.stringify(action.payload));
+  if (action.type.includes('setApiKey') && typeof action.payload === 'string') {
+    window.sessionStorage.setItem('gapikey', action.payload);
   }
   return next(action);
 };

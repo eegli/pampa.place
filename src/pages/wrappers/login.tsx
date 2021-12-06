@@ -21,7 +21,7 @@ export const Login = () => {
   // Check if an api key is already present in local storage
   useEffect(() => {
     const apiKey = window.sessionStorage.getItem('gapikey');
-    if (apiKey) {
+    if (typeof apiKey === 'string') {
       dispatch(setApiKey(apiKey));
     }
   }, [dispatch]);

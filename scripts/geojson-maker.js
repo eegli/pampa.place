@@ -65,12 +65,11 @@ const REQUIRED_PROP = 'name';
         },
         {
           name: 'newFileName',
-          message: `${fileName}: (Optional) Enter new file name without extension:`,
+          message: `${fileName}: (Optional) Enter new file name without extension (hit enter to skip):`,
           type: 'input',
           default: path.parse(fileName).name + '_new.json',
         },
       ])
-
       .then(
         ({
           propToRename,
@@ -89,7 +88,6 @@ const REQUIRED_PROP = 'name';
 
             // Create REQUIRED_PROP property
             curr.properties[REQUIRED_PROP] = curr.properties[propToRename];
-            delete curr.properties[propToRename];
 
             if (shouldDeleteOtherProps) {
               // Delete other properties

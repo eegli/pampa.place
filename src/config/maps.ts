@@ -7,24 +7,13 @@ import {
   MapIdCollection,
 } from './types';
 
-/* Importing a GeoJSON data set and computing the required properties.
-Here, the default maps are Swiss cantons and regions */
-const swissMaps: MapDataCollection = computeMapData(
-  defaultMapData as MapFeatureCollection,
-  'switzerland'
-);
+const maps: MapDataCollection[] = [
+  computeMapData(defaultMapData as MapFeatureCollection, 'switzerland'),
+  computeMapData(customMapData as MapFeatureCollection, 'custom'),
+];
 
-/* Custom maps can easily be added and don't need to be loaded from a
-GeoJSON file */
-const customMaps: MapDataCollection = computeMapData(
-  customMapData as MapFeatureCollection,
-  'custom'
-);
-
-export const MAPS: MapDataCollection = {...swissMaps, ...customMaps};
-
+export const MAPS: MapDataCollection = Object.assign({}, ...maps);
 export const MAP_IDS: MapIdCollection = computeMapIds(MAPS);
-
 export const apiData = {
   MAPS,
   MAP_IDS,

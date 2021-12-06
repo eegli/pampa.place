@@ -1,4 +1,4 @@
-import {createSelector} from 'reselect';
+import {createSelector} from '@reduxjs/toolkit';
 import {RootState} from '../store';
 
 export const getActivePlayer = (s: RootState) => s.game.players[0];
