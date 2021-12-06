@@ -16,7 +16,6 @@ import {
   Paper,
   Toolbar,
 } from '@mui/material';
-import {useRouter} from 'next/router';
 import {useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {RootState} from '../../redux/store';
@@ -26,14 +25,12 @@ export const Header = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
-  const router = useRouter();
-
   function handleClick() {
     dispatch(toggleTheme());
   }
 
   function handleChangeKey() {
-    window.sessionStorage.removeItem('gapikey');
+    window.sessionStorage.clear();
     // In order to load a new API key, the page must be reloaded so
     // that Google maps can properly set the new key
     window.location.reload();

@@ -1,11 +1,9 @@
 import {
-  AnyAction,
   configureStore,
   Middleware,
   StateFromReducersMapObject,
-  ThunkDispatch,
 } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
+import {createLogger} from 'redux-logger';
 import app from './app';
 import game from './game';
 import position from './position';
@@ -16,26 +14,26 @@ const reducer = {
   game: game.reducer,
 };
 
+const logger = createLogger({
+  diff: true,
+});
+
+const localStorage: Middleware<{}, RootState> = () => next => action => {
+  if (action.type.includes('setApiKey')) {
+    window.sessionStorage.setItem('gapikey', JSON.stringify(action.payload));
+  }
+  return next(action);
+};
+
+const isDev = process.env.NODE_ENV === 'development';
+const devMiddleware = [logger, localStorage];
+const prodMiddleware = [localStorage];
+
 export const initialStates = {
   position: position.reducer(undefined, {type: '@@INIT'}),
   app: app.reducer(undefined, {type: '@@INIT'}),
   game: game.reducer(undefined, {type: '@@INIT'}),
 };
-
-const testMiddleware: Middleware<
-  {},
-  unknown,
-  ThunkDispatch<unknown, unknown, AnyAction>
-> =
-  ({dispatch}) =>
-  next =>
-  async action => {
-    console.log(action);
-    return next(action);
-  };
-
-const isDev = process.env.NODE_ENV === 'development';
-const devMiddleware = [logger];
 
 export function createStore(preloadedState?: RootState) {
   return configureStore({
@@ -43,7 +41,9 @@ export function createStore(preloadedState?: RootState) {
     preloadedState,
     devTools: false,
     middleware: getDefault =>
-      isDev ? getDefault().concat(devMiddleware) : getDefault(),
+      isDev
+        ? getDefault().concat(devMiddleware)
+        : getDefault().concat(prodMiddleware),
   });
 }
 

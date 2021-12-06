@@ -11,14 +11,14 @@ export const Form = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const handleSubmit = () => {
+  function handleSubmit() {
     dispatch(initGame());
     router.push('/game');
-  };
+  }
 
-  const handleReset = () => {
+  function handleReset() {
     dispatch(reset());
-  };
+  }
 
   return (
     <>

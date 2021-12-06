@@ -1,13 +1,9 @@
 import {testMapId} from '@/config/__mocks__/maps';
 import {MapService, StreetViewService} from '@/services/google';
 import {createMockStore, render, screen} from '@/tests/utils';
-import React from 'react';
 import {mocked} from 'ts-jest/utils';
 import {GoogleMap, GoogleMapProps} from './map';
 import {GoogleStreetView} from './street-view';
-
-const mockSv = mocked(StreetViewService, true);
-const mockGmap = mocked(MapService, true);
 
 // Mock implementation for listeners. The handler will be caught and
 // called with the event it would get from google.maps.Map's click
@@ -18,12 +14,14 @@ const mockGmap = mocked(MapService, true);
 const events: {event: string; func: Function}[] = [];
 const removeEventListener = jest.fn();
 
-jest.spyOn(mockGmap.map, 'addListener').mockImplementation((event, handler) => {
-  const clickEvent = {latLng: {lat: () => 8, lng: () => 8}};
-  const func = () => handler(clickEvent);
-  events.push({event, func});
-  return {remove: removeEventListener};
-});
+jest
+  .spyOn(MapService.map, 'addListener')
+  .mockImplementation((event, handler) => {
+    const clickEvent = {latLng: {lat: () => 8, lng: () => 8}};
+    const func = () => handler(clickEvent);
+    events.push({event, func});
+    return {remove: removeEventListener};
+  });
 
 jest
   .spyOn(google.maps.event, 'addListenerOnce')
@@ -34,12 +32,15 @@ jest
 
 // @ts-expect-error - fake at least one element in the array to check
 // the cleanup function for the feature
-jest.spyOn(mockGmap.map.data, 'addGeoJson').mockReturnValue(['Feature 1']);
+jest.spyOn(MapService.map.data, 'addGeoJson').mockReturnValue(['Feature 1']);
 
 afterEach(() => {
   jest.clearAllMocks();
   events.length = 0;
 });
+
+const mockSv = mocked(StreetViewService, true);
+const mockGmap = mocked(MapService, true);
 
 describe('Google, Map', () => {
   it('renders and has containers in document', () => {

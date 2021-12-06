@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Intermission, round requests new street view location, fulfilled: sv request, fulfilled 1`] = `
+exports[`Intermission, round ongoing requests new street view location, fulfilled: sv request, fulfilled 1`] = `
 Object {
   "error": null,
   "initialPosition": Object {
@@ -14,7 +14,7 @@ Object {
 }
 `;
 
-exports[`Intermission, round requests new street view location, pending: sv request, pending 1`] = `
+exports[`Intermission, round ongoing requests new street view location, pending: sv request, pending 1`] = `
 Object {
   "error": null,
   "initialPosition": null,
@@ -25,7 +25,7 @@ Object {
 }
 `;
 
-exports[`Intermission, round requests new street view location, rejected: sv request, rejected 1`] = `
+exports[`Intermission, round ongoing requests new street view location, rejected: sv request, rejected 1`] = `
 Object {
   "error": Object {
     "code": "ZERO_RESULTS",

@@ -8,49 +8,38 @@ import {
   useEffect,
   useState,
 } from 'react';
-import {useSessionStorage} from 'react-use';
 import {PageContentWrapper} from '../../styles/containers';
 import {AuthReq, AuthRes} from '../api/auth.page';
 
 export const Login = () => {
   const [inputError, setInputError] = useState<string>('');
-  const [inputPassword, setInputPassword] = useState<string>('');
-  const [inputApiKey, setInputApiKey] = useState<string>('');
-
-  const [sessionApiKey, setSessionApiKey] = useSessionStorage<string>(
-    'gapikey',
-    undefined
-  );
+  const [serverPassword, setServerPassword] = useState<string>('');
+  const [userApiKey, setUserApiKey] = useState<string>('');
 
   const dispatch = useAppDispatch();
 
+  // Check if an api key is already present in local storage
   useEffect(() => {
-    dispatch(setApiKey(sessionApiKey));
-  }, [sessionApiKey, dispatch]);
-
-  /*   useEffect(() => {
-    if (
-      router.query.hasOwnProperty('apikey') &&
-      typeof router.query.apikey === 'string'
-    ) {
-      dispatch(setApiKey(router.query.apikey));
+    const apiKey = window.sessionStorage.getItem('gapikey');
+    if (apiKey) {
+      dispatch(setApiKey(apiKey));
     }
-  }, [router.query]); */
+  }, [dispatch]);
 
   async function handleSubmit() {
-    if (!inputPassword && !inputApiKey) {
+    if (!serverPassword && !userApiKey) {
       setInputError('Either a password or API key must be provided');
-    } else if (inputApiKey) {
-      setSessionApiKey(inputApiKey);
-    } else if (inputPassword) {
+    } else if (userApiKey) {
+      dispatch(setApiKey(userApiKey));
+    } else if (serverPassword) {
       const params: AuthReq = {
-        pw: inputPassword,
+        pw: serverPassword,
       };
       try {
         const res: AuthRes = await (
           await fetch('api/auth?' + new URLSearchParams(params))
         ).json();
-        setSessionApiKey(res.apikey);
+        dispatch(setApiKey(res.apikey));
       } catch (e) {
         setInputError('Invalid password');
       }
@@ -58,15 +47,15 @@ export const Login = () => {
   }
 
   function handleDevMode() {
-    setSessionApiKey('');
+    dispatch(setApiKey(''));
   }
 
   function handlePasswordInput(e: ChangeEvent<HTMLInputElement>) {
-    setInputPassword(e.target.value);
+    setServerPassword(e.target.value);
   }
 
   function handleApiKeyInput(e: ChangeEvent<HTMLInputElement>) {
-    setInputApiKey(e.target.value);
+    setUserApiKey(e.target.value);
   }
 
   function handleKeyUp(e: KeyboardEvent<HTMLInputElement>) {
@@ -98,10 +87,11 @@ export const Login = () => {
           fullWidth
           error={!!inputError}
           helperText={inputError}
+          name="password-input"
+          id="password-input"
           label="Enter password"
           placeholder="gugelhupf..."
-          id="password-input"
-          type="password-input"
+          type="password"
           onChange={handlePasswordInput}
           onKeyUp={handleKeyUp}
         />

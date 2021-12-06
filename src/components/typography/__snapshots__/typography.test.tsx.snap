@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Typography renders retro title 1`] = `
+<div
+  class="MuiBox-root css-1wum0we"
+>
+  <h1
+    class="css-q4vq34"
+  >
+    <span>
+      Retro
+    </span>
+    <span>
+      Retro
+    </span>
+  </h1>
+  <h2
+    class="css-exbdow"
+  >
+    Title
+  </h2>
+</div>
+`;

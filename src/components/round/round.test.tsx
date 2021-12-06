@@ -31,7 +31,7 @@ afterEach(() => {
   mockPush.mockReset();
 });
 
-describe('Intermission, round', () => {
+describe('Intermission, round ongoing', () => {
   it('requests new street view location, fulfilled', async () => {
     const state = createMockState({
       game: {

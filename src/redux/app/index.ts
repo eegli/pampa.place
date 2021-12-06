@@ -16,7 +16,7 @@ const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setApiKey(state, {payload}: PayloadAction<string>) {
+    setApiKey(state, {payload}: PayloadAction<string | undefined>) {
       state.apiKey = payload;
     },
     toggleTheme(state) {

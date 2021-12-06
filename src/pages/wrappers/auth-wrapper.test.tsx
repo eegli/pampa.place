@@ -6,14 +6,19 @@ import {
   screen,
   waitFor,
 } from '@/tests/utils';
+import * as ReactWrapper from '@googlemaps/react-wrapper';
 import {AuthRes} from '../api/auth.page';
 import {Login} from './login';
 
+// The login component saves the key in the sessionStorage. Clear in
+// between tests
+
+const reactWrapperSpy = jest.spyOn(ReactWrapper, 'Wrapper');
 const mockFetch = jest.fn() as jest.MockedFunction<typeof global.fetch>;
 
 mockFetch.mockImplementation(url => {
   return new Promise((resolve, reject) => {
-    if (url.toString().includes('api/auth?')) {
+    if (url.toString().includes('api/auth?pw=')) {
       // @ts-expect-error - no need to fully mock the fetch API
       return resolve({
         json: () => Promise.resolve({apikey: 'server api key'} as AuthRes),
@@ -25,12 +30,19 @@ mockFetch.mockImplementation(url => {
 
 global.fetch = mockFetch;
 
+// The login component saves the key in the sessionStorage. Clear in
+// between tests
+afterEach(() => {
+  reactWrapperSpy.mockClear();
+  window.sessionStorage.clear();
+});
+
 describe('Login', () => {
   function getElem(
-    elem: 'apiKeyInput' | 'passwordInput' | 'devModeButton' | 'enterButton'
+    elem: 'ownKeyInput' | 'passwordInput' | 'devModeButton' | 'enterButton'
   ) {
     switch (elem) {
-      case 'apiKeyInput':
+      case 'ownKeyInput':
         return screen.getByLabelText(/api/gi);
       case 'passwordInput':
         return screen.getByLabelText(/password/gi);
@@ -40,9 +52,10 @@ describe('Login', () => {
         return screen.getByRole('button', {name: /enter/gi});
     }
   }
+
   it('has all input fields and buttons', () => {
     render(<Login />);
-    expect(getElem('apiKeyInput')).toBeInTheDocument();
+    expect(getElem('ownKeyInput')).toBeInTheDocument();
     expect(getElem('passwordInput')).toBeInTheDocument();
     expect(getElem('devModeButton')).toBeInTheDocument();
     expect(getElem('enterButton')).toBeInTheDocument();
@@ -56,23 +69,31 @@ describe('Login', () => {
       expect(passwordInput).toBeInvalid();
     });
   });
-  it('allows entering via dev mode', () => {
+  it('allows entering via dev mode', async () => {
     const state = createMockState();
     const store = createMockStore(state);
     render(<Login />, store);
     const devModeButton = getElem('devModeButton');
     fireEvent.click(devModeButton);
     expect(store.getState().app.apiKey).toBe('');
+    const keyInStorage = window.sessionStorage.getItem('gapikey');
+    if (keyInStorage) {
+      expect(JSON.parse(keyInStorage)).toBe('');
+    }
   });
   it('allows entering via own api key', () => {
     const state = createMockState();
     const store = createMockStore(state);
     render(<Login />, store);
-    const apiKeyInput = getElem('apiKeyInput');
+    const ownKeyInput = getElem('ownKeyInput');
     const enterButton = getElem('enterButton');
-    fireEvent.change(apiKeyInput, {target: {value: 'user api key'}});
+    fireEvent.change(ownKeyInput, {target: {value: 'user api key'}});
     fireEvent.click(enterButton);
     expect(store.getState().app.apiKey).toBe('user api key');
+    const keyInStorage = window.sessionStorage.getItem('gapikey');
+    if (keyInStorage) {
+      expect(JSON.parse(keyInStorage)).toBe('user api key');
+    }
   });
   it('allows entering via server password', async () => {
     const state = createMockState();
@@ -83,7 +104,12 @@ describe('Login', () => {
     fireEvent.change(passwordInput, {target: {value: 'password'}});
     fireEvent.click(enterButton);
     await waitFor(() => {
-      expect(store.getState().app.apiKey).toBe('server api key');
+      expect(mockFetch).toHaveBeenCalledTimes(1);
     });
+    expect(store.getState().app.apiKey).toBe('server api key');
+    const keyInStorage = window.sessionStorage.getItem('gapikey');
+    if (keyInStorage) {
+      expect(JSON.parse(keyInStorage)).toBe('server api key');
+    }
   });
 });

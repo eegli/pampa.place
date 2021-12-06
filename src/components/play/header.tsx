@@ -1,7 +1,6 @@
 import {useAppSelector} from '@/redux/hooks';
 import {formatDur} from '@/utils/misc';
 import {Box, Divider, Stack, Typography} from '@mui/material';
-import {useRouter} from 'next/router';
 import {useEffect} from 'react';
 import {useTimer} from '../../hooks/useTimer';
 
@@ -11,7 +10,6 @@ type PlayHeaderProps = {
 };
 
 export const PlayHeader = ({player, timerCallback}: PlayHeaderProps) => {
-  const router = useRouter();
   const timeLimit = useAppSelector(s => s.game.timeLimit);
   const [timeRemaining] = useTimer(timeLimit);
 
@@ -24,14 +22,10 @@ export const PlayHeader = ({player, timerCallback}: PlayHeaderProps) => {
   );
 
   useEffect(() => {
-    if (!isUnlimitedTimeMode && !timeRemaining) {
+    if (!timeRemaining && !isUnlimitedTimeMode) {
       timerCallback();
     }
   }, [timeRemaining, isUnlimitedTimeMode, timerCallback]);
-
-  function handleClick() {
-    router.push('/');
-  }
 
   return (
     <Box px={2} my={2} width="100%" display="flex">

@@ -8,12 +8,13 @@ individually for each test.
 
 describe('Test global setup', () => {
   it('has global definitions', () => {
-    expect(global.google.maps).toMatchSnapshot();
+    expect(google.maps).toMatchSnapshot();
   });
   it('street view service resolves', async () => {
     const service = new google.maps.StreetViewService();
     expect(service).toBeTruthy();
     expect(await service.getPanorama({})).toMatchSnapshot('resp 1');
+
     google.maps.StreetViewService.prototype.getPanorama = jest
       .fn()
       .mockResolvedValue({

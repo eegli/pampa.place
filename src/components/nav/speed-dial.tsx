@@ -20,10 +20,9 @@ export const SpeedDialNav = () => {
     {} as ConfirmationDialogProps
   );
 
-  const router = useRouter();
-
-  const activeTheme = useAppSelector((s: RootState) => s.app.theme);
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const activeTheme = useAppSelector((s: RootState) => s.app.theme);
 
   return (
     <>

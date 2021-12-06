@@ -5,7 +5,6 @@ import {
   render,
   screen,
 } from '@/tests/utils';
-import React from 'react';
 import * as timer from '../../hooks/useTimer';
 import {Play} from './play';
 

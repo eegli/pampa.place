@@ -9,7 +9,7 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
 
   // An empty string as api key is allowed for development mode
-  if (apiKey === undefined) return <Login />;
+  if (typeof apiKey !== 'string') return <Login />;
 
   function render(status: Status) {
     switch (status) {
