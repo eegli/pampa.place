@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`__Google mock setup__ street view service resolves 1`] = `
+Object {
+  "data": Object {
+    "copyright": "Copyright",
+    "imageDate": "August 2020",
+    "links": Array [],
+    "location": Object {
+      "description": "Fake panorama description",
+      "latLng": Object {
+        "lat": 0,
+        "lng": 0,
+      },
+      "pano": "69",
+      "shortDescription": null,
+    },
+    "tiles": Object {
+      "centerHeading": 0,
+      "getTileUrl": [Function],
+      "tileSize": Size {
+        "height": 1,
+        "toString": [MockFunction],
+        "width": 1,
+      },
+      "worldSize": Size {
+        "height": 1,
+        "toString": [MockFunction],
+        "width": 1,
+      },
+    },
+  },
+}
+`;
+
+exports[`__Google mock setup__ street view service resolves 2`] = `
+Object {
+  "ok": true,
+}
+`;
