@@ -6,18 +6,21 @@ defined initial implementation that can later be overwritten
 individually for each test. 
 */
 
-import {StreetViewService} from './setup';
-
-describe('__Google mock setup__', () => {
+describe('Test global setup', () => {
+  it('has global definitions', () => {
+    expect(global.google.maps).toMatchSnapshot();
+  });
   it('street view service resolves', async () => {
     const service = new google.maps.StreetViewService();
     expect(service).toBeTruthy();
-    expect(await service.getPanorama({})).toMatchSnapshot();
-    StreetViewService.prototype.getPanorama = jest.fn().mockResolvedValue({
-      ok: true,
-    });
+    expect(await service.getPanorama({})).toMatchSnapshot('resp 1');
+    google.maps.StreetViewService.prototype.getPanorama = jest
+      .fn()
+      .mockResolvedValue({
+        ok: true,
+      });
 
-    expect(await service.getPanorama({})).toMatchSnapshot();
+    expect(await service.getPanorama({})).toMatchSnapshot('resp 2');
   });
   it('enums are defined', () => {
     expect(google.maps.StreetViewPreference).toMatchInlineSnapshot(`

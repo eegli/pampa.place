@@ -9,23 +9,29 @@ jest.spyOn(global.console, 'warn').mockImplementation(() => jest.fn());
 
 initialize();
 
-MVCObject.prototype.addListener = jest
+global.google.maps.MVCObject.prototype.addListener = jest
   .fn()
   .mockImplementation((eventName, callback) => {
-    return jest.fn().mockImplementation(() => {
+    return jest.fn(() => {
       return {
         remove: jest.fn(),
       };
     });
   });
 
-jest
-  .spyOn(google.maps.event, 'addListenerOnce')
-  .mockImplementation((_, event, handler) => {
-    return {remove: jest.fn()};
-  });
+// @ts-expect-error - mock just what we need
+global.google.maps.event = {
+  addListenerOnce: jest.fn().mockImplementation((el, eventName, callback) => {
+    return {
+      remove: jest.fn(),
+    };
+  }),
+};
 
-export class StreetViewService implements google.maps.StreetViewService {
+global.google.maps.StreetViewService = class StreetViewService
+  implements google.maps.StreetViewService
+{
+  constructor() {}
   async getPanorama() {
     const res: google.maps.StreetViewResponse = {
       data: {
@@ -48,9 +54,7 @@ export class StreetViewService implements google.maps.StreetViewService {
     };
     return Promise.resolve(res);
   }
-}
-
-global.google.maps.StreetViewService = StreetViewService;
+};
 global.google.maps.StreetViewPreference = {
   // @ts-expect-error
   BEST: 'best',

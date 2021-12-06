@@ -1,6 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`__Google mock setup__ street view service resolves 1`] = `
+exports[`Test global setup has global definitions 1`] = `
+Object {
+  "Circle": [Function],
+  "Data": [Function],
+  "ImageMapType": [MockFunction],
+  "LatLng": [Function],
+  "LatLngBounds": [Function],
+  "MVCArray": [Function],
+  "MVCObject": [Function],
+  "Map": [Function],
+  "MapCanvasProjection": [Function],
+  "MapPanes": [Function],
+  "MapTypeId": Object {
+    "HYBRID": "hybrid",
+    "ROADMAP": "roadmap",
+    "SATELLITE": "satellite",
+    "TERRAIN": "terrain",
+  },
+  "Marker": [Function],
+  "OverlayView": [Function],
+  "Point": [Function],
+  "Polyline": [Function],
+  "Size": [Function],
+  "StreetViewPanorama": [Function],
+  "StreetViewPreference": Object {
+    "BEST": "best",
+    "NEAREST": "nearest",
+  },
+  "StreetViewService": [Function],
+  "StreetViewSource": Object {
+    "DEFAULT": "default",
+    "OUTDOOR": "outdoor",
+  },
+  "VisibleRegion": [Function],
+  "event": Object {
+    "addListenerOnce": [MockFunction],
+  },
+  "places": Object {
+    "Autocomplete": [Function],
+    "SearchBox": [Function],
+  },
+}
+`;
+
+exports[`Test global setup street view service resolves: resp 1 1`] = `
 Object {
   "data": Object {
     "copyright": "Copyright",
@@ -33,7 +77,7 @@ Object {
 }
 `;
 
-exports[`__Google mock setup__ street view service resolves 2`] = `
+exports[`Test global setup street view service resolves: resp 2 1`] = `
 Object {
   "ok": true,
 }
