@@ -7,6 +7,10 @@ individually for each test.
 */
 
 describe('__Google mock setup__', () => {
+  it('tests', () => {
+    const l = new google.maps.TrafficLayer();
+    expect(l.getMap()).toMatchInlineSnapshot(`"map"`);
+  });
   it('street view service resolves', async () => {
     const service = new google.maps.StreetViewService();
     expect(service).toBeTruthy();
