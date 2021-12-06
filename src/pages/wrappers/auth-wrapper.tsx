@@ -21,7 +21,6 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
             <Spinner />
           </PageContentWrapper>
         );
-
       default:
         return (
           <PageContentWrapper id="spinner">

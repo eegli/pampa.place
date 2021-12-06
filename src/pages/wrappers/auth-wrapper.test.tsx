@@ -1,115 +1,59 @@
-import {
-  createMockState,
-  createMockStore,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@/tests/utils';
-import * as ReactWrapper from '@googlemaps/react-wrapper';
-import {AuthRes} from '../api/auth.page';
-import {Login} from './login';
+import {createMockState, createMockStore, render} from '@/tests/utils';
+import * as GoogleMapsReactWrapper from '@googlemaps/react-wrapper';
+import {AuthWrapper} from './auth-wrapper';
 
-// The login component saves the key in the sessionStorage. Clear in
-// between tests
+const wrapperSpy = jest
+  .spyOn(GoogleMapsReactWrapper, 'Wrapper')
+  .mockImplementation(() => <></>);
 
-const reactWrapperSpy = jest.spyOn(ReactWrapper, 'Wrapper');
-const mockFetch = jest.fn() as jest.MockedFunction<typeof global.fetch>;
-
-mockFetch.mockImplementation(url => {
-  return new Promise((resolve, reject) => {
-    if (url.toString().includes('api/auth?pw=')) {
-      // @ts-expect-error - no need to fully mock the fetch API
-      return resolve({
-        json: () => Promise.resolve({apikey: 'server api key'} as AuthRes),
-      });
-    }
-    return reject();
-  });
-});
-
-global.fetch = mockFetch;
-
-// The login component saves the key in the sessionStorage. Clear in
-// between tests
 afterEach(() => {
-  reactWrapperSpy.mockClear();
-  window.sessionStorage.clear();
+  wrapperSpy.mockClear();
 });
 
-describe('Login', () => {
-  function getElem(
-    elem: 'ownKeyInput' | 'passwordInput' | 'devModeButton' | 'enterButton'
-  ) {
-    switch (elem) {
-      case 'ownKeyInput':
-        return screen.getByLabelText(/api/gi);
-      case 'passwordInput':
-        return screen.getByLabelText(/password/gi);
-      case 'devModeButton':
-        return screen.getByRole('button', {name: /dev/gi});
-      case 'enterButton':
-        return screen.getByRole('button', {name: /enter/gi});
-    }
-  }
-
-  it('has all input fields and buttons', () => {
-    render(<Login />);
-    expect(getElem('ownKeyInput')).toBeInTheDocument();
-    expect(getElem('passwordInput')).toBeInTheDocument();
-    expect(getElem('devModeButton')).toBeInTheDocument();
-    expect(getElem('enterButton')).toBeInTheDocument();
-  });
-  it('displays error message if no input is provided', async () => {
-    render(<Login />);
-    const enterButton = getElem('enterButton');
-    const passwordInput = getElem('passwordInput');
-    fireEvent.click(enterButton);
-    await waitFor(() => {
-      expect(passwordInput).toBeInvalid();
+describe('Auth wrapper', () => {
+  it('inits Google Maps with api key 1', () => {
+    const state = createMockState({
+      app: {
+        apiKey: 'apiKey',
+      },
     });
-  });
-  it('allows entering via dev mode', async () => {
-    const state = createMockState();
     const store = createMockStore(state);
-    render(<Login />, store);
-    const devModeButton = getElem('devModeButton');
-    fireEvent.click(devModeButton);
-    expect(store.getState().app.apiKey).toBe('');
-    const keyInStorage = window.sessionStorage.getItem('gapikey');
-    if (keyInStorage) {
-      expect(JSON.parse(keyInStorage)).toBe('');
-    }
+    render(<AuthWrapper />, store);
+    expect(wrapperSpy).toHaveBeenCalledTimes(1);
   });
-  it('allows entering via own api key', () => {
-    const state = createMockState();
-    const store = createMockStore(state);
-    render(<Login />, store);
-    const ownKeyInput = getElem('ownKeyInput');
-    const enterButton = getElem('enterButton');
-    fireEvent.change(ownKeyInput, {target: {value: 'user api key'}});
-    fireEvent.click(enterButton);
-    expect(store.getState().app.apiKey).toBe('user api key');
-    const keyInStorage = window.sessionStorage.getItem('gapikey');
-    if (keyInStorage) {
-      expect(JSON.parse(keyInStorage)).toBe('user api key');
-    }
-  });
-  it('allows entering via server password', async () => {
-    const state = createMockState();
-    const store = createMockStore(state);
-    render(<Login />, store);
-    const passwordInput = getElem('passwordInput');
-    const enterButton = getElem('enterButton');
-    fireEvent.change(passwordInput, {target: {value: 'password'}});
-    fireEvent.click(enterButton);
-    await waitFor(() => {
-      expect(mockFetch).toHaveBeenCalledTimes(1);
+  it('inits Google Maps with api key 2', () => {
+    const state = createMockState({
+      app: {
+        apiKey: '',
+      },
     });
-    expect(store.getState().app.apiKey).toBe('server api key');
-    const keyInStorage = window.sessionStorage.getItem('gapikey');
-    if (keyInStorage) {
-      expect(JSON.parse(keyInStorage)).toBe('server api key');
-    }
+    const store = createMockStore(state);
+    render(<AuthWrapper />, store);
+    expect(wrapperSpy).toHaveBeenCalledTimes(1);
+  });
+  it('does not init Google Maps without api key', () => {
+    const state = createMockState({
+      app: {
+        apiKey: undefined,
+      },
+    });
+    const store = createMockStore(state);
+    render(<AuthWrapper />, store);
+    expect(wrapperSpy).not.toHaveBeenCalled();
+  });
+  it('renders children on success', async () => {
+    const state = createMockState({
+      app: {
+        apiKey: 'key',
+      },
+    });
+    const store = createMockStore(state);
+    render(
+      <AuthWrapper>
+        <div data-testid="rendered"></div>
+      </AuthWrapper>,
+      store
+    );
+    expect(wrapperSpy.mock.calls[0][0]).toMatchSnapshot('Google maps init');
   });
 });

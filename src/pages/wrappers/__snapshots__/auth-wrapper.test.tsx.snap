@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth wrapper renders children on success: Google maps init 1`] = `
+Object {
+  "apiKey": "key",
+  "render": [Function],
+  "version": "3.47.2",
+}
+`;
