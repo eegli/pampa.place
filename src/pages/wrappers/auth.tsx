@@ -1,5 +1,5 @@
 import {Status, Wrapper} from '@googlemaps/react-wrapper';
-import {ReactNode} from 'react';
+import {ReactNode, useEffect} from 'react';
 import {Spinner} from '../../components/feedback/spinner';
 import {useAppSelector} from '../../redux/hooks';
 import {PageContentWrapper} from '../../styles/containers';
@@ -7,6 +7,13 @@ import {Login} from './login';
 
 export const AuthWrapper = ({children}: {children?: ReactNode}) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
+
+  // https://developers.google.com/maps/documentation/javascript/events
+  useEffect(() => {
+    (window as any).gm_authFailure = () => {
+      // Maybe a TODO
+    };
+  });
 
   // An empty string as api key is allowed for development mode
   if (typeof apiKey !== 'string') return <Login />;
