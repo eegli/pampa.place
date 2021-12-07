@@ -10,6 +10,12 @@ describe('Test global setup', () => {
   it('has global definitions', () => {
     expect(google.maps).toMatchSnapshot();
   });
+  it('event listeners return a listener object', () => {
+    const l1 = google.maps.event.addListenerOnce({}, 'click', () => {});
+    expect(l1.remove).toBeTruthy();
+    const l2 = google.maps.MVCObject.prototype.addListener('click', () => {});
+    expect(l2.remove).toBeTruthy();
+  });
   it('street view service resolves', async () => {
     const service = new google.maps.StreetViewService();
     expect(service).toBeTruthy();

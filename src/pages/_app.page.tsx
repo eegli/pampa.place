@@ -3,8 +3,8 @@ import type {AppProps, NextWebVitalsMetric} from 'next/app';
 import {Provider} from 'react-redux';
 import {LoadingProgress} from '../components/feedback/progress';
 import {store} from '../redux/store';
-import {AuthWrapper} from './wrappers/auth-wrapper';
-import {ThemeWrapper} from './wrappers/theme-wrapper';
+import {AuthWrapper} from './wrappers/auth';
+import {ThemeWrapper} from './wrappers/theme';
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
   // console.log(metric);

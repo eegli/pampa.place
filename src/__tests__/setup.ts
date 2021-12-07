@@ -14,22 +14,15 @@ const MapsEventListener: google.maps.MapsEventListener = {
 };
 
 // Enhance the default mock with an actual method
-MVCObject.prototype.addListener = jest
+global.google.maps.MVCObject.prototype.addListener = jest
   .fn()
-  .mockImplementation((eventName, callback) => {
-    return jest.fn(() => {
-      return MapsEventListener;
-    });
-  });
+  .mockReturnValue(MapsEventListener);
 
 // @ts-expect-error - mock just what we need
 global.google.maps.event = {
-  addListenerOnce: jest.fn().mockImplementation((el, eventName, callback) => {
-    return {
-      remove: MapsEventListener,
-    };
-  }),
+  addListenerOnce: jest.fn().mockReturnValue(MapsEventListener),
 };
+
 export class StreetViewService implements google.maps.StreetViewService {
   constructor() {}
   async getPanorama() {

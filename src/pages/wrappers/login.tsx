@@ -1,3 +1,4 @@
+import {Constants} from '@/config/constants';
 import {setApiKey} from '@/redux/app';
 import {useAppDispatch} from '@/redux/hooks';
 import {Box, Button, TextField, Tooltip, Typography} from '@mui/material';
@@ -20,7 +21,7 @@ export const Login = () => {
 
   // Check if an api key is already present in local storage
   useEffect(() => {
-    const apiKey = window.sessionStorage.getItem('gapikey');
+    const apiKey = window.sessionStorage.getItem(Constants.SESSION_APIKEY_KEY);
     if (typeof apiKey === 'string') {
       dispatch(setApiKey(apiKey));
     }

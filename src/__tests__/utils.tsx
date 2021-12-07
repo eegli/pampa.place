@@ -4,7 +4,7 @@ import {render, RenderOptions} from '@testing-library/react';
 import {merge} from 'lodash';
 import {FC, ReactElement} from 'react';
 import {Provider} from 'react-redux';
-import {ThemeWrapper} from '../pages/wrappers/theme-wrapper';
+import {ThemeWrapper} from '../pages/wrappers/theme';
 import {createStore, initialStates, RootState} from '../redux/store';
 
 function customRender(

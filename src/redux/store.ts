@@ -1,3 +1,4 @@
+import {Constants} from '@/config/constants';
 import {
   configureStore,
   Middleware,
@@ -20,7 +21,7 @@ const logger = createLogger({
 
 const localStorage: Middleware<{}, RootState> = () => next => action => {
   if (action.type.includes('setApiKey') && typeof action.payload === 'string') {
-    window.sessionStorage.setItem('gapikey', action.payload);
+    window.sessionStorage.setItem(Constants.SESSION_APIKEY_KEY, action.payload);
   }
   return next(action);
 };

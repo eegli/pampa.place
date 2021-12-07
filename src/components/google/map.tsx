@@ -87,7 +87,7 @@ export const GoogleMap = ({
       });
       return () => {
         console.log('PLAY MODE UNMOUNT');
-        listener.remove();
+        if (listener) listener.remove();
         MapService.clearMarkers();
       };
     }

@@ -1,3 +1,4 @@
+import {Constants} from '@/config/constants';
 import {
   createMockState,
   createMockStore,
@@ -76,10 +77,10 @@ describe('Login', () => {
     const devModeButton = getElem('devModeButton');
     fireEvent.click(devModeButton);
     expect(store.getState().app.apiKey).toBe('');
-    const keyInStorage = window.sessionStorage.getItem('gapikey');
-    if (keyInStorage) {
-      expect(JSON.parse(keyInStorage)).toBe('');
-    }
+    const keyInStorage = window.sessionStorage.getItem(
+      Constants.SESSION_APIKEY_KEY
+    );
+    expect(keyInStorage).toBe('');
   });
   it('allows entering via own api key', () => {
     const state = createMockState();
@@ -90,10 +91,10 @@ describe('Login', () => {
     fireEvent.change(ownKeyInput, {target: {value: 'user api key'}});
     fireEvent.click(enterButton);
     expect(store.getState().app.apiKey).toBe('user api key');
-    const keyInStorage = window.sessionStorage.getItem('gapikey');
-    if (keyInStorage) {
-      expect(JSON.parse(keyInStorage)).toBe('user api key');
-    }
+    const keyInStorage = window.sessionStorage.getItem(
+      Constants.SESSION_APIKEY_KEY
+    );
+    expect(keyInStorage).toBe('user api key');
   });
   it('allows entering via server password', async () => {
     const state = createMockState();
@@ -107,9 +108,9 @@ describe('Login', () => {
       expect(mockFetch).toHaveBeenCalledTimes(1);
     });
     expect(store.getState().app.apiKey).toBe('server api key');
-    const keyInStorage = window.sessionStorage.getItem('gapikey');
-    if (keyInStorage) {
-      expect(JSON.parse(keyInStorage)).toBe('server api key');
-    }
+    const keyInStorage = window.sessionStorage.getItem(
+      Constants.SESSION_APIKEY_KEY
+    );
+    expect(keyInStorage).toBe('server api key');
   });
 });

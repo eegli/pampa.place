@@ -1,10 +1,10 @@
 import {createMockState, createMockStore, render} from '@/tests/utils';
 import * as GoogleMapsReactWrapper from '@googlemaps/react-wrapper';
-import {AuthWrapper} from './auth-wrapper';
+import {AuthWrapper} from './auth';
 
 const wrapperSpy = jest
   .spyOn(GoogleMapsReactWrapper, 'Wrapper')
-  .mockImplementation(() => <></>);
+  .mockImplementation(() => <div />);
 
 afterEach(() => {
   wrapperSpy.mockClear();

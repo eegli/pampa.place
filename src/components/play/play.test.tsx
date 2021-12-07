@@ -21,11 +21,10 @@ describe('Play', () => {
       },
     });
     const store = createMockStore(state);
-    const {unmount} = render(<Play />, store);
+    render(<Play />, store);
     const button = getSubmitButton();
     expect(button).toBeDisabled();
     expect(button).toBeInTheDocument();
-    unmount();
   });
   it('has enabled button state', () => {
     const state = createMockState({
