@@ -16,6 +16,7 @@ import {
   Paper,
   Toolbar,
 } from '@mui/material';
+import {useRouter} from 'next/router';
 import {useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {RootState} from '../../redux/store';
@@ -24,6 +25,7 @@ export const Header = () => {
   const activeTheme = useAppSelector((s: RootState) => s.app.theme);
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   function handleClick() {
     dispatch(toggleTheme());
@@ -57,7 +59,26 @@ export const Header = () => {
                 onClose={() => setDrawerIsOpen(false)}
               >
                 <Box p={2} width="100%" maxWidth="17rem">
-                  {/* TODO */}
+                  {/* TODO, this is more of a temp thing now */}
+                  <ListItem
+                    button
+                    key={'Home'}
+                    onClick={() => router.push('/')}
+                    id="item -1"
+                  >
+                    <ListItemText primary="Home" />
+                  </ListItem>
+                  <ListItem
+                    button
+                    key={'Preview maps'}
+                    onClick={() => router.push('/preview')}
+                    id="item 0"
+                  >
+                    <ListItemText
+                      primary="Preview maps"
+                      secondary="Check the shape of your maps and their Street View coverage"
+                    />
+                  </ListItem>
                   <List>
                     {[
                       'How to play',

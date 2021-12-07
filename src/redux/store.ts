@@ -15,9 +15,7 @@ const reducer = {
   game: game.reducer,
 };
 
-const logger = createLogger({
-  diff: true,
-});
+const logger = createLogger();
 
 const localStorage: Middleware<{}, RootState> = () => next => action => {
   if (action.type.includes('setApiKey') && typeof action.payload === 'string') {

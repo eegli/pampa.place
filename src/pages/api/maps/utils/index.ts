@@ -13,8 +13,15 @@ type DataResponse<T> = T extends unknown[]
       data: T[];
     };
 
+type MetaRespone<T> = {
+  info: T;
+};
 export type ApiJSONHandler<T = unknown> = NextApiHandler<
   DataResponse<T> | ErrorResponse
+>;
+
+export type APIMetadataHandler<T = unknown> = NextApiHandler<
+  MetaRespone<T> | ErrorResponse
 >;
 export type ApiTextHandler = NextApiHandler<string> | ErrorResponse;
 

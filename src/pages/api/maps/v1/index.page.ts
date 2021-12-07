@@ -34,6 +34,7 @@ const handler: ApiTextHandler = (_, res) => {
     /categories - map categories lookup
     /ids - map id lookup
     /data - GeoJSON map data
+    /meta - Map metadata 
 
     /health
 
