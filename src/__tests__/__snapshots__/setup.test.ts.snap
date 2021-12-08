@@ -18,7 +18,7 @@ Object {
     "SATELLITE": "satellite",
     "TERRAIN": "terrain",
   },
-  "Marker": [Function],
+  "Marker": [MockFunction],
   "OverlayView": [Function],
   "Point": [Function],
   "Polyline": [Function],

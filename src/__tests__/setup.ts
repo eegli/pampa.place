@@ -18,12 +18,21 @@ global.google.maps.MVCObject.prototype.addListener = jest
   .fn()
   .mockReturnValue(MapsEventListener);
 
-// @ts-expect-error - mock just what we need
 global.google.maps.event = {
   addListenerOnce: jest.fn().mockReturnValue(MapsEventListener),
+  addListener: jest.fn().mockReturnValue(MapsEventListener),
+  addDomListenerOnce: jest.fn().mockReturnValue(MapsEventListener),
+  addDomListener: jest.fn().mockReturnValue(MapsEventListener),
+  hasListeners: jest.fn(),
+  clearInstanceListeners: jest.fn(),
+  clearListeners: jest.fn(),
+  removeListener: jest.fn(),
+  trigger: jest.fn(),
 };
 
-export class StreetViewService implements google.maps.StreetViewService {
+global.google.maps.StreetViewService = class StreetViewService
+  implements google.maps.StreetViewService
+{
   constructor() {}
   async getPanorama() {
     const res: google.maps.StreetViewResponse = {
@@ -47,8 +56,7 @@ export class StreetViewService implements google.maps.StreetViewService {
     };
     return Promise.resolve(res);
   }
-}
-global.google.maps.StreetViewService = StreetViewService;
+};
 global.google.maps.StreetViewPreference = {
   // @ts-expect-error
   BEST: 'best',

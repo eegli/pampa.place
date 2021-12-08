@@ -26,16 +26,13 @@ export const GoogleStreetView = ({
 
   useEffect(() => {
     StreetViewService.sv.setPano(panoId);
-
-    let opts = config.streetview;
-
+    const opts = config.streetview;
     if (staticPos) {
-      opts = {
-        ...opts,
+      Object.assign(opts, {
         clickToGo: false,
         disableDoubleClickZoom: true,
         disableDefaultUI: true,
-      };
+      });
     }
     StreetViewService.sv.setOptions(opts);
   }, [panoId, staticPos]);

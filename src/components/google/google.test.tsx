@@ -1,5 +1,5 @@
 import {testMapId} from '@/config/__mocks__/maps';
-import {MapService, StreetViewService} from '@/services/google';
+import {MapService, MarkerService, StreetViewService} from '@/services/google';
 import {createMockStore, render, screen} from '@/tests/utils';
 import {mocked} from 'ts-jest/utils';
 import {GoogleMap, GoogleMapProps} from './map';
@@ -13,7 +13,6 @@ import {GoogleStreetView} from './street-view';
 // mounted
 const events: {event: string; func: Function}[] = [];
 const removeEventListener = jest.fn();
-
 jest
   .spyOn(MapService.map, 'addListener')
   .mockImplementation((event, handler) => {
@@ -41,6 +40,7 @@ afterEach(() => {
 
 const mockSv = mocked(StreetViewService, true);
 const mockGmap = mocked(MapService, true);
+const mockMarkers = mocked(MarkerService, true);
 
 describe('Google, Map', () => {
   it('renders and has containers in document', () => {
@@ -73,17 +73,22 @@ describe('Google, Map', () => {
     expect(mockGmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
       'play settings'
     );
-    expect(mockGmap.markers.length).toBe(1);
+    expect(mockMarkers.items).toHaveLength(1);
+    expect(mockMarkers.items[0].setMap).toHaveBeenCalledTimes(1);
+    expect(mockMarkers.items[0].setDraggable).toHaveBeenCalledTimes(1);
+    // @ts-expect-error
+    expect(mockMarkers.items[0].mock).toMatchSnapshot('marker');
     expect(events.length).toBe(2);
     expect(events[1].event).toBe('click');
     events[1].func();
-    expect(mockGmap.markers[0].setPosition).toHaveBeenCalledTimes(1);
+    expect(mockMarkers.items[0].setPosition).toHaveBeenCalledTimes(1);
+    events[1].func();
+    expect(mockMarkers.items[0].setPosition).toHaveBeenCalledTimes(2);
     expect(store.getState().position.selectedPosition).toMatchSnapshot(
       'update selected position'
     );
     unmount();
-    expect(removeEventListener).toHaveBeenCalledTimes(1);
-    expect(mockGmap.markers.length).toBe(0);
+    expect(mockMarkers.items).toHaveLength(0);
   });
   it('has result mode', () => {
     const props: GoogleMapProps = {
@@ -98,9 +103,8 @@ describe('Google, Map', () => {
     expect(mockGmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
       'result settings'
     );
-    expect(mockGmap.markers.length).toBe(3);
+    expect(mockMarkers.items).toHaveLength(3);
     unmount();
-    expect(mockGmap.markers.length).toBe(0);
   });
 });
 

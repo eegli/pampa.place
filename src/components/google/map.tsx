@@ -5,7 +5,7 @@ import {LatLngLiteral} from '@/config/types';
 import {Result} from '@/redux/game';
 import {useAppDispatch} from '@/redux/hooks';
 import {updateSelectedPosition} from '@/redux/position';
-import {MapService} from '@/services/google';
+import {MapService, MarkerService} from '@/services/google';
 import {useEffect, useRef} from 'react';
 
 export type GoogleMapProps = {
@@ -52,7 +52,9 @@ export const GoogleMap = ({
         mapTypeId: 'roadmap',
         mapTypeControl: false,
       });
+
       const features = MapService.map.data.addGeoJson(MAPS[mapId].feature);
+
       MapService.map.data.setStyle({
         fillColor: '#003d80',
         fillOpacity: 0.2,
@@ -71,16 +73,17 @@ export const GoogleMap = ({
     if (mode === 'play') {
       console.log('PLAY MODE MOUNT');
       MapService.map.setOptions(config.map);
-      const marker = MapService.addMarker(
-        new google.maps.Marker({
-          draggable: true,
-          map: MapService.map,
-        })
-      );
+
+      const marker = new google.maps.Marker();
+      marker.setMap(MapService.map);
+      marker.setDraggable(true);
+
+      MarkerService.add(marker);
+
       // This Google Map event is not typed unfortunately
       const listener = MapService.map.addListener('click', (e: unknown) => {
         const {latLng} = e as {latLng: google.maps.LatLng};
-        marker.setPosition(latLng);
+        marker!.setPosition(latLng);
         dispatch(
           updateSelectedPosition({lat: latLng.lat(), lng: latLng.lng()})
         );
@@ -88,7 +91,8 @@ export const GoogleMap = ({
       return () => {
         console.log('PLAY MODE UNMOUNT');
         if (listener) listener.remove();
-        MapService.clearMarkers();
+        // https://developers.google.com/maps/documentation/javascript/markers#remove
+        MarkerService.clearAllItems();
       };
     }
   }, [mode, dispatch]);
@@ -97,44 +101,53 @@ export const GoogleMap = ({
     if (mode === 'result' && results) {
       console.log('RESULT MODE MOUNT');
       MapService.map.setOptions(config.map);
-      MapService.addMarker(
-        new google.maps.Marker({
-          position: initialPosition,
-          map: MapService.map,
-        })
-      );
 
+      // Add original location marker
+      const originMarker = new google.maps.Marker();
+      originMarker.setPosition(initialPosition);
+      originMarker.setMap(MapService.map);
+
+      MarkerService.add(originMarker);
+
+      // Add marker for each result
       results.forEach((p, idx) => {
-        MapService.addMarker(
-          new google.maps.Marker({
-            position: p.selected,
-            map: MapService.map,
+        const playerMarker = new google.maps.Marker({
+          position: p.selected,
+          map: MapService.map,
+          label: {
+            text: p.name,
+            color: 'white',
+            className: 'map-marker',
+          },
+          icon: {
+            path: markerConfig.marker.path,
+            fillColor: `#${markerConfig.colors[idx]}`,
+            fillOpacity: 1,
+            anchor: new google.maps.Point(
+              markerConfig.marker.anchor[0],
+              markerConfig.marker.anchor[1]
+            ),
+            strokeWeight: 0,
+            scale: 1,
+            labelOrigin: new google.maps.Point(15, 60),
+          },
+        });
 
-            label: {
-              text: p.name,
-              color: 'white',
-              className: 'map-marker',
-            },
-            icon: {
-              path: markerConfig.marker.path,
-              fillColor: `#${markerConfig.colors[idx]}`,
-              fillOpacity: 1,
-              anchor: new google.maps.Point(
-                markerConfig.marker.anchor[0],
-                markerConfig.marker.anchor[1]
-              ),
-              strokeWeight: 0,
-              scale: 1,
-              labelOrigin: new google.maps.Point(15, 60),
-            },
-          })
-        );
+        const polyLine = new google.maps.Polyline({
+          path: [initialPosition!, p.selected!],
+          map: MapService.map,
+          geodesic: true,
+          strokeColor: `#${markerConfig.colors[idx]}`,
+          strokeOpacity: 1.0,
+          strokeWeight: 4,
+        });
+
+        MarkerService.add(playerMarker);
       });
 
       return () => {
         console.log('RESULT MODE UNMOUNT');
-        // https://developers.google.com/maps/documentation/javascript/markers#remove
-        MapService.clearMarkers();
+        MarkerService.clearAllItems();
       };
     }
   }, [mode, initialPosition, results]);
