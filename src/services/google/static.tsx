@@ -1,6 +1,20 @@
 import {unsafeToggleHTMLElement} from '@/utils/misc';
 import {GoogleDOMIds} from './dom';
 
+function mountFactory(originDiv: string, originContainer: string) {
+  return function (tempContainer: HTMLElement) {
+    const unmount = unsafeToggleHTMLElement(
+      document.getElementById(originDiv)!,
+      document.getElementById(originContainer)!,
+      tempContainer
+    );
+
+    return () => {
+      unmount();
+    };
+  };
+}
+
 export class MapService {
   private static _map: google.maps.Map | undefined;
   static get map() {
@@ -12,17 +26,7 @@ export class MapService {
     }
     return this._map;
   }
-  static mount(tempContainer: HTMLElement) {
-    const unmount = unsafeToggleHTMLElement(
-      document.getElementById(GoogleDOMIds.MAP_DIV)!,
-      document.getElementById(GoogleDOMIds.MAP_CONTAINER)!,
-      tempContainer
-    );
-
-    return () => {
-      unmount();
-    };
-  }
+  static mount = mountFactory(GoogleDOMIds.MAP_DIV, GoogleDOMIds.MAP_CONTAINER);
 }
 
 export class StreetViewService {
@@ -36,37 +40,5 @@ export class StreetViewService {
     }
     return this._sv;
   }
-
-  static mount(tempContainer: HTMLElement) {
-    const unmount = unsafeToggleHTMLElement(
-      document.getElementById(GoogleDOMIds.STV_DIV)!,
-      document.getElementById(GoogleDOMIds.STV_CONTAINER)!,
-      tempContainer
-    );
-
-    return () => {
-      unmount();
-    };
-  }
-}
-
-class GoogleStaticFactory<T> {
-  private instance: T | undefined;
-  constructor(
-    private divId: string,
-    private containerId: string,
-    private factory: new (...args: any[]) => T,
-    private instanceName?: string
-  ) {
-    this.instanceName = instanceName || 'google object';
-  }
-  get it() {
-    if (!this.instance) {
-      this.instance = new this.factory(document.getElementById(this.divId)!);
-      console.log(
-        `%cCreated new global ${this.instanceName} instance', 'color: green`
-      );
-    }
-    return this.instance;
-  }
+  static mount = mountFactory(GoogleDOMIds.STV_DIV, GoogleDOMIds.STV_CONTAINER);
 }
