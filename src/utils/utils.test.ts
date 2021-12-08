@@ -1,4 +1,4 @@
-import {formatDist, formatDur, min, unsafeToggleHTMLElement} from './misc';
+import {formatDist, formatDur, min} from './misc';
 
 describe('Utils, misc', () => {
   test('min utility', () => {
@@ -22,21 +22,5 @@ describe('Utils, misc', () => {
     expect(formatDist(1000)).toEqual('1.000 km');
     expect(formatDist(1001.1)).toEqual('1.001 km');
     expect(formatDist(1021.1)).toEqual('1.021 km');
-  });
-  test('toggle element', () => {
-    const originContainer = document.createElement('div');
-    const tempContainer = document.createElement('div');
-    const child = document.createElement('div');
-
-    originContainer.appendChild(child);
-    expect(originContainer.hasChildNodes()).toBeTruthy();
-
-    const undo = unsafeToggleHTMLElement(child, originContainer, tempContainer);
-    expect(originContainer.hasChildNodes()).toBeFalsy();
-    expect(tempContainer.hasChildNodes()).toBeTruthy();
-
-    undo();
-    expect(originContainer.hasChildNodes()).toBeTruthy();
-    expect(tempContainer.hasChildNodes()).toBeFalsy();
   });
 });

@@ -20,14 +20,3 @@ export function formatDist(meter: number, toFixed = 3): string {
   }
   return (meter / 1000).toFixed(toFixed) + ' km';
 }
-
-export function unsafeToggleHTMLElement<T extends HTMLElement>(
-  el: T,
-  originContainer: T,
-  tempContainer: T
-) {
-  tempContainer.appendChild(el);
-  return () => {
-    originContainer.appendChild(el);
-  };
-}

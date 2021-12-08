@@ -1,16 +1,13 @@
-import {unsafeToggleHTMLElement} from '@/utils/misc';
 import {GoogleDOMIds} from './dom';
 
-function mountFactory(originDiv: string, originContainer: string) {
+function mountFactory(elementId: string, containerId: string) {
   return function (tempContainer: HTMLElement) {
-    const unmount = unsafeToggleHTMLElement(
-      document.getElementById(originDiv)!,
-      document.getElementById(originContainer)!,
-      tempContainer
-    );
+    const element = document.getElementById(elementId)!;
+    const container = document.getElementById(containerId)!;
 
+    tempContainer.appendChild(element);
     return () => {
-      unmount();
+      container.appendChild(element);
     };
   };
 }
