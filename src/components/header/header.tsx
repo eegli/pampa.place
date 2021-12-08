@@ -1,4 +1,4 @@
-import {toggleTheme} from '@/redux/app';
+import {setTheme} from '@/redux/app';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -24,7 +24,7 @@ export const Header = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
 
   function handleToggleTheme() {
-    dispatch(toggleTheme());
+    dispatch(setTheme(activeTheme === 'light' ? 'dark' : 'light'));
   }
 
   function handleToggleDrawer() {

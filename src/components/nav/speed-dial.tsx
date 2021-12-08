@@ -1,4 +1,4 @@
-import {toggleTheme} from '@/redux/app';
+import {setTheme} from '@/redux/app';
 import {resetRound} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -22,6 +22,10 @@ export const SpeedDialNav = () => {
   const [dialog, setDialog] = useState<ConfirmationDialogProps>(
     {} as ConfirmationDialogProps
   );
+
+  function handleToggleTheme() {
+    dispatch(setTheme(activeTheme === 'light' ? 'dark' : 'light'));
+  }
 
   return (
     <>
@@ -109,7 +113,7 @@ export const SpeedDialNav = () => {
             }
             tooltipTitle={activeTheme === 'light' ? 'Lights off' : 'Lights on'}
             tooltipPlacement="right"
-            onClick={() => dispatch(toggleTheme())}
+            onClick={handleToggleTheme}
           />
         </SpeedDial>
       </Box>

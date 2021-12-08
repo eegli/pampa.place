@@ -1,9 +1,10 @@
+import {PaletteMode} from '@mui/material';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 interface AppState {
   authError: boolean;
   apiKey: string | undefined;
-  theme: 'dark' | 'light';
+  theme: PaletteMode;
 }
 
 const initialState: AppState = {
@@ -19,11 +20,11 @@ const appSlice = createSlice({
     setApiKey(state, {payload}: PayloadAction<string | undefined>) {
       state.apiKey = payload;
     },
-    toggleTheme(state) {
-      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+    setTheme(state, {payload}: PayloadAction<PaletteMode>) {
+      state.theme = payload;
     },
   },
 });
 
-export const {setApiKey, toggleTheme} = appSlice.actions;
+export const {setApiKey, setTheme} = appSlice.actions;
 export default appSlice;

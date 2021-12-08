@@ -17,16 +17,19 @@ const reducer = {
 
 const logger = createLogger();
 
-const localStorage: Middleware<{}, RootState> = () => next => action => {
+const windowStorage: Middleware<{}, RootState> = state => next => action => {
   if (action.type.includes('setApiKey') && typeof action.payload === 'string') {
     window.sessionStorage.setItem(Constants.SESSION_APIKEY_KEY, action.payload);
+  }
+  if (action.type.includes('setTheme')) {
+    window.localStorage.setItem(Constants.THEME_KEY, action.payload);
   }
   return next(action);
 };
 
 const isDev = process.env.NODE_ENV === 'development';
-const devMiddleware = [logger, localStorage];
-const prodMiddleware = [localStorage];
+const devMiddleware = [logger, windowStorage];
+const prodMiddleware = [windowStorage];
 
 export const initialStates = {
   position: position.reducer(undefined, {type: '@@INIT'}),
