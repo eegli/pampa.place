@@ -51,7 +51,7 @@ export const PageContentWrapper = ({
     <Box
       width="100%"
       height={headerGutter ? 'calc(100%-64px)' : '100%'}
-      margin={`${headerGutter ? '64px' : '0'} auto 0 auto`}
+      margin={`${headerGutter ? '64px' : 0} auto 0 auto`}
       display="flex"
       flexDirection="column"
       alignItems="center"

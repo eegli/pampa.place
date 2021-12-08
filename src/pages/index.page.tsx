@@ -5,11 +5,13 @@ import {PageContentWrapper} from '../styles/containers';
 
 const HomePage = () => {
   return (
-    <PageContentWrapper id="index-page" headerGutter width="25rem">
+    <>
       <Header />
-      <FancyRetroTitle primary="PAMPA" secondary="PLACE" />
-      <Form />
-    </PageContentWrapper>
+      <PageContentWrapper headerGutter id="index-page" width="25rem">
+        <FancyRetroTitle primary="PAMPA" secondary="PLACE" />
+        <Form />
+      </PageContentWrapper>
+    </>
   );
 };
 

@@ -1,7 +1,6 @@
 import {toggleTheme} from '@/redux/app';
 import {resetRound} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
-import {RootState} from '@/redux/store';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import FlagIcon from '@mui/icons-material/Flag';
 import HomeIcon from '@mui/icons-material/Home';
@@ -16,13 +15,13 @@ import {useState} from 'react';
 import {ConfirmationDialog, ConfirmationDialogProps} from './dialog';
 
 export const SpeedDialNav = () => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const activeTheme = useAppSelector(s => s.app.theme);
+
   const [dialog, setDialog] = useState<ConfirmationDialogProps>(
     {} as ConfirmationDialogProps
   );
-
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-  const activeTheme = useAppSelector((s: RootState) => s.app.theme);
 
   return (
     <>

@@ -1,3 +1,4 @@
+import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
 import React, {useEffect, useRef} from 'react';
 import {Header} from '../components/header/header';
@@ -9,6 +10,7 @@ const PreviewPage = () => {
   useEffect(() => {
     if (ref.current) {
       const unmount = MapService.mount(ref.current);
+      MapService.map.setOptions(config.map);
       const geoJSONs = Object.values(MAPS);
 
       const features = geoJSONs.reduce((acc, curr) => {
@@ -40,16 +42,18 @@ const PreviewPage = () => {
     }
   }, []);
   return (
-    <PageContentWrapper id="preview-page" height="calc(100% - 48px)">
+    <>
       <Header />
-      <div
-        ref={ref}
-        style={{
-          height: '100%',
-          width: '100%',
-        }}
-      />
-    </PageContentWrapper>
+      <PageContentWrapper headerGutter id="preview-page">
+        <div
+          ref={ref}
+          style={{
+            height: '100%',
+            width: '100%',
+          }}
+        />
+      </PageContentWrapper>
+    </>
   );
 };
 

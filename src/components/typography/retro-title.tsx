@@ -76,7 +76,7 @@ const StyledBox = styled(Box)`
 
 type RetroTitleProps = {
   primary: string;
-  secondary: string;
+  secondary?: string;
 };
 
 export const FancyRetroTitle = ({primary, secondary}: RetroTitleProps) => (

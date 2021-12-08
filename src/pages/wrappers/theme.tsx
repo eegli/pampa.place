@@ -1,4 +1,3 @@
-import {RootState} from '@/redux/store';
 import {
   Container,
   createTheme,
@@ -10,7 +9,7 @@ import {useAppSelector} from '../../redux/hooks';
 import GlobalStyles from '../../styles/global';
 
 export const ThemeWrapper = ({children}: {children: ReactNode}) => {
-  const activeTheme = useAppSelector((s: RootState) => s.app.theme);
+  const activeTheme = useAppSelector(s => s.app.theme);
   const theme = createTheme({palette: {mode: activeTheme}});
 
   return (

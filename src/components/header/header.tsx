@@ -7,45 +7,38 @@ import {
   AppBar,
   Box,
   Divider,
-  Drawer,
   IconButton,
   Link,
-  List,
-  ListItem,
-  ListItemText,
   Paper,
   Toolbar,
 } from '@mui/material';
 import {useRouter} from 'next/router';
 import {useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {RootState} from '../../redux/store';
+import {HeaderDrawer} from './drawer';
 
 export const Header = () => {
-  const activeTheme = useAppSelector((s: RootState) => s.app.theme);
-  const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const activeTheme = useAppSelector(s => s.app.theme);
+  const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
 
-  function handleClick() {
+  function handleToggleTheme() {
     dispatch(toggleTheme());
   }
 
-  function handleChangeKey() {
-    window.sessionStorage.clear();
-    // In order to load a new API key, the page must be reloaded so
-    // that Google maps can properly set the new key
-    window.location.reload();
+  function handleToggleDrawer() {
+    setDrawerIsOpen(!drawerIsOpen);
   }
 
   return (
     <>
       <AppBar position="fixed" id="header">
         <Paper elevation={1}>
-          <Toolbar sx={{py: 1}} id="gaggi">
+          <Toolbar sx={{py: 1}}>
             <Box sx={{flexGrow: 1}}>
               <IconButton
-                onClick={() => setDrawerIsOpen(true)}
+                onClick={handleToggleDrawer}
                 size="large"
                 edge="start"
                 color="inherit"
@@ -53,64 +46,10 @@ export const Header = () => {
               >
                 <MenuIcon />
               </IconButton>
-              <Drawer
-                anchor="left"
+              <HeaderDrawer
                 open={drawerIsOpen}
-                onClose={() => setDrawerIsOpen(false)}
-              >
-                <Box p={2} width="100%" maxWidth="17rem">
-                  {/* TODO, this is more of a temp thing now */}
-                  <ListItem
-                    button
-                    key={'Home'}
-                    onClick={() => router.push('/')}
-                    id="item -1"
-                  >
-                    <ListItemText primary="Home" />
-                  </ListItem>
-                  <ListItem
-                    button
-                    key={'Preview maps'}
-                    onClick={() => router.push('/preview')}
-                    id="item 0"
-                  >
-                    <ListItemText
-                      primary="Preview maps"
-                      secondary="Check the shape of your maps and their Street View coverage"
-                    />
-                  </ListItem>
-                  <List>
-                    {[
-                      'How to play',
-                      'Customization guide',
-                      'About',
-                      'Privacy',
-                    ].map(text => (
-                      <ListItem
-                        button
-                        key={text}
-                        onClick={() => setDrawerIsOpen(false)}
-                      >
-                        <ListItemText
-                          primary={text}
-                          secondary={'Coming soon!'}
-                        />
-                      </ListItem>
-                    ))}
-                    <ListItem
-                      button
-                      key={'Change API key'}
-                      onClick={handleChangeKey}
-                      id="item 4"
-                    >
-                      <ListItemText
-                        primary="Change API key"
-                        secondary="Play with a different API key or change into development mode"
-                      />
-                    </ListItem>
-                  </List>
-                </Box>
-              </Drawer>
+                toggleDrawer={handleToggleDrawer}
+              />
             </Box>
 
             <IconButton
@@ -118,7 +57,7 @@ export const Header = () => {
               edge="start"
               color="inherit"
               sx={{mx: 1}}
-              onClick={handleClick}
+              onClick={handleToggleTheme}
             >
               {activeTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
             </IconButton>
@@ -142,7 +81,6 @@ export const Header = () => {
           </Toolbar>
         </Paper>
       </AppBar>
-      {/*  <Toolbar sx={{py: 1}} id="gaggi 2" /> */}
     </>
   );
 };
