@@ -2,7 +2,6 @@ import Tarea from '@turf/area';
 import Tbbox from '@turf/bbox';
 import TbboxPolygon from '@turf/bbox-polygon';
 import {FeatureCollection, MultiPolygon, Polygon} from '@turf/helpers';
-import {nanoid} from 'nanoid';
 import {BaseMapProperties, MapDataCollection, MapIdCollection} from '../types';
 
 export function computeMapData<
@@ -12,8 +11,10 @@ export function computeMapData<
     const bb = Tbbox(curr);
     const bbPoly = TbboxPolygon(bb);
 
-    // Use an ID in order to avoid collisions between maps with the same name
-    const mapId = nanoid(12);
+    // Maps with the same name AND category will overwrite themselves!
+    const mapId = `${category}-${curr.properties.name}`
+      .replace(/\s/g, '-')
+      .toLowerCase();
 
     acc[mapId] = {
       feature: {
@@ -46,7 +47,7 @@ export function computeMapData<
         },
       },
     };
-    acc;
+
     return acc;
   }, {} as MapDataCollection);
 }
