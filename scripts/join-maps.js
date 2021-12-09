@@ -1,10 +1,14 @@
-const {readFileSync, readdirSync, writeFileSync} = require('fs');
+const {readFileSync, readdirSync, writeFileSync, writeFile} = require('fs');
 const path = require('path');
 
-const DIR = 'maps';
-const OUTFILE = path.join(DIR, 'index.json');
+const {MAPS_OUTPUT_DIR} = require('./constants');
 
-const inputGeoJSON = readdirSync(DIR).filter(f => f !== 'index.json');
+const DIR = 'maps';
+const OUTFILE = path.join(MAPS_OUTPUT_DIR, 'index.json');
+
+const inputGeoJSON = readdirSync(MAPS_OUTPUT_DIR).filter(
+  f => f !== 'index.json'
+);
 const combinedMaps = inputGeoJSON.reduce(
   (acc, file) => {
     /** @type {import('@turf/helpers').FeatureCollection} */
@@ -17,4 +21,12 @@ const combinedMaps = inputGeoJSON.reduce(
   {type: 'FeatureCollection', features: []}
 );
 
-writeFileSync(OUTFILE, JSON.stringify(combinedMaps), 'utf8');
+writeFile(OUTFILE, JSON.stringify(combinedMaps), 'utf8', () => {
+  console.log(
+    `Successfully combined \n${JSON.stringify(
+      inputGeoJSON,
+      null,
+      2
+    )}\ninto ${OUTFILE}`
+  );
+});

@@ -41,8 +41,7 @@ export interface MapProperties extends BaseMapProperties {
   id: string;
 }
 
-/* Input map data */
-export type MapFeatureCollection = FeatureCollection<
+export type InputMapData = FeatureCollection<
   Polygon | MultiPolygon,
   BaseMapProperties
 >;

@@ -7,17 +7,12 @@ const handler: ApiJSONHandler<MapData> = (req, res) => {
   const idQuery = nthQuery(req.query.id);
 
   if (nameQuery) {
-    const map = Object.values(apiData.MAPS).find(
-      map =>
-        map.feature.properties.name.toLowerCase() === nameQuery.toLowerCase()
-    );
-
-    if (map) {
-      return res.status(200).json({
-        data: [map],
-      });
-    }
-    return res.status(404).json({error: `Map with name ${nameQuery} found`});
+    return res.status(200).json({
+      data: Object.values(apiData.MAPS).filter(
+        map =>
+          map.feature.properties.name.toLowerCase() === nameQuery.toLowerCase()
+      ),
+    });
   }
 
   if (idQuery) {

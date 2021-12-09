@@ -3,11 +3,11 @@ import {MapIdCollection} from '@/config/types';
 import {ApiJSONHandler, nthQuery} from '../../utils';
 
 const handler: ApiJSONHandler<MapIdCollection> = (req, res) => {
-  const type = nthQuery(req.query.type);
+  const typeQuery = nthQuery(req.query.type);
 
-  if (type) {
+  if (typeQuery) {
     return res.status(200).json({
-      data: apiData.MAP_IDS.filter(id => id.category === type),
+      data: apiData.MAP_IDS.filter(id => id.category === typeQuery),
     });
   }
 

@@ -1,24 +1,25 @@
 const {readFileSync, readdirSync, writeFileSync} = require('fs');
 const path = require('path');
 const inquirer = require('inquirer');
-
-const INPUT_DIR = 'data';
-const OUT_DIR = 'maps';
-const REQUIRED_PROP = 'name';
+const {
+  MAPS_INPUT_DIR,
+  MAPS_OUTPUT_DIR,
+  GEOJSON_REQUIRED_PROP,
+} = require('./constants');
 
 (async () => {
   console.log(
     `
-    Every map used in the game needs at least a GeoJSON property with the name "${REQUIRED_PROP}".
-    You'll be taken through each file in ./${INPUT_DIR} to decide what
-    current property you want to use for "${REQUIRED_PROP}".
+    Every map used in the game needs at least a GeoJSON property with the name "${GEOJSON_REQUIRED_PROP}".
+    You'll be taken through each input file to decide what
+    current property you want to use for "${GEOJSON_REQUIRED_PROP}".
     `
   );
-  for await (const fileName of readdirSync(INPUT_DIR)) {
-    console.log(`Reading files from dir "./${INPUT_DIR}"...`);
+  for await (const fileName of readdirSync(MAPS_INPUT_DIR)) {
+    console.log(`Reading files from dir "./${MAPS_INPUT_DIR}"...`);
     /** @type {import('@turf/helpers').FeatureCollection} */
     const geojson = JSON.parse(
-      readFileSync(path.join(INPUT_DIR, fileName), 'utf8')
+      readFileSync(path.join(MAPS_INPUT_DIR, fileName), 'utf8')
     );
 
     if (!geojson.features.length) {
@@ -34,7 +35,7 @@ const REQUIRED_PROP = 'name';
       .prompt([
         {
           name: 'propToRename',
-          message: `${fileName}: Select property to use as "${REQUIRED_PROP}":`,
+          message: `${fileName}: Select property to use as "${GEOJSON_REQUIRED_PROP}":`,
           type: 'list',
           choices: properties,
           pageSize: properties.length,
@@ -86,13 +87,14 @@ const REQUIRED_PROP = 'name';
               return acc;
             }
 
-            // Create REQUIRED_PROP property
-            curr.properties[REQUIRED_PROP] = curr.properties[propToRename];
+            // Create GEOJSON_REQUIRED_PROP property
+            curr.properties[GEOJSON_REQUIRED_PROP] =
+              curr.properties[propToRename];
 
             if (shouldDeleteOtherProps) {
               // Delete other properties
               Object.keys(curr.properties).forEach(prop => {
-                if (prop !== REQUIRED_PROP) {
+                if (prop !== GEOJSON_REQUIRED_PROP) {
                   delete curr.properties[prop];
                 }
               });
@@ -109,7 +111,7 @@ const REQUIRED_PROP = 'name';
         geojson.features = newFeatures;
 
         writeFileSync(
-          path.join(OUT_DIR, newFileName + '.json'),
+          path.join(MAPS_OUTPUT_DIR, newFileName + '.json'),
           JSON.stringify(geojson),
           'utf8'
         );
