@@ -21,7 +21,8 @@ const PreviewPage = () => {
 
       // Each map is a GeoJSON Featurecollection that could
       // potentially include multiple GeoJSON features. In practice,
-      // each feature will only contain one feature
+      // each collection ("const feature" below) will only contain one
+      // feature
       const geojson = Object.values(MAPS).reduce((acc, curr) => {
         const feature = MapService.map.data.addGeoJson(curr.feature);
         acc.push(...feature);
