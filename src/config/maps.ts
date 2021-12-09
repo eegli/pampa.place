@@ -1,12 +1,5 @@
-import customMapData from '../../maps/custom.json';
-import swissMapData from '../../maps/switzerland.json';
 import {computeMapData, computeMapIds} from './helpers/creator';
-import {
-  InputMapData,
-  MapDataCollection,
-  MapIdCollection,
-  PropertyTransformer,
-} from './types';
+import {MapDataCollection, MapIdCollection, PropertyTransformer} from './types';
 
 const swissMapsTransformer: PropertyTransformer = p => {
   if (p.name.includes('/')) {
@@ -16,11 +9,11 @@ const swissMapsTransformer: PropertyTransformer = p => {
 
 export const MAPS: MapDataCollection = computeMapData(
   {
-    map: swissMapData as InputMapData,
+    map: require('../../maps/switzerland.json'),
     category: 'switzerland',
     transformer: swissMapsTransformer,
   },
-  {map: customMapData as InputMapData, category: 'custom'}
+  {map: require('../../maps/custom.json'), category: 'custom'}
 );
 
 export const MAP_IDS: MapIdCollection = computeMapIds(MAPS);

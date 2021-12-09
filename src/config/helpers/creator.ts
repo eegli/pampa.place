@@ -7,6 +7,23 @@ export const computeMapData: MapDataGenerator = (...inputs) => {
   const maps = inputs.map(({map, category, transformer}) => {
     return map.features.reduce((acc, curr) => {
       try {
+        // Only GeoJSON features "with an area" are allowed in this
+        // game - No Points, LineStrings, etc.
+        if (!['Polygon', 'MultiPolygon'].includes(curr.geometry.type)) {
+          console.warn(
+            `Warning! Feature "${curr.properties.name}" (category "${category}") is not a Polygon or MultiPolygon.`
+          );
+          return acc;
+        }
+
+        // Skip maps with no name property
+        if (!curr.properties.name) {
+          console.warn(
+            `Warning! Feature "${curr.properties.name}" (category "${category}") does not have a "name" property.`
+          );
+          return acc;
+        }
+
         const bb = Tbbox(curr);
         const bbPoly = TbboxPolygon(bb);
 
@@ -54,8 +71,8 @@ export const computeMapData: MapDataGenerator = (...inputs) => {
         return acc;
       } catch (e) {
         throw new Error(
-          `Failed to compute map data for GeoJSON feature with properties "${JSON.stringify(
-            curr.properties,
+          `Failed to compute map data for feature with properties "${JSON.stringify(
+            {name: curr.properties, category},
             null,
             2
           )}".\n${e}`

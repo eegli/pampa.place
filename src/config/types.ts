@@ -35,10 +35,6 @@ export type GameConfig = {
 /* Geo utilities */
 export type LatLngLiteral = {lat: number; lng: number};
 
-/* Only GeoJSON features "with an area" are allowed in this game - No
-Points, LineStrings, etc. */
-export type AllowedFeaturesTypes = Polygon | MultiPolygon;
-
 /* Each input map needs to have at least these properties */
 export interface BaseMapProperties {
   name: string;
@@ -52,7 +48,7 @@ export interface MapProperties extends BaseMapProperties {
 
 /* Type for input GeoJSON data */
 export type InputMapData = FeatureCollection<
-  AllowedFeaturesTypes,
+  Polygon | MultiPolygon,
   BaseMapProperties
 >;
 
@@ -64,7 +60,7 @@ export type MapData = {
   // Poly bounding box: SW SE NE NW
   bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
   // Base can be used directly with google maps
-  feature: Feature<AllowedFeaturesTypes, MapProperties>;
+  feature: Feature<Polygon | MultiPolygon, MapProperties>;
 };
 
 /*
@@ -87,11 +83,10 @@ type Input<T> = {
 
 export type MapDataGenerator<
   T extends FeatureCollection<
-    AllowedFeaturesTypes,
+    Polygon | MultiPolygon,
     BaseMapProperties
   > = InputMapData
 > = (...inputs: Input<T>[]) => MapDataCollection;
 
 export type PropertyTransformer = (props: BaseMapProperties) => void;
-
-export type MapIdGenerator = (collection: MapDataCollection) => MapIdCollection;
+export type MapIdGenerator = (coll: MapDataCollection) => MapIdCollection;

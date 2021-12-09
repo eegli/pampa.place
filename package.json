@@ -14,7 +14,6 @@
     "test:watch": "jest --verbose --watch",
     "test:coverage": "jest --coverage",
     "scripts:make-maps": "node scripts/geojson-maker.js",
-    "scripts:join-maps": "node scripts/join-maps.js",
     "prepare": "husky install"
   },
   "dependencies": {
