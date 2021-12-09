@@ -2,6 +2,8 @@
 
 ## Contributing
 
+Read [CONTRIBUTING.md](https://github.com/eegli/pampa.place/blob/main/CONTRIBUTING.md).
+
 ## Adding custom maps
 
 ### Data sources
