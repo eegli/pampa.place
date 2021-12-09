@@ -38,6 +38,7 @@ export interface BaseMapProperties {
 
 export interface MapProperties extends BaseMapProperties {
   category: string;
+  id: string;
 }
 
 /* Input map data */
@@ -60,8 +61,4 @@ export type MapData = {
 /* Full, computed map data */
 export type MapDataCollection = Record<string, MapData>;
 
-export type MapIdCollection = {
-  name: string;
-  category: string;
-  id: string;
-}[];
+export type MapIdCollection = MapProperties[];

@@ -16,6 +16,7 @@ type DataResponse<T> = T extends unknown[]
 type MetaRespone<T> = {
   info: T;
 };
+
 export type ApiJSONHandler<T = unknown> = NextApiHandler<
   DataResponse<T> | ErrorResponse
 >;
@@ -23,6 +24,7 @@ export type ApiJSONHandler<T = unknown> = NextApiHandler<
 export type APIMetadataHandler<T = unknown> = NextApiHandler<
   MetaRespone<T> | ErrorResponse
 >;
+
 export type ApiTextHandler = NextApiHandler<string> | ErrorResponse;
 
 export function nthQuery<T>(arg: T | T[], index = 0): T | undefined {

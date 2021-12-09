@@ -38,11 +38,18 @@ const PreviewPage = () => {
         strokeWeight: 0.8,
       });
 
+      const listener = MapService.map.data.addListener(
+        'click',
+        function (event: any) {
+          console.info(event.feature.h);
+        }
+      );
+
       return () => {
         geojson.forEach(feat => {
           MapService.map.data.remove(feat);
         });
-
+        listener.remove();
         unmount();
       };
     }

@@ -64,6 +64,12 @@ const REQUIRED_PROP = 'name';
           when: answers => answers.shouldFilter,
         },
         {
+          name: 'shouldDeduplicate',
+          message: `${fileName}: Do you want to deduplicate the maps based on ${REQUIRED_PROP}?`,
+          type: 'confirm',
+          default: false,
+        },
+        {
           name: 'newFileName',
           message: `${fileName}: (Optional) Enter new file name without extension (hit enter to skip):`,
           type: 'input',
@@ -77,6 +83,7 @@ const REQUIRED_PROP = 'name';
           shouldFilter,
           propToExclude,
           propToExcludeValue,
+          shouldDeduplicate,
           newFileName,
         }) => {
           const newFeatures = geojson.features.reduce((acc, curr) => {
@@ -88,6 +95,17 @@ const REQUIRED_PROP = 'name';
 
             // Create REQUIRED_PROP property
             curr.properties[REQUIRED_PROP] = curr.properties[propToRename];
+
+            // Don't add duplicate features
+            if (
+              shouldDeduplicate &&
+              acc.find(
+                f =>
+                  f.properties[REQUIRED_PROP] === curr.properties[REQUIRED_PROP]
+              )
+            ) {
+              return acc;
+            }
 
             if (shouldDeleteOtherProps) {
               // Delete other properties

@@ -12,13 +12,14 @@ export function computeMapData<
     const bb = Tbbox(curr);
     const bbPoly = TbboxPolygon(bb);
 
-    delete curr.id;
+    // Use an ID in order to avoid collisions between maps with the same name
+    const mapId = nanoid(12);
 
-    // Use an ID in order to avoid collisions between custom and Swiss maps
-    acc[nanoid(12)] = {
+    acc[mapId] = {
       feature: {
         ...curr,
         properties: {
+          id: mapId,
           name: curr.properties.name,
           category: category,
         },
@@ -50,16 +51,10 @@ export function computeMapData<
   }, {} as MapDataCollection);
 }
 
-export function computeMapIds(m: MapDataCollection) {
-  const ids = Object.entries(m).reduce((acc, [mapId, data]) => {
-    acc.push({
-      name: data.feature.properties.name,
-      category: data.feature.properties.category,
-      id: mapId,
-    });
-
-    return acc;
-  }, [] as MapIdCollection);
-
-  return ids.sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
+export function computeMapIds(
+  mapDataCollection: MapDataCollection
+): MapIdCollection {
+  return Object.values(mapDataCollection).map(
+    mapData => mapData.feature.properties
+  );
 }
