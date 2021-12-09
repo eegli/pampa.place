@@ -54,7 +54,7 @@ export function computeMapData<
 export function computeMapIds(
   mapDataCollection: MapDataCollection
 ): MapIdCollection {
-  return Object.values(mapDataCollection).map(
-    mapData => mapData.feature.properties
-  );
+  return Object.values(mapDataCollection)
+    .map(mapData => mapData.feature.properties)
+    .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
 }
