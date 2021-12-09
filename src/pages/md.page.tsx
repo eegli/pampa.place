@@ -1,6 +1,6 @@
 import {Link, LinkProps, Paper, Typography} from '@mui/material';
 import {TypographyProps} from '@mui/system';
-import {GetStaticProps} from 'next';
+import {GetStaticProps, NextPage} from 'next';
 import {MDXRemote, MDXRemoteSerializeResult} from 'next-mdx-remote';
 import {serialize} from 'next-mdx-remote/serialize';
 import fetch from 'node-fetch';
@@ -23,7 +23,11 @@ const components: Record<string, ReactNode> = {
   a: (props: LinkProps) => <Link target="_blank" {...props} />,
 };
 
-const MarkdownTest = ({md}: {md: MDXRemoteSerializeResult}) => {
+type MarkdownProps = {
+  md: MDXRemoteSerializeResult;
+};
+
+const MarkdownTest: NextPage<MarkdownProps> = ({md}) => {
   return (
     <SlimContainer height="auto">
       <Paper elevation={2} sx={{p: 3, m: 2, width: '100%'}}>
@@ -36,16 +40,15 @@ const MarkdownTest = ({md}: {md: MDXRemoteSerializeResult}) => {
   );
 };
 
-export default MarkdownTest;
-
-export const getStaticProps: GetStaticProps = async ctx => {
+export const getStaticProps: GetStaticProps<MarkdownProps> = async ctx => {
   const response = await fetch(
     'https://raw.githubusercontent.com/kulshekhar/ts-jest/main/CONTRIBUTING.md'
   );
   const md = await response.text();
-
   const mdxSource = await serialize(md);
   return {
     props: {md: mdxSource},
   };
 };
+
+export default MarkdownTest;

@@ -1,5 +1,6 @@
 import {STATUS} from '@/redux/game';
 import {getRandomStreetView} from '@/redux/position/thunks';
+import {NextPage} from 'next';
 import {Error} from '../components/feedback/error';
 import {SpeedDialNav} from '../components/nav/speed-dial/speed-dial';
 import {Play} from '../components/play/play';
@@ -9,7 +10,7 @@ import {RoundOverSummary} from '../components/round/round-over';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {PageContentWrapper} from '../styles/containers';
 
-const GamePage = () => {
+const GamePage: NextPage = () => {
   const dispatch = useAppDispatch();
 
   const status = useAppSelector(({game}) => game.status);

@@ -1,9 +1,10 @@
+import {NextPage} from 'next';
 import {Form} from '../components/form/form';
 import {Header} from '../components/nav/header/header';
 import {FancyRetroTitle} from '../components/typography/retro-title';
 import {PageContentWrapper} from '../styles/containers';
 
-const HomePage = () => {
+const HomePage: NextPage = () => {
   return (
     <>
       <Header />

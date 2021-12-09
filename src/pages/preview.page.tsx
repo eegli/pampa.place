@@ -1,12 +1,13 @@
 import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
 import {Checkbox, FormControlLabel, FormGroup} from '@mui/material';
+import {NextPage} from 'next';
 import React, {useEffect, useRef, useState} from 'react';
 import {Header} from '../components/nav/header/header';
 import {MapService} from '../services/google';
 import {PageContentWrapper} from '../styles/containers';
 
-const PreviewPage = () => {
+const PreviewPage: NextPage = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [showCoverage, setShowCoverage] = useState<boolean>(true);
 
