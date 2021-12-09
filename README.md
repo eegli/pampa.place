@@ -2,8 +2,6 @@
 
 ## Contributing
 
-- TODO
-
 ## Adding custom maps
 
 ### Data sources
