@@ -1,42 +1,94 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# pampa.place
 
-## Todos
+## Contributing
 
-- Use react-use
+- TODO
 
-The maps and related data conform to the [GeoJSON standard](https://en.wikipedia.org/wiki/GeoJSON). In terms of geometry, points are specified as [lng,lat]. This is different from Google Maps, which usually defines points as [lat,lng].
+## Adding custom maps
 
-## Links
+### Data sources
 
-- [Maps API Release Notes](https://developers.google.com/maps/documentation/javascript/releases)
-- EPSG:4326 (WGS84, coordinates in decimal degrees)
-- [Cantons Data](https://gisco-services.ec.europa.eu/distribution/v2/nuts/geojson/NUTS_RG_03M_2021_4326.geojson)
-- [NUTS Regions 2021](https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2021-units.html)
-- [NUTS Classification](https://ec.europa.eu/eurostat/web/nuts/background)
-- [More map data](https://hub.arcgis.com/datasets/252471276c9941729543be8789e06e12_0/explore?location=6.177935%2C-7.522465%2C4.59)
-- [GeoJSON stuff](https://macwright.com/2015/03/23/geojson-second-bite.html#features)
-- [https://geojson.io/](https://geojson.io/)
-- [Fancy retro title by Yoav Kadosh on Codepen](https://codepen.io/ykadosh/pen/zYNxVKr?__cf_chl_jschl_tk__)
+`pampa.place` comes preloaded with two GeoJSON datasets for both the US (states, 20m resolution) and EU (NUTS regions, 3m resolution). The datasets are also available here:
 
-## Getting Started
+- [US GeoJSON data (2010)](https://eric.clst.org/tech/usgeojson/)
+- [EU GeoJSON data (2021)](https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2021-files.html)
 
-First, run the development server:
+Of course, you can also provide your own GeoJSON source.
 
-```bash
-npm run dev
-# or
-yarn dev
+### Projections and EPGS standards⚠️
+
+In general, there are two things to keep in mind:
+
+1. All the data you add to your custom game will be included in the client bundle. If you include super detailed maps that are 10Mb in size, whoever visits your game will need to download that 10Mb and more.
+2. Google Maps uses the [WGS 84 / Pseudo-Mercator projection](https://en.wikipedia.org/wiki/Web_Mercator_projection). Custom GeoJSON FeatureCollections need to be in **EPGS 4326** projection. This is also what Google seems to [use internally for it's Earth engine.](https://developers.google.com/earth-engine/guides/projections)
+
+### Drawing maps
+
+If you want quick and easy maps, you can draw a polygon here [https://geojson.io](https://geojson.io) and save the JSON output as a file.
+
+Make sure that for each polygon or multipolygon you draw, you add a `name` entry to the `property` object. Every map needs this property! Eventually, this is the display name for your map in the game.
+
+```json
+"properties": {
+    "name": "France"
+   },
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Preparing maps
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Once you have your custom GeoJSON files, place them in the `geojson` folder in the root directory. Then, run
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+yarn scripts:make-maps
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+You'll be taken through the steps to prepare your maps. You can also clean up other properties and filter larger datasets, e.g. if you only want to include a specific country or region.
 
-## Learn More
+Your shiny new maps will automatically be put into the `maps` folder in the root directory. From there on, the final step is to include them in the source code.
+
+### Adding maps to the game
+
+Go to `src/config/maps.ts`. New maps can be imported as already shown:
+
+```ts
+/* Example map configuration */
+
+// Optional: A property transformer
+const swissMapsTransformer: PropertyTransformer = p => {
+  if (p.name.includes('/')) {
+    p.name = p.name.split('/')[0];
+  }
+};
+
+export const MAPS: MapDataCollection = computeMapData(
+  {
+    map: require('../../maps/switzerland.json'),
+    category: 'switzerland',
+    transformer: swissMapsTransformer,
+  },
+  // Add your map here...
+  {...}
+);
+```
+
+Each map may specify a custom transformer for its feature properties. For example, there is a map in the Swiss dataset that includes some forward slashes in its `name` property. In such a scenario, the transformer can fix that.
+
+Additionally, a category needs to be provided. Since all maps are stored in one large object, the category is used to provide a more unique key. This way, you can have maps with the same name but in different categories.
+
+Categories are also used for some API endpoints that provide (meta) data for your maps. See: https://beta.pampa.place/api/maps/v1 (TODO docs)
+
+## Further reading
+
+- [More than you ever wanted to know about GeoJSON](https://macwright.com/2015/03/23/geojson-second-bite.html)
+- [NUTS Classification](https://ec.europa.eu/eurostat/web/nuts/background)
+
+## Credits
+
+- [Fancy retro title by Yoav Kadosh on Codepen](https://codepen.io/ykadosh/pen/zYNxVKr?__cf_chl_jschl_tk__)
+
+## Vercel and NextJS
+
+### Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
@@ -45,7 +97,7 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+### Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
