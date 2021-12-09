@@ -45,7 +45,7 @@ export const GoogleMap = ({
 
   useEffect(() => {
     if (mode === 'preview') {
-      console.log('PREVIEW MODE MOUNT');
+      console.info('PREVIEW MODE MOUNT');
       MapService.map.setOptions({
         ...config.map,
         gestureHandling: 'none',
@@ -61,7 +61,7 @@ export const GoogleMap = ({
         strokeWeight: 0.8,
       });
       return () => {
-        console.log('PREVIEW MODE UNMOUNT');
+        console.info('PREVIEW MODE UNMOUNT');
         features.forEach(feat => {
           MapService.map.data.remove(feat);
         });
@@ -71,7 +71,7 @@ export const GoogleMap = ({
 
   useEffect(() => {
     if (mode === 'play') {
-      console.log('PLAY MODE MOUNT');
+      console.info('PLAY MODE MOUNT');
       MapService.map.setOptions(config.map);
 
       const marker = new google.maps.Marker();
@@ -89,7 +89,7 @@ export const GoogleMap = ({
         );
       });
       return () => {
-        console.log('PLAY MODE UNMOUNT');
+        console.info('PLAY MODE UNMOUNT');
         if (listener) listener.remove();
         // https://developers.google.com/maps/documentation/javascript/markers#remove
         MarkerService.clearAllItems();
@@ -99,7 +99,7 @@ export const GoogleMap = ({
 
   useEffect(() => {
     if (mode === 'result' && results) {
-      console.log('RESULT MODE MOUNT');
+      console.info('RESULT MODE MOUNT');
       MapService.map.setOptions(config.map);
 
       // Add original location marker
@@ -146,7 +146,7 @@ export const GoogleMap = ({
       });
 
       return () => {
-        console.log('RESULT MODE UNMOUNT');
+        console.info('RESULT MODE UNMOUNT');
         MarkerService.clearAllItems();
       };
     }

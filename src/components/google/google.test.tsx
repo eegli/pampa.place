@@ -33,6 +33,8 @@ jest
 // the cleanup function for the feature
 jest.spyOn(MapService.map.data, 'addGeoJson').mockReturnValue(['Feature 1']);
 
+const mapMountSpy = jest.spyOn(MapService, 'mount');
+
 afterEach(() => {
   jest.clearAllMocks();
   events.length = 0;
@@ -44,14 +46,17 @@ const mockMarkers = mocked(MarkerService, true);
 
 describe('Google, Map', () => {
   it('renders and has containers in document', () => {
-    render(<GoogleMap mapId={testMapId} />);
+    const {unmount} = render(<GoogleMap mapId={testMapId} />);
     expect(screen.getByTestId('__GMAP__CONTAINER__')).toBeInTheDocument();
     expect(screen.getByTestId('__GMAP__')).toHaveStyle('height:100%');
+    expect(mapMountSpy).toHaveBeenCalledTimes(1);
     expect(mockGmap.map.setOptions).not.toHaveBeenCalled();
     expect(events).toHaveLength(1);
     expect(events[0].event).toBe('idle');
     events[0].func();
     expect(mockGmap.map.fitBounds).toHaveBeenCalledTimes(1);
+    unmount();
+    expect(mapMountSpy.mock.results[0].value).toHaveBeenCalledTimes(1);
   });
   it('has preview mode', () => {
     const {unmount} = render(<GoogleMap mapId={testMapId} mode="preview" />);
@@ -76,8 +81,6 @@ describe('Google, Map', () => {
     expect(mockMarkers.items).toHaveLength(1);
     expect(mockMarkers.items[0].setMap).toHaveBeenCalledTimes(1);
     expect(mockMarkers.items[0].setDraggable).toHaveBeenCalledTimes(1);
-    // @ts-expect-error
-    expect(mockMarkers.items[0].mock).toMatchSnapshot('marker');
     expect(events.length).toBe(2);
     expect(events[1].event).toBe('click');
     events[1].func();

@@ -1,4 +1,4 @@
-const {readFileSync, readdirSync, writeFileSync, readdir} = require('fs');
+const {readFileSync, readdirSync, writeFileSync} = require('fs');
 const path = require('path');
 const inquirer = require('inquirer');
 

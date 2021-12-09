@@ -19,7 +19,7 @@ export class MapService {
       this._map = new google.maps.Map(
         document.getElementById(GoogleDOMIds.MAP_DIV)!
       );
-      console.log('%cCreated new global Map instance', 'color: green');
+      console.info('%cCreated new global Map instance', 'color: green');
     }
     return this._map;
   }
@@ -33,7 +33,7 @@ export class StreetViewService {
       this._sv = new google.maps.StreetViewPanorama(
         document.getElementById(GoogleDOMIds.STV_DIV)!
       );
-      console.log('%cCreated new global Street View instance', 'color: green');
+      console.info('%cCreated new global Street View instance', 'color: green');
     }
     return this._sv;
   }

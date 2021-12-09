@@ -7,7 +7,7 @@ import {AuthWrapper} from './wrappers/auth';
 import {ThemeWrapper} from './wrappers/theme';
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
-  // console.log(metric);
+  // console.info(metric);
 }
 
 const App = ({Component, pageProps}: AppProps) => {

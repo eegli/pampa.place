@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Google, Map has play mode: marker 1`] = `undefined`;
-
 exports[`Google, Map has play mode: play settings 1`] = `
 Array [
   Object {
@@ -64,6 +62,32 @@ Array [
     "mapTypeId": "roadmap",
   },
 ]
+`;
+
+exports[`Google, Map renders and has containers in document 1`] = `<div />`;
+
+exports[`Google, Map renders and has containers in document: unmount 1`] = `
+Object {
+  "calls": Array [
+    Array [
+      <div
+        style="height: 100%;"
+      />,
+    ],
+  ],
+  "instances": Array [
+    [Function],
+  ],
+  "invocationCallOrder": Array [
+    2,
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": [Function],
+    },
+  ],
+}
 `;
 
 exports[`Google, Street view has game mode: options default 1`] = `
