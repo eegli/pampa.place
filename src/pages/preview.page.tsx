@@ -1,26 +1,32 @@
 import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
-import React, {useEffect, useRef} from 'react';
-import {Header} from '../components/header/header';
+import {Checkbox, FormControlLabel, FormGroup} from '@mui/material';
+import React, {useEffect, useRef, useState} from 'react';
+import {Header} from '../components/nav/header/header';
 import {MapService} from '../services/google';
 import {PageContentWrapper} from '../styles/containers';
 
 const PreviewPage = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const [showCoverage, setShowCoverage] = useState<boolean>(true);
+
+  function handleStreetViewCoverage() {
+    setShowCoverage(!showCoverage);
+  }
+
   useEffect(() => {
     if (ref.current) {
       const unmount = MapService.mount(ref.current);
       MapService.map.setOptions(config.map);
-      const geoJSONs = Object.values(MAPS);
 
-      const features = geoJSONs.reduce((acc, curr) => {
-        const f = MapService.map.data.addGeoJson(curr.feature);
-        acc.push(...f);
+      // Each map is a GeoJSON Featurecollection that could
+      // potentially include multiple GeoJSON features. In practice,
+      // each feature will only contain one feature
+      const geojson = Object.values(MAPS).reduce((acc, curr) => {
+        const feature = MapService.map.data.addGeoJson(curr.feature);
+        acc.push(...feature);
         return acc;
       }, [] as google.maps.Data.Feature[]);
-
-      const coverageLayer = new google.maps.StreetViewCoverageLayer();
-      coverageLayer.setMap(MapService.map);
 
       MapService.map.setCenter({lat: 35, lng: 0});
       MapService.map.setZoom(3);
@@ -32,8 +38,7 @@ const PreviewPage = () => {
       });
 
       return () => {
-        coverageLayer.setMap(null);
-        features.forEach(feat => {
+        geojson.forEach(feat => {
           MapService.map.data.remove(feat);
         });
 
@@ -41,6 +46,17 @@ const PreviewPage = () => {
       };
     }
   }, []);
+
+  useEffect(() => {
+    if (showCoverage) {
+      const coverageLayer = new google.maps.StreetViewCoverageLayer();
+      coverageLayer.setMap(MapService.map);
+      return () => {
+        coverageLayer.setMap(null);
+      };
+    }
+  }, [showCoverage]);
+
   return (
     <>
       <Header />
@@ -52,6 +68,25 @@ const PreviewPage = () => {
             width: '100%',
           }}
         />
+        <FormGroup
+          sx={{
+            position: 'absolute',
+            bottom: 30,
+            padding: '0 1rem',
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            borderRadius: 3,
+          }}
+        >
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={showCoverage}
+                onChange={handleStreetViewCoverage}
+              />
+            }
+            label="Show street view coverage"
+          />
+        </FormGroup>
       </PageContentWrapper>
     </>
   );

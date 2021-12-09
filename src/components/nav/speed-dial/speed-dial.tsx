@@ -12,7 +12,10 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import {useRouter} from 'next/router';
 import {useState} from 'react';
-import {ConfirmationDialog, ConfirmationDialogProps} from './dialog';
+import {
+  ConfirmationDialog,
+  ConfirmationDialogProps,
+} from './speed-dial-confirm';
 
 export const SpeedDialNav = () => {
   const dispatch = useAppDispatch();

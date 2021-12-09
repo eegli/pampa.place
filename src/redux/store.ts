@@ -17,11 +17,11 @@ const reducer = {
 
 const logger = createLogger();
 
-const windowStorage: Middleware<{}, RootState> = state => next => action => {
+const windowStorage: Middleware<{}, RootState> = () => next => action => {
   if (action.type.includes('setApiKey') && typeof action.payload === 'string') {
     window.sessionStorage.setItem(Constants.SESSION_APIKEY_KEY, action.payload);
   }
-  if (action.type.includes('setTheme')) {
+  if (action.type.includes('setTheme') && typeof action.payload === 'string') {
     window.localStorage.setItem(Constants.THEME_KEY, action.payload);
   }
   return next(action);

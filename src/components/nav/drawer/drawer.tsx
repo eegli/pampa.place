@@ -14,7 +14,7 @@ export const HeaderDrawer = ({open, toggleDrawer}: HeaderDrawerProps) => {
   function handleChangeKey() {
     window.sessionStorage.clear();
     // In order to load a new API key, the page must be reloaded so
-    // that Google maps can properly set the new key
+    // that Google maps can properly attach a new map to the DOM
     window.location.reload();
   }
 
@@ -26,11 +26,14 @@ export const HeaderDrawer = ({open, toggleDrawer}: HeaderDrawerProps) => {
     }
   }
 
+  function justClose() {
+    toggleDrawer();
+  }
+
   return (
     <Drawer anchor="left" open={open} onClose={toggleDrawer}>
       <Paper elevation={3} sx={{height: '100%'}}>
         <Box p={2} width="100%" maxWidth="17rem">
-          {/* TODO, this is more of a temp thing now */}
           <List>
             <CustomListItem
               primarText="Home"
@@ -41,9 +44,15 @@ export const HeaderDrawer = ({open, toggleDrawer}: HeaderDrawerProps) => {
               secondaryText="Check the shape of your maps and their Street View coverage"
               onClick={() => handleRouteChange('/preview')}
             />
-            <CustomListItem primarText="How to play" />
-            <CustomListItem primarText="Customization guide" />
-            <CustomListItem primarText="About &amp; Privacy" />
+            <CustomListItem primarText="How to play" onClick={justClose} />
+            <CustomListItem
+              primarText="Customization guide"
+              onClick={justClose}
+            />
+            <CustomListItem
+              primarText="About &amp; Privacy"
+              onClick={justClose}
+            />
             <CustomListItem
               primarText="Change API key"
               secondaryText="Play with a different API key or change into development mode"

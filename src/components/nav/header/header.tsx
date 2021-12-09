@@ -1,4 +1,5 @@
 import {setTheme} from '@/redux/app';
+import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -12,13 +13,10 @@ import {
   Paper,
   Toolbar,
 } from '@mui/material';
-import {useRouter} from 'next/router';
 import {useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {HeaderDrawer} from './drawer';
+import {HeaderDrawer} from '../drawer/drawer';
 
 export const Header = () => {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const activeTheme = useAppSelector(s => s.app.theme);
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);

@@ -1,5 +1,5 @@
 import {Form} from '../components/form/form';
-import {Header} from '../components/header/header';
+import {Header} from '../components/nav/header/header';
 import {FancyRetroTitle} from '../components/typography/retro-title';
 import {PageContentWrapper} from '../styles/containers';
 
