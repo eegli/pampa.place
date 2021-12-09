@@ -15,22 +15,26 @@
 
 Of course, you can also provide your own GeoJSON source.
 
+If you're completely new to the GeoJSON format, this is a very great guide to get started:
+
+- [More than you ever wanted to know about GeoJSON](https://macwright.com/2015/03/23/geojson-second-bite.html)
+
 ### Projections and EPGS standards⚠️
 
 In general, there are two things to keep in mind:
 
-1. All the data you add to your custom game will be included in the client bundle. If you include super detailed maps that are 10Mb in size, whoever visits your game will need to download that 10Mb and more.
-2. Google Maps uses the [WGS 84 / Pseudo-Mercator projection](https://en.wikipedia.org/wiki/Web_Mercator_projection). Custom GeoJSON FeatureCollections need to be in **EPGS 4326** projection. This is also what Google seems to [use internally for it's Earth engine.](https://developers.google.com/earth-engine/guides/projections)
+1. All the data you add to your custom game will be included in the client bundle. If you include super detailed maps that are 10Mb in size, whoever visits your game will need to download those 10Mb and more.
+2. Google Maps uses the [WGS 84 / Pseudo-Mercator projection](https://en.wikipedia.org/wiki/Web_Mercator_projection). Custom GeoJSON FeatureCollections need to be in **EPGS 4326** projection.
 
 ### Drawing maps
 
 If you want quick and easy maps, you can draw a polygon here [https://geojson.io](https://geojson.io) and save the JSON output as a file.
 
-Make sure that for each polygon or multipolygon you draw, you add a `name` entry to the `property` object. Every map needs this property! Eventually, this is the display name for your map in the game.
+Make sure that for each polygon or multipolygon you draw, you add a `name` entry to the `property` object. This is a required property as it is eventually used as the display name for the map in the game.
 
 ```json
 "properties": {
-    "name": "France"
+    "name": "My map"
    },
 ```
 
@@ -48,10 +52,13 @@ Your shiny new maps will automatically be put into the `maps` folder in the root
 
 ### Adding maps to the game
 
-Go to `src/config/maps.ts`. New maps can be imported as already shown:
+Go to `src/config/maps.ts`. New maps can be imported as follows:
 
 ```ts
 /* Example map configuration */
+
+import {computeMapData, computeMapIds} from './helpers/creator';
+import {MapDataCollection, MapIdCollection, PropertyTransformer} from './types';
 
 // Optional: A property transformer
 const swissMapsTransformer: PropertyTransformer = p => {
@@ -79,7 +86,6 @@ Categories are also used for some API endpoints that provide (meta) data for you
 
 ## Further reading
 
-- [More than you ever wanted to know about GeoJSON](https://macwright.com/2015/03/23/geojson-second-bite.html)
 - [NUTS Classification](https://ec.europa.eu/eurostat/web/nuts/background)
 
 ## Credits
