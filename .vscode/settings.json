@@ -1,4 +1,7 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
+  "gitlens.currentLine.enabled": false, // TODO enable after release
+  "gitlens.codeLens.authors.enabled": false,
+  "gitlens.codeLens.recentChange.enabled": false,
   "editor.formatOnSave": true
 }

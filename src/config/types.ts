@@ -6,6 +6,7 @@ import {
   Polygon,
 } from '@turf/helpers';
 
+/* Markers */
 export type MarkerConfig = {
   colors: Record<string, string>;
   svgMarker: {
@@ -13,15 +14,16 @@ export type MarkerConfig = {
     anchor: [number, number];
   };
 };
-
+/* Google */
 export type GoogleConfig = {
   svRequest: {
     radius: number;
-  }; // google.maps.StreetViewLocationRequest;
+  };
   streetview: google.maps.StreetViewPanoramaOptions;
   map: google.maps.MapOptions;
 };
 
+/* Game */
 export type GameConfig = {
   maxPlayers: number;
   rounds: [number, number, number];
@@ -30,19 +32,27 @@ export type GameConfig = {
   timeLimitsDefault: number;
 };
 
+/* Geo utilities */
 export type LatLngLiteral = {lat: number; lng: number};
 
+/* Only GeoJSON features "with an area" are allowed in this game - No
+Points, LineStrings, etc. */
+export type AllowedFeaturesTypes = Polygon | MultiPolygon;
+
+/* Each input map needs to have at least these properties */
 export interface BaseMapProperties {
   name: string;
 }
 
+/* Full, computed property per GeoJSON feature */
 export interface MapProperties extends BaseMapProperties {
   category: string;
   id: string;
 }
 
+/* Type for input GeoJSON data */
 export type InputMapData = FeatureCollection<
-  Polygon | MultiPolygon,
+  AllowedFeaturesTypes,
   BaseMapProperties
 >;
 
@@ -54,10 +64,34 @@ export type MapData = {
   // Poly bounding box: SW SE NE NW
   bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
   // Base can be used directly with google maps
-  feature: Feature<Polygon | MultiPolygon, MapProperties>;
+  feature: Feature<AllowedFeaturesTypes, MapProperties>;
 };
 
-/* Full, computed map data */
-export type MapDataCollection = Record<string, MapData>;
+/*
+  Final shape of the map data for the game. 
+  1. Full, computed map data
+  2. Collection of map properties 
 
+  The rest of the application will only access the map data of this
+  type
+*/
+export type MapDataCollection = Record<string, MapData>;
 export type MapIdCollection = MapProperties[];
+
+/* Helper types for map generation */
+type Input<T> = {
+  map: T;
+  category: string;
+  transformer?: PropertyTransformer;
+};
+
+export type MapDataGenerator<
+  T extends FeatureCollection<
+    AllowedFeaturesTypes,
+    BaseMapProperties
+  > = InputMapData
+> = (...inputs: Input<T>[]) => MapDataCollection;
+
+export type PropertyTransformer = (props: BaseMapProperties) => void;
+
+export type MapIdGenerator = (collection: MapDataCollection) => MapIdCollection;
