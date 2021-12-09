@@ -1,8 +1,10 @@
 # pampa.place
 
-## Contributing
+Customizable multiplayer geography game 🌍
 
-Read [CONTRIBUTING.md](https://github.com/eegli/pampa.place/blob/main/CONTRIBUTING.md).
+## Host your own pampa.place
+
+TODO
 
 ## Adding custom maps
 
@@ -83,6 +85,10 @@ Each map may specify a custom transformer for its feature properties. For exampl
 Additionally, a category needs to be provided. Since all maps are stored in one large object, the category is used to provide a more unique key. This way, you can have maps with the same name but in different categories.
 
 Categories are also used for some API endpoints that provide (meta) data for your maps. See: https://beta.pampa.place/api/maps/v1 (TODO docs)
+
+## Contributing
+
+Read [CONTRIBUTING.md](https://github.com/eegli/pampa.place/blob/main/CONTRIBUTING.md).
 
 ## Further reading
 
