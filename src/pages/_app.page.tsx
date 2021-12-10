@@ -7,7 +7,10 @@ import {AuthWrapper} from './wrappers/auth';
 import {ThemeWrapper} from './wrappers/theme';
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
-  // console.info(metric);
+  console.info({
+    env: process.env.NODE_ENV,
+    metric,
+  });
 }
 
 const App = ({Component, pageProps}: AppProps) => {
