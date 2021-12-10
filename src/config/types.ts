@@ -82,10 +82,7 @@ type Input<T> = {
 };
 
 export type MapDataGenerator<
-  T extends FeatureCollection<
-    Polygon | MultiPolygon,
-    BaseMapProperties
-  > = InputMapData
+  T = FeatureCollection<Polygon | MultiPolygon, BaseMapProperties>
 > = (...inputs: Input<T>[]) => MapDataCollection;
 
 export type PropertyTransformer = (props: BaseMapProperties) => void;

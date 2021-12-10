@@ -27,7 +27,7 @@ export const computeMapData: MapDataGenerator = (...inputs) => {
         const bb = Tbbox(curr);
         const bbPoly = TbboxPolygon(bb);
 
-        // Maps with the same name AND category will overwrite themselves!
+        // Maps with the same name AND category will overwrite each other!
         const mapId = `${category}-${curr.properties.name}`
           .replace(/\s/g, '-')
           .toLowerCase();
@@ -38,7 +38,8 @@ export const computeMapData: MapDataGenerator = (...inputs) => {
 
         acc[mapId] = {
           feature: {
-            ...curr,
+            type: curr.type,
+            geometry: curr.geometry,
             properties: {
               id: mapId,
               name: curr.properties.name,

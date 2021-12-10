@@ -15,7 +15,7 @@ TODO
 - [US GeoJSON data (2010)](https://eric.clst.org/tech/usgeojson/)
 - [EU GeoJSON data (2021)](https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2021-files.html)
 
-Of course, you can also provide your own GeoJSON source.
+You can of course also provide your own GeoJSON source.
 
 If you're completely new to the GeoJSON format, this is a very great guide to get started:
 
@@ -30,25 +30,29 @@ In general, there are two things to keep in mind:
 
 ### Drawing maps
 
-If you want quick and easy maps, you can draw a polygon here [https://geojson.io](https://geojson.io) and save the JSON output as a file.
+If you want quick and easy maps, you can **draw a polygon** here [https://geojson.io](https://geojson.io).
 
-Make sure that for each polygon or multipolygon you draw, you add a `name` entry to the `property` object. This is a required property as it is eventually used as the display name for the map in the game.
+Make sure that for each polygon you draw, you add a `name` entry to the `property` object. This is a required property and is eventually used as display name for the map in the game.
 
 ```json
 "properties": {
     "name": "My map"
-   },
+}
 ```
+
+You may add as many `features` to the `FeatureCollection` in your custom GeoJSON as you want. Just be sure to give them individual names! Maps that you drew yourself can be directly put into the `maps` folder in the root directory. You can skip the next step as they are already cleaned up and good to go.
 
 ### Preparing maps
 
-Once you have your custom GeoJSON files, place them in the `geojson` folder in the root directory. Then, run
+If you want to **use an existing GeoJSON file** that you did not create yourself, you may want to run it through the cleanup utility first.
+
+Place your files in the `geojson` folder in the root directory. Then, run
 
 ```bash
 yarn scripts:make-maps
 ```
 
-You'll be taken through the steps to prepare your maps. You can also clean up other properties and filter larger datasets, e.g. if you only want to include a specific country or region.
+You'll be taken through the steps to prepare your maps. GeoJSON files from other sources may not have the `name` property yet but it can easily be derived from another existing property. The utility will let you pick a property to use as `name`, clean up other unused properties and filter larger datasets, e.g. if you only want to include a specific country or region.
 
 Your shiny new maps will automatically be put into the `maps` folder in the root directory. From there on, the final step is to include them in the source code.
 
@@ -82,7 +86,7 @@ export const MAPS: MapDataCollection = computeMapData(
 
 Each map may specify a custom transformer for its feature properties. For example, there is a map in the Swiss dataset that includes some forward slashes in its `name` property. In such a scenario, the transformer can fix that.
 
-Additionally, a category needs to be provided. Since all maps are stored in one large object, the category is used to provide a more unique key. This way, you can have maps with the same name but in different categories.
+Additionally, a category needs to be provided. Since all maps are stored in one large object, the category is used to provide a more unique key. This way, multiple maps can have the same name as long as their category is the same. Maps belonging to the same category that share the same name will overwrite each other.
 
 Categories are also used for some API endpoints that provide (meta) data for your maps. See: https://beta.pampa.place/api/maps/v1 (TODO docs)
 
