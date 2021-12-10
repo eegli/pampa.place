@@ -38,7 +38,6 @@ const handler: ApiTextHandler = (_, res) => {
 
     /health
 
-    https://google.com
 
   ----------------
 

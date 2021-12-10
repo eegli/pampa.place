@@ -1,6 +1,6 @@
 import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
-import {Checkbox, FormControlLabel, FormGroup} from '@mui/material';
+import {alpha, Checkbox, FormControlLabel, FormGroup} from '@mui/material';
 import {NextPage} from 'next';
 import React, {useEffect, useRef, useState} from 'react';
 import {Header} from '../components/nav/header/header';
@@ -82,7 +82,8 @@ const PreviewPage: NextPage = () => {
             position: 'absolute',
             bottom: 30,
             padding: '0 1rem',
-            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            backgroundColor: ({palette}) =>
+              alpha(palette.background.default, 0.6),
             borderRadius: 3,
           }}
         >
