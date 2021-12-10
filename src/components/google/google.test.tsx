@@ -1,5 +1,10 @@
 import {testMapId} from '@/config/__mocks__/maps';
-import {MapService, MarkerService, StreetViewService} from '@/services/google';
+import {
+  MapService,
+  MarkerService,
+  PolyLineService,
+  StreetViewService,
+} from '@/services/google';
 import {createMockStore, render, screen} from '@/tests/utils';
 import {mocked} from 'ts-jest/utils';
 import {GoogleMap, GoogleMapProps} from './map';
@@ -33,40 +38,42 @@ jest
 // the cleanup function for the feature
 jest.spyOn(MapService.map.data, 'addGeoJson').mockReturnValue(['Feature 1']);
 
-const mapMountSpy = jest.spyOn(MapService, 'mount');
-
 afterEach(() => {
   jest.clearAllMocks();
   events.length = 0;
 });
 
-const mockSv = mocked(StreetViewService, true);
-const mockGmap = mocked(MapService, true);
-const mockMarkers = mocked(MarkerService, true);
+const services = {
+  gmap: mocked(MapService, true),
+  gsv: mocked(StreetViewService, true),
+  gmarkers: mocked(MarkerService, true),
+  gpolylines: mocked(PolyLineService, true),
+};
 
 describe('Google, Map', () => {
   it('renders and has containers in document', () => {
+    const mapMountSpy = jest.spyOn(MapService, 'mount');
     const {unmount} = render(<GoogleMap mapId={testMapId} />);
     expect(screen.getByTestId('__GMAP__CONTAINER__')).toBeInTheDocument();
     expect(screen.getByTestId('__GMAP__')).toHaveStyle('height:100%');
     expect(mapMountSpy).toHaveBeenCalledTimes(1);
-    expect(mockGmap.map.setOptions).not.toHaveBeenCalled();
+    expect(services.gmap.map.setOptions).not.toHaveBeenCalled();
     expect(events).toHaveLength(1);
     expect(events[0].event).toBe('idle');
     events[0].func();
-    expect(mockGmap.map.fitBounds).toHaveBeenCalledTimes(1);
+    expect(services.gmap.map.fitBounds).toHaveBeenCalledTimes(1);
     unmount();
   });
   it('has preview mode', () => {
     const {unmount} = render(<GoogleMap mapId={testMapId} mode="preview" />);
-    expect(mockGmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
+    expect(services.gmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
       'preview settings'
     );
-    expect(mockGmap.map.data.setStyle).toHaveBeenCalledTimes(1);
-    expect(mockGmap.map.data.addGeoJson).toHaveBeenCalledTimes(1);
-    expect(mockGmap.map.data.setStyle).toHaveBeenCalledTimes(1);
+    expect(services.gmap.map.data.setStyle).toHaveBeenCalledTimes(1);
+    expect(services.gmap.map.data.addGeoJson).toHaveBeenCalledTimes(1);
+    expect(services.gmap.map.data.setStyle).toHaveBeenCalledTimes(1);
     unmount();
-    expect(mockGmap.map.data.remove).toHaveBeenCalledTimes(1);
+    expect(services.gmap.map.data.remove).toHaveBeenCalledTimes(1);
   });
   it('has play mode', () => {
     const store = createMockStore();
@@ -74,23 +81,23 @@ describe('Google, Map', () => {
       <GoogleMap mapId={testMapId} mode="play" />,
       store
     );
-    expect(mockGmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
+    expect(services.gmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
       'play settings'
     );
-    expect(mockMarkers.items).toHaveLength(1);
-    expect(mockMarkers.items[0].setMap).toHaveBeenCalledTimes(1);
-    expect(mockMarkers.items[0].setDraggable).toHaveBeenCalledTimes(1);
+    expect(services.gmarkers.items).toHaveLength(1);
+    expect(services.gmarkers.items[0].setMap).toHaveBeenCalledTimes(1);
+    expect(services.gmarkers.items[0].setDraggable).toHaveBeenCalledTimes(1);
     expect(events.length).toBe(2);
     expect(events[1].event).toBe('click');
     events[1].func();
-    expect(mockMarkers.items[0].setPosition).toHaveBeenCalledTimes(1);
+    expect(services.gmarkers.items[0].setPosition).toHaveBeenCalledTimes(1);
     events[1].func();
-    expect(mockMarkers.items[0].setPosition).toHaveBeenCalledTimes(2);
+    expect(services.gmarkers.items[0].setPosition).toHaveBeenCalledTimes(2);
     expect(store.getState().position.selectedPosition).toMatchSnapshot(
       'update selected position'
     );
     unmount();
-    expect(mockMarkers.items).toHaveLength(0);
+    expect(services.gmarkers.items).toHaveLength(0);
   });
   it('has result mode', () => {
     const props: GoogleMapProps = {
@@ -102,11 +109,14 @@ describe('Google, Map', () => {
       ],
     };
     const {unmount} = render(<GoogleMap {...props} />);
-    expect(mockGmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
+    expect(services.gmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
       'result settings'
     );
-    expect(mockMarkers.items).toHaveLength(3);
+    expect(services.gmarkers.items).toHaveLength(3);
+    expect(services.gpolylines.items).toHaveLength(2);
     unmount();
+    expect(services.gmarkers.items).toHaveLength(0);
+    expect(services.gpolylines.items).toHaveLength(0);
   });
 });
 
@@ -118,15 +128,15 @@ describe('Google, Street view', () => {
   });
   it('has game mode', () => {
     render(<GoogleStreetView />);
-    expect(mockSv.sv.setPano).toHaveBeenCalledTimes(1);
-    expect(mockSv.sv.setOptions.mock.calls[0][0]).toMatchSnapshot(
+    expect(services.gsv.sv.setPano).toHaveBeenCalledTimes(1);
+    expect(services.gsv.sv.setOptions.mock.calls[0][0]).toMatchSnapshot(
       'options default'
     );
   });
   it('has static review mode', () => {
     render(<GoogleStreetView staticPos />);
-    expect(mockSv.sv.setPano).toHaveBeenCalledTimes(1);
-    expect(mockSv.sv.setOptions.mock.calls[0][0]).toMatchSnapshot(
+    expect(services.gsv.sv.setPano).toHaveBeenCalledTimes(1);
+    expect(services.gsv.sv.setOptions.mock.calls[0][0]).toMatchSnapshot(
       'options static'
     );
   });
