@@ -5,7 +5,7 @@ import {LatLngLiteral} from '@/config/types';
 import {Result} from '@/redux/game';
 import {useAppDispatch} from '@/redux/hooks';
 import {updateSelectedPosition} from '@/redux/position';
-import {MapService, MarkerService} from '@/services/google';
+import {MapService, MarkerService, PolyLineService} from '@/services/google';
 import {useEffect, useRef} from 'react';
 
 export type GoogleMapProps = {
@@ -141,13 +141,14 @@ export const GoogleMap = ({
           strokeOpacity: 1.0,
           strokeWeight: 4,
         });
-
+        PolyLineService.add(polyLine);
         MarkerService.add(playerMarker);
       });
 
       return () => {
         console.info('RESULT MODE UNMOUNT');
         MarkerService.clearAllItems();
+        PolyLineService.clearAllItems();
       };
     }
   }, [mode, initialPosition, results]);

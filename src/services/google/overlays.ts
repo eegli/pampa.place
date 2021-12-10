@@ -13,3 +13,4 @@ class MapOverlayService<T extends AllowedOverlays> {
 }
 
 export const MarkerService = new MapOverlayService<google.maps.Marker>();
+export const PolyLineService = new MapOverlayService<google.maps.Polyline>();
