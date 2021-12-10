@@ -2,6 +2,17 @@
   "name": "pampa.place",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Eric Egli",
+    "email": "lx180777+github@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eegli/pampa.place"
+  },
+  "bugs": {
+    "url": "https://github.com/eegli/pampa.place/issues"
+  },
   "scripts": {
     "ci": "yarn install --frozen-lockfile --ignore-optional",
     "dev": "next dev",
