@@ -64,32 +64,6 @@ Array [
 ]
 `;
 
-exports[`Google, Map renders and has containers in document 1`] = `<div />`;
-
-exports[`Google, Map renders and has containers in document: unmount 1`] = `
-Object {
-  "calls": Array [
-    Array [
-      <div
-        style="height: 100%;"
-      />,
-    ],
-  ],
-  "instances": Array [
-    [Function],
-  ],
-  "invocationCallOrder": Array [
-    2,
-  ],
-  "results": Array [
-    Object {
-      "type": "return",
-      "value": [Function],
-    },
-  ],
-}
-`;
-
 exports[`Google, Street view has game mode: options default 1`] = `
 Object {
   "addressControl": false,

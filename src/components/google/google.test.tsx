@@ -56,7 +56,6 @@ describe('Google, Map', () => {
     events[0].func();
     expect(mockGmap.map.fitBounds).toHaveBeenCalledTimes(1);
     unmount();
-    expect(mapMountSpy.mock.results[0].value).toHaveBeenCalledTimes(1);
   });
   it('has preview mode', () => {
     const {unmount} = render(<GoogleMap mapId={testMapId} mode="preview" />);
