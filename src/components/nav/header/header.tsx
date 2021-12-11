@@ -14,7 +14,7 @@ import {
   Toolbar,
 } from '@mui/material';
 import {useState} from 'react';
-import {HeaderDrawer} from '../drawer/drawer';
+import {MenuDrawer} from '../drawer/drawer';
 
 export const Header = () => {
   const dispatch = useAppDispatch();
@@ -44,7 +44,7 @@ export const Header = () => {
               >
                 <MenuIcon />
               </IconButton>
-              <HeaderDrawer
+              <MenuDrawer
                 open={drawerIsOpen}
                 toggleDrawer={handleToggleDrawer}
               />

@@ -3,12 +3,12 @@ import {useRouter} from 'next/router';
 import React from 'react';
 import {CustomListItem} from './drawer-item';
 
-type HeaderDrawerProps = {
+type MenuDrawerProps = {
   open: boolean;
   toggleDrawer: () => void;
 };
 
-export const HeaderDrawer = ({open, toggleDrawer}: HeaderDrawerProps) => {
+export const MenuDrawer = ({open, toggleDrawer}: MenuDrawerProps) => {
   const router = useRouter();
 
   function handleChangeKey() {
