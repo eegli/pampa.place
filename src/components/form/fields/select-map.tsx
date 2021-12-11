@@ -102,13 +102,14 @@ export const FormMapSelect = () => {
               sx={{
                 height: 600,
                 maxHeight: '100%',
-
                 width: 400,
+                margin: 'auto',
+                maxWidth: '90%',
               }}
             >
               <GoogleMap mapId={activeMapId} mode="preview" />
             </Box>
-            <DialogContentText py={2}>
+            <DialogContentText p={2}>
               Rough bounds of the map &quot;{activeMapName}&quot;.
             </DialogContentText>
           </DialogContent>
