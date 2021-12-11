@@ -57,6 +57,7 @@ global.google.maps.StreetViewService = class StreetViewService
     return Promise.resolve(res);
   }
 };
+
 global.google.maps.StreetViewPreference = {
   // @ts-expect-error
   BEST: 'best',
