@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  unit-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -29,10 +29,8 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          directory: ./coverage/
-          env_vars: OS,PYTHON
           fail_ci_if_error: true
-          files: ./clover.xml
+          files: ./coverage/coverage-final.json
           flags: unittests
           name: codecov-pampa.place
           verbose: true
