@@ -1,6 +1,6 @@
 # pampa.place
 
-![GitHub top language](https://img.shields.io/github/languages/top/eegli/pampa.place?logo=ts) [![codecov](https://codecov.io/gh/eegli/pampa.place/branch/main/graph/badge.svg?token=8RPSUCWXEZ)](https://codecov.io/gh/eegli/pampa.place) ![GitHub repo size](https://img.shields.io/github/repo-size/eegli/pampa.place)
+![GitHub top language](https://img.shields.io/github/languages/top/eegli/pampa.place?logo=ts) ![GitHub repo size](https://img.shields.io/github/repo-size/eegli/pampa.place) [![codecov](https://codecov.io/gh/eegli/pampa.place/branch/main/graph/badge.svg?token=8RPSUCWXEZ)](https://codecov.io/gh/eegli/pampa.place)
 
 Customizable multiplayer geography game 🌍
 
@@ -12,9 +12,9 @@ TODO
 
 `pampa.place` comes preloaded with two GeoJSON datasets for both the US (states, 20m resolution) and EU (NUTS regions, 3m resolution).
 
-- `geojson/cb_2018_us_state_20m.json` (source: [US Census Bureau](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html))
+- `geojson/raw/cb_2018_us_state_20m.json` (source: [US Census Bureau](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html))
 
-- `geojson/NUTS_RG_03M_2021_4326.json` (source: [Eurostat](https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/nuts))
+- `geojson/raw/NUTS_RG_03M_2021_4326.json` (source: [Eurostat](https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/nuts))
 
 You can of course also provide your own GeoJSON source. The links above point to many more interesting geo data sets. If you have Shapefile maps (e.g. from the US Census Bureau), you can convert them to GeoJSON here:
 
@@ -43,7 +43,7 @@ Make sure that for each polygon you draw, you add a `name` entry to the `propert
 }
 ```
 
-You may add as many `features` to the `FeatureCollection` in your custom GeoJSON as you want. Just be sure to give them individual names! Maps that you drew yourself can be directly put into the `maps` folder in the root directory. You can skip the next step as they are already cleaned up and good to go.
+You may add as many `features` to the `FeatureCollection` in your custom GeoJSON as you want. Just be sure to give them individual names! Maps that you drew yourself can be directly put into the `geojson` folder in the root directory. You can skip the next step as they are already cleaned up and good to go.
 
 ### Preparing maps
 
@@ -57,7 +57,7 @@ yarn scripts:make-maps
 
 You'll be taken through the steps to prepare your maps. GeoJSON files from other sources may not have the `name` property yet but it can easily be derived from another existing property. The utility will let you pick a property to use as `name`, clean up other unused properties and filter larger datasets, e.g. if you only want to include a specific country or region.
 
-Your shiny new maps will automatically be put into the `maps` folder in the root directory. From there on, the final step is to include them in the source code.
+Your shiny new maps will automatically be put into the `geojson` folder in the root directory. This folder is meant for processed geoJSON files that are ready to be used in the game. From there on, the final step is to include them in the source code.
 
 ### Adding maps to the game
 
@@ -65,7 +65,6 @@ Go to `src/config/maps.ts`. New maps can be imported as follows:
 
 ```ts
 /* Example map configuration */
-
 import {computeMapData, computeMapIds} from './helpers/creator';
 import {MapDataCollection, MapIdCollection, PropertyTransformer} from './types';
 
@@ -78,11 +77,12 @@ const swissMapsTransformer: PropertyTransformer = p => {
 
 export const MAPS: MapDataCollection = computeMapData(
   {
-    map: require('../../maps/switzerland.json'),
+    map: require('geojson/switzerland.json'),
     category: 'switzerland',
     transformer: swissMapsTransformer,
   },
-  // Add your map here...
+  {map: require('geojson/alps.json'), category: 'alps'},
+    // Add your map here...
   {...}
 );
 ```
@@ -96,10 +96,6 @@ Categories are also used for some API endpoints that provide (meta) data for you
 ## Contributing
 
 Read [CONTRIBUTING.md](https://github.com/eegli/pampa.place/blob/main/CONTRIBUTING.md).
-
-## Further reading
-
-- [NUTS Classification](https://ec.europa.eu/eurostat/web/nuts/background)
 
 ## Credits
 

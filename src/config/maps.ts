@@ -9,11 +9,11 @@ const swissMapsTransformer: PropertyTransformer = p => {
 
 export const MAPS: MapDataCollection = computeMapData(
   {
-    map: require('../../maps/switzerland.json'),
+    map: require('geojson/switzerland.json'),
     category: 'switzerland',
     transformer: swissMapsTransformer,
   },
-  {map: require('../../maps/custom.json'), category: 'custom'}
+  {map: require('geojson/alps.json'), category: 'alps'}
 );
 
 export const MAP_IDS: MapIdCollection = computeMapIds(MAPS);
