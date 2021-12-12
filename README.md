@@ -2,11 +2,48 @@
 
 ![GitHub top language](https://img.shields.io/github/languages/top/eegli/pampa.place?logo=ts) ![GitHub repo size](https://img.shields.io/github/repo-size/eegli/pampa.place) [![codecov](https://codecov.io/gh/eegli/pampa.place/branch/main/graph/badge.svg?token=8RPSUCWXEZ)](https://codecov.io/gh/eegli/pampa.place)
 
-Customizable multiplayer geography game 🌍
+### A multiplayer geography game with custom map input. Find yourself in a random place anywhere in the world and figure out where in the pampa you are 🌍
+
+## Overview
+
+`pampa.place` is simple: Select a place and find yourself in a random Google Street View. Figure out where you are by placing the marker on the map.
+
+`pampa.place` can be played 100% for free. It only requires a Google Maps API key for the maps and street view data. As of now, **every Google accounts gets 200$ per month\*** to spend on the Google Maps Platform. The game's API consumption is optimized and allows you to play hundreds of games per month with the free tier (depending on how good you are).
+
+_\*For up-to-date pricing, [check here.](https://developers.google.com/maps/documentation/javascript/usage-and-billing)_
+
+`pampa.place` has three modes: _Friends and family_, _My key myself and I_ and _Dev_.
+
+- Friends and family: You provide the API key and they only need a passwort to play.
+- My key myself and I: Check out other people's places and bring your own key.
+- Dev: Google Maps loads without key. This is good for development and testing and will not eat any quota.
 
 ## Host your own pampa.place
 
-TODO
+In general, you only need an API key for Google's `Maps JavaScript API`. It is highly recommended to restrict the key to specific domains. For local testing and development, you should get a separate key restricted to `localhost:3000/*`. The other key will be public and should be restricted to the domain under which your are hosting.
+
+- https://developers.google.com/maps/documentation/javascript/get-api-key
+
+The easiest way to deploy a custom `pampa.place` is with Vercel: https://nextjs.org/docs/deployment
+
+1. Get a Maps API key
+2. (Fork and) clone this repository
+3. Deploy to Vercel
+4. Add these two env variables:
+
+`MAPS_API_KEY` with the value for your production api key
+
+`APP_ACCESS_PW` with the value for your password for friends and family
+
+## Local testing and development
+
+It makes sense to quickly test and preview your version of the game.
+`Create a `.env.local` file in the root directory and add these two:
+
+```
+MAPS_API_KEY=<your local API key>
+APP_ACCESS_PW=<your local password>
+```
 
 ## Adding custom maps
 
@@ -100,20 +137,3 @@ Read [CONTRIBUTING.md](https://github.com/eegli/pampa.place/blob/main/CONTRIBUTI
 ## Credits
 
 - [Fancy retro title by Yoav Kadosh on Codepen](https://codepen.io/ykadosh/pen/zYNxVKr?__cf_chl_jschl_tk__)
-
-## Vercel and NextJS
-
-### Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-### Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
