@@ -1,6 +1,6 @@
 # pampa.place
 
-[![codecov](https://codecov.io/gh/eegli/pampa.place/branch/main/graph/badge.svg?token=8RPSUCWXEZ)](https://codecov.io/gh/eegli/pampa.place)
+![GitHub top language](https://img.shields.io/github/languages/top/eegli/pampa.place?logo=ts) [![codecov](https://codecov.io/gh/eegli/pampa.place/branch/main/graph/badge.svg?token=8RPSUCWXEZ)](https://codecov.io/gh/eegli/pampa.place) ![GitHub repo size](https://img.shields.io/github/repo-size/eegli/pampa.place)
 
 Customizable multiplayer geography game 🌍
 
