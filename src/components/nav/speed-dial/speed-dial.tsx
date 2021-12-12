@@ -2,7 +2,6 @@ import {setTheme} from '@/redux/app';
 import {resetRound} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import FlagIcon from '@mui/icons-material/Flag';
 import HomeIcon from '@mui/icons-material/Home';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -49,25 +48,6 @@ export const SpeedDialNav = () => {
           sx={{position: 'absolute', bottom: 16, left: 16, zIndex: 100}}
           icon={<ShortcutIcon />}
         >
-          <SpeedDialAction
-            key="Give up"
-            icon={<FlagIcon />}
-            tooltipTitle="Give up"
-            tooltipPlacement="right"
-            onClick={() =>
-              setDialog({
-                title: 'Give up and skip round?',
-                callbackTitle: 'Give up',
-                callback: function () {
-                  router.push('/');
-                },
-                open: true,
-                cancel: function () {
-                  setDialog({...dialog, open: false});
-                },
-              })
-            }
-          />
           <SpeedDialAction
             key="Restart"
             icon={<RestartAltIcon />}
