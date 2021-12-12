@@ -3,7 +3,9 @@ import router from 'next/router';
 import {MenuDrawer} from '../drawer/drawer';
 
 const mockRouter = router as jest.Mocked<typeof router>;
-const mockToggleDrawer = jest.fn();
+mockRouter.reload = jest.fn();
+mockRouter.push = jest.fn();
+mockRouter.pathname = '/';
 
 jest.mock('next/router', () => ({
   useRouter() {
@@ -11,18 +13,13 @@ jest.mock('next/router', () => ({
   },
 }));
 
-mockRouter.reload = jest.fn();
-mockRouter.push = jest.fn();
-mockRouter.pathname = '/';
-
 Object.defineProperty(window, 'sessionStorage', {
   value: {
-    getItem: jest.fn(),
-    setItem: jest.fn(),
-    removeItem: jest.fn(),
     clear: jest.fn(),
   },
 });
+
+const mockToggleDrawer = jest.fn();
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -38,7 +35,7 @@ describe('Drawer', () => {
     {name: 'preview maps', route: '/preview'},
     {name: 'how to play', route: null},
     {name: 'customization guide', route: null},
-    {name: 'Privacy', route: null},
+    {name: 'privacy', route: null},
   ].forEach(({name, route}) => {
     it(`nav item, ${name}`, () => {
       render(<MenuDrawer open toggleDrawer={mockToggleDrawer} />);
