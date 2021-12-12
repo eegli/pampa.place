@@ -66,7 +66,7 @@ describe('Speed dial', () => {
     fireEvent.click(confirmButtons[1]);
     expect(mockRouter.push).toHaveBeenCalledWith('/');
   });
-  it('can restart round', async () => {
+  it('can restart round', () => {
     const state = createMockState({
       game: {
         players: ['player2', 'player1'],
