@@ -3,19 +3,19 @@ import {useRouter} from 'next/router';
 import React from 'react';
 import {CustomListItem} from './drawer-item';
 
-type HeaderDrawerProps = {
+type MenuDrawerProps = {
   open: boolean;
   toggleDrawer: () => void;
 };
 
-export const HeaderDrawer = ({open, toggleDrawer}: HeaderDrawerProps) => {
+export const MenuDrawer = ({open, toggleDrawer}: MenuDrawerProps) => {
   const router = useRouter();
 
   function handleChangeKey() {
     window.sessionStorage.clear();
     // In order to load a new API key, the page must be reloaded so
     // that Google maps can properly attach a new map to the DOM
-    window.location.reload();
+    router.reload();
   }
 
   function handleRouteChange(route: string) {
