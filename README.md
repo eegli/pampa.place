@@ -1,5 +1,7 @@
 # pampa.place
 
+[![codecov](https://codecov.io/gh/eegli/pampa.place/branch/main/graph/badge.svg?token=8RPSUCWXEZ)](https://codecov.io/gh/eegli/pampa.place)
+
 Customizable multiplayer geography game 🌍
 
 ## Host your own pampa.place
