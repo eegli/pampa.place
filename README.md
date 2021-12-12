@@ -16,7 +16,7 @@ TODO
 
 - `geojson/raw/NUTS_RG_03M_2021_4326.json` (source: [Eurostat](https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/nuts))
 
-You can of course also provide your own GeoJSON source. The links above point to many more interesting geo data sets. If you have Shapefile maps (e.g. from the US Census Bureau), you can convert them to GeoJSON here:
+You can of course also provide your own GeoJSON source. The sources above have many more interesting geo data available. If you have Shapefile maps (e.g. from the US Census Bureau), you can convert them to GeoJSON here:
 
 - [https://ogre.adc4gis.com/](https://ogre.adc4gis.com/)
 
@@ -55,9 +55,9 @@ Place your files in the `geojson` folder in the root directory. Then, run
 yarn scripts:make-maps
 ```
 
-You'll be taken through the steps to prepare your maps. GeoJSON files from other sources may not have the `name` property yet but it can easily be derived from another existing property. The utility will let you pick a property to use as `name`, clean up other unused properties and filter larger datasets, e.g. if you only want to include a specific country or region.
+You'll be taken through the steps to prepare your maps. GeoJSON files from other sources may not have the `name` property but it can easily be derived from another existing property. The utility will let you pick a property to use as `name`, clean up other unused properties and filter larger datasets, e.g. if you only want to include a specific country or region.
 
-Your shiny new maps will automatically be put into the `geojson` folder in the root directory. This folder is meant for processed geoJSON files that are ready to be used in the game. From there on, the final step is to include them in the source code.
+Your shiny new maps will automatically be put into the `geojson` folder in the root directory. This folder is meant for processed files that are ready to be used in the game (the `raw` folder contains datasets from which other maps can be created). From there on, the final step is to include them in the source code.
 
 ### Adding maps to the game
 
@@ -91,7 +91,7 @@ Each map may specify a custom transformer for its feature properties. For exampl
 
 Additionally, a category needs to be provided. Since all maps are stored in one large object, the category is used to provide a more unique key. This way, multiple maps can have the same name as long as their category is the same. Maps belonging to the same category that share the same name will overwrite each other.
 
-Categories are also used for some API endpoints that provide (meta) data for your maps. See: https://beta.pampa.place/api/maps/v1 (TODO docs)
+Categories are also used for some API endpoints that provide (meta) data for your maps. See: https://beta.pampa.place/api/maps/v1. Docs will follow.
 
 ## Contributing
 
