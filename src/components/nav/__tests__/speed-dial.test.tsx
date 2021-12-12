@@ -5,15 +5,15 @@ import {
   render,
   screen,
 } from '@/tests/utils';
-import router from 'next/router';
 import {SpeedDialNav} from '../speed-dial/speed-dial';
 
-const mockRouter = router as jest.Mocked<typeof router>;
-mockRouter.push = jest.fn();
+const mockPush = jest.fn();
 
 jest.mock('next/router', () => ({
   useRouter() {
-    return mockRouter;
+    return {
+      push: mockPush,
+    };
   },
 }));
 
@@ -64,7 +64,7 @@ describe('Speed dial', () => {
     const confirmButtons = screen.getAllByRole('button');
     expect(confirmButtons).toHaveLength(2);
     fireEvent.click(confirmButtons[1]);
-    expect(mockRouter.push).toHaveBeenCalledWith('/');
+    expect(mockPush).toHaveBeenCalledWith('/');
   });
   it('can restart round', () => {
     const state = createMockState({

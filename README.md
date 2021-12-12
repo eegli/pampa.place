@@ -10,14 +10,15 @@ TODO
 
 ## Adding custom maps
 
-### Data sources
+`pampa.place` comes preloaded with two GeoJSON datasets for both the US (states, 20m resolution) and EU (NUTS regions, 3m resolution).
 
-`pampa.place` comes preloaded with two GeoJSON datasets for both the US (states, 20m resolution) and EU (NUTS regions, 3m resolution). The datasets are also available here:
+- `geojson/cb_2018_us_state_20m.json` (source: [US Census Bureau](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html))
 
-- [US GeoJSON data (2010)](https://eric.clst.org/tech/usgeojson/)
-- [EU GeoJSON data (2021)](https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2021-files.html)
+- `geojson/NUTS_RG_03M_2021_4326.json` (source: [Eurostat](https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/nuts))
 
-You can of course also provide your own GeoJSON source.
+You can of course also provide your own GeoJSON source. The links above point to many more interesting geo data sets. If you have Shapefile maps (e.g. from the US Census Bureau), you can convert them to GeoJSON here:
+
+- [https://ogre.adc4gis.com/](https://ogre.adc4gis.com/)
 
 If you're completely new to the GeoJSON format, this is a very great guide to get started:
 
