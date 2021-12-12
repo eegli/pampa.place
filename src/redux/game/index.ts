@@ -140,7 +140,7 @@ const gameSlice = createSlice({
       state.rounds.progress = 0;
 
       // Rotate to first player again
-      for (let i = 0; i < state.rounds.progress; i++) {
+      for (let i = 0; i <= state.rounds.progress; i++) {
         const playerName = state.players.pop();
         if (playerName) {
           state.players.unshift(playerName);
