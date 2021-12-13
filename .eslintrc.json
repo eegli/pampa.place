@@ -27,15 +27,3 @@
     }
   ]
 }
-
-/* 
-
-{
-        "paths": [
-          {
-            "name": "@mui/icons-material",
-            "message": "Use path imports for MUI icons: import MyIcon from '@mui/icons-material/MyIcon'"
-          }
-        ]
-      }
-*/
