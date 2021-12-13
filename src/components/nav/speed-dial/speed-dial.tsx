@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import HomeIcon from '@mui/icons-material/Home';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import RestartIcon from '@mui/icons-material/RestartAlt';
 import ShortcutIcon from '@mui/icons-material/Shortcut';
 import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
@@ -50,7 +50,7 @@ export const SpeedDialNav = () => {
         >
           <SpeedDialAction
             key="Restart"
-            icon={<RestartAltIcon />}
+            icon={<RestartIcon />}
             tooltipTitle="Restart round"
             tooltipPlacement="right"
             onClick={() =>

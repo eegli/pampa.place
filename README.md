@@ -2,7 +2,7 @@
 
 ![GitHub top language](https://img.shields.io/github/languages/top/eegli/pampa.place?logo=ts) ![GitHub repo size](https://img.shields.io/github/repo-size/eegli/pampa.place) [![codecov](https://codecov.io/gh/eegli/pampa.place/branch/main/graph/badge.svg?token=8RPSUCWXEZ)](https://codecov.io/gh/eegli/pampa.place)
 
-### A multiplayer geography game with custom map input. Find yourself in a random place anywhere in the world and figure out where in the pampa you are 🌍
+### A multiplayer geography game with custom map input. Select a map and find yourself stranded somewhere in that place. Figure out where in the pampa you are 🌍
 
 ## Overview
 
@@ -14,22 +14,20 @@ _\*For up-to-date pricing, [check here.](https://developers.google.com/maps/docu
 
 `pampa.place` has three modes: _Friends and family_, _My key myself and I_ and _Dev_.
 
-- Friends and family: You provide the API key and they only need a passwort to play.
+- Friends and family: You provide the API key and they only need a password to play.
 - My key myself and I: Check out other people's places and bring your own key.
 - Dev: Google Maps loads without key. This is good for development and testing and will not eat any quota.
 
 ## Host your own pampa.place
 
-In general, you only need an API key for Google's `Maps JavaScript API`. It is highly recommended to restrict the key to specific domains. For local testing and development, you should get a separate key restricted to `localhost:3000/*`. The other key will be public and should be restricted to the domain under which your are hosting.
+You need an API key for Google's `Maps JavaScript API`. It is highly recommended to restrict the key to specific domains. For local testing and development, you should get a separate key restricted to `localhost:3000/*`. The other key will be public and should be restricted to the domain under which your are hosting.
 
-- https://developers.google.com/maps/documentation/javascript/get-api-key
+The easiest way to deploy a custom `pampa.place` is with Vercel.
 
-The easiest way to deploy a custom `pampa.place` is with Vercel: https://nextjs.org/docs/deployment
-
-1. Get a Maps API key
+1. [Get a Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key)
 2. (Fork and) clone this repository
-3. Deploy to Vercel
-4. Add these two env variables:
+3. [Deploy to Vercel](https://nextjs.org/docs/deployment)
+4. Add these two env variables to your Vercel project:
 
 `MAPS_API_KEY` with the value for your production api key
 
@@ -38,7 +36,7 @@ The easiest way to deploy a custom `pampa.place` is with Vercel: https://nextjs.
 ## Local testing and development
 
 It makes sense to quickly test and preview your version of the game.
-`Create a `.env.local` file in the root directory and add these two:
+Create an `.env.local` file in the root directory and add these two:
 
 ```
 MAPS_API_KEY=<your local API key>
@@ -53,7 +51,7 @@ APP_ACCESS_PW=<your local password>
 
 - `geojson/raw/NUTS_RG_03M_2021_4326.json` (source: [Eurostat](https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/nuts))
 
-You can of course also provide your own GeoJSON source. The sources above have many more interesting geo data available. If you have Shapefile maps (e.g. from the US Census Bureau), you can convert them to GeoJSON here:
+You can also provide your own GeoJSON files. If you have Shapefile maps (e.g. from the US Census Bureau), you can convert them to GeoJSON here:
 
 - [https://ogre.adc4gis.com/](https://ogre.adc4gis.com/)
 
@@ -84,7 +82,7 @@ You may add as many `features` to the `FeatureCollection` in your custom GeoJSON
 
 ### Preparing maps
 
-If you want to **use an existing GeoJSON file** that you did not create yourself, you may want to run it through the cleanup utility first.
+If you want to **use an existing GeoJSON file** that you did not create yourself, you may want to run it through the cleanup utility first. This also applies to the
 
 Place your files in the `geojson` folder in the root directory. Then, run
 

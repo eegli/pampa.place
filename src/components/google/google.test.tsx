@@ -6,7 +6,7 @@ import {
   StreetViewService,
 } from '@/services/google';
 import {createMockStore, render, screen} from '@/tests/utils';
-import {mocked} from 'ts-jest/utils';
+import {mocked} from 'jest-mock';
 import {GoogleMap, GoogleMapProps} from './map';
 import {GoogleStreetView} from './street-view';
 
