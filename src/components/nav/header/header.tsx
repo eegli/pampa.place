@@ -1,9 +1,11 @@
 import {setTheme} from '@/redux/app';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import MenuIcon from '@mui/icons-material/Menu';
+import {
+  DarkMode as DarkModeIcon,
+  GitHub as GitHubIcon,
+  LightMode as LightModeIcon,
+  Menu as MenuIcon,
+} from '@mui/icons-material';
 import {
   AppBar,
   Box,

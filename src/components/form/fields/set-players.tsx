@@ -3,7 +3,7 @@ import {markers} from '@/config/markers';
 import {setPlayers} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {min} from '@/utils/misc';
-import RoomIcon from '@mui/icons-material/Room';
+import {Room as RoomIcon} from '@mui/icons-material';
 import {Box, Fade, InputAdornment, TextField} from '@mui/material';
 import {ChangeEvent} from 'react';
 

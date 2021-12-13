@@ -1,7 +1,7 @@
 import {MAP_IDS} from '@/config/maps';
 import {setMap} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import {Visibility as VisibilityIcon} from '@mui/icons-material';
 import {
   Box,
   Button,
