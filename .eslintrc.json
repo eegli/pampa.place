@@ -4,7 +4,18 @@
   "ignorePatterns": ["scripts/**"],
   "rules": {
     "no-console": ["error", {"allow": ["info", "warn", "error"]}],
-    "react-hooks/exhaustive-deps": "error"
+    "react-hooks/exhaustive-deps": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "@mui/icons-material",
+            "message": "Forbidden top-level import. Use path imports for MUI icons: import MyIcon from '@mui/icons-material/MyIcon'"
+          }
+        ]
+      }
+    ]
   },
   "overrides": [
     {
@@ -16,3 +27,15 @@
     }
   ]
 }
+
+/* 
+
+{
+        "paths": [
+          {
+            "name": "@mui/icons-material",
+            "message": "Use path imports for MUI icons: import MyIcon from '@mui/icons-material/MyIcon'"
+          }
+        ]
+      }
+*/
