@@ -1,13 +1,7 @@
 import createCache from '@emotion/cache/';
 import createEmotionServer from '@emotion/server/create-instance';
-import Document, {
-  DocumentContext,
-  Head,
-  Html,
-  Main,
-  NextScript,
-} from 'next/document';
-import React from 'react';
+import Document, {Head, Html, Main, NextScript} from 'next/document';
+import {Children} from 'react';
 
 export default class MyDocument extends Document {
   render() {
@@ -21,12 +15,10 @@ export default class MyDocument extends Document {
           name="description"
           content="Pampa.place - Where in the pampa am I?"
         />
-
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=optional"
         />
-
         <link
           href="https://fonts.googleapis.com/css2?family=Lato:wght@100;400&display=optional"
           rel="stylesheet"
@@ -41,7 +33,6 @@ export default class MyDocument extends Document {
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-
         <body>
           <Main />
           <NextScript />
@@ -51,16 +42,17 @@ export default class MyDocument extends Document {
   }
 }
 
-MyDocument.getInitialProps = async (ctx: DocumentContext) => {
+/* Currently buggy: */
+/* https://github.com/mui-org/material-ui/issues/29742 */
+MyDocument.getInitialProps = async ctx => {
   const originalRenderPage = ctx.renderPage;
   const cache = createCache({key: 'css'});
   const {extractCriticalToChunks} = createEmotionServer(cache);
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: App =>
+      enhanceApp: (App: any) =>
         function EnhanceApp(props) {
-          // @ts-expect-error
           return <App emotionCache={cache} {...props} />;
         },
     });
@@ -71,17 +63,12 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
     <style
       data-emotion={`${style.key} ${style.ids.join(' ')}`}
       key={style.key}
-      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{__html: style.css}}
     />
   ));
 
   return {
     ...initialProps,
-    // Styles fragment is rendered after the app and page rendering finish.
-    styles: [
-      ...React.Children.toArray(initialProps.styles),
-      ...emotionStyleTags,
-    ],
+    styles: [...Children.toArray(initialProps.styles), ...emotionStyleTags],
   };
 };

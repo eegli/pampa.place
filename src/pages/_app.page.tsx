@@ -1,26 +1,28 @@
 import {GmapContainer, GstvContainer} from '@/services/google';
 import createCache from '@emotion/cache';
 import {CacheProvider, EmotionCache} from '@emotion/react';
-import type {AppProps, NextWebVitalsMetric} from 'next/app';
+import type {AppProps} from 'next/app';
 import {Provider} from 'react-redux';
 import {LoadingProgress} from '../components/feedback/progress';
 import {store} from '../redux/store';
 import {AuthWrapper} from './wrappers/auth';
 import {ThemeWrapper} from './wrappers/theme';
 
-export function reportWebVitals(metric: NextWebVitalsMetric) {
+/* export function reportWebVitals(metric: NextWebVitalsMetric) {
   console.info({
     env: process.env.NODE_ENV,
     metric,
   });
-}
+} */
 
 type ExtendedAppProps = AppProps & {emotionCache: EmotionCache};
+
+const clientEmotionCache = createCache({key: 'css'});
 
 const App = ({
   Component,
   pageProps,
-  emotionCache = createCache({key: 'css'}),
+  emotionCache = clientEmotionCache,
 }: ExtendedAppProps) => {
   return (
     <Provider store={store}>
