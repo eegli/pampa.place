@@ -33,7 +33,6 @@ global.google.maps.event = {
 global.google.maps.StreetViewService = class StreetViewService
   implements google.maps.StreetViewService
 {
-  constructor() {}
   async getPanorama() {
     const res: google.maps.StreetViewResponse = {
       data: {
@@ -59,15 +58,15 @@ global.google.maps.StreetViewService = class StreetViewService
 };
 
 global.google.maps.StreetViewPreference = {
-  // @ts-expect-error
+  // @ts-expect-error - provide value for enum at runtime
   BEST: 'best',
-  // @ts-expect-error
+  // @ts-expect-error - provide value for enum at runtime
   NEAREST: 'nearest',
 };
 global.google.maps.StreetViewSource = {
-  // @ts-expect-error
+  // @ts-expect-error - provide value for enum at runtime
   OUTDOOR: 'outdoor',
-  // @ts-expect-error
+  // @ts-expect-error - provide value for enum at runtime
   DEFAULT: 'default',
 };
 
@@ -76,9 +75,6 @@ global.google.maps.StreetViewPanorama = class MockStreetViewPanorama
   extends MVCObject
   implements google.maps.StreetViewPanorama
 {
-  constructor() {
-    super();
-  }
   controls = [];
   getLinks = jest.fn();
   registerPanoProvider = jest.fn();

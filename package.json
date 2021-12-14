@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@emotion/cache": "^11.7.1",
-    "@emotion/react": "^11.7.0",
+    "@emotion/react": "^11.7.1",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.6.0",
     "@googlemaps/react-wrapper": "^1.1.16",
@@ -51,8 +51,7 @@
     "node-fetch": "^3.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-redux": "^7.2.6",
-    "styled-components": "^5.3.3"
+    "react-redux": "^7.2.6"
   },
   "devDependencies": {
     "@googlemaps/jest-mocks": "^1.5.0",
@@ -68,6 +67,7 @@
     "@types/react": "17.0.37",
     "@types/react-dom": "^17.0.11",
     "@types/redux-logger": "^3.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
     "cross-env": "^7.0.3",
     "eslint": "8.4.1",
     "eslint-config-next": "12.0.7",

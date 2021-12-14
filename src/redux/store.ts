@@ -17,7 +17,7 @@ const reducer = {
 
 const logger = createLogger();
 
-const windowStorage: Middleware<{}, RootState> = () => next => action => {
+const windowStorage: Middleware<unknown, RootState> = () => next => action => {
   if (action.type.includes('setApiKey') && typeof action.payload === 'string') {
     window.sessionStorage.setItem(Constants.SESSION_APIKEY_KEY, action.payload);
   }
