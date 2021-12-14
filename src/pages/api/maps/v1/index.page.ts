@@ -1,3 +1,4 @@
+/* eslint-disable  no-useless-escape */
 import {ApiTextHandler} from '../utils';
 
 const ascii = `
