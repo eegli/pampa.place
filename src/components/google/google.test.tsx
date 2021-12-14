@@ -16,6 +16,8 @@ import {GoogleStreetView} from './street-view';
 
 // Store a reference to the events that are called when the map is
 // mounted
+
+// eslint-disable-next-line @typescript-eslint/ban-types
 const events: {event: string; func: Function}[] = [];
 const removeEventListener = jest.fn();
 jest
@@ -107,6 +109,7 @@ describe('Google, Map', () => {
         {name: 'a', selected: {lat: 1, lng: 1}},
         {name: 'b', selected: {lat: 1, lng: 1}},
       ],
+      initialPosition: {lat: 1, lng: 1},
     };
     const {unmount} = render(<GoogleMap {...props} />);
     expect(services.gmap.map.setOptions.mock.calls[0]).toMatchSnapshot(

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import {GoogleDOMIds} from './dom';
 
 function mountFactory(elementId: string, containerId: string) {

@@ -41,6 +41,7 @@ const PreviewPage: NextPage = () => {
 
       const listener = MapService.map.data.addListener(
         'click',
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         function (event: any) {
           console.info(event.feature.h);
         }

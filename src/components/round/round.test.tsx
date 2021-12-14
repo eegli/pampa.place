@@ -49,12 +49,11 @@ describe('Intermission, round ongoing', () => {
     });
     const store = createMockStore(state);
     render(<RoundIntermission />, store);
-    let button: HTMLElement;
+    const button = screen.getAllByRole('button')[0];
     await waitFor(() => {
-      button = screen.getAllByRole('button')[0];
       expect(button).toHaveTextContent(/start/gi);
     });
-    fireEvent.click(button!);
+    fireEvent.click(button);
     expect(store.getState().game.status).toMatchInlineSnapshot(
       `"ROUND_ONGOING"`
     );

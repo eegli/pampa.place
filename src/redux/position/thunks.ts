@@ -51,7 +51,7 @@ export const getRandomStreetView = createAsyncThunk<
       const randomLocation = randomPointInMap(map.bb, map.feature.geometry);
 
       try {
-        let {data: svData} = await service.getPanorama({
+        const {data: svData} = await service.getPanorama({
           ...reqDefaults,
           location: randomLocation,
         });
@@ -76,6 +76,7 @@ export const getRandomStreetView = createAsyncThunk<
         return {pos: {lat, lng}, panoId, panoDescription};
       }
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     const err: ValidationError = {
       code: 'UNKNOWN_ERROR',

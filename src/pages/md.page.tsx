@@ -40,7 +40,7 @@ const MarkdownTest: NextPage<MarkdownProps> = ({md}) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<MarkdownProps> = async ctx => {
+export const getStaticProps: GetStaticProps<MarkdownProps> = async () => {
   const response = await fetch(
     'https://raw.githubusercontent.com/kulshekhar/ts-jest/main/CONTRIBUTING.md'
   );

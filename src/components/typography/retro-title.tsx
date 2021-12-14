@@ -1,4 +1,5 @@
-import {Box, styled} from '@mui/system';
+import Box from '@mui/material/Box';
+import {styled} from '@mui/material/styles';
 
 const H1 = styled('h1')`
   position: relative;

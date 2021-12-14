@@ -114,7 +114,7 @@ export const RoundOverSummary = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {scores.map((p, idx) => (
+                {scores.map(p => (
                   <TableRow key={p.name}>
                     <TableCell component="th" scope="row">
                       {p.name}
