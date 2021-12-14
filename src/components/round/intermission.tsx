@@ -6,6 +6,7 @@ import {getRandomStreetView} from '@/redux/position/thunks';
 import {Button, Divider, Stack, Typography} from '@mui/material';
 import {useLayoutEffect} from 'react';
 import {SlimContainer} from '../../styles/containers';
+import {LoadingProgress} from '../feedback/progress';
 
 export const RoundIntermission = () => {
   const dispatch = useAppDispatch();
@@ -28,32 +29,35 @@ export const RoundIntermission = () => {
   }
 
   return (
-    <SlimContainer height="100%" id="c-round-intermission">
-      <Stack direction="column" alignItems="center" spacing={3} margin="auto">
-        <Typography variant="h4" align="center">
-          {currentPlayer}, it&apos;s your turn!
-        </Typography>
-        <Divider orientation="horizontal" flexItem />
-        <Typography
-          variant="h6"
-          sx={{
-            color: 'text.secondary',
-          }}
-        >
-          Round {currentRound}/{totalRounds}
-        </Typography>
+    <>
+      <LoadingProgress isLoading={isLoadingStreetView} />
+      <SlimContainer height="100%" id="c-round-intermission">
+        <Stack direction="column" alignItems="center" spacing={3} margin="auto">
+          <Typography variant="h4" align="center">
+            {currentPlayer}, it&apos;s your turn!
+          </Typography>
+          <Divider orientation="horizontal" flexItem />
+          <Typography
+            variant="h6"
+            sx={{
+              color: 'text.secondary',
+            }}
+          >
+            Round {currentRound}/{totalRounds}
+          </Typography>
 
-        <Button
-          onClick={handleClick}
-          variant="contained"
-          color="primary"
-          disabled={isLoadingStreetView}
-        >
-          {isLoadingStreetView
-            ? 'Getting a random Street View...'
-            : 'Start Round'}
-        </Button>
-      </Stack>
-    </SlimContainer>
+          <Button
+            onClick={handleClick}
+            variant="contained"
+            color="primary"
+            disabled={isLoadingStreetView}
+          >
+            {isLoadingStreetView
+              ? 'Getting a random Street View...'
+              : 'Start Round'}
+          </Button>
+        </Stack>
+      </SlimContainer>
+    </>
   );
 };

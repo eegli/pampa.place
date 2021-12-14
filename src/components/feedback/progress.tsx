@@ -1,14 +1,9 @@
-import {useAppSelector} from '@/redux/hooks';
 import {Box, LinearProgress} from '@mui/material';
 
-export const LoadingProgress = () => {
-  const isLoadingStreetView = useAppSelector(s => s.position.loading);
-
-  return isLoadingStreetView ? (
+export const LoadingProgress = ({isLoading}: {isLoading: boolean}) => {
+  return isLoading ? (
     <Box width="100%" position="absolute">
       <LinearProgress color="secondary" />
     </Box>
-  ) : (
-    <></>
-  );
+  ) : null;
 };

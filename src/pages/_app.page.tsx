@@ -3,7 +3,6 @@ import createCache from '@emotion/cache';
 import {CacheProvider, EmotionCache} from '@emotion/react';
 import type {AppProps} from 'next/app';
 import {Provider} from 'react-redux';
-import {LoadingProgress} from '../components/feedback/progress';
 import {store} from '../redux/store';
 import {AuthWrapper} from './wrappers/auth';
 import {ThemeWrapper} from './wrappers/theme';
@@ -28,7 +27,6 @@ const App = ({
     <Provider store={store}>
       <CacheProvider value={emotionCache}>
         <ThemeWrapper>
-          <LoadingProgress />
           <GmapContainer />
           <GstvContainer />
           <AuthWrapper>
