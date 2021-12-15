@@ -19,7 +19,38 @@ describe('Test global setup', () => {
   it('street view service resolves', async () => {
     const service = new google.maps.StreetViewService();
     expect(service).toBeTruthy();
-    expect(await service.getPanorama({})).toMatchSnapshot('resp 1');
+    expect(await service.getPanorama({})).toMatchInlineSnapshot(`
+      Object {
+        "data": Object {
+          "copyright": "Copyright",
+          "imageDate": "August 2020",
+          "links": Array [],
+          "location": Object {
+            "description": "Fake panorama description",
+            "latLng": Object {
+              "lat": 0,
+              "lng": 0,
+            },
+            "pano": "69",
+            "shortDescription": null,
+          },
+          "tiles": Object {
+            "centerHeading": 0,
+            "getTileUrl": [Function],
+            "tileSize": Size {
+              "height": 1,
+              "toString": [MockFunction],
+              "width": 1,
+            },
+            "worldSize": Size {
+              "height": 1,
+              "toString": [MockFunction],
+              "width": 1,
+            },
+          },
+        },
+      }
+    `);
 
     google.maps.StreetViewService.prototype.getPanorama = jest
       .fn()
@@ -27,7 +58,11 @@ describe('Test global setup', () => {
         ok: true,
       });
 
-    expect(await service.getPanorama({})).toMatchSnapshot('resp 2');
+    expect(await service.getPanorama({})).toMatchInlineSnapshot(`
+      Object {
+        "ok": true,
+      }
+    `);
   });
   it('enums are defined', () => {
     expect(google.maps.StreetViewPreference).toMatchInlineSnapshot(`

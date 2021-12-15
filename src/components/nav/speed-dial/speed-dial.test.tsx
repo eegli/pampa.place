@@ -5,7 +5,7 @@ import {
   render,
   screen,
 } from '@/tests/utils';
-import {SpeedDialNav} from '../speed-dial/speed-dial';
+import {SpeedDialNav} from './speed-dial';
 
 const mockPush = jest.fn();
 

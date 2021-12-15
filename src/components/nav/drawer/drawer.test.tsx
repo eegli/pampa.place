@@ -1,6 +1,6 @@
 import {fireEvent, render, screen} from '@/tests/utils';
 import router from 'next/router';
-import {MenuDrawer} from '../drawer/drawer';
+import {MenuDrawer} from './drawer';
 
 const mockRouter = router as jest.Mocked<typeof router>;
 mockRouter.reload = jest.fn();

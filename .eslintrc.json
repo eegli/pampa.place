@@ -4,13 +4,21 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals",
-    "prettier"
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["testing-library"],
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": ["plugin:testing-library/react"]
+    }
   ],
   "rules": {
     "no-console": ["error", {"allow": ["info", "warn", "error"]}],
     "no-constant-condition": "off",
-    "react-hooks/exhaustive-deps": "error",
-    "@typescript-eslint/no-empty-function": "off",
     "no-restricted-imports": [
       "error",
       {
@@ -21,16 +29,8 @@
           }
         ]
       }
-    ]
-  },
-  "plugins": ["testing-library"],
-  "overrides": [
-    {
-      "files": [
-        "**/__tests__/**/*.[jt]s?(x)",
-        "**/?(*.)+(spec|test).[jt]s?(x)"
-      ],
-      "extends": ["plugin:testing-library/react"]
-    }
-  ]
+    ],
+    "react-hooks/exhaustive-deps": "error",
+    "@typescript-eslint/no-empty-function": "off"
+  }
 }
