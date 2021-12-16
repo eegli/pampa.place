@@ -5,7 +5,7 @@ import {AuthWrapper} from './auth';
 const wrapperSpy = jest
   .spyOn(GoogleMapsReactWrapper, 'Wrapper')
   .mockImplementation(({children}) => {
-    return <div id="rendered">{children}</div>;
+    return <div id="wrapper rendered">{children}</div>;
   });
 
 beforeEach(() => {

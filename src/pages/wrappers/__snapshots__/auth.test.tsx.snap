@@ -10,7 +10,7 @@ Object {
 
 exports[`Auth wrapper inits Google Maps with api key value:  2`] = `
 <div
-  id="rendered"
+  id="wrapper rendered"
 />
 `;
 
@@ -24,6 +24,6 @@ Object {
 
 exports[`Auth wrapper inits Google Maps with api key value: apikey: apikey 2`] = `
 <div
-  id="rendered"
+  id="wrapper rendered"
 />
 `;
