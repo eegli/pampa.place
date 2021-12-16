@@ -31,7 +31,7 @@ export const RoundIntermission = () => {
   return (
     <>
       <LoadingProgress isLoading={isLoadingStreetView} />
-      <SlimContainer height="100%" id="c-round-intermission">
+      <SlimContainer height="100%">
         <Stack direction="column" alignItems="center" spacing={3} margin="auto">
           <Typography variant="h4" align="center">
             {currentPlayer}, it&apos;s your turn!

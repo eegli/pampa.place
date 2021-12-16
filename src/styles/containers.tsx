@@ -62,3 +62,11 @@ export const PageContentWrapper = ({
     </Box>
   );
 };
+
+type FullSizeBoxProps = Omit<BoxProps, 'width' | 'height'>;
+
+export const FullSizeBox = ({id, children, ...rest}: FullSizeBoxProps) => (
+  <Box id={id} width="100%" height="100%" {...rest}>
+    {children}
+  </Box>
+);

@@ -10,17 +10,10 @@ import {RoundOverSummary} from '../components/round/round-over';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {PageContentWrapper} from '../styles/containers';
 
-const GamePage: NextPage = () => {
-  const dispatch = useAppDispatch();
-
-  const status = useAppSelector(({game}) => game.status);
-  const positionError = useAppSelector(({position}) => position.error);
-
-  async function handleRetry() {
-    dispatch(getRandomStreetView());
-  }
-
-  function render() {
+// An approach to shallow rendering. Utils can easily be mocked in
+// tests.
+export const utils = {
+  render: (status: STATUS) => {
     switch (status) {
       case STATUS.PENDING_PLAYER:
         return <RoundIntermission />;
@@ -30,39 +23,36 @@ const GamePage: NextPage = () => {
         return <RoundOverSummary />;
       case STATUS.FINISHED:
         return <GameOverSummary />;
-
       default:
         return null;
     }
+  },
+};
+
+export const GamePage: NextPage = () => {
+  const dispatch = useAppDispatch();
+  const status = useAppSelector(({game}) => game.status);
+  const positionError = useAppSelector(({position}) => position.error);
+
+  async function handleRetry() {
+    dispatch(getRandomStreetView());
   }
 
-  // If there is a header included, the page content container should
-  // take the remaining height. The header is 48p by default
-  /* 
-   <GameHeader />
-      <PageContentWrapper height="calc(100% - 48px)">
-        {render()}
-      </PageContentWrapper>
-    </>
-  
-  */
   return (
-    <>
-      <PageContentWrapper height="100%" id="game-page">
-        {positionError ? (
-          <Error
-            callback={handleRetry}
-            title="Error getting Street View data"
-            info="This is likely because the map you chose is a little
+    <PageContentWrapper height="100%" id="game-page">
+      {positionError ? (
+        <Error
+          callback={handleRetry}
+          title="Error getting Street View data"
+          info="This is likely because the map you chose is a little
                 too small or has little Street View coverage."
-            reason={positionError.message}
-          />
-        ) : (
-          render()
-        )}
-        <SpeedDialNav />
-      </PageContentWrapper>
-    </>
+          reason={positionError.message}
+        />
+      ) : (
+        utils.render(status)
+      )}
+      <SpeedDialNav />
+    </PageContentWrapper>
   );
 };
 
