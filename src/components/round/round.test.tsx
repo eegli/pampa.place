@@ -143,8 +143,8 @@ describe('Summary, round over', () => {
     expect(rows[1]).toHaveTextContent(/player 2/gi);
     expect(rows[2]).toHaveTextContent(/player 1/gi);
     expect(rows).toHaveLength(3);
-    expect(rows[1]).toHaveTextContent(/69m/gi);
-    expect(rows[2]).toHaveTextContent(/1.201km/gi);
+    expect(rows[1]).toHaveTextContent(/69 m/gi);
+    expect(rows[2]).toHaveTextContent(/1.201 km/gi);
   });
   it("continues game when it's not done", () => {
     const state = createMockState({

@@ -16,13 +16,13 @@ describe('Utils, misc', () => {
     expect(formatDur(122)).toEqual('2m 2s');
   });
   test('distance formatting utility', () => {
-    expect(formatDist(0)).toEqual('0m');
-    expect(formatDist(2.2)).toEqual('2m');
-    expect(formatDist(2.9)).toEqual('3m');
+    expect(formatDist(0)).toEqual('0 m');
+    expect(formatDist(2.2)).toEqual('2 m');
+    expect(formatDist(2.9)).toEqual('3 m');
     expect(formatDist(-1)).toEqual('-');
-    expect(formatDist(1000)).toEqual('1km');
-    expect(formatDist(1001.1)).toEqual('1.001km');
-    expect(formatDist(1021.1)).toEqual('1.021km');
-    expect(formatDist(12345678.9)).toEqual('12,345.679km');
+    expect(formatDist(1000)).toEqual('1 km');
+    expect(formatDist(1001.1)).toEqual('1.001 km');
+    expect(formatDist(1021.1)).toEqual('1.021 km');
+    expect(formatDist(12345678.9)).toEqual('12,345.679 km');
   });
 });

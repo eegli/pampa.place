@@ -15,10 +15,9 @@ export function formatDur(seconds: number): string {
 export function formatDist(meter: number): string {
   if (meter < 0) return '-';
   meter = Math.round(meter);
-  if (meter < 1000) return meter + 'm';
+  if (meter < 1000) return meter + ' m';
   return new Intl.NumberFormat('en', {
     style: 'unit',
     unit: 'kilometer',
-    unitDisplay: 'narrow',
   }).format(meter / 1000);
 }
