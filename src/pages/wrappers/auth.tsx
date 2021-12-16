@@ -19,24 +19,28 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
   // An empty string as api key is allowed for development mode
   if (typeof apiKey !== 'string') return <Login />;
 
-  function render(status: Status) {
-    switch (status) {
-      case Status.SUCCESS:
-        return <>{children}</>;
-      case Status.LOADING:
-        return (
-          <PageContentWrapper id="spinner">
-            <Spinner />
-          </PageContentWrapper>
-        );
-      default:
-        return (
-          <PageContentWrapper id="spinner">
-            <div>mega fail</div>
-          </PageContentWrapper>
-        );
-    }
-  }
-
-  return <Wrapper apiKey={apiKey} render={render} version="3.47.2" />;
+  return (
+    <Wrapper
+      apiKey={apiKey}
+      version="3.47.2"
+      render={status => {
+        switch (status) {
+          case Status.SUCCESS:
+            return <>{children}</>;
+          case Status.LOADING:
+            return (
+              <PageContentWrapper id="spinner">
+                <Spinner />
+              </PageContentWrapper>
+            );
+          default:
+            return (
+              <PageContentWrapper id="spinner">
+                <div>mega fail</div>
+              </PageContentWrapper>
+            );
+        }
+      }}
+    />
+  );
 };
