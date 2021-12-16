@@ -22,7 +22,7 @@
     "lint": "next lint --dir src",
     "format": "prettier --write src scripts",
     "test": "jest --verbose",
-    "test:watch": "jest --verbose --watch",
+    "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "scripts:make-maps": "node scripts/geojson-maker.js",
     "prepare": "husky install"
