@@ -5,17 +5,21 @@ import {useAppSelector} from '../../redux/hooks';
 import {PageContentWrapper} from '../../styles/containers';
 import {Login} from './login';
 
+declare global {
+  interface Window {
+    gm_authFailure: () => void;
+  }
+}
+
 export const AuthWrapper = ({children}: {children?: ReactNode}) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
 
   // https://developers.google.com/maps/documentation/javascript/events
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).gm_authFailure = () => {
-      // Maybe a TODO
+    window.gm_authFailure = () => {
+      console.error('Invalid Google Maps API key: ' + apiKey);
     };
-  });
-
+  }, [apiKey]);
   // An empty string as api key is allowed for development mode
   if (typeof apiKey !== 'string') return <Login />;
 
@@ -38,5 +42,5 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
     }
   }
 
-  return <Wrapper apiKey={apiKey} render={render} version="3.47.2" />;
+  return <Wrapper apiKey={apiKey} version="3.47.2" render={render} />;
 };

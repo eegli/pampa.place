@@ -121,7 +121,7 @@ describe('Summary, round over', () => {
         players: ['player 1', 'player 2'],
         scores: [
           [
-            {name: 'player 1', score: 2, selected: null, dist: 12},
+            {name: 'player 1', score: 2, selected: null, dist: 1201},
             {name: 'player 2', score: 5, selected: null, dist: 69},
           ],
         ],
@@ -135,16 +135,16 @@ describe('Summary, round over', () => {
 
     // Table haders
     expect(colHeaders).toHaveLength(3);
-    expect(colHeaders[0]).toHaveTextContent(/name/i);
-    expect(colHeaders[1]).toHaveTextContent(/distance/i);
-    expect(colHeaders[2]).toHaveTextContent(/score/i);
+    expect(colHeaders[0]).toHaveTextContent(/name/gi);
+    expect(colHeaders[1]).toHaveTextContent(/distance/gi);
+    expect(colHeaders[2]).toHaveTextContent(/score/gi);
 
     // First row is the header, second row is the winning player
-    expect(rows[1]).toHaveTextContent(/player 2/i);
-    expect(rows[2]).toHaveTextContent(/player 1/i);
+    expect(rows[1]).toHaveTextContent(/player 2/gi);
+    expect(rows[2]).toHaveTextContent(/player 1/gi);
     expect(rows).toHaveLength(3);
-    expect(rows[1]).toHaveTextContent(/69/i);
-    expect(rows[2]).toHaveTextContent(/12/i);
+    expect(rows[1]).toHaveTextContent(/69 m/gi);
+    expect(rows[2]).toHaveTextContent(/1.201 km/gi);
   });
   it("continues game when it's not done", () => {
     const state = createMockState({

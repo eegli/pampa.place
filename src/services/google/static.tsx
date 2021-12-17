@@ -2,17 +2,15 @@
 
 import {GoogleDOMIds} from './dom';
 
-function mountFactory(elementId: string, containerId: string) {
-  return function (tempContainer: HTMLElement) {
-    const element = document.getElementById(elementId)!;
+const mountFactory =
+  (elemId: string, containerId: string) => (temp: HTMLElement) => {
+    const element = document.getElementById(elemId)!;
     const container = document.getElementById(containerId)!;
-
-    tempContainer.appendChild(element);
+    temp.appendChild(element);
     return () => {
       container.appendChild(element);
     };
   };
-}
 
 export class MapService {
   private static _map: google.maps.Map | undefined;

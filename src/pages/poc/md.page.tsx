@@ -5,7 +5,7 @@ import {MDXRemote, MDXRemoteSerializeResult} from 'next-mdx-remote';
 import {serialize} from 'next-mdx-remote/serialize';
 import fetch from 'node-fetch';
 import {ReactNode} from 'react';
-import {SlimContainer} from '../styles/containers';
+import {SlimContainer} from '../../styles/containers';
 
 const components: Record<string, ReactNode> = {
   h1: (props: TypographyProps) => (
