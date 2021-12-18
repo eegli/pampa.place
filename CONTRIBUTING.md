@@ -76,3 +76,8 @@ This way, only a single map (and street view) instance is created throughout the
 - Lastly, this method plays nicely together in test scenarios when we want to inspect what is happening to the map/street-view instance on one of the service objects.
 
 This approach can be used for multiple map instances as well since usually, it is known how many maps need to be created (e.g. for dashboards).
+
+## Technical notes - Map overlays
+
+Similarly, each map overlay (e.g. polylines, markers, etc.) is created via the `MapOverlayService` object.
+There are a few quirks when it comes to correctly destroying overlays, e.g. when a component unmounts. The overlay service objects provide a layer of abstraction that simplifies this. Also, they provide a nice way to inspect overlay instantiation and cleanup in unit testing.
