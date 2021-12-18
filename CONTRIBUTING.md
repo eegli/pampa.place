@@ -22,31 +22,57 @@ Turns out, creating a new Google Map and attaching it to a `ref` object is a tec
 
 ### The solution - Global map references
 
-`pampa.place` only needs a single map instance at a time. Thus, there is a **service object in the form of class with static methods** that is responsible to create and hold a reference to the actual Google Map instance.
+`pampa.place` only needs a single map instance at a time. Thus, there is a **"service" object in the form of class with static methods** that is responsible for creating and holding a reference to the actual Google Map instance. All access to Google Map or Google Street View instances happens through the respective service objects.
 
-In simplified, non-class form, it looks like this:
+Creating a new Google Map or Street View instance requires a HTML element to be passed to the constructur. Google will attach the instances to that element.
 
-```ts
-const MapService = {
-    map: new google.maps.Map(...)
-}
-```
+For each global instance, two divs are available somewhere in the root of the DOM tree (see `src/pages/_app.tsx`).
 
-These reference service objects both need two things in order to function:
-
-- A "container" div
+- A "container" div that wraps the inner "reference" div
 - A "reference" div that the map is attached to when created
 
-These divs are always available in the DOM tree (see `src/pages/_app.tsx`). The very first time a map instance is requested, these service objects create the actual instance in the "reference" div. When the component renders, the reference div is attached to the div `ref` of that very render.
+```html
+<!-- Google Map - outer container and inner reference div -->
+<div id="__GMAP__CONTAINER__" data-testid="__GMAP__CONTAINER__">
+  <div id="__GMAP__" data-testid="__GMAP__" style="height:100%">
+    <!-- Google puts the map here -->
+  </div>
+</div>
 
-On unmount, the reference div is not destroyed but rather appended to its container div. The next time the map instance needs to be rendered, the existing the reference is attached to the `ref` created by the component.
+<!-- Same thing for Street View -->
+<div id="__GSTV__CONTAINER__" data-testid="__GSTV__CONTAINER__">
+  <div id="__GSTV__" data-testid="__GSTV__" style="height:100%"></div>
+</div>
+```
 
-This way, only a single map (and street view) instance is created in the lifecycle of the app.
+At some point, a new map or street view is instantiated using the "reference" divs:
+
+```ts
+// Simplified service objects for demo
+
+const MapService = {
+  map: new google.maps.Map(document.getElementById('__GMAP__')),
+};
+
+const StreetViewService = {
+  sv: new google.maps.StreetViewPanorama(document.getElementById('__GSTV__')),
+};
+```
+
+Let's look at the lifecycle of a React component that renders the map. Each component that renders the map makes use of the `useRef` hook but will attach the actual map via the service object:
+
+1. The service object checks if a map already exists (access via getter)
+2. If not, create it and attach it to reference div
+3. If yes, return the map reference div that itself holds the map instance
+4. The reference div is attached to the `ref.current` property of that very render
+5. On unmount, the reference div is not destroyed but rather appended back to its container div
+
+This way, only a single map (and street view) instance is created throughout the lifetime of the app.
 
 ### Lower cost, better development experience
 
-A significant benefit of this method is that, in `dev` mode, the warning only needs to be dismissed once.
+- A significant benefit of this method is that, in `dev` mode, the warning only needs to be dismissed once.
+- Also, **you'll only be charged once** for the initial instance creation. Subsequent map and street view interactions are free of charge (as of now). In essence, one map is instantiated and then just passed from one node in the tree to another when needed.
+- Lastly, this method plays nicely together in test scenarios when we want to inspect what is happening to the map/street-view instance on one of the service objects.
 
-Also, **you'll only be charged once** for the initial instance creation. Subsequent map and street view interactions are free of charge (as of now). In essence, one map is instantiated and then just passed from one node in the tree to another when needed.
-
-Lastly, this method plays nicely together in test scenarios when we want to inspect what is happening to the map/street-view instance on one of the service objects.
+This approach can be used for multiple map instances as well since usually, it is known how many maps need to be created (e.g. for dashboards).
