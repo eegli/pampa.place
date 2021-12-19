@@ -39,7 +39,7 @@ export const GamePage: NextPage = () => {
   }
 
   return (
-    <PageContentWrapper height="100%" id="game-page">
+    <PageContentWrapper id="game-page">
       {positionError ? (
         <Error
           callback={handleRetry}

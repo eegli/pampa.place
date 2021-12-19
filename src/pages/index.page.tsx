@@ -8,7 +8,7 @@ const HomePage: NextPage = () => {
   return (
     <>
       <Header />
-      <PageContentWrapper headerGutter id="index-page" width="25rem">
+      <PageContentWrapper headerGutter id="index-page">
         <FancyRetroTitle primary="PAMPA" secondary="PLACE" />
         <Form />
       </PageContentWrapper>
