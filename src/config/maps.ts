@@ -13,7 +13,8 @@ export const MAPS: MapDataCollection = computeMapData(
     category: 'switzerland',
     transformer: swissMapsTransformer,
   },
-  {map: require('geojson/alps.json'), category: 'alps'}
+  {map: require('geojson/alps.json'), category: 'alps'},
+  {map: require('geojson/usa.json'), category: 'usa'}
 );
 
 export const MAP_IDS: MapIdCollection = computeMapIds(MAPS);
