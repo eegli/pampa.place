@@ -1,4 +1,4 @@
-# pampa.place
+![pampa.place](https://pampa.place/logo.png)
 
 ![GitHub top language](https://img.shields.io/github/languages/top/eegli/pampa.place?logo=ts) ![GitHub repo size](https://img.shields.io/github/repo-size/eegli/pampa.place) [![codecov](https://codecov.io/gh/eegli/pampa.place/branch/main/graph/badge.svg?token=8RPSUCWXEZ)](https://codecov.io/gh/eegli/pampa.place)
 
