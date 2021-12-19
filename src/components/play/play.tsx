@@ -5,8 +5,8 @@ import {Box, Button} from '@mui/material';
 import {useState} from 'react';
 import {GoogleMap} from '../google/map';
 import {GoogleStreetView} from '../google/street-view';
-import {PlayHeader} from './header';
-import {StyledMapOverlay} from './styles';
+import {PlayHeader} from './header/header';
+import {StyledMapOverlay} from './styles/styles';
 
 export const Play = () => {
   const dispatch = useAppDispatch();

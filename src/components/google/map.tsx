@@ -1,6 +1,6 @@
+import {svgMarker, svgMarkerColors} from '@/components/google/marker';
 import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
-import {markers as markerConfig} from '@/config/markers';
 import {LatLngLiteral} from '@/config/types';
 import {Result} from '@/redux/game';
 import {useAppDispatch} from '@/redux/hooks';
@@ -122,12 +122,12 @@ export const GoogleMap = ({
                 className: 'map-marker',
               },
               icon: {
-                path: markerConfig.marker.path,
-                fillColor: `#${markerConfig.colors[idx]}`,
+                path: svgMarker.path,
+                fillColor: `#${svgMarkerColors[idx]}`,
                 fillOpacity: 1,
                 anchor: new google.maps.Point(
-                  markerConfig.marker.anchor[0],
-                  markerConfig.marker.anchor[1]
+                  svgMarker.anchor[0],
+                  svgMarker.anchor[1]
                 ),
                 strokeWeight: 0,
                 scale: 1,
@@ -139,7 +139,7 @@ export const GoogleMap = ({
               path: [initialPosition, p.selected],
               map: MapService.map,
               geodesic: true,
-              strokeColor: `#${markerConfig.colors[idx]}`,
+              strokeColor: `#${svgMarkerColors[idx]}`,
               strokeOpacity: 1.0,
               strokeWeight: 4,
             });

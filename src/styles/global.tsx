@@ -1,10 +1,11 @@
-const GlobalStyles = () => {
+export const GlobalStyles = () => {
   return (
     <style jsx global>{`
       html,
       body,
       div#__next {
         height: 100%;
+        overflow-y: overlay;
       }
 
       /* Classname for the Google Maps player icons  */
@@ -50,5 +51,3 @@ const GlobalStyles = () => {
     `}</style>
   );
 };
-
-export default GlobalStyles;

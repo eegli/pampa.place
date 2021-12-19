@@ -8,7 +8,7 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import {ReactNode, useEffect} from 'react';
-import GlobalStyles from '../../styles/global';
+import {GlobalStyles} from '../../styles/global';
 
 export const ThemeWrapper = ({children}: {children: ReactNode}) => {
   const activeTheme = useAppSelector(s => s.app.theme);

@@ -1,5 +1,5 @@
+import {svgMarkerColors} from '@/components/google/marker';
 import {config} from '@/config/game';
-import {markers} from '@/config/markers';
 import {setPlayers} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {min} from '@/utils/misc';
@@ -50,7 +50,7 @@ export const FormPlayers = () => {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <RoomIcon style={{color: markers.colors[idx]}} />
+                      <RoomIcon style={{color: svgMarkerColors[idx]}} />
                     </InputAdornment>
                   ),
                 }}

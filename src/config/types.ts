@@ -6,14 +6,6 @@ import {
   Polygon,
 } from '@turf/helpers';
 
-/* Markers */
-export type MarkerConfig = {
-  colors: Record<string, string>;
-  svgMarker: {
-    path: string;
-    anchor: [number, number];
-  };
-};
 /* Google */
 export type GoogleConfig = {
   svRequest: {

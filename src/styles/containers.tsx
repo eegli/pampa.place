@@ -1,4 +1,5 @@
-import {Box, BoxProps, Breakpoint} from '@mui/material';
+import Box, {BoxProps} from '@mui/material/Box';
+import {Breakpoint} from '@mui/system';
 
 // Shared container that can be applied to all "info" screens -
 // intermissions, round ends and final result. Accepts an optional
@@ -36,7 +37,7 @@ export const SlimContainer = ({
 // passed so that the container takes the remaining height, see
 // /pages/game
 
-interface PageContainerWrapperProps extends BoxProps {
+interface PageContainerWrapperProps extends Omit<BoxProps, 'height' | 'width'> {
   headerGutter?: boolean;
   id: string;
 }
