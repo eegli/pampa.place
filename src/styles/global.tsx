@@ -5,6 +5,7 @@ export const GlobalStyles = () => {
       body,
       div#__next {
         height: 100%;
+        overflow-y: overlay;
       }
 
       /* Classname for the Google Maps player icons  */
