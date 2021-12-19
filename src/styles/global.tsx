@@ -1,4 +1,4 @@
-const GlobalStyles = () => {
+export const GlobalStyles = () => {
   return (
     <style jsx global>{`
       html,
@@ -50,5 +50,3 @@ const GlobalStyles = () => {
     `}</style>
   );
 };
-
-export default GlobalStyles;

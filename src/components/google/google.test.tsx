@@ -1,3 +1,4 @@
+import {config} from '@/config/game';
 import {testMapId} from '@/config/__mocks__/maps';
 import {
   MapService,
@@ -8,8 +9,8 @@ import {
 import {createMockStore, render, screen} from '@/tests/utils';
 import {mocked} from 'jest-mock';
 import {GoogleMap, GoogleMapProps} from './map';
+import {svgMarkerColors} from './marker';
 import {GoogleStreetView} from './street-view';
-
 // Mock implementation for listeners. The handler will be caught and
 // called with the event it would get from google.maps.Map's click
 // event. Unfortunately, this event has no official types
@@ -142,5 +143,11 @@ describe('Google, Street view', () => {
     expect(services.gsv.sv.setOptions.mock.calls[0][0]).toMatchSnapshot(
       'options static'
     );
+  });
+});
+
+describe('Google, custom marker', () => {
+  it('defines a marker color for each player', () => {
+    expect(config.maxPlayers).toBeLessThanOrEqual(svgMarkerColors.length);
   });
 });

@@ -1,8 +1,10 @@
 import {useAppSelector} from '@/redux/hooks';
 import {formatDur} from '@/utils/misc';
 import {Box, Divider, Stack, Typography} from '@mui/material';
+import {red} from '@mui/material/colors';
 import {useEffect} from 'react';
-import {useTimer} from '../../hooks/useTimer';
+import {useTimer} from '../../../hooks/useTimer';
+import {keyedColorFade} from '../../../styles/utils';
 
 type PlayHeaderProps = {
   player: string;
@@ -12,7 +14,6 @@ type PlayHeaderProps = {
 export const PlayHeader = ({player, timerCallback}: PlayHeaderProps) => {
   const timeLimit = useAppSelector(s => s.game.timeLimit);
   const [timeRemaining] = useTimer(timeLimit);
-
   const isUnlimitedTimeMode = timeLimit < 0;
 
   const label = isUnlimitedTimeMode ? (
@@ -28,7 +29,7 @@ export const PlayHeader = ({player, timerCallback}: PlayHeaderProps) => {
   }, [timeRemaining, isUnlimitedTimeMode, timerCallback]);
 
   return (
-    <Box px={2} my={2} width="100%" display="flex">
+    <Box my={2} width="100%" display="flex">
       <Stack
         flexGrow={1}
         display="flex"
@@ -36,6 +37,14 @@ export const PlayHeader = ({player, timerCallback}: PlayHeaderProps) => {
         direction="row"
         divider={<Divider orientation="vertical" flexItem />}
         spacing={2}
+        sx={{
+          animationDuration: `${timeLimit + 1}s`,
+          animationName: ({palette}) =>
+            `${keyedColorFade('background-color')(
+              [50, palette.background.default],
+              [100, red[600]]
+            )}`,
+        }}
       >
         <Box textAlign="right">
           <Typography
@@ -59,7 +68,18 @@ export const PlayHeader = ({player, timerCallback}: PlayHeaderProps) => {
           >
             Time remaining
           </Typography>
-          <Typography variant="h5" color={'secondary.main'}>
+          <Typography
+            variant="h5"
+            sx={{
+              color: ({palette}) => palette.secondary.main,
+              animationDuration: `${timeLimit + 1}s`,
+              animationName: ({palette}) =>
+                `${keyedColorFade('color')(
+                  [50, palette.secondary.main],
+                  [100, palette.text.primary]
+                )}`,
+            }}
+          >
             {label}
           </Typography>
         </Box>
