@@ -2,20 +2,24 @@
 
 exports[`Typography renders retro title 1`] = `
 <div
-  class="MuiBox-root css-1wum0we"
+  style="display: flex; margin: 2rem auto; align-items: center; justify-content: center; flex-direction: column;"
 >
   <h1
-    class="css-q4vq34"
+    style="position: relative; font-family: Exo; font-size: 7em; margin: 0px; transform: skew(-15deg); letter-spacing: 0.03em;"
   >
-    <span>
+    <span
+      style="text-shadow: 0 0 0.1em #8ba2d0, 0 0 0.2em black, 0 0 5em #165ff3;"
+    >
       Retro
     </span>
-    <span>
+    <span
+      style="position: absolute; left: 0px; top: 0px; color: transparent;"
+    >
       Retro
     </span>
   </h1>
   <h2
-    class="css-exbdow"
+    style="font-family: Mr Dafoe; font-weight: 400; margin: -1.1em 0px 0px 0px; font-size: 4.5em; color: white; text-shadow: 0 0 0.05em #fff, 0 0 0.2em #fe05e1, 0 0 0.3em #fe05e1; transform: rotate(-7deg);"
   >
     Title
   </h2>
