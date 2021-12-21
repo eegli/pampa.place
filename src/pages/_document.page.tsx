@@ -46,7 +46,7 @@ export default class MyDocument extends Document {
 /* https://github.com/mui-org/material-ui/issues/29742 */
 MyDocument.getInitialProps = async ctx => {
   const originalRenderPage = ctx.renderPage;
-  const cache = createCache({key: 'css'});
+  const cache = createCache({key: 'css', prepend: true});
   const {extractCriticalToChunks} = createEmotionServer(cache);
 
   ctx.renderPage = () =>
@@ -70,6 +70,6 @@ MyDocument.getInitialProps = async ctx => {
 
   return {
     ...initialProps,
-    styles: [...Children.toArray(initialProps.styles), ...emotionStyleTags],
+    styles: [...emotionStyleTags, ...Children.toArray(initialProps.styles)],
   };
 };

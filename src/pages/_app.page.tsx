@@ -16,7 +16,7 @@ import {ThemeWrapper} from './wrappers/theme';
 
 type ExtendedAppProps = AppProps & {emotionCache: EmotionCache};
 
-const clientEmotionCache = createCache({key: 'css'});
+const clientEmotionCache = createCache({key: 'css', prepend: true});
 
 const App = ({
   Component,
