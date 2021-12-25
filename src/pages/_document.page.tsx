@@ -1,38 +1,43 @@
-import createCache from '@emotion/cache/';
 import createEmotionServer from '@emotion/server/create-instance';
 import Document, {Head, Html, Main, NextScript} from 'next/document';
-import {Children} from 'react';
+import {createEmotionCache} from '../styles/ssr';
 
-export default class MyDocument extends Document {
+type DocumentProps = {
+  emotionStyleTags: JSX.Element[];
+};
+
+export default class MyDocument extends Document<DocumentProps> {
   render() {
     return (
       <Html lang="en">
-        <Head />
-        <title>🗺️Pampa Place🚩</title>
+        <title>Pampa Place 🚩</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <meta
           name="description"
           content="Pampa.place - Where in the pampa am I?"
         />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=optional"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lato:wght@100;400&display=optional"
-          rel="stylesheet"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Exo:wght@900&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap"
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <Head>
+          {this.props.emotionStyleTags}
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=optional"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Lato:wght@100;400&display=optional"
+            rel="stylesheet"
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Exo:wght@900&display=swap"
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap"
+          />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+        </Head>
         <body>
           <Main />
           <NextScript />
@@ -43,10 +48,10 @@ export default class MyDocument extends Document {
 }
 
 /* Currently buggy: */
-/* https://github.com/mui-org/material-ui/issues/29742 */
+/* https://github.com/mui-org/material-ui/issues/29742#issuecomment-982597676 */
 MyDocument.getInitialProps = async ctx => {
   const originalRenderPage = ctx.renderPage;
-  const cache = createCache({key: 'css', prepend: true});
+  const cache = createEmotionCache();
   const {extractCriticalToChunks} = createEmotionServer(cache);
 
   ctx.renderPage = () =>
@@ -68,8 +73,5 @@ MyDocument.getInitialProps = async ctx => {
     />
   ));
 
-  return {
-    ...initialProps,
-    styles: [...emotionStyleTags, ...Children.toArray(initialProps.styles)],
-  };
+  return {...initialProps, emotionStyleTags};
 };

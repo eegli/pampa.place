@@ -35,7 +35,7 @@
     "@googlemaps/react-wrapper": "^1.1.16",
     "@mdx-js/react": "^1.6.22",
     "@mui/icons-material": "^5.2.1",
-    "@mui/material": "^5.2.3",
+    "@mui/material": "^5.2.5",
     "@reduxjs/toolkit": "^1.6.2",
     "@turf/area": "^6.5.0",
     "@turf/bbox": "^6.5.0",
