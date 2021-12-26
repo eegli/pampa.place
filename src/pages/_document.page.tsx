@@ -17,6 +17,32 @@ export default class MyDocument extends Document<DocumentProps> {
           name="description"
           content="Pampa.place - Where in the pampa am I?"
         />
+
+        <meta property="og:url" content="https://www.pampa.place/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Pampa Place 🚩" />
+        <meta
+          property="og:description"
+          content="Pampa.place - Where in the pampa am I?"
+        />
+        <meta
+          property="og:image"
+          content="https://pampa.place/og_1200x630.png"
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="pampa.place" />
+        <meta property="twitter:url" content="https://www.pampa.place/" />
+        <meta name="twitter:title" content="Pampa Place 🚩" />
+        <meta
+          name="twitter:description"
+          content="Pampa.place - Where in the pampa am I?"
+        />
+        <meta
+          name="twitter:image"
+          content="https://pampa.place/og_1200x630.png"
+        />
+
         <Head>
           <link
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=optional"
