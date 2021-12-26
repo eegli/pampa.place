@@ -6,6 +6,9 @@ import {FC, ReactElement} from 'react';
 import {Provider} from 'react-redux';
 import {ThemeWrapper} from '../pages/wrappers/theme';
 import {createStore, initialStates, RootState} from '../redux/store';
+import {createEmotionCache} from '../styles/ssr';
+
+const emotionCache = createEmotionCache();
 
 function customRender(
   ui: ReactElement,
@@ -15,7 +18,7 @@ function customRender(
   const Wrapper: FC = ({children}) => {
     return (
       <Provider store={store}>
-        <ThemeWrapper>
+        <ThemeWrapper emotionCache={emotionCache}>
           <GmapContainer />
           <GstvContainer />
           {children}
