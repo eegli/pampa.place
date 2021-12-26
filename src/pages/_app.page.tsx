@@ -1,5 +1,5 @@
 import {GmapContainer, GstvContainer} from '@/services/google';
-import {CacheProvider, EmotionCache} from '@emotion/react';
+import {EmotionCache} from '@emotion/react';
 import type {AppProps} from 'next/app';
 import {Provider} from 'react-redux';
 import {store} from '../redux/store';
@@ -25,15 +25,13 @@ const App = ({
 }: ExtendedAppProps) => {
   return (
     <Provider store={store}>
-      <CacheProvider value={emotionCache}>
-        <ThemeWrapper>
-          <GmapContainer />
-          <GstvContainer />
-          <AuthWrapper>
-            <Component {...pageProps} />
-          </AuthWrapper>
-        </ThemeWrapper>
-      </CacheProvider>
+      <ThemeWrapper emotionCache={emotionCache}>
+        <GmapContainer />
+        <GstvContainer />
+        <AuthWrapper>
+          <Component {...pageProps} />
+        </AuthWrapper>
+      </ThemeWrapper>
     </Provider>
   );
 };

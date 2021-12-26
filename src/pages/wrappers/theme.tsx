@@ -1,6 +1,7 @@
 import {Constants} from '@/config/constants';
 import {setTheme} from '@/redux/app';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
+import {CacheProvider, EmotionCache} from '@emotion/react';
 import {
   Container,
   createTheme,
@@ -10,7 +11,12 @@ import {
 import {ReactNode, useEffect} from 'react';
 import {GlobalStyles} from '../../styles/global';
 
-export const ThemeWrapper = ({children}: {children: ReactNode}) => {
+type ThemeWrapperProps = {
+  emotionCache: EmotionCache;
+  children: ReactNode;
+};
+
+export const ThemeWrapper = ({children, emotionCache}: ThemeWrapperProps) => {
   const activeTheme = useAppSelector(s => s.app.theme);
   const theme = createTheme({palette: {mode: activeTheme}});
   const dispatch = useAppDispatch();
@@ -25,20 +31,22 @@ export const ThemeWrapper = ({children}: {children: ReactNode}) => {
   }, [dispatch]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <CssBaseline />
-      <Container
-        id="mother"
-        maxWidth={false} // "xl"
-        sx={{
-          display: 'flex',
-          height: '100%',
-          width: '100%',
-        }}
-      >
-        {children}
-      </Container>
-    </ThemeProvider>
+    <CacheProvider value={emotionCache}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <CssBaseline />
+        <Container
+          id="mother"
+          maxWidth={false} // "xl"
+          sx={{
+            display: 'flex',
+            height: '100%',
+            width: '100%',
+          }}
+        >
+          {children}
+        </Container>
+      </ThemeProvider>
+    </CacheProvider>
   );
 };
