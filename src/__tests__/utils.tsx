@@ -40,11 +40,9 @@ function createMockState(partialState: DeepPartial<RootState> = {}): RootState {
 
 export * from '@testing-library/react';
 export {customRender as render};
-/*
-createMockState and createMockStore can be used together. Create a
-state from the defined initial state, enrich it and pass it to
-createMockStore.
-*/
+// createMockState and createMockStore can be used together. Create a
+// state from the defined initial state, enrich it and pass it to
+// createMockStore.
 export {createStore as createMockStore};
 export {createMockState};
 export {initialStates as __actualInitialAppState};
