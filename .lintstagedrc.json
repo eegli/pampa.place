@@ -1,3 +1,4 @@
 {
-  "src/**/*.(ts|js)?(x)": ["prettier --write", "eslint"]
+  "*.ts": ["prettier --write", "eslint --fix"],
+  "*.{json,md}": "prettier --write"
 }
