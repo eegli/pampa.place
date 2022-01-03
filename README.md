@@ -130,7 +130,7 @@ Categories are also used for some API endpoints that provide (meta) data for you
 
 ## Contributing and technical notes
 
-Read [the contribution guidelines](contributing.md).
+Read [the contribution guidelines](CONTRIBUTING.md).
 
 ## Credits
 
