@@ -101,23 +101,12 @@ const ExamplePage: NextPage = () => {
               </Typography>
             </Link>
             <Divider sx={{my: 2}} />
-            <Typography component="p">
-              you will be abandoned in a random place on a map that you choose.
-              check your surroundings for clues. find out where you are.
-            </Typography>
+            <Typography component="p">docs will follow!</Typography>
             <Divider sx={{my: 1}} light variant="middle" />
             <Box display="flex">
               <InfoIcon />
               <Typography component="p" color="text.secondary">
-                you can preview all available maps by clicking &quot;preview
-                maps&quot; in the menu.
-              </Typography>
-            </Box>
-            <Box display="flex">
-              <InfoIcon />
-              <Typography component="p" color="text.secondary">
-                pampa.place is great for exploring new places. just disable the
-                time limit and enjoy
+                tipps will follow!
               </Typography>
             </Box>
           </Box>
@@ -139,23 +128,12 @@ const ExamplePage: NextPage = () => {
               </Typography>
             </Link>
             <Divider sx={{my: 2}} />
-            <Typography component="p">
-              you will be abandoned in a random place on a map that you choose.
-              check your surroundings for clues. find out where you are.
-            </Typography>
+            <Typography component="p">docs will follow!</Typography>
             <Divider sx={{my: 1}} light variant="middle" />
             <Box display="flex">
               <InfoIcon />
               <Typography component="p" color="text.secondary">
-                you can preview all available maps by clicking &quot;preview
-                maps&quot; in the menu.
-              </Typography>
-            </Box>
-            <Box display="flex">
-              <InfoIcon />
-              <Typography component="p" color="text.secondary">
-                pampa.place is great for exploring new places. just disable the
-                time limit and enjoy
+                tipps will follow!
               </Typography>
             </Box>
           </Box>
