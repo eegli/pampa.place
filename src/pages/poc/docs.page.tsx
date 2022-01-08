@@ -135,7 +135,7 @@ const ExamplePage: NextPage = () => {
                   },
                 }}
               >
-                about & privacy 🕵️
+                about &amp; privacy 🕵️
               </Typography>
             </Link>
             <Divider sx={{my: 2}} />
