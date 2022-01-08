@@ -1,13 +1,18 @@
 type RetroTitleProps = {
   primary: string;
   secondary?: string;
+  margin?: string;
 };
 
-export const FancyRetroTitle = ({primary, secondary}: RetroTitleProps) => (
+export const FancyRetroTitle = ({
+  primary,
+  secondary,
+  margin,
+}: RetroTitleProps) => (
   <div
     style={{
       display: 'flex',
-      margin: '2rem auto',
+      margin: margin || '2rem auto',
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'column',

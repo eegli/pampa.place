@@ -17,6 +17,7 @@ export function randomPointInMap(
     }
   } while (true);
 }
+
 // Area in square kilometers, distance in meters
 // https://www.desmos.com/calculator/xlzbhq4xm0
 export function calcScore(area: number, dist: number): number {
