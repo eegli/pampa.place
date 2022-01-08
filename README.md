@@ -128,6 +128,18 @@ Additionally, a category needs to be provided. Since all maps are stored in one 
 
 Categories are also used for some API endpoints that provide (meta) data for your maps. See: https://beta.pampa.place/api/maps/v1. Docs will follow.
 
+## Varia
+
+### Score calculation
+
+The score is calculated based on [this exponential decay function](https://www.desmos.com/calculator/xlzbhq4xm0).
+
+Max 5000 points can be achieved. How close one needs to get to the actual location depends on the map size. You can play with the `area` slider in Desmos to get a feeling for the relationship between distance and map size.
+
+Note that, unfortunately, some user-submitted street view panoramas don't have precise coordinates. Even if you know the place very well and think you're spot on, it might happen you're not getting a perfect score.
+
+I'm open to suggestions for a better formula as it's really just an approximation for what other geo games use, but it's okay for most cases.
+
 ## Contributing and technical notes
 
 Read [the contribution guidelines](CONTRIBUTING.md).
