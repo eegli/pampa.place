@@ -26,10 +26,6 @@ export const MenuDrawer = ({open, toggleDrawer}: MenuDrawerProps) => {
     }
   }
 
-  function justClose() {
-    toggleDrawer();
-  }
-
   return (
     <Drawer anchor="left" open={open} onClose={toggleDrawer}>
       <Paper elevation={3} sx={{height: '100%'}}>
@@ -44,14 +40,17 @@ export const MenuDrawer = ({open, toggleDrawer}: MenuDrawerProps) => {
               secondaryText="Check the shape of your maps and their Street View coverage"
               onClick={() => handleRouteChange('/preview')}
             />
-            <CustomListItem primarText="How to play" onClick={justClose} />
+            <CustomListItem
+              primarText="How to play"
+              onClick={() => handleRouteChange('/docs#how-to-play')}
+            />
             <CustomListItem
               primarText="Customization guide"
-              onClick={justClose}
+              onClick={() => handleRouteChange('/docs#customization-guide')}
             />
             <CustomListItem
               primarText="About &amp; Privacy"
-              onClick={justClose}
+              onClick={() => handleRouteChange('/docs#about-privacy')}
             />
             <CustomListItem
               primarText="Change API key"
