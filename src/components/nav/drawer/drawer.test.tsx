@@ -33,9 +33,9 @@ describe('Drawer', () => {
   [
     {name: 'home', route: '/'},
     {name: 'preview maps', route: '/preview'},
-    {name: 'how to play', route: null},
-    {name: 'customization guide', route: null},
-    {name: 'privacy', route: null},
+    {name: 'how to play', route: '/docs#how-to-play'},
+    {name: 'customization guide', route: '/docs#customization-guide'},
+    {name: 'privacy', route: '/docs#about-privacy'},
   ].forEach(({name, route}) => {
     it(`nav item, ${name}`, () => {
       render(<MenuDrawer open toggleDrawer={mockToggleDrawer} />);
