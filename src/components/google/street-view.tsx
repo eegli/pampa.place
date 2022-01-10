@@ -26,16 +26,18 @@ export const GoogleStreetView = ({
 
   useEffect(() => {
     StreetViewService.sv.setPano(panoId);
-    const opts = config.streetview;
-    if (staticPos) {
-      Object.assign(opts, {
+  }, [panoId]);
+
+  useEffect(() => {
+    StreetViewService.sv.setOptions({
+      ...config.streetview,
+      ...(staticPos && {
         clickToGo: false,
         disableDoubleClickZoom: true,
         disableDefaultUI: true,
-      });
-    }
-    StreetViewService.sv.setOptions(opts);
-  }, [panoId, staticPos]);
+      }),
+    });
+  }, [staticPos]);
 
   return (
     <Fade in timeout={500}>
