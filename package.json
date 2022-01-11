@@ -52,7 +52,7 @@
     "react-redux": "^7.2.6"
   },
   "devDependencies": {
-    "@googlemaps/jest-mocks": "^1.5.0",
+    "@googlemaps/jest-mocks": "^2.0.0",
     "@next/bundle-analyzer": "^12.0.7",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",

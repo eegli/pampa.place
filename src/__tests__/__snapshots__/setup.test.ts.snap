@@ -3,6 +3,32 @@
 exports[`Test global setup has global definitions 1`] = `
 Object {
   "Circle": [Function],
+  "ControlPosition": Object {
+    "0": "BOTTOM_CENTER",
+    "1": "BOTTOM_LEFT",
+    "10": "TOP_LEFT",
+    "11": "TOP_RIGHT",
+    "2": "BOTTOM_RIGHT",
+    "3": "LEFT_BOTTOM",
+    "4": "LEFT_CENTER",
+    "5": "LEFT_TOP",
+    "6": "RIGHT_BOTTOM",
+    "7": "RIGHT_CENTER",
+    "8": "RIGHT_TOP",
+    "9": "TOP_CENTER",
+    "BOTTOM_CENTER": 0,
+    "BOTTOM_LEFT": 1,
+    "BOTTOM_RIGHT": 2,
+    "LEFT_BOTTOM": 3,
+    "LEFT_CENTER": 4,
+    "LEFT_TOP": 5,
+    "RIGHT_BOTTOM": 6,
+    "RIGHT_CENTER": 7,
+    "RIGHT_TOP": 8,
+    "TOP_CENTER": 9,
+    "TOP_LEFT": 10,
+    "TOP_RIGHT": 11,
+  },
   "Data": [Function],
   "ImageMapType": [MockFunction],
   "LatLng": [Function],
@@ -23,6 +49,7 @@ Object {
   "Point": [Function],
   "Polyline": [Function],
   "Size": [Function],
+  "StreetViewCoverageLayer": [Function],
   "StreetViewPanorama": [Function],
   "StreetViewPreference": Object {
     "BEST": "best",
@@ -32,6 +59,11 @@ Object {
   "StreetViewSource": Object {
     "DEFAULT": "default",
     "OUTDOOR": "outdoor",
+  },
+  "StreetViewStatus": Object {
+    "OK": "OK",
+    "UNKNOWN_ERROR": "UNKNOWN_ERROR",
+    "ZERO_RESULTS": "ZERO_RESULTS",
   },
   "VisibleRegion": [Function],
   "event": Object {

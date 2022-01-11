@@ -1,4 +1,4 @@
-import {initialize, LatLng, MVCObject, Size} from '@googlemaps/jest-mocks';
+import {initialize, LatLng, Size} from '@googlemaps/jest-mocks';
 import '@testing-library/jest-dom/extend-expect';
 
 jest.mock('../config/maps');
@@ -55,52 +55,4 @@ global.google.maps.StreetViewService = class StreetViewService
     };
     return Promise.resolve(res);
   }
-};
-
-global.google.maps.StreetViewPreference = {
-  // @ts-expect-error - provide value for enum at runtime
-  BEST: 'best',
-  // @ts-expect-error - provide value for enum at runtime
-  NEAREST: 'nearest',
-};
-global.google.maps.StreetViewSource = {
-  // @ts-expect-error - provide value for enum at runtime
-  OUTDOOR: 'outdoor',
-  // @ts-expect-error - provide value for enum at runtime
-  DEFAULT: 'default',
-};
-
-// TODO
-global.google.maps.StreetViewPanorama = class MockStreetViewPanorama
-  extends MVCObject
-  implements google.maps.StreetViewPanorama
-{
-  controls = [];
-  getLinks = jest.fn();
-  registerPanoProvider = jest.fn();
-  setLinks = jest.fn();
-  getLocation = jest.fn();
-  getMotionTracking = jest.fn();
-  getPano = jest.fn();
-  getPhotographerPov = jest.fn();
-  getPosition = jest.fn();
-  getPov = jest.fn();
-  getStatus = jest.fn();
-  getVisible = jest.fn();
-  getZoom = jest.fn();
-  setVisible = jest.fn();
-  setPov = jest.fn();
-  setPosition = jest.fn();
-  setZoom = jest.fn();
-  setLinksControl = jest.fn();
-  setPanControl = jest.fn();
-  setZoomControl = jest.fn();
-  setMotionTracking = jest.fn();
-  setMotionTrackingControl = jest.fn();
-  setOptions = jest.fn();
-  setPano = jest.fn();
-  setPanControlOptions = jest.fn();
-  setMotionTrackingOptions = jest.fn();
-  setMotionTrackingControlOptions = jest.fn();
-  setZoomControlOptions = jest.fn();
 };
