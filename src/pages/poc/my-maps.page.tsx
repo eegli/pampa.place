@@ -21,7 +21,7 @@ const MyMapsPage: NextPage = () => {
       const map = JSON.parse(geoJSON);
       map.features[0].properties.name = name;
       const d = computeMapData({map, category});
-      console.log(d);
+      console.info(d);
     } catch (e) {
       if (e instanceof Error) {
         setJSONErrMessage(e.message);
