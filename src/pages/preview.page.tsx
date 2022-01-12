@@ -2,7 +2,7 @@ import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
 import {alpha, Checkbox, FormControlLabel, FormGroup} from '@mui/material';
 import {NextPage} from 'next';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Header} from '../components/nav/header/header';
 import {MapService} from '../services/google';
 import {PageContentWrapper} from '../styles/containers';
@@ -14,6 +14,7 @@ const PreviewPage: NextPage = () => {
   function handleStreetViewCoverage() {
     setShowCoverage(!showCoverage);
   }
+  const features = useMemo(() => Array.from(MAPS.values()), []);
 
   useEffect(() => {
     if (ref.current) {
@@ -24,8 +25,8 @@ const PreviewPage: NextPage = () => {
       // potentially include multiple GeoJSON features. In practice,
       // each collection ("const feature" below) will only contain one
       // feature
-      const geojson = Object.values(MAPS).reduce((acc, curr) => {
-        const feature = MapService.map.data.addGeoJson(curr.feature);
+      const geojson = features.reduce((acc, curr) => {
+        const feature = MapService.map.data.addGeoJson(curr);
         acc.push(...feature);
         return acc;
       }, [] as google.maps.Data.Feature[]);
@@ -55,7 +56,7 @@ const PreviewPage: NextPage = () => {
         unmount();
       };
     }
-  }, []);
+  }, [features]);
 
   useEffect(() => {
     if (showCoverage) {

@@ -1,5 +1,6 @@
-import {computeMapData, computeMapIds} from './helpers/creator';
-import {MapDataCollection, MapIdCollection, PropertyTransformer} from './types';
+import {Constants} from './constants';
+import {createMapData} from './helpers/creator';
+import {MapDataCollection, PropertyTransformer} from './types';
 
 const swissMapsTransformer: PropertyTransformer = p => {
   if (p.name.includes('/')) {
@@ -7,7 +8,7 @@ const swissMapsTransformer: PropertyTransformer = p => {
   }
 };
 
-export const MAPS: MapDataCollection = computeMapData(
+export const MAPS: MapDataCollection = createMapData(
   {
     map: require('geojson/switzerland.json'),
     category: 'switzerland',
@@ -17,8 +18,16 @@ export const MAPS: MapDataCollection = computeMapData(
   {map: require('geojson/usa.json'), category: 'usa'}
 );
 
-export const MAP_IDS: MapIdCollection = computeMapIds(MAPS);
-export const apiData = {
-  MAPS,
-  MAP_IDS,
-};
+if (typeof window !== 'undefined') {
+  const local = window.localStorage.getItem(Constants.LOCALSTORAGE_MAPS_KEY);
+  if (Array.isArray(local) && local.length) {
+    const maps = JSON.parse(local);
+    for (const map of maps) {
+      MAPS.set(map.id, map);
+    }
+  }
+}
+
+export const defaultMaps = Array.from(MAPS.values()).map(m => ({
+  ...m.properties,
+}));

@@ -36,6 +36,12 @@ export interface BaseMapProperties {
 export interface MapProperties extends BaseMapProperties {
   category: string;
   id: string;
+  // Area in km^2
+  area: number;
+  // Used to generate a random point
+  bb: BBox;
+  // Poly bounding box: SW SE NE NW
+  bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
 }
 
 /* Type for input GeoJSON data */
@@ -44,16 +50,7 @@ export type InputMapData = FeatureCollection<
   BaseMapProperties
 >;
 
-export type MapData = {
-  // Area in km^2
-  area: number;
-  // Used to generate a random point
-  bb: BBox;
-  // Poly bounding box: SW SE NE NW
-  bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
-  // Base can be used directly with google maps
-  feature: Feature<Polygon | MultiPolygon, MapProperties>;
-};
+export type MapData = Feature<Polygon | MultiPolygon, MapProperties>;
 
 /*
   Final shape of the map data for the game. 
@@ -63,8 +60,8 @@ export type MapData = {
   The rest of the application will only access the map data of this
   type
 */
-export type MapDataCollection = Record<string, MapData>;
-export type MapIdCollection = MapProperties[];
+export type MapDataCollection = Map<string, MapData>;
+export type MapInfoCollection = MapProperties[];
 
 /* Helper types for map generation */
 type Input<T> = {
@@ -72,10 +69,13 @@ type Input<T> = {
   category: string;
   transformer?: PropertyTransformer;
 };
-
+export type PropertyTransformer = (props: BaseMapProperties) => void;
 export type MapDataGenerator<
   T = FeatureCollection<Polygon | MultiPolygon, BaseMapProperties>
 > = (...inputs: Input<T>[]) => MapDataCollection;
 
-export type PropertyTransformer = (props: BaseMapProperties) => void;
-export type MapIdGenerator = (coll: MapDataCollection) => MapIdCollection;
+export type GeoJSONValidator = (
+  feat: Feature<Polygon | MultiPolygon, BaseMapProperties>,
+  category: string,
+  transformer?: PropertyTransformer
+) => MapData;

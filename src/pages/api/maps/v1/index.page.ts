@@ -1,5 +1,5 @@
 /* eslint-disable  no-useless-escape */
-import {ApiTextHandler} from '../utils';
+import {ApiTextHandler} from '../common';
 
 const ascii = `
 ,---------------------------,
@@ -33,7 +33,7 @@ const handler: ApiTextHandler = (_, res) => {
   Available endpoints:
 
     /categories - map categories lookup
-    /ids - map id lookup
+    /properties - map id lookup
     /data - GeoJSON map data
     /meta - Map metadata 
 

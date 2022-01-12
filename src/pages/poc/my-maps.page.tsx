@@ -1,37 +1,64 @@
+import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import {NextPage} from 'next';
+import {useRouter} from 'next/router';
 import {ChangeEvent, useEffect, useState} from 'react';
+import {useLocalStorage} from 'usehooks-ts';
+import {GoogleMap} from '../../components/google/map';
+import {MapPreview} from '../../components/google/preview';
 import {Header} from '../../components/nav/header/header';
-import {computeMapData} from '../../config/helpers/creator';
+import {Constants} from '../../config/constants';
+import {validateAndComputeGeoJSON} from '../../config/helpers/creator';
+import {MapData} from '../../config/types';
 import {PageContentWrapper, SlimContainer} from '../../styles/containers';
 
 const MyMapsPage: NextPage = () => {
+  const [localMaps, setLocalMaps] = useLocalStorage<MapData[]>(
+    Constants.LOCALSTORAGE_MAPS_KEY,
+    []
+  );
+
+  const router = useRouter();
   const [geoJSON, setGeoJSON] = useState('');
-  const [category, setCategory] = useState('');
   const [name, setName] = useState('');
   const [JSONErrMessage, setJSONErrMessage] = useState('');
   const [isValidJSON, setIsValidJSON] = useState(false);
+  const [previewMap, setPreviewMap] = useState<MapData | null>(null);
 
   function handleSubmit() {
-    try {
-      const map = JSON.parse(geoJSON);
-      map.features[0].properties.name = name;
-      const d = computeMapData({map, category});
-      console.info(d);
-    } catch (e) {
-      if (e instanceof Error) {
-        setJSONErrMessage(e.message);
+    if (!localMaps.find(m => m.properties.name === name)) {
+      try {
+        const parsedMap = JSON.parse(geoJSON);
+        parsedMap.features[0].properties.name = name;
+        const newMap = validateAndComputeGeoJSON(
+          parsedMap.features[0],
+          'local'
+        );
+        setLocalMaps([...localMaps, newMap]);
+        router.reload();
+      } catch (e) {
+        if (e instanceof Error) {
+          setJSONErrMessage(e.message);
+        } else {
+          setJSONErrMessage("That doesn't look like a valid map");
+        }
       }
     }
   }
 
-  const handleCatChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCategory(event.target.value);
-  };
+  function clearMap(id: string) {
+    setLocalMaps(localMaps.filter(m => m.properties.id !== id));
+    router.reload();
+  }
+
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
@@ -78,13 +105,6 @@ const MyMapsPage: NextPage = () => {
           >
             <TextField
               margin="normal"
-              label="Category"
-              placeholder="Add a category for the map"
-              value={category}
-              onChange={handleCatChange}
-            />
-            <TextField
-              margin="normal"
               label="Name"
               placeholder="Add a display name for the map"
               value={name}
@@ -102,7 +122,7 @@ const MyMapsPage: NextPage = () => {
             />
           </Box>
           <Box display="flex">
-            {name && category && isValidJSON && (
+            {name && isValidJSON && (
               <Button
                 variant="contained"
                 color="primary"
@@ -116,7 +136,37 @@ const MyMapsPage: NextPage = () => {
           <Typography component="h1" variant="h5" gutterBottom>
             Local maps
           </Typography>
-          TODO
+          <List dense>
+            {localMaps.map(m => (
+              <ListItem
+                key={m.properties.id}
+                secondaryAction={
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => clearMap(m.properties.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                }
+              >
+                <ListItemText
+                  primary={m.properties.name}
+                  secondary="Preview"
+                  onClick={() => setPreviewMap(m)}
+                />
+              </ListItem>
+            ))}
+          </List>
+          {previewMap && (
+            <MapPreview
+              isOpen={!!previewMap}
+              close={() => setPreviewMap(null)}
+              mapName={previewMap.properties.name}
+            >
+              <GoogleMap map={previewMap} mode="preview" />
+            </MapPreview>
+          )}
         </SlimContainer>
       </PageContentWrapper>
     </>

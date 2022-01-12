@@ -18,6 +18,7 @@ import {
   Typography,
 } from '@mui/material';
 import {ReactNode, SyntheticEvent, useState} from 'react';
+import {MAPS} from '../../config/maps';
 import {SlimContainer} from '../../styles/containers';
 import {GoogleMap} from '../google/map';
 import {GoogleStreetView} from '../google/street-view';
@@ -66,6 +67,8 @@ export const RoundOverSummary = () => {
   const panoDescription = useAppSelector(
     ({position}) => position.panoDescription
   );
+
+  const map = MAPS.get(activeMapId)!;
 
   function handleClick() {
     dispatch(endRound());
@@ -137,7 +140,7 @@ export const RoundOverSummary = () => {
           {initialPosition && (
             <GoogleMap
               mode="result"
-              mapId={activeMapId}
+              map={map}
               results={scores}
               initialPosition={initialPosition}
             />

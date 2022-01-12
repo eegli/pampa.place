@@ -1,15 +1,9 @@
-import {MAP_IDS} from '@/config/maps';
+import {MAPS} from '@/config/maps';
 import {setMap} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   FormControl,
   IconButton,
   InputAdornment,
@@ -18,25 +12,42 @@ import {
   Select,
   SelectChangeEvent,
   Tooltip,
-  useMediaQuery,
-  useTheme,
 } from '@mui/material';
-import {useState} from 'react';
+import {useMemo, useState} from 'react';
+import {useLocalStorage} from 'usehooks-ts';
+import {Constants} from '../../../config/constants';
+import {MapData} from '../../../config/types';
 import {GoogleMap} from '../../google/map';
+import {MapPreview} from '../../google/preview';
 
 export const FormMapSelect = () => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
+  const [localMaps] = useLocalStorage<MapData[]>(
+    Constants.LOCALSTORAGE_MAPS_KEY,
+    []
+  );
   const dispatch = useAppDispatch();
-  const theme = useTheme();
 
   const activeMapId = useAppSelector(({game}) => game.mapId);
   const activeMapName = useAppSelector(({game}) => game.mapName);
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const map = MAPS.get(activeMapId)!;
 
   const handleMapSelect = (e: SelectChangeEvent<string>) => {
     dispatch(setMap(e.target.value));
   };
 
+  localMaps.forEach(map => {
+    MAPS.set(map.properties.id, map);
+  });
+
+  const mapIds = useMemo(
+    () =>
+      Array.from(MAPS.values())
+        .map(m => ({...m.properties}))
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    []
+  );
   return (
     <Box id="form-map-select">
       <FormControl fullWidth component="fieldset">
@@ -72,51 +83,23 @@ export const FormMapSelect = () => {
           }
         >
           {/*  <ListSubheader color="inherit">Maps</ListSubheader> */}
-          {MAP_IDS.map(map => (
-            <MenuItem sx={{maxWidth: 330}} key={map.id} value={map.id}>
-              {map.name}
+          {mapIds.map(m => (
+            <MenuItem sx={{maxWidth: 330}} key={m.id} value={m.id}>
+              {m.name || ''}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
 
       {previewMap && (
-        <Dialog
-          open={previewMap}
-          onClose={() => setPreviewMap(false)}
-          fullScreen={fullScreen}
-          PaperProps={{elevation: 1}}
-          sx={{
-            borderRadius: 10,
-          }}
+        <MapPreview
+          isOpen={previewMap}
+          close={() => setPreviewMap(false)}
+          mapId={activeMapId}
+          mapName={activeMapName}
         >
-          <DialogTitle>{activeMapName}</DialogTitle>
-          <DialogContent
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <Box
-              id="map-preview"
-              sx={{
-                height: 600,
-                maxHeight: '100%',
-                width: 400,
-                margin: 'auto',
-                maxWidth: '90%',
-              }}
-            >
-              <GoogleMap mapId={activeMapId} mode="preview" />
-            </Box>
-            <DialogContentText p={2}>
-              Rough bounds of the map &quot;{activeMapName}&quot;.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setPreviewMap(false)}>Close</Button>
-          </DialogActions>
-        </Dialog>
+          <GoogleMap map={map} mode="preview" />
+        </MapPreview>
       )}
     </Box>
   );

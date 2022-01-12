@@ -42,7 +42,7 @@ export const getRandomStreetView = createAsyncThunk<
   };
 
   let retries = 50;
-  const map = MAPS[game.mapId];
+  const map = MAPS.data.get(game.mapId)!;
 
   try {
     while (true) {

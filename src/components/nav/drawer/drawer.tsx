@@ -41,6 +41,11 @@ export const MenuDrawer = ({open, toggleDrawer}: MenuDrawerProps) => {
               onClick={() => handleRouteChange('/preview')}
             />
             <CustomListItem
+              primarText="My maps"
+              secondaryText="Quickly add and edit your maps"
+              onClick={() => handleRouteChange('/poc/my-maps')}
+            />
+            <CustomListItem
               primarText="How to play"
               onClick={() => handleRouteChange('/docs#how-to-play')}
             />

@@ -1,5 +1,5 @@
 import {config} from '@/config/game';
-import {MAPS, MAP_IDS} from '@/config/maps';
+import {defaultMaps, MAPS} from '@/config/maps';
 import {LatLngLiteral} from '@/config/types';
 import {calcDist, calcScore} from '@/utils/geo';
 import {OrNull} from '@/utils/types';
@@ -38,8 +38,8 @@ export interface GameState {
 
 const initialState: GameState = {
   status: STATUS.UNINITIALIZED,
-  mapId: MAP_IDS[0].id,
-  mapName: MAP_IDS[0].name,
+  mapId: defaultMaps[0].id,
+  mapName: defaultMaps[0].name,
   players: [],
   scores: [],
   timeLimit: config.timeLimitsDefault,
@@ -71,7 +71,10 @@ const gameSlice = createSlice({
     },
     setMap(state, action: PayloadAction<string>) {
       state.mapId = action.payload;
-      state.mapName = MAPS[action.payload].feature.properties.name;
+      const newId = MAPS.get(action.payload);
+      newId
+        ? (state.mapName = newId.properties.name)
+        : (state.mapName = 'Unknown map');
     },
     initGame(state) {
       if (!state.players.length) {
@@ -102,9 +105,9 @@ const gameSlice = createSlice({
       let selected: OrNull<LatLngLiteral> = null;
 
       // User managed to set a location
-      if (payload.selected && payload.initial) {
+      if (payload.selected && payload.initial && MAPS.has(state.mapId)) {
         dist = calcDist(payload.initial, payload.selected);
-        score = calcScore(MAPS[state.mapId].area, dist);
+        score = calcScore(MAPS.get(state.mapId)!.properties.area, dist);
         selected = payload.selected;
       }
 

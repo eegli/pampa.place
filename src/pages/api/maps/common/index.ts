@@ -1,4 +1,4 @@
-export {apiData as data} from '@/config/maps';
+export {MAPS} from '@/config/maps';
 import {NextApiHandler} from 'next';
 
 type ErrorResponse = {
