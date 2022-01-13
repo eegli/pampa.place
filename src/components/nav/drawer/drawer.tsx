@@ -40,11 +40,11 @@ export const MenuDrawer = ({open, toggleDrawer}: MenuDrawerProps) => {
               secondaryText="View all maps at once and check their Street View coverage"
               onClick={() => handleRouteChange('/preview')}
             />
-            <CustomListItem
+            {/*             <CustomListItem
               primarText="My maps"
               secondaryText="Add, edit and preview local maps"
               onClick={() => handleRouteChange('/poc/my-maps')}
-            />
+            /> */}
             <CustomListItem
               primarText="How to play"
               secondaryText="A quick guide on how to play"

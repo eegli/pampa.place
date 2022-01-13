@@ -27,6 +27,8 @@ import {NextPage} from 'next';
 import {ChangeEvent, useEffect, useState} from 'react';
 import {useLocalStorage} from 'usehooks-ts';
 
+/* EXPERIMENTAL */
+
 export const MyMapsPage: NextPage = () => {
   const [localMaps, setLocalMaps] = useLocalStorage<Record<string, MapData>>(
     Constants.LOCALSTORAGE_MAPS_KEY,
