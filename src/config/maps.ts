@@ -8,22 +8,26 @@ const swissMapsTransformer: PropertyTransformer = p => {
   }
 };
 
-export const MAPS: MapDataCollection = createMapData(
+const MAPS: MapDataCollection = createMapData(
   {
     map: require('geojson/switzerland.json'),
     category: 'switzerland',
     transformer: swissMapsTransformer,
   },
-  {map: require('geojson/alps.json'), category: 'alps'},
-  {map: require('geojson/usa.json'), category: 'usa'}
+  {map: require('geojson/alps.json'), category: 'alps'}
 );
 
 if (typeof window !== 'undefined') {
-  const local = window.localStorage.getItem(Constants.LOCALSTORAGE_MAPS_KEY);
-  if (Array.isArray(local) && local.length) {
-    const maps = JSON.parse(local);
-    for (const map of maps) {
-      MAPS.set(map.id, map);
+  const local =
+    window.localStorage.getItem(Constants.LOCALSTORAGE_MAPS_KEY) || '[]';
+  const parsedMaps = JSON.parse(local);
+  if (Array.isArray(parsedMaps) && parsedMaps.length) {
+    for (const map of parsedMaps) {
+      try {
+        MAPS.set(map.properties.id, map);
+      } catch (e) {
+        console.error(`Failed to add local map ${map}, ${e}`);
+      }
     }
   }
 }
@@ -31,3 +35,7 @@ if (typeof window !== 'undefined') {
 export const defaultMaps = Array.from(MAPS.values()).map(m => ({
   ...m.properties,
 }));
+
+// The export needs to happen last so the maps are enriched with local
+// maps
+export {MAPS};

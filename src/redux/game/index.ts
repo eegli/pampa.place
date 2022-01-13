@@ -103,11 +103,11 @@ const gameSlice = createSlice({
       let score = 0;
       let dist = -1;
       let selected: OrNull<LatLngLiteral> = null;
-
+      const map = MAPS.get(state.mapId);
       // User managed to set a location
-      if (payload.selected && payload.initial && MAPS.has(state.mapId)) {
+      if (payload.selected && payload.initial && map) {
         dist = calcDist(payload.initial, payload.selected);
-        score = calcScore(MAPS.get(state.mapId)!.properties.area, dist);
+        score = calcScore(map.properties.area, dist);
         selected = payload.selected;
       }
 

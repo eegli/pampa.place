@@ -17,7 +17,8 @@ export const Play = () => {
   const initialPos = useAppSelector(({position}) => position.initialPosition);
   const selectedPos = useAppSelector(({position}) => position.selectedPosition);
   const activeMapId = useAppSelector(({game}) => game.mapId);
-  const map = MAPS.get(activeMapId)!;
+  const map = MAPS.get(activeMapId);
+
   function submitScore() {
     dispatch(
       setPlayerScore({
@@ -29,6 +30,7 @@ export const Play = () => {
 
   return (
     <Box
+      id="play-mode"
       sx={{
         display: 'flex',
         flexFlow: 'column',
@@ -65,8 +67,7 @@ export const Play = () => {
         >
           {initialPos && <GoogleStreetView />}
         </div>
-
-        <GoogleMap map={map} mode="play" />
+        {map && <GoogleMap map={map} mode="play" />}
       </Box>
     </Box>
   );

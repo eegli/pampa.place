@@ -37,24 +37,27 @@ export const MenuDrawer = ({open, toggleDrawer}: MenuDrawerProps) => {
             />
             <CustomListItem
               primarText="Preview maps"
-              secondaryText="Check the shape of your maps and their Street View coverage"
+              secondaryText="View all maps at once and check their Street View coverage"
               onClick={() => handleRouteChange('/preview')}
             />
             <CustomListItem
               primarText="My maps"
-              secondaryText="Quickly add and edit your maps"
+              secondaryText="Add, edit and preview local maps"
               onClick={() => handleRouteChange('/poc/my-maps')}
             />
             <CustomListItem
               primarText="How to play"
+              secondaryText="A quick guide on how to play"
               onClick={() => handleRouteChange('/docs#how-to-play')}
             />
             <CustomListItem
               primarText="Customization guide"
+              secondaryText="Host your own pampa.place and make it unique"
               onClick={() => handleRouteChange('/docs#customization-guide')}
             />
             <CustomListItem
               primarText="About &amp; Privacy"
+              secondaryText="A reminder that your data is only yours"
               onClick={() => handleRouteChange('/docs#about-privacy')}
             />
             <CustomListItem

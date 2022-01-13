@@ -68,7 +68,7 @@ export const RoundOverSummary = () => {
     ({position}) => position.panoDescription
   );
 
-  const map = MAPS.get(activeMapId)!;
+  const map = MAPS.get(activeMapId);
 
   function handleClick() {
     dispatch(endRound());
@@ -137,7 +137,7 @@ export const RoundOverSummary = () => {
 
       <TabPanel selected={selectedPanel} index={1}>
         <Box height="100%" id="round-end-map">
-          {initialPosition && (
+          {initialPosition && map && (
             <GoogleMap
               mode="result"
               map={map}

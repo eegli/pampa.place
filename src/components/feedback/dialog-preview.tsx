@@ -10,28 +10,28 @@ import {
   useTheme,
 } from '@mui/material';
 
-type MapPreviewProps = {
-  isOpen: boolean;
-  mapName: string;
-  close: () => void;
+type PreviewDialogProps = {
+  onClose: () => void;
   children: React.ReactNode;
+  title: string;
+  bodyText?: string;
 };
 
-export const MapPreview = (props: MapPreviewProps) => {
+export const PreviewDialog = (props: PreviewDialogProps) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const {isOpen, mapName, children, close} = props;
+  const {bodyText, title, children, onClose} = props;
   return (
     <Dialog
-      open={isOpen}
-      onClose={() => close()}
+      open
+      onClose={onClose}
       fullScreen={fullScreen}
       PaperProps={{elevation: 1}}
       sx={{
         borderRadius: 10,
       }}
     >
-      <DialogTitle>{mapName}</DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent
         sx={{
           display: 'flex',
@@ -39,7 +39,7 @@ export const MapPreview = (props: MapPreviewProps) => {
         }}
       >
         <Box
-          id="map-preview"
+          id={`preview-dialog-${title}`}
           sx={{
             height: 600,
             maxHeight: '100%',
@@ -50,12 +50,10 @@ export const MapPreview = (props: MapPreviewProps) => {
         >
           {children}
         </Box>
-        <DialogContentText p={2}>
-          Rough bounds of the map &quot;{mapName}&quot;.
-        </DialogContentText>
+        {bodyText && <DialogContentText p={2}>{bodyText}</DialogContentText>}
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => close()}>Close</Button>
+        <Button onClick={onClose}>Close</Button>
       </DialogActions>
     </Dialog>
   );
