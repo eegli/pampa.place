@@ -1,5 +1,4 @@
 import {config} from '@/config/game';
-import {testMapId} from '@/config/__mocks__/maps';
 import {
   MapService,
   MarkerService,
@@ -8,6 +7,7 @@ import {
 } from '@/services/google';
 import {createMockStore, render, screen} from '@/tests/utils';
 import {mocked} from 'jest-mock';
+import {testMap} from '../../config/__fixtures__';
 import {GoogleMap, GoogleMapProps} from './map';
 import {svgMarkerColors} from './marker';
 import {GoogleStreetView} from './street-view';
@@ -56,7 +56,7 @@ const services = {
 describe('Google, Map', () => {
   it('renders and has containers in document', () => {
     const mapMountSpy = jest.spyOn(MapService, 'mount');
-    const {unmount} = render(<GoogleMap mapId={testMapId} />);
+    const {unmount} = render(<GoogleMap map={testMap} />);
     expect(screen.getByTestId('__GMAP__CONTAINER__')).toBeInTheDocument();
     expect(screen.getByTestId('__GMAP__')).toHaveStyle('height:100%');
     expect(mapMountSpy).toHaveBeenCalledTimes(1);
@@ -68,7 +68,7 @@ describe('Google, Map', () => {
     unmount();
   });
   it('has preview mode', () => {
-    const {unmount} = render(<GoogleMap mapId={testMapId} mode="preview" />);
+    const {unmount} = render(<GoogleMap map={testMap} mode="preview" />);
     expect(services.gmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
       'preview settings'
     );
@@ -80,10 +80,7 @@ describe('Google, Map', () => {
   });
   it('has play mode', () => {
     const store = createMockStore();
-    const {unmount} = render(
-      <GoogleMap mapId={testMapId} mode="play" />,
-      store
-    );
+    const {unmount} = render(<GoogleMap map={testMap} mode="play" />, store);
     expect(services.gmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
       'play settings'
     );
@@ -104,7 +101,7 @@ describe('Google, Map', () => {
   });
   it('has result mode', () => {
     const props: GoogleMapProps = {
-      mapId: testMapId,
+      map: testMap,
       mode: 'result',
       results: [
         {name: 'a', selected: {lat: 1, lng: 1}},
