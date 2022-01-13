@@ -63,6 +63,7 @@ const MyMapsPage: NextPage = () => {
     }
   }
 
+  // Maps are added to both local storage and the global MAPS object
   function addMap(m: MapData) {
     const id = m.properties.id;
     setLocalMaps({...localMaps, [id]: m});
@@ -71,7 +72,8 @@ const MyMapsPage: NextPage = () => {
     setGeoJSON('');
     setName('');
   }
-
+  // Maps are also deleted from both local storage and the global MAPS
+  // object
   function clearMap() {
     if (mapToDelete) {
       const id = mapToDelete.properties.id;
@@ -82,14 +84,18 @@ const MyMapsPage: NextPage = () => {
     }
   }
 
+  // Clicking "delete" sets the state so that the dialog is shown and
+  // knows what map to delete upon confirmation
   function triggerMapDeletion(m: MapData) {
     setMapToDelete(m);
   }
 
+  // Same thing
   function triggerMapPreview(m: MapData) {
     setMapToPreview(m);
   }
 
+  // Dialog cancel callbacks
   function closePreview() {
     setMapToPreview(null);
   }
@@ -97,6 +103,8 @@ const MyMapsPage: NextPage = () => {
     setMapToDelete(null);
   }
 
+  // Input maps are a FeatureCollection but stored as Feature. Restore
+  // the FeatureCollection object
   function editMap(m: MapData) {
     const collection = toFeatureCollection(m);
     setGeoJSON(JSON.stringify(collection, null, 2));
