@@ -1,26 +1,26 @@
 import Tarea from '@turf/area';
 import Tbbox from '@turf/bbox';
 import TbboxPolygon from '@turf/bbox-polygon';
-import {GeoJSONValidator, MapData, MapDataGenerator} from '../types';
+import {GeoJSONValidator} from '../types';
 
 export const validateAndComputeGeoJSON: GeoJSONValidator = (
   feat,
   category,
   transformer
-): MapData => {
+) => {
   try {
     // Only GeoJSON features "with an area" are allowed in this
     // game - No Points, LineStrings, etc.
+
     if (!['Polygon', 'MultiPolygon'].includes(feat.geometry.type)) {
       throw new Error(
         `Feature "${feat.properties.name}" (category "${category}") is not a Polygon or MultiPolygon.`
       );
     }
 
-    // Skip maps with no name property
     if (!feat.properties.name) {
       throw new Error(
-        `Warning! Feature "${feat.properties.name}" (category "${category}") does not have a "name" property.`
+        `Feature "${feat.properties.name}" (category "${category}") does not have a "name" property.`
       );
     }
 
@@ -73,16 +73,4 @@ export const validateAndComputeGeoJSON: GeoJSONValidator = (
       )}".\n${e}`
     );
   }
-};
-
-export const createMapData: MapDataGenerator = (...inputs) => {
-  const mapData = new Map<string, MapData>();
-  for (const input of inputs) {
-    const {map, category, transformer} = input;
-    for (const feature of map.features) {
-      const data = validateAndComputeGeoJSON(feature, category, transformer);
-      mapData.set(data.properties.id, data);
-    }
-  }
-  return mapData;
 };

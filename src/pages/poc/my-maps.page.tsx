@@ -1,8 +1,10 @@
 import {Constants} from '@/config/constants';
-import {validateAndComputeGeoJSON} from '@/config/helpers/creator';
+import {validateAndComputeGeoJSON} from '@/config/helpers/validator';
 import {MAPS} from '@/config/maps';
 import {MapData} from '@/config/types';
+import {toFeatureCollection} from '@/utils/geo';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -11,6 +13,7 @@ import Link from '@mui/material/Link';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -33,9 +36,9 @@ const em = (txt: string, color: 'g' | 'v') => (
 );
 
 const MyMapsPage: NextPage = () => {
-  const [localMaps, setLocalMaps] = useLocalStorage<MapData[]>(
+  const [localMaps, setLocalMaps] = useLocalStorage<Record<string, MapData>>(
     Constants.LOCALSTORAGE_MAPS_KEY,
-    []
+    {}
   );
 
   const [geoJSON, setGeoJSON] = useState('');
@@ -46,36 +49,37 @@ const MyMapsPage: NextPage = () => {
   const [mapToDelete, setMapToDelete] = useState<string | null>(null);
 
   function handleSubmit() {
-    if (!localMaps.find(m => m.properties.name === name)) {
-      try {
-        const parsedMap = JSON.parse(geoJSON);
-        parsedMap.features[0].properties.name = name;
-        const newMap = validateAndComputeGeoJSON(
-          parsedMap.features[0],
-          'local'
-        );
-        setLocalMaps([...localMaps, newMap]);
-        MAPS.set(newMap.properties.id, newMap);
-      } catch (e) {
-        if (e instanceof Error) {
-          setJSONErrMessage(e.message);
-        } else {
-          setJSONErrMessage("That doesn't look like a valid map");
-        }
+    try {
+      const parsedMap = JSON.parse(geoJSON);
+      parsedMap.features[0].properties.name = name;
+      const newMap = validateAndComputeGeoJSON(parsedMap.features[0], 'local');
+      setLocalMaps({...localMaps, [newMap.properties.id]: newMap});
+      MAPS.set(newMap.properties.id, newMap);
+      // CLear input
+      setGeoJSON('');
+      setName('');
+    } catch (e) {
+      if (e instanceof Error) {
+        setJSONErrMessage(e.message);
+      } else {
+        setJSONErrMessage("That doesn't look like a valid map");
       }
     }
   }
 
   function clearMap() {
     if (mapToDelete) {
-      const idx = localMaps.findIndex(m => m.properties.id === mapToDelete);
-      if (idx !== -1) {
-        localMaps.splice(idx, 1);
-      }
+      delete localMaps[mapToDelete];
       setLocalMaps(localMaps);
-      setMapToDelete(null);
       MAPS.delete(mapToDelete);
+      setMapToDelete(null);
     }
+  }
+
+  function editMap(m: MapData) {
+    const collection = toFeatureCollection(m);
+    setGeoJSON(JSON.stringify(collection, null, 2));
+    setName(m.properties.name);
   }
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -175,7 +179,7 @@ const MyMapsPage: NextPage = () => {
             yours. Click on a map to preview the bounds.
           </Typography>
           <List dense id="local-maps-list">
-            {localMaps.map(m => (
+            {Object.values(localMaps).map(m => (
               <ListItem
                 key={m.properties.id}
                 secondaryAction={
@@ -188,6 +192,16 @@ const MyMapsPage: NextPage = () => {
                   </IconButton>
                 }
               >
+                <ListItemIcon>
+                  <IconButton
+                    edge="start"
+                    aria-label="edit"
+                    onClick={() => editMap(m)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </ListItemIcon>
+
                 <ListItemButton>
                   <ListItemText
                     onClick={() => setMapToPreview(m)}

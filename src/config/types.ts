@@ -52,17 +52,6 @@ export type InputMapData = FeatureCollection<
 
 export type MapData = Feature<Polygon | MultiPolygon, MapProperties>;
 
-/*
-  Final shape of the map data for the game. 
-  1. Full, computed map data
-  2. Collection of map properties 
-
-  The rest of the application will only access the map data of this
-  type
-*/
-export type MapDataCollection = Map<string, MapData>;
-export type MapInfoCollection = MapProperties[];
-
 /* Helper types for map generation */
 type Input<T> = {
   map: T;
@@ -70,9 +59,17 @@ type Input<T> = {
   transformer?: PropertyTransformer;
 };
 export type PropertyTransformer = (props: BaseMapProperties) => void;
-export type MapDataGenerator<
+
+export type MapGenerator<
   T = FeatureCollection<Polygon | MultiPolygon, BaseMapProperties>
-> = (...inputs: Input<T>[]) => MapDataCollection;
+> = (...inputs: Input<T>[]) => {
+  MAPS: Map<string, MapData>;
+  PROPERTIES: MapProperties[];
+};
+
+export type LocalMapEnhancer = (
+  map: Map<string, MapData>
+) => Map<string, MapData>;
 
 export type GeoJSONValidator = (
   feat: Feature<Polygon | MultiPolygon, BaseMapProperties>,

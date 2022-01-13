@@ -1,9 +1,16 @@
 import {LatLngLiteral} from '@/config/types';
 import Tdistance from '@turf/distance';
-import {BBox, MultiPolygon, point, Polygon, Units} from '@turf/helpers';
+import {
+  BBox,
+  Feature,
+  FeatureCollection,
+  MultiPolygon,
+  point,
+  Polygon,
+  Units,
+} from '@turf/helpers';
 import TpointsWithinPolygon from '@turf/points-within-polygon';
 import {randomPoint as TrandomPoint} from '@turf/random';
-
 export function randomPointInMap(
   bbox: BBox,
   polygon: Polygon | MultiPolygon
@@ -26,8 +33,8 @@ export function calcScore(area: number, dist: number): number {
   const score = 5000 * Math.E ** -(dist / c);
   return Math.round(score);
 }
-// Returns distance between two points in kilometers
 
+// Returns distance between two points in kilometers
 export function calcDist(
   p1: LatLngLiteral,
   p2: LatLngLiteral,
@@ -36,4 +43,11 @@ export function calcDist(
   const from = point([p1.lng, p1.lat]);
   const to = point([p2.lng, p2.lat]);
   return Tdistance(from, to, {units});
+}
+
+export function toFeatureCollection(feat: Feature): FeatureCollection {
+  return {
+    type: 'FeatureCollection',
+    features: [feat],
+  };
 }

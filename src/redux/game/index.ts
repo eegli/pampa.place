@@ -1,5 +1,5 @@
 import {config} from '@/config/game';
-import {defaultMaps, MAPS} from '@/config/maps';
+import {MAPS, PROPERTIES} from '@/config/maps';
 import {LatLngLiteral} from '@/config/types';
 import {calcDist, calcScore} from '@/utils/geo';
 import {OrNull} from '@/utils/types';
@@ -38,8 +38,8 @@ export interface GameState {
 
 const initialState: GameState = {
   status: STATUS.UNINITIALIZED,
-  mapId: defaultMaps[0].id,
-  mapName: defaultMaps[0].name,
+  mapId: PROPERTIES[0].id,
+  mapName: PROPERTIES[0].name,
   players: [],
   scores: [],
   timeLimit: config.timeLimitsDefault,
