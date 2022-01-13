@@ -1,11 +1,11 @@
 import {MapData} from '@/config/types';
-import {ApiJSONHandler, MAPS, nthQuery} from '../../common';
+import {ApiJSONHandler, data, nthQuery} from '../../common';
 
 const handler: ApiJSONHandler<MapData> = (req, res) => {
   const idQuery = nthQuery(req.query.id);
 
   if (idQuery) {
-    const map = MAPS.data.get(idQuery);
+    const map = data.geojson.get(idQuery);
 
     if (map) {
       return res.status(200).json({
@@ -16,7 +16,7 @@ const handler: ApiJSONHandler<MapData> = (req, res) => {
   }
 
   return res.status(200).json({
-    data: Array.from(MAPS.data.values()),
+    data: Array.from(data.geojson.values()),
   });
 };
 
