@@ -41,20 +41,12 @@ export const Form = () => {
         <FormRoundSelect />
         <FormTimeLimitSelect />
         <FormMapSelect />
-        <Button
-          sx={{
-            my: 2,
-            flexGrow: 0,
-          }}
-          variant="contained"
-          color="primary"
-          onClick={handleSubmit}
-        >
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
           Start
         </Button>
         {/* Debug */}
 
-        <Button sx={{alignSelf: 'end'}} onClick={handleReset}>
+        <Button sx={{alignSelf: 'end', mt: 2}} onClick={handleReset}>
           Reset
         </Button>
       </Box>

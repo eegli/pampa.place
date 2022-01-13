@@ -1,7 +1,13 @@
+import {ConfirmationDialog} from '@/components/feedback/dialog-confirm';
+import {PreviewDialog} from '@/components/feedback/dialog-preview';
+import {GoogleMap} from '@/components/google/map';
+import {Header} from '@/components/nav/header/header';
 import {Constants} from '@/config/constants';
 import {validateAndComputeGeoJSON} from '@/config/helpers/validator';
 import {MAPS} from '@/config/maps';
 import {MapData} from '@/config/types';
+import {PageContentWrapper, SlimContainer} from '@/styles/containers';
+import {em} from '@/styles/utils';
 import {toFeatureCollection} from '@/utils/geo';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -20,22 +26,8 @@ import Typography from '@mui/material/Typography';
 import {NextPage} from 'next';
 import {ChangeEvent, useEffect, useState} from 'react';
 import {useLocalStorage} from 'usehooks-ts';
-import {ConfirmationDialog} from '../../components/feedback/dialog-confirm';
-import {PreviewDialog} from '../../components/feedback/dialog-preview';
-import {GoogleMap} from '../../components/google/map';
-import {Header} from '../../components/nav/header/header';
-import {PageContentWrapper, SlimContainer} from '../../styles/containers';
 
-const em = (txt: string, color: 'g' | 'v') => (
-  <Box
-    component="span"
-    color={color === 'g' ? 'success.main' : 'secondary.main'}
-  >
-    <b>{txt}</b>
-  </Box>
-);
-
-const MyMapsPage: NextPage = () => {
+export const MyMapsPage: NextPage = () => {
   const [localMaps, setLocalMaps] = useLocalStorage<Record<string, MapData>>(
     Constants.LOCALSTORAGE_MAPS_KEY,
     {}
@@ -208,6 +200,11 @@ const MyMapsPage: NextPage = () => {
             yours. Click on a map to preview the bounds.
           </Typography>
           <List dense id="local-maps-list">
+            {Object.keys(localMaps).length === 0 && (
+              <Typography color="text.secondary">
+                <i>Beep bop no local maps 🤖</i>
+              </Typography>
+            )}
             {Object.values(localMaps).map(m => (
               <ListItem
                 key={m.properties.id}

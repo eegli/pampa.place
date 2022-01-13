@@ -29,7 +29,7 @@ export const MenuDrawer = ({open, toggleDrawer}: MenuDrawerProps) => {
   return (
     <Drawer anchor="left" open={open} onClose={toggleDrawer}>
       <Paper elevation={3} sx={{height: '100%'}}>
-        <Box p={2} width="100%" maxWidth="17rem">
+        <Box p={2} width="100%" maxWidth="18rem">
           <List>
             <CustomListItem
               primarText="Home"

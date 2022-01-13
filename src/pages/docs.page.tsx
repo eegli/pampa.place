@@ -19,7 +19,7 @@ const InfoIcon = () => (
   />
 );
 
-const ExamplePage: NextPage = () => {
+const DocsPage: NextPage = () => {
   return (
     <>
       <Header />
@@ -143,4 +143,4 @@ const ExamplePage: NextPage = () => {
   );
 };
 
-export default ExamplePage;
+export default DocsPage;
