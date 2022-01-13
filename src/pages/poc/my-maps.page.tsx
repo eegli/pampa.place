@@ -46,18 +46,14 @@ const MyMapsPage: NextPage = () => {
   const [JSONErrMessage, setJSONErrMessage] = useState('');
   const [isValidJSON, setIsValidJSON] = useState(false);
   const [mapToPreview, setMapToPreview] = useState<MapData | null>(null);
-  const [mapToDelete, setMapToDelete] = useState<string | null>(null);
+  const [mapToDelete, setMapToDelete] = useState<MapData | null>(null);
 
   function handleSubmit() {
     try {
       const parsedMap = JSON.parse(geoJSON);
       parsedMap.features[0].properties.name = name;
       const newMap = validateAndComputeGeoJSON(parsedMap.features[0], 'local');
-      setLocalMaps({...localMaps, [newMap.properties.id]: newMap});
-      MAPS.set(newMap.properties.id, newMap);
-      // CLear input
-      setGeoJSON('');
-      setName('');
+      addMap(newMap);
     } catch (e) {
       if (e instanceof Error) {
         setJSONErrMessage(e.message);
@@ -67,13 +63,38 @@ const MyMapsPage: NextPage = () => {
     }
   }
 
+  function addMap(m: MapData) {
+    const id = m.properties.id;
+    setLocalMaps({...localMaps, [id]: m});
+    MAPS.set(id, m);
+    // CLear input
+    setGeoJSON('');
+    setName('');
+  }
+
   function clearMap() {
     if (mapToDelete) {
-      delete localMaps[mapToDelete];
+      const id = mapToDelete.properties.id;
+      delete localMaps[id];
       setLocalMaps(localMaps);
-      MAPS.delete(mapToDelete);
+      MAPS.delete(id);
       setMapToDelete(null);
     }
+  }
+
+  function triggerMapDeletion(m: MapData) {
+    setMapToDelete(m);
+  }
+
+  function triggerMapPreview(m: MapData) {
+    setMapToPreview(m);
+  }
+
+  function closePreview() {
+    setMapToPreview(null);
+  }
+  function closeDeletionDialog() {
+    setMapToDelete(null);
   }
 
   function editMap(m: MapData) {
@@ -186,7 +207,7 @@ const MyMapsPage: NextPage = () => {
                   <IconButton
                     edge="end"
                     aria-label="delete"
-                    onClick={() => setMapToDelete(m.properties.id)}
+                    onClick={() => triggerMapDeletion(m)}
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -204,7 +225,7 @@ const MyMapsPage: NextPage = () => {
 
                 <ListItemButton>
                   <ListItemText
-                    onClick={() => setMapToPreview(m)}
+                    onClick={() => triggerMapPreview(m)}
                     primary={m.properties.name}
                     secondary={`id: ${m.properties.id}`}
                   />
@@ -214,7 +235,7 @@ const MyMapsPage: NextPage = () => {
           </List>
           {mapToPreview && (
             <PreviewDialog
-              onClose={() => setMapToPreview(null)}
+              onClose={closePreview}
               title={`Local map preview`}
               bodyText={`Rough bounds of the map "${mapToPreview.properties.name}"`}
             >
@@ -224,8 +245,8 @@ const MyMapsPage: NextPage = () => {
           {mapToDelete && (
             <ConfirmationDialog
               title="Delete map"
-              message={`Are you sure you want to delete your local map "${mapToDelete}"?`}
-              onCancel={() => setMapToDelete(null)}
+              message={`Are you sure you want to delete your local map "${mapToDelete.properties.name}"?`}
+              onCancel={closeDeletionDialog}
               onConfirm={clearMap}
               onConfirmTitle="Delete map"
             />
