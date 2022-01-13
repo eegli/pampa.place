@@ -1,10 +1,5 @@
-import {MAPS} from '@/config/maps';
+export {MAPS, PROPERTIES} from '@/config/maps';
 import {NextApiHandler} from 'next';
-
-export const data = {
-  properties: Array.from(MAPS, ([, value]) => ({...value.properties})),
-  geojson: MAPS,
-};
 
 type ErrorResponse = {
   error: string;

@@ -1,11 +1,10 @@
-import {APIMetadataHandler, data} from '../../common';
+import {APIMetadataHandler, PROPERTIES} from '../../common';
 
 const handler: APIMetadataHandler = (req, res) => {
-  const categories = data.properties.map(({category}) => category);
   return res.status(200).json({
     info: {
-      total_map_count: data.properties.length,
-      categories: Array.from(new Set(categories)),
+      total_map_count: PROPERTIES.length,
+      categories: new Set(PROPERTIES.map(({category}) => category)),
     },
   });
 };

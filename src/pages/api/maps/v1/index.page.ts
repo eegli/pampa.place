@@ -32,11 +32,10 @@ const handler: ApiTextHandler = (_, res) => {
 
   Available endpoints:
 
-    /categories - map categories lookup
-    /properties - map id lookup
-    /data - GeoJSON map data
-    /meta - Map metadata 
-
+    /data - Map GeoJSON data
+    /meta -  Map metadata 
+    /properties - Map property data
+   
     /health
 
 
