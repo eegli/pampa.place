@@ -14,16 +14,14 @@ import {useState} from 'react';
 import {
   ConfirmationDialog,
   ConfirmationDialogProps,
-} from './speed-dial-confirm';
+} from '../../feedback/dialog-confirm';
 
 export const SpeedDialNav = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const activeTheme = useAppSelector(s => s.app.theme);
 
-  const [dialog, setDialog] = useState<ConfirmationDialogProps>(
-    {} as ConfirmationDialogProps
-  );
+  const [dialog, setDialog] = useState<ConfirmationDialogProps | null>(null);
 
   function handleToggleTheme() {
     dispatch(setTheme(activeTheme === 'light' ? 'dark' : 'light'));
@@ -58,14 +56,14 @@ export const SpeedDialNav = () => {
                 title: 'Restart round?',
                 message:
                   'This will reset the current round progress for all players. The first player will start the current round again in a new location.',
-                callbackTitle: 'Restart round',
-                callback: function () {
+                onConfirmTitle: 'Restart round',
+                onConfirm: function () {
                   dispatch(resetRound());
-                  setDialog({...dialog, open: false});
+                  setDialog(null);
                 },
-                open: true,
-                cancel: function () {
-                  setDialog({...dialog, open: false});
+
+                onCancel: function () {
+                  setDialog(null);
                 },
               })
             }
@@ -78,13 +76,13 @@ export const SpeedDialNav = () => {
             onClick={() =>
               setDialog({
                 title: 'Abort the game and return home?',
-                callbackTitle: 'Abort game',
-                callback: function () {
+                onConfirmTitle: 'Abort game',
+                onConfirm: function () {
                   router.push('/');
                 },
-                open: true,
-                cancel: function () {
-                  setDialog({...dialog, open: false});
+
+                onCancel: function () {
+                  setDialog(null);
                 },
               })
             }
@@ -100,7 +98,7 @@ export const SpeedDialNav = () => {
           />
         </SpeedDial>
       </Box>
-      <ConfirmationDialog {...dialog} />
+      {dialog && <ConfirmationDialog {...dialog} />}
     </>
   );
 };

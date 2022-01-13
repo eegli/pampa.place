@@ -2,10 +2,19 @@ import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
 import {alpha, Checkbox, FormControlLabel, FormGroup} from '@mui/material';
 import {NextPage} from 'next';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Header} from '../components/nav/header/header';
+import {MapProperties} from '../config/types';
 import {MapService} from '../services/google';
 import {PageContentWrapper} from '../styles/containers';
+import {isInPolygon} from '../utils/geo';
+
+type ClickEvent = {
+  latLng: google.maps.LatLng;
+  feature: {
+    h: MapProperties;
+  };
+};
 
 const PreviewPage: NextPage = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -14,6 +23,7 @@ const PreviewPage: NextPage = () => {
   function handleStreetViewCoverage() {
     setShowCoverage(!showCoverage);
   }
+  const features = useMemo(() => Array.from(MAPS.values()), []);
 
   useEffect(() => {
     if (ref.current) {
@@ -24,8 +34,8 @@ const PreviewPage: NextPage = () => {
       // potentially include multiple GeoJSON features. In practice,
       // each collection ("const feature" below) will only contain one
       // feature
-      const geojson = Object.values(MAPS).reduce((acc, curr) => {
-        const feature = MapService.map.data.addGeoJson(curr.feature);
+      const geojson = features.reduce((acc, curr) => {
+        const feature = MapService.map.data.addGeoJson(curr);
         acc.push(...feature);
         return acc;
       }, [] as google.maps.Data.Feature[]);
@@ -42,8 +52,15 @@ const PreviewPage: NextPage = () => {
       const listener = MapService.map.data.addListener(
         'click',
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        function (event: any) {
-          console.info(event.feature.h);
+        (event: ClickEvent) => {
+          const coords = event.latLng.toJSON();
+          const hits = features.reduce((acc, curr) => {
+            if (isInPolygon(coords, curr.geometry)) {
+              acc.push(curr.properties);
+            }
+            return acc;
+          }, [] as MapProperties[]);
+          console.info(hits.map(m => m.name));
         }
       );
 
@@ -55,7 +72,7 @@ const PreviewPage: NextPage = () => {
         unmount();
       };
     }
-  }, []);
+  }, [features]);
 
   useEffect(() => {
     if (showCoverage) {

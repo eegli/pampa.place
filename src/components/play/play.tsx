@@ -3,6 +3,7 @@ import {getActivePlayer} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {Box, Button} from '@mui/material';
 import {useState} from 'react';
+import {MAPS} from '../../config/maps';
 import {GoogleMap} from '../google/map';
 import {GoogleStreetView} from '../google/street-view';
 import {PlayHeader} from './header/header';
@@ -16,6 +17,7 @@ export const Play = () => {
   const initialPos = useAppSelector(({position}) => position.initialPosition);
   const selectedPos = useAppSelector(({position}) => position.selectedPosition);
   const activeMapId = useAppSelector(({game}) => game.mapId);
+  const map = MAPS.get(activeMapId);
 
   function submitScore() {
     dispatch(
@@ -28,6 +30,7 @@ export const Play = () => {
 
   return (
     <Box
+      id="play-mode"
       sx={{
         display: 'flex',
         flexFlow: 'column',
@@ -64,8 +67,7 @@ export const Play = () => {
         >
           {initialPos && <GoogleStreetView />}
         </div>
-
-        <GoogleMap mapId={activeMapId} mode="play" />
+        {map && <GoogleMap map={map} mode="play" />}
       </Box>
     </Box>
   );

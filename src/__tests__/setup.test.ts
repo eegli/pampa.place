@@ -9,6 +9,7 @@ individually for each test.
 describe('Test global setup', () => {
   it('has global definitions', () => {
     expect(google.maps).toMatchSnapshot();
+    expect(google.maps.ControlPosition.BOTTOM_LEFT).toEqual(1);
   });
   it('event listeners return a listener object', () => {
     const l1 = google.maps.event.addListenerOnce({}, 'click', () => {});

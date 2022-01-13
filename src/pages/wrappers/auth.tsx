@@ -20,6 +20,7 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
       console.error('Invalid Google Maps API key: ' + apiKey);
     };
   }, [apiKey]);
+
   // An empty string as api key is allowed for development mode
   if (typeof apiKey !== 'string') return <Login />;
 

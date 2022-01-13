@@ -1,7 +1,6 @@
 import {svgMarker, svgMarkerColors} from '@/components/google/marker';
 import {config} from '@/config/google';
-import {MAPS} from '@/config/maps';
-import {LatLngLiteral} from '@/config/types';
+import {LatLngLiteral, MapData} from '@/config/types';
 import {Result} from '@/redux/game';
 import {useAppDispatch} from '@/redux/hooks';
 import {updateSelectedPosition} from '@/redux/position';
@@ -9,15 +8,15 @@ import {MapService, MarkerService, PolyLineService} from '@/services/google';
 import {useEffect, useRef} from 'react';
 
 export type GoogleMapProps = {
-  mapId: string;
+  map: MapData;
   mode?: 'preview' | 'play' | 'result';
   results?: Pick<Result, 'selected' | 'name'>[];
   initialPosition?: LatLngLiteral;
 };
 
 export const GoogleMap = ({
+  map,
   mode,
-  mapId,
   results,
   initialPosition,
 }: GoogleMapProps) => {
@@ -27,11 +26,10 @@ export const GoogleMap = ({
   useEffect(() => {
     if (ref.current) {
       const unmount = MapService.mount(ref.current);
-      const map = MAPS[mapId];
       /* Order in constructor is important! SW, NE  */
       const bounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(map.bbLiteral.SW),
-        new google.maps.LatLng(map.bbLiteral.NE)
+        new google.maps.LatLng(map.properties.bbLiteral.SW),
+        new google.maps.LatLng(map.properties.bbLiteral.NE)
       );
       google.maps.event.addListenerOnce(MapService.map, 'idle', () => {
         MapService.map.fitBounds(bounds, 0);
@@ -41,7 +39,7 @@ export const GoogleMap = ({
         unmount();
       };
     }
-  }, [mapId]);
+  }, [map]);
 
   useEffect(() => {
     if (mode === 'preview') {
@@ -53,7 +51,7 @@ export const GoogleMap = ({
         mapTypeControl: false,
       });
 
-      const features = MapService.map.data.addGeoJson(MAPS[mapId].feature);
+      const features = MapService.map.data.addGeoJson(map);
 
       MapService.map.data.setStyle({
         fillColor: '#003d80',
@@ -67,7 +65,7 @@ export const GoogleMap = ({
         });
       };
     }
-  }, [mode, mapId]);
+  }, [mode, map]);
 
   useEffect(() => {
     if (mode === 'play') {

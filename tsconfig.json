@@ -21,6 +21,7 @@
       "@/config/*": ["src/config/*"],
       "@/components/*": ["src/components/*"],
       "@/services/*": ["src/services/*"],
+      "@/styles/*": ["src/styles/*"],
       "@/redux/*": ["src/redux/*"],
       "@/utils/*": ["src/utils/*"],
       "@/tests/*": ["src/__tests__/*"]

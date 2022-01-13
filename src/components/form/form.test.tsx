@@ -139,7 +139,7 @@ describe('Form, map selection and preview', () => {
   const toggleSpy = jest.spyOn(MapService, 'mount');
   it('displays maps', () => {
     render(<FormMapSelect />);
-    const mapSelection = screen.getByRole('button', {name: /custom map/i});
+    const mapSelection = screen.getByRole('button', {name: /test map/i});
     expect(mapSelection).toBeInTheDocument();
   });
   it('displays map preview', () => {

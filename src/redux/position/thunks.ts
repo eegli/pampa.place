@@ -42,13 +42,14 @@ export const getRandomStreetView = createAsyncThunk<
   };
 
   let retries = 50;
-  const map = MAPS[game.mapId];
+  /* eslint-disable @typescript-eslint/no-non-null-assertion */
+  const map = MAPS.get(game.mapId)!;
 
   try {
     while (true) {
       retries--;
       let data: google.maps.StreetViewPanoramaData | null = null;
-      const randomLocation = randomPointInMap(map.bb, map.feature.geometry);
+      const randomLocation = randomPointInMap(map.properties.bb, map.geometry);
 
       try {
         const {data: svData} = await service.getPanorama({

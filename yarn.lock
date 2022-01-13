@@ -490,10 +490,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@googlemaps/jest-mocks@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@googlemaps/jest-mocks/-/jest-mocks-1.5.0.tgz#eec287a68c39fb09acfee5433eb0c62e0206c004"
-  integrity sha512-SBpq8uvi2EUdO3uvP/gPFmWA3V0ArCRrw6fsBfpChe4Cn7Ce5jE+7oT4T037lO4H2v+ZUmtewcuvk1laI07xYA==
+"@googlemaps/jest-mocks@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@googlemaps/jest-mocks/-/jest-mocks-2.0.0.tgz#347f727870d7f99f40feafaaccd5b5d656e9db21"
+  integrity sha512-8PLWM6I4BsIRmRz0sHsd0KVBy2RwcP1Qrb3ox0IDRoaaKMESNymv/b90EJxxBIC9GaWHOkBFwJzlZMD04Ag0mw==
 
 "@googlemaps/js-api-loader@^1.11.1":
   version "1.12.11"
@@ -5996,6 +5996,11 @@ use-subscription@1.5.1:
   integrity sha512-Xv2a1P/yReAjAbhylMfFplFKj9GssgTwN7RlcTxBujFQcloStWNDQdc4g4NRWH9xS4i/FDk04vQBptAXoF3VcA==
   dependencies:
     object-assign "^4.1.1"
+
+usehooks-ts@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/usehooks-ts/-/usehooks-ts-2.2.0.tgz#4c6080d65be0d0e4de045a7619057f9b989f7d86"
+  integrity sha512-7aLmT9UHN5cub1cOG+MQnMKGLGCcPrFxXL21jkt8CZ8KdaNZVluAVNs/KS8XmSxVQ56Ypo7kBjRZkfpJH/3yYw==
 
 util-deprecate@^1.0.1, util-deprecate@~1.0.1:
   version "1.0.2"

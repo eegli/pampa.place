@@ -1,22 +1,11 @@
-import {apiData} from '@/config/maps';
 import {MapData} from '@/config/types';
-import {ApiJSONHandler, nthQuery} from '../../utils';
+import {ApiJSONHandler, MAPS, nthQuery} from '../../common';
 
 const handler: ApiJSONHandler<MapData> = (req, res) => {
-  const nameQuery = nthQuery(req.query.name);
   const idQuery = nthQuery(req.query.id);
 
-  if (nameQuery) {
-    return res.status(200).json({
-      data: Object.values(apiData.MAPS).filter(
-        map =>
-          map.feature.properties.name.toLowerCase() === nameQuery.toLowerCase()
-      ),
-    });
-  }
-
   if (idQuery) {
-    const map = apiData.MAPS[idQuery];
+    const map = MAPS.get(idQuery);
 
     if (map) {
       return res.status(200).json({
@@ -27,7 +16,7 @@ const handler: ApiJSONHandler<MapData> = (req, res) => {
   }
 
   return res.status(200).json({
-    data: Object.values(apiData.MAPS),
+    data: Array.from(MAPS.values()),
   });
 };
 
