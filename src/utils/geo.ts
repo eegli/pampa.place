@@ -1,4 +1,5 @@
 import {LatLngLiteral} from '@/config/types';
+import TisInPolygon from '@turf/boolean-point-in-polygon';
 import Tdistance from '@turf/distance';
 import {
   BBox,
@@ -11,6 +12,7 @@ import {
 } from '@turf/helpers';
 import TpointsWithinPolygon from '@turf/points-within-polygon';
 import {randomPoint as TrandomPoint} from '@turf/random';
+
 export function randomPointInMap(
   bbox: BBox,
   polygon: Polygon | MultiPolygon
@@ -23,6 +25,13 @@ export function randomPointInMap(
       return {lng: pt[0], lat: pt[1]};
     }
   } while (true);
+}
+
+export function isInPolygon(
+  pnt: LatLngLiteral,
+  polygon: Polygon | MultiPolygon
+): boolean {
+  return TisInPolygon(point([pnt.lng, pnt.lat]), polygon);
 }
 
 // Area in square kilometers, distance in meters

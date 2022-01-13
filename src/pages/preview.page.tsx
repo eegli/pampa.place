@@ -4,8 +4,17 @@ import {alpha, Checkbox, FormControlLabel, FormGroup} from '@mui/material';
 import {NextPage} from 'next';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Header} from '../components/nav/header/header';
+import {MapProperties} from '../config/types';
 import {MapService} from '../services/google';
 import {PageContentWrapper} from '../styles/containers';
+import {isInPolygon} from '../utils/geo';
+
+type ClickEvent = {
+  latLng: google.maps.LatLng;
+  feature: {
+    h: MapProperties;
+  };
+};
 
 const PreviewPage: NextPage = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -43,8 +52,15 @@ const PreviewPage: NextPage = () => {
       const listener = MapService.map.data.addListener(
         'click',
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        function (event: any) {
-          console.info(event.feature.h);
+        (event: ClickEvent) => {
+          const coords = event.latLng.toJSON();
+          const hits = features.reduce((acc, curr) => {
+            if (isInPolygon(coords, curr.geometry)) {
+              acc.push(curr.properties);
+            }
+            return acc;
+          }, [] as MapProperties[]);
+          console.info(hits.map(m => m.name));
         }
       );
 
