@@ -16,14 +16,12 @@ describe('Header', () => {
   it('opens drawer', () => {
     render(<Header />);
     const menuButton = getIconButton('MenuIcon');
-    expect(menuButton).toBeInTheDocument();
     fireEvent.click(menuButton);
-    expect(screen.getByRole('presentation')).toBeInTheDocument();
+    screen.getByRole('presentation');
   });
   it('has github link', () => {
     render(<Header />);
     const githubLink = screen.getByRole('link');
-    expect(githubLink).toBeInTheDocument();
     expect(githubLink).toHaveAttribute(
       'href',
       'https://github.com/eegli/pampa.place'
@@ -36,7 +34,6 @@ describe('Header', () => {
     const store = createMockStore(state);
     const {unmount} = render(<Header />, store);
     let themeButton = getIconButton('ModeIcon');
-    expect(themeButton).toBeInTheDocument();
     fireEvent.click(themeButton);
     expect(store.getState().app.theme).toBe('light');
     expect(window.localStorage.getItem(Constants.THEME_KEY)).toBe('light');

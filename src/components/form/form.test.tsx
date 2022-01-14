@@ -32,10 +32,7 @@ describe('Form', () => {
     const store = createMockStore();
     render(<Form />, store);
     const submit = screen.getByRole('button', {name: /start/i});
-    expect(submit).toBeInTheDocument();
-
     fireEvent.click(submit);
-
     expect(store.getState().game.status).toMatchInlineSnapshot(
       `"PENDING_PLAYER"`
     );
@@ -56,7 +53,6 @@ describe('Form', () => {
     const store = createMockStore(state);
     render(<Form />, store);
     const reset = screen.getByRole('button', {name: /reset/i});
-    expect(reset).toBeInTheDocument();
     fireEvent.click(reset);
     expect(store.getState()).toEqual(__actualInitialAppState);
   });
@@ -139,8 +135,7 @@ describe('Form, map selection and preview', () => {
   const toggleSpy = jest.spyOn(MapService, 'mount');
   it('displays maps', () => {
     render(<FormMapSelect />);
-    const mapSelection = screen.getByRole('button', {name: /test map/i});
-    expect(mapSelection).toBeInTheDocument();
+    screen.getByRole('button', {name: /test map/i});
   });
   it('displays map preview', () => {
     render(<FormMapSelect />);

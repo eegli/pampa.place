@@ -162,7 +162,6 @@ describe('Summary, round over', () => {
     const store = createMockStore(state);
     render(<RoundOverSummary />, store);
     const nextRoundButton = screen.getByRole('button', {name: /continue/i});
-    expect(nextRoundButton).toBeInTheDocument();
     fireEvent.click(nextRoundButton);
     expect(store.getState().game.rounds.current).toBe(2);
     expect(store.getState().game.rounds.progress).toBe(0);
@@ -186,7 +185,6 @@ describe('Summary, round over', () => {
     const store = createMockStore(state);
     render(<RoundOverSummary />, store);
     const endGameButton = screen.getByRole('button', {name: /results/i});
-    expect(endGameButton).toBeInTheDocument();
     fireEvent.click(endGameButton);
     expect(store.getState().game.rounds.current).toBe(2);
     expect(store.getState().game.rounds.progress).toBe(2);

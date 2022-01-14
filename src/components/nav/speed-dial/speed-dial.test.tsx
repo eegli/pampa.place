@@ -39,7 +39,6 @@ describe('Speed dial', () => {
   it(`items render`, () => {
     render(<SpeedDialNav />);
     const speedDial = screen.getByRole('button');
-    expect(speedDial).toBeInTheDocument();
     const items = screen.getAllByRole('menuitem');
     expect(items).toHaveLength(3);
   });

@@ -22,7 +22,6 @@ describe('My maps page', () => {
     const store = createMockStore(state);
     render(<MyMapsPage />, store);
     const nameInput = screen.getByLabelText(/map name/gi);
-    expect(nameInput).toBeInTheDocument();
     expect(nameInput).toHaveValue('');
     fireEvent.change(nameInput, {
       target: {value: 'test'},
@@ -32,7 +31,6 @@ describe('My maps page', () => {
   it('json input', async () => {
     render(<MyMapsPage />);
     const jsonInput = screen.getByLabelText(/geojson/gi);
-    expect(jsonInput).toBeInTheDocument();
     fireEvent.change(jsonInput, {
       target: {value: 'asd'},
     });

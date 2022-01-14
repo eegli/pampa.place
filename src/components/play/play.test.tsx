@@ -24,7 +24,6 @@ describe('Play', () => {
     render(<Play />, store);
     const button = getSubmitButton();
     expect(button).toBeDisabled();
-    expect(button).toBeInTheDocument();
   });
   it('has enabled button state', () => {
     const state = createMockState({
@@ -39,7 +38,6 @@ describe('Play', () => {
     render(<Play />, store);
     const button = getSubmitButton();
     expect(button).not.toBeDisabled();
-    expect(button).toBeInTheDocument();
   });
   it('dispatches no score when time runs out', () => {
     const useTimerSpy = jest.spyOn(timer, 'useTimer').mockImplementation(() => {

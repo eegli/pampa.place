@@ -56,10 +56,11 @@ describe('Login', () => {
 
   it('has all input fields and buttons', () => {
     render(<Login />);
-    expect(getElem('ownKeyInput')).toBeInTheDocument();
-    expect(getElem('passwordInput')).toBeInTheDocument();
-    expect(getElem('devModeButton')).toBeInTheDocument();
-    expect(getElem('enterButton')).toBeInTheDocument();
+    // Each function throws with getBy if the element is not present
+    getElem('ownKeyInput');
+    getElem('passwordInput');
+    getElem('devModeButton');
+    getElem('enterButton');
   });
   it('displays error message if no input is provided', async () => {
     render(<Login />);

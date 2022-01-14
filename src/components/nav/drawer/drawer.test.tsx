@@ -40,7 +40,6 @@ describe('Drawer', () => {
     it(`nav item, ${name}`, () => {
       render(<MenuDrawer open toggleDrawer={mockToggleDrawer} />);
       const navButton = getListItem(name);
-      expect(navButton).toBeInTheDocument();
       if (route) {
         mockRouter.pathname = route;
         fireEvent.click(navButton);
@@ -58,7 +57,6 @@ describe('Drawer', () => {
   it(`nav item, change api key`, () => {
     render(<MenuDrawer open toggleDrawer={mockToggleDrawer} />);
     const navButton = getListItem('api key');
-    expect(navButton).toBeInTheDocument();
     fireEvent.click(navButton);
     expect(window.sessionStorage.clear).toHaveBeenCalledTimes(1);
     expect(mockRouter.reload).toHaveBeenCalledTimes(1);
