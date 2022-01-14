@@ -73,3 +73,5 @@ export type GeoJSONValidator = (
   category: string,
   transformer?: PropertyTransformer
 ) => MapData;
+
+export type LocalStorageMaps = Record<string, MapData>;

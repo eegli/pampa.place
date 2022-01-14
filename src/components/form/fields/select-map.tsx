@@ -14,8 +14,7 @@ import {
   SelectChangeEvent,
   Tooltip,
 } from '@mui/material';
-import {useEffect, useMemo, useState} from 'react';
-import {Constants} from '../../../config/constants';
+import {useMemo, useState} from 'react';
 import {MapData} from '../../../config/types';
 import {PreviewDialog} from '../../feedback/dialog-preview';
 import {GoogleMap} from '../../google/map';
@@ -30,21 +29,6 @@ export const FormMapSelect = () => {
   const handleChange = (event: SelectChangeEvent) => {
     dispatch(setMap(event.target.value));
   };
-
-  useEffect(() => {
-    const local =
-      window.localStorage.getItem(Constants.LOCALSTORAGE_MAPS_KEY) || '{}';
-    const parsedMaps = JSON.parse(local);
-    if (Array.isArray(parsedMaps) && parsedMaps.length) {
-      for (const map of parsedMaps) {
-        try {
-          MAPS.set(map.properties.id, map);
-        } catch (e) {
-          console.error(`Failed to add local map ${map}, ${e}`);
-        }
-      }
-    }
-  }, []);
 
   const categoryMap = useMemo(() => {
     const obj = Array.from(MAPS.values());

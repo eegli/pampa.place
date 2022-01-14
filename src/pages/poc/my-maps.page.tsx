@@ -5,10 +5,9 @@ import {Header} from '@/components/nav/header/header';
 import {Constants} from '@/config/constants';
 import {validateAndComputeGeoJSON} from '@/config/helpers/validator';
 import {MAPS} from '@/config/maps';
-import {MapData} from '@/config/types';
+import {LocalStorageMaps, MapData} from '@/config/types';
 import {PageContentWrapper, SlimContainer} from '@/styles/containers';
 import {em} from '@/styles/utils';
-import {toFeatureCollection} from '@/utils/geo';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
@@ -30,7 +29,7 @@ import {useLocalStorage} from 'usehooks-ts';
 /* EXPERIMENTAL */
 
 export const MyMapsPage: NextPage = () => {
-  const [localMaps, setLocalMaps] = useLocalStorage<Record<string, MapData>>(
+  const [localMaps, setLocalMaps] = useLocalStorage<LocalStorageMaps>(
     Constants.LOCALSTORAGE_MAPS_KEY,
     {}
   );
@@ -41,6 +40,18 @@ export const MyMapsPage: NextPage = () => {
   const [isValidJSON, setIsValidJSON] = useState(false);
   const [mapToPreview, setMapToPreview] = useState<MapData | null>(null);
   const [mapToDelete, setMapToDelete] = useState<MapData | null>(null);
+
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+  const handleJSONChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setGeoJSON(event.target.value);
+  };
+
+  function editMap(m: MapData) {
+    setGeoJSON(JSON.stringify(m, null, 2));
+    setName(m.properties.name);
+  }
 
   function handleSubmit() {
     try {
@@ -61,12 +72,13 @@ export const MyMapsPage: NextPage = () => {
     }
   }
 
-  // Maps are added to both local storage and the global MAPS object
+  // Maps are added to both local storage and the global MAPS object.
+  // A map that is added via user input here is parsed and validated
   function addMap(m: MapData) {
     const id = m.properties.id;
     MAPS.set(id, m);
     setLocalMaps({...localMaps, [id]: m});
-    // CLear input
+    // Clear input
     setGeoJSON('');
     setName('');
   }
@@ -100,21 +112,6 @@ export const MyMapsPage: NextPage = () => {
   function closeDeletionDialog() {
     setMapToDelete(null);
   }
-
-  // Input maps are a FeatureCollection but stored as Feature. Restore
-  // the FeatureCollection object
-  function editMap(m: MapData) {
-    const collection = toFeatureCollection(m);
-    setGeoJSON(JSON.stringify(collection, null, 2));
-    setName(m.properties.name);
-  }
-
-  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
-  const handleJSONChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setGeoJSON(event.target.value);
-  };
 
   // Debounce validation of JSON input
   useEffect(() => {

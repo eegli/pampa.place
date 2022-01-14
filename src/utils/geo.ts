@@ -1,15 +1,7 @@
 import {LatLngLiteral} from '@/config/types';
 import TisInPolygon from '@turf/boolean-point-in-polygon';
 import Tdistance from '@turf/distance';
-import {
-  BBox,
-  Feature,
-  FeatureCollection,
-  MultiPolygon,
-  point,
-  Polygon,
-  Units,
-} from '@turf/helpers';
+import {BBox, MultiPolygon, point, Polygon, Units} from '@turf/helpers';
 import TpointsWithinPolygon from '@turf/points-within-polygon';
 import {randomPoint as TrandomPoint} from '@turf/random';
 
@@ -52,11 +44,4 @@ export function calcDist(
   const from = point([p1.lng, p1.lat]);
   const to = point([p2.lng, p2.lat]);
   return Tdistance(from, to, {units});
-}
-
-export function toFeatureCollection(feat: Feature): FeatureCollection {
-  return {
-    type: 'FeatureCollection',
-    features: [feat],
-  };
 }
