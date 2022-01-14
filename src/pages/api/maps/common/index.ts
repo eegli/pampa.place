@@ -1,4 +1,5 @@
-export {MAPS, PROPERTIES} from '@/config/maps';
+import {MAPS} from '@/config/maps';
+import {MapProperties} from '@/config/types';
 import {NextApiHandler} from 'next';
 
 type ErrorResponse = {
@@ -30,3 +31,9 @@ export type ApiTextHandler = NextApiHandler<string> | ErrorResponse;
 export function nthQuery<T>(arg: T | T[], index = 0): T | undefined {
   return Array.isArray(arg) ? arg[index] : arg;
 }
+
+export const PROPERTIES: MapProperties[] = Array.from(MAPS.values()).map(
+  m => m.properties
+);
+
+export {MAPS};

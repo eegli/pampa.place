@@ -3,9 +3,7 @@ import {addLocalMaps} from './enhancer';
 import {validateAndComputeGeoJSON} from './validator';
 
 export const generateMapData: MapGenerator = (...inputs) => {
-  let mapData = new Map<string, MapData>();
-  // Add local maps if there are
-  mapData = addLocalMaps(mapData);
+  const mapData = new Map<string, MapData>();
   const mapDataProperties: MapProperties[] = [];
   for (const input of inputs) {
     const {map, category, transformer} = input;
@@ -15,8 +13,5 @@ export const generateMapData: MapGenerator = (...inputs) => {
       mapDataProperties.push(data.properties);
     }
   }
-  return {
-    MAPS: addLocalMaps(mapData),
-    PROPERTIES: mapDataProperties,
-  };
+  return addLocalMaps(mapData);
 };

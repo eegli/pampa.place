@@ -1,6 +1,6 @@
 import {config} from '@/config/game';
-import {MAPS, PROPERTIES} from '@/config/maps';
-import {LatLngLiteral} from '@/config/types';
+import {MAPS} from '@/config/maps';
+import {LatLngLiteral, MapData} from '@/config/types';
 import {calcDist, calcScore} from '@/utils/geo';
 import {OrNull} from '@/utils/types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
@@ -36,10 +36,12 @@ export interface GameState {
   };
 }
 
+const initialMapValues: MapData = MAPS.values().next().value;
+
 const initialState: GameState = {
   status: STATUS.UNINITIALIZED,
-  mapId: PROPERTIES[0].id,
-  mapName: PROPERTIES[0].name,
+  mapId: initialMapValues.properties.id,
+  mapName: initialMapValues.properties.name,
   players: [],
   scores: [],
   timeLimit: config.timeLimitsDefault,

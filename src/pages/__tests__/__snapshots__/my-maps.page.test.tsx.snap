@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`My maps page renders 1`] = `
+<input
+  aria-invalid="false"
+  class="MuiOutlinedInput-input MuiInputBase-input css-p51h6s-MuiInputBase-input-MuiOutlinedInput-input"
+  id="mui-1"
+  placeholder="Add a display name for the map"
+  type="text"
+  value=""
+/>
+`;

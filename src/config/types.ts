@@ -62,10 +62,7 @@ export type PropertyTransformer = (props: BaseMapProperties) => void;
 
 export type MapGenerator<
   T = FeatureCollection<Polygon | MultiPolygon, BaseMapProperties>
-> = (...inputs: Input<T>[]) => {
-  MAPS: Map<string, MapData>;
-  PROPERTIES: MapProperties[];
-};
+> = (...inputs: Input<T>[]) => Map<string, MapData>;
 
 export type LocalMapEnhancer = (
   map: Map<string, MapData>

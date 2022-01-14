@@ -7,7 +7,7 @@ const swissMapsTransformer: PropertyTransformer = p => {
   }
 };
 
-export const {MAPS, PROPERTIES} = generateMapData(
+export const MAPS = generateMapData(
   {
     map: require('geojson/switzerland.json'),
     category: 'switzerland',
