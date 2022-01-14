@@ -125,7 +125,7 @@ export const MyMapsPage: NextPage = () => {
           setJSONErrMessage('');
           setIsValidJSON(true);
         } catch (e) {
-          let message = 'Error parsing GeoJSON: ';
+          const message = 'Error parsing GeoJSON: ';
           if (e instanceof SyntaxError) {
             setJSONErrMessage(message + e.message);
           } else {

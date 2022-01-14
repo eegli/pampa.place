@@ -40,7 +40,8 @@ describe('My maps page', () => {
       jest.runOnlyPendingTimers();
     });
     expect(jsonInput).toHaveValue('asd');
-    expect(screen.queryByText(/Error parsing GeoJSON/gi)).toBeInTheDocument();
+    // Make sure there is an error message
+    screen.getByText(/Error parsing GeoJSON/gi);
     fireEvent.change(jsonInput, {
       target: {value: '{}'},
     });
