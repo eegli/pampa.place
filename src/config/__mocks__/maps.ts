@@ -3,7 +3,7 @@
 import {generateMapData} from '../helpers/generator';
 import {testMap, testMapId} from '../__fixtures__';
 
-export const testData: ReturnType<typeof generateMapData> = new Map().set(
+export const MAPS: ReturnType<typeof generateMapData> = new Map().set(
   testMapId,
   testMap
 );
