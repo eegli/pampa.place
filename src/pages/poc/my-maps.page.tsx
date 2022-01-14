@@ -49,11 +49,7 @@ export const MyMapsPage: NextPage = () => {
       const newMap = validateAndComputeGeoJSON(parsedMap.features[0], 'local');
       addMap(newMap);
     } catch (e) {
-      if (e instanceof Error) {
-        setJSONErrMessage(e.message);
-      } else {
-        setJSONErrMessage("That doesn't look like a valid map");
-      }
+      setJSONErrMessage("That doesn't look like a valid map");
     }
   }
 
@@ -110,8 +106,6 @@ export const MyMapsPage: NextPage = () => {
   };
   const handleJSONChange = (event: ChangeEvent<HTMLInputElement>) => {
     setGeoJSON(event.target.value);
-    // Validation is delayed
-    setIsValidJSON(false);
   };
 
   // Debounce validation of JSON input
@@ -123,13 +117,14 @@ export const MyMapsPage: NextPage = () => {
           setJSONErrMessage('');
           setIsValidJSON(true);
         } catch (e) {
+          let message = 'Error parsing GeoJSON: ';
           if (e instanceof SyntaxError) {
-            setJSONErrMessage(e.message);
+            setJSONErrMessage(message + e.message);
           } else {
-            setJSONErrMessage('Invalid JSON input');
+            setJSONErrMessage(message + 'Invalid input');
           }
         }
-      }, 500);
+      }, 800);
       return () => clearTimeout(timeOutId);
     }
   }, [geoJSON]);

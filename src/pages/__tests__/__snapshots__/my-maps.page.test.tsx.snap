@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`My maps page renders 1`] = `
+exports[`My maps page map name input 1`] = `
 <input
   aria-invalid="false"
   class="MuiOutlinedInput-input MuiInputBase-input css-p51h6s-MuiInputBase-input-MuiOutlinedInput-input"
