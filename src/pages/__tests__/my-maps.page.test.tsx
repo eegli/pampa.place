@@ -1,3 +1,5 @@
+import {MAPS} from '@/config/maps';
+import {testFeatureCollecton, testMap} from '@/config/__fixtures__';
 import {
   act,
   createMockState,
@@ -6,7 +8,6 @@ import {
   render,
   screen,
 } from '@/tests/utils';
-import {testMap} from '../../config/__fixtures__';
 import {MyMapsPage} from '../poc/my-maps.page';
 
 jest.useFakeTimers();
@@ -20,33 +21,56 @@ describe('My maps page', () => {
     const state = createMockState();
     const store = createMockStore(state);
     render(<MyMapsPage />, store);
-    expect(screen.getByLabelText(/map name/i)).toMatchSnapshot();
-    fireEvent.change(screen.getByLabelText(/map name/i), {
+    const nameInput = screen.getByLabelText(/map name/gi);
+    expect(nameInput).toBeInTheDocument();
+    expect(nameInput).toHaveValue('');
+    fireEvent.change(nameInput, {
       target: {value: 'test'},
     });
-    expect(screen.getByLabelText(/map name/i)).toHaveValue('test');
+    expect(nameInput).toHaveValue('test');
   });
   it('json input', async () => {
     render(<MyMapsPage />);
-    fireEvent.change(screen.getByLabelText(/geojson/i), {
+    const jsonInput = screen.getByLabelText(/geojson/gi);
+    expect(jsonInput).toBeInTheDocument();
+    fireEvent.change(jsonInput, {
       target: {value: 'asd'},
     });
     act(() => {
       jest.runOnlyPendingTimers();
     });
-    expect(screen.getByLabelText(/geojson/i)).toHaveValue('asd');
+    expect(jsonInput).toHaveValue('asd');
     expect(screen.queryByText(/Error parsing GeoJSON/gi)).toBeInTheDocument();
-    fireEvent.change(screen.getByLabelText(/geojson/i), {
+    fireEvent.change(jsonInput, {
       target: {value: '{}'},
     });
     act(() => {
       jest.runOnlyPendingTimers();
     });
-    expect(screen.getByLabelText(/geojson/i)).toHaveValue('{}');
+    expect(jsonInput).toHaveValue('{}');
     expect(screen.queryByText(/Error parsing GeoJSON/gi)).toBeNull();
   });
-  it('submit', async () => {
+  it('adds maps in the form of featurecollections', async () => {
     render(<MyMapsPage />);
+    expect(MAPS.get('local-new-map')).toBeUndefined();
+    expect(screen.queryByRole('button', {name: /add map/gi})).toBeNull();
+    fireEvent.change(screen.getByLabelText(/map name/i), {
+      target: {value: 'new map'},
+    });
+    fireEvent.change(screen.getByLabelText(/geojson/i), {
+      target: {value: JSON.stringify(testFeatureCollecton)},
+    });
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+    const addButton = screen.getByRole('button', {name: /add map/gi});
+    fireEvent.click(addButton);
+    expect(MAPS.get('local-new-map')).toBeTruthy();
+    MAPS.delete('local-new-map');
+  });
+  it('adds maps in the form of features', async () => {
+    render(<MyMapsPage />);
+    expect(MAPS.get('local-new-map')).toBeUndefined();
     expect(screen.queryByRole('button', {name: /add map/gi})).toBeNull();
     fireEvent.change(screen.getByLabelText(/map name/i), {
       target: {value: 'new map'},
@@ -57,8 +81,9 @@ describe('My maps page', () => {
     act(() => {
       jest.runOnlyPendingTimers();
     });
-    expect(
-      screen.queryByRole('button', {name: /add map/gi})
-    ).toBeInTheDocument();
+    const addButton = screen.getByRole('button', {name: /add map/gi});
+    fireEvent.click(addButton);
+    expect(MAPS.get('local-new-map')).toBeTruthy();
+    MAPS.delete('local-new-map');
   });
 });

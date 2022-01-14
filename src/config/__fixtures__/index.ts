@@ -79,3 +79,8 @@ export const testMap: Feature<Polygon | MultiPolygon, MapProperties> = {
     ],
   },
 };
+
+export const testFeatureCollecton = {
+  type: 'FeatureCollection',
+  features: [testMap],
+};

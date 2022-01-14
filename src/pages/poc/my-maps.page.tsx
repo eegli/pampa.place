@@ -44,9 +44,17 @@ export const MyMapsPage: NextPage = () => {
 
   function handleSubmit() {
     try {
-      const parsedMap = JSON.parse(geoJSON);
-      parsedMap.features[0].properties.name = name;
-      const newMap = validateAndComputeGeoJSON(parsedMap.features[0], 'local');
+      let feature = JSON.parse(geoJSON);
+      // The parser is made for Features, not FeatureCollections. The
+      // default output from hand-drawn maps on geojson.io are
+      // FeatureCollections. Only the first feature is used. This also
+      // makes sense because each feature needs a unique name and
+      // there's only one name input. might be changed later
+      if (feature.type === 'FeatureCollection') {
+        feature = feature.features[0];
+      }
+      feature.properties.name = name;
+      const newMap = validateAndComputeGeoJSON(feature, 'local');
       addMap(newMap);
     } catch (e) {
       setJSONErrMessage("That doesn't look like a valid map");
@@ -56,8 +64,8 @@ export const MyMapsPage: NextPage = () => {
   // Maps are added to both local storage and the global MAPS object
   function addMap(m: MapData) {
     const id = m.properties.id;
-    setLocalMaps({...localMaps, [id]: m});
     MAPS.set(id, m);
+    setLocalMaps({...localMaps, [id]: m});
     // CLear input
     setGeoJSON('');
     setName('');
