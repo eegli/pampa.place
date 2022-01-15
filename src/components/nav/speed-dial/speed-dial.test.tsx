@@ -38,7 +38,7 @@ function getSpeedDialItem(key: 'theme' | 'restart' | 'home') {
 describe('Speed dial', () => {
   it(`items render`, () => {
     render(<SpeedDialNav />);
-    const speedDial = screen.getByRole('button');
+    screen.getByRole('button');
     const items = screen.getAllByRole('menuitem');
     expect(items).toHaveLength(3);
   });

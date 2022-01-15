@@ -37,7 +37,7 @@ describe('Form', () => {
       `"PENDING_PLAYER"`
     );
   });
-  it('resets game state and fields', async () => {
+  it('resets game state and fields', () => {
     const state = createMockState({
       game: {
         players: ['player 1', 'player 2'],

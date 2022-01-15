@@ -4,7 +4,7 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals",
-    "plugin:prettier/recommended"
+    "prettier"
   ],
   "plugins": ["testing-library"],
   "overrides": [
@@ -13,7 +13,10 @@
         "**/__tests__/**/*.[jt]s?(x)",
         "**/?(*.)+(spec|test).[jt]s?(x)"
       ],
-      "extends": ["plugin:testing-library/react"]
+      "extends": ["plugin:testing-library/react"],
+      "rules": {
+        "@typescript-eslint/no-empty-function": "off"
+      }
     }
   ],
   "rules": {
@@ -30,13 +33,7 @@
         ]
       }
     ],
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto"
-      }
-    ],
     "react-hooks/exhaustive-deps": "error",
-    "@typescript-eslint/no-empty-function": "off"
+    "require-await": "error"
   }
 }

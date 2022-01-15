@@ -1,5 +1,4 @@
-import type {Feature, MultiPolygon, Polygon} from '@turf/helpers';
-import {MapProperties} from '../types';
+import {InputMapData, MapData, MapProperties} from '../types';
 
 export const testMapId = '1mSRVyWP3tLQ';
 export const testMapProperties: MapProperties = {
@@ -31,7 +30,7 @@ export const testMapProperties: MapProperties = {
   },
 };
 
-export const testMap: Feature<Polygon | MultiPolygon, MapProperties> = {
+export const testMap: MapData = {
   type: 'Feature',
   properties: {
     name: 'Test map',
@@ -80,7 +79,7 @@ export const testMap: Feature<Polygon | MultiPolygon, MapProperties> = {
   },
 };
 
-export const testFeatureCollecton = {
+export const testFeatureCollecton: InputMapData = {
   type: 'FeatureCollection',
   features: [testMap],
 };

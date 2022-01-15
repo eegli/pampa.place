@@ -57,10 +57,9 @@ export const MyMapsPage: NextPage = () => {
     try {
       let feature = JSON.parse(geoJSON);
       // The parser is made for Features, not FeatureCollections. The
-      // default output from hand-drawn maps on geojson.io are
-      // FeatureCollections. Only the first feature is used. This also
-      // makes sense because each feature needs a unique name and
-      // there's only one name input. might be changed later
+      // default output from hand-drawn maps on geojson.io is a
+      // FeatureCollection. Only the first feature is used. Might be
+      // changed later
       if (feature.type === 'FeatureCollection') {
         feature = feature.features[0];
       }
@@ -72,8 +71,7 @@ export const MyMapsPage: NextPage = () => {
     }
   }
 
-  // Maps are added to both local storage and the global MAPS object.
-  // A map that is added via user input here is parsed and validated
+  // This function is only called with parsed and validated geoJSON
   function addMap(m: MapData) {
     const id = m.properties.id;
     MAPS.set(id, m);
@@ -82,8 +80,8 @@ export const MyMapsPage: NextPage = () => {
     setGeoJSON('');
     setName('');
   }
-  // Maps are also deleted from both local storage and the global MAPS
-  // object
+  // Maps are deleted (and added) from (to) both local storage and the
+  // global MAPS object
   function clearMap() {
     if (mapToDelete) {
       const id = mapToDelete.properties.id;
@@ -143,8 +141,8 @@ export const MyMapsPage: NextPage = () => {
             My Maps
           </Typography>
           <Typography gutterBottom variant="body1" color="text.secondary">
-            Add custom maps to your collection. These maps only live in your
-            browser. You can either paste valid GeoJSON or go to{' '}
+            Add custom maps to your collection. These maps are only saved in
+            your browser. You can either paste valid GeoJSON or go to{' '}
             <Link target={'_blank'} href="https://geojson.io/">
               geojson.io
             </Link>
@@ -198,8 +196,8 @@ export const MyMapsPage: NextPage = () => {
             Local maps
           </Typography>
           <Typography gutterBottom variant="body1" color="text.secondary">
-            These maps are saved locally in your browser. They&apos;re only
-            yours. Click on a map to preview the bounds.
+            These maps are saved locally in your browser. Click on a map to
+            preview the bounds.
           </Typography>
           <List dense id="local-maps-list">
             {Object.keys(localMaps).length === 0 && (

@@ -88,7 +88,7 @@ describe('Intermission, round ongoing', () => {
     });
     expect(store.getState().position).toMatchSnapshot('sv request, rejected');
   });
-  it('requests new street view location, pending', async () => {
+  it('requests new street view location, pending', () => {
     const state = createMockState({
       game: {
         players: ['player 1', 'player 2'],

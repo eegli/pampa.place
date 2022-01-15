@@ -34,7 +34,7 @@ export const GamePage: NextPage = () => {
   const status = useAppSelector(({game}) => game.status);
   const positionError = useAppSelector(({position}) => position.error);
 
-  async function handleRetry() {
+  function handleRetry() {
     dispatch(getRandomStreetView());
   }
 

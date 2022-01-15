@@ -33,7 +33,7 @@ global.google.maps.event = {
 global.google.maps.StreetViewService = class StreetViewService
   implements google.maps.StreetViewService
 {
-  async getPanorama() {
+  getPanorama() {
     const res: google.maps.StreetViewResponse = {
       data: {
         copyright: 'Copyright',

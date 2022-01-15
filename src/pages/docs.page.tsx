@@ -46,7 +46,7 @@ const DocsPage: NextPage = () => {
             <Divider sx={{my: 2}} />
             <Typography component="p">
               you will be abandoned in a random place on a map that you choose.
-              check your surroundings for clues. find out where you are.
+              check your surroundings for clues and find out where you are.
             </Typography>
             <Divider sx={{my: 1}} light variant="middle" />
             <Typography component="p">
@@ -72,7 +72,7 @@ const DocsPage: NextPage = () => {
               <InfoIcon />
               <Typography component="p" color="text.secondary">
                 you can preview all available maps by clicking &quot;preview
-                maps&quot; in the menu.
+                maps&quot; in the menu
               </Typography>
             </Box>
             <Box display="flex">

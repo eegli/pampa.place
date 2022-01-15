@@ -71,7 +71,7 @@ describe('Login', () => {
       expect(passwordInput).toBeInvalid();
     });
   });
-  it('allows entering via dev mode', async () => {
+  it('allows entering via dev mode', () => {
     const state = createMockState();
     const store = createMockStore(state);
     render(<Login />, store);

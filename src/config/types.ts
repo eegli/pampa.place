@@ -44,7 +44,8 @@ export interface MapProperties extends BaseMapProperties {
   bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
 }
 
-/* Type for input GeoJSON data */
+/* Types for all GeoJSON data */
+
 export type InputMapData = FeatureCollection<
   Polygon | MultiPolygon,
   BaseMapProperties
@@ -60,16 +61,16 @@ type Input<T> = {
 };
 export type PropertyTransformer = (props: BaseMapProperties) => void;
 
-export type MapGenerator<
-  T = FeatureCollection<Polygon | MultiPolygon, BaseMapProperties>
-> = (...inputs: Input<T>[]) => Map<string, MapData>;
+export type MapGenerator<T = InputMapData> = (
+  ...inputs: Input<T>[]
+) => Map<string, MapData>;
 
 export type LocalMapEnhancer = (
   map: Map<string, MapData>
 ) => Map<string, MapData>;
 
 export type GeoJSONValidator = (
-  feat: Feature<Polygon | MultiPolygon, BaseMapProperties>,
+  feat: MapData,
   category: string,
   transformer?: PropertyTransformer
 ) => MapData;

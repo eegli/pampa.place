@@ -25,6 +25,7 @@ function enterJSON(value: string) {
   fireEvent.change(jsonInput(), {
     target: {value},
   });
+  // The JSON input is debounced
   act(() => {
     jest.runOnlyPendingTimers();
   });
@@ -40,7 +41,7 @@ describe('My maps page', () => {
     });
     expect(input).toHaveValue('test');
   });
-  it('json input', async () => {
+  it('json input', () => {
     render(<MyMapsPage />);
     const input = jsonInput();
     enterJSON('asd');
@@ -51,7 +52,7 @@ describe('My maps page', () => {
     expect(input).toHaveValue('{}');
     expect(screen.queryByText(/Error parsing GeoJSON/gi)).toBeNull();
   });
-  it('adds input to global maps and local storage', async () => {
+  it('adds input to global maps and local storage', () => {
     render(<MyMapsPage />);
     expect(MAPS.size).toBe(1);
     expect(screen.queryByRole('button', {name: /add map/gi})).toBeNull();
@@ -62,9 +63,6 @@ describe('My maps page', () => {
     // Add map 2 (a feature)
     enterName('feature map');
     enterJSON(JSON.stringify(testMap));
-    act(() => {
-      jest.runOnlyPendingTimers();
-    });
     fireEvent.click(mapButton());
     expect(MAPS.get('local-collection-map')).toBeTruthy();
     expect(MAPS.get('local-feature-map')).toBeTruthy();

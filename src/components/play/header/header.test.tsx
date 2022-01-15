@@ -9,7 +9,7 @@ afterEach(() => {
 });
 
 describe('Play header', () => {
-  it('has disabled submit button state', async () => {
+  it('has disabled submit button state', () => {
     jest.useFakeTimers();
     render(<PlayHeader player="eric" timerCallback={mockCallback} />);
 
