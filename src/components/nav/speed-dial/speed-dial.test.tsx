@@ -1,12 +1,15 @@
 import {
+  act,
   createMockState,
   createMockStore,
   fireEvent,
   render,
   screen,
 } from '@/tests/utils';
+import * as Dialog from '../../feedback/dialog-confirm';
 import {SpeedDialNav} from './speed-dial';
 
+const dialogSpy = jest.spyOn(Dialog, 'ConfirmationDialog');
 const mockPush = jest.fn();
 
 jest.mock('next/router', () => ({
@@ -17,22 +20,13 @@ jest.mock('next/router', () => ({
   },
 }));
 
-afterEach(() => {
+beforeEach(() => {
   jest.clearAllMocks();
 });
 
-function getSpeedDialItem(key: 'theme' | 'restart' | 'home') {
-  const speedDial = screen.getByRole('button');
+function hoverSpeedDial() {
+  const speedDial = screen.getByRole('button', {name: 'speed-dial-menu'});
   fireEvent.mouseOver(speedDial);
-  const buttons = screen.getAllByRole('menuitem');
-  switch (key) {
-    case 'theme':
-      return buttons[2];
-    case 'home':
-      return buttons[1];
-    case 'restart':
-      return buttons[0];
-  }
 }
 
 describe('Speed dial', () => {
@@ -46,23 +40,33 @@ describe('Speed dial', () => {
     const state = createMockState({app: {theme: 'dark'}});
     const store = createMockStore(state);
     const {unmount} = render(<SpeedDialNav />, store);
-    let themeToggle = getSpeedDialItem('theme');
-    fireEvent.click(themeToggle);
+    let toggleButton = screen.getByRole('menuitem', {name: 'toggle-theme'});
+    fireEvent.click(toggleButton);
     expect(store.getState().app.theme).toBe('light');
-
     unmount();
     render(<SpeedDialNav />, store);
-    themeToggle = getSpeedDialItem('theme');
-    fireEvent.click(themeToggle);
+    toggleButton = screen.getByRole('menuitem', {name: 'toggle-theme'});
+    fireEvent.click(toggleButton);
     expect(store.getState().app.theme).toBe('dark');
   });
-  it('has home navigation', () => {
+  it('has home navigation', async () => {
     render(<SpeedDialNav />);
-    const homeButton = getSpeedDialItem('home');
+    hoverSpeedDial();
+    const homeButton = screen.getByRole('menuitem', {name: 'home'});
     fireEvent.click(homeButton);
-    const confirmButtons = screen.getAllByRole('button');
-    expect(confirmButtons).toHaveLength(2);
-    fireEvent.click(confirmButtons[1]);
+    expect(screen.queryByRole('dialog')).toBeTruthy();
+    expect(dialogSpy).toHaveBeenCalledTimes(1);
+    expect(dialogSpy.mock.calls[0][0]).toMatchSnapshot(
+      'home confirmation dialog'
+    );
+    act(() => {
+      dialogSpy.mock.calls[0][0].onClose();
+    });
+    expect(screen.queryByRole('dialog')).toBeNull();
+    fireEvent.click(homeButton);
+    act(() => {
+      dialogSpy.mock.calls[0][0].onConfirm();
+    });
     expect(mockPush).toHaveBeenCalledWith('/');
   });
   it('can restart round', () => {
@@ -85,10 +89,22 @@ describe('Speed dial', () => {
     });
     const store = createMockStore(state);
     render(<SpeedDialNav />, store);
-    const restartButton = getSpeedDialItem('restart');
+    hoverSpeedDial();
+    const restartButton = screen.getByRole('menuitem', {name: 'restart'});
     fireEvent.click(restartButton);
-    const confirmButtons = screen.getAllByRole('button');
-    fireEvent.click(confirmButtons[1]);
+    expect(screen.queryByRole('dialog')).toBeTruthy();
+    expect(dialogSpy).toHaveBeenCalledTimes(1);
+    expect(dialogSpy.mock.calls[0][0]).toMatchSnapshot(
+      'restart confirmation dialog'
+    );
+    act(() => {
+      dialogSpy.mock.calls[0][0].onClose();
+    });
+    expect(screen.queryByRole('dialog')).toBeNull();
+    fireEvent.click(restartButton);
+    act(() => {
+      dialogSpy.mock.calls[0][0].onConfirm();
+    });
     expect(store.getState().game).toMatchSnapshot('reset round');
   });
 });

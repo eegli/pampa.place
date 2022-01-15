@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 
 type PreviewDialogProps = {
+  open: boolean;
   onClose: () => void;
   children: React.ReactNode;
   title: string;
@@ -20,10 +21,10 @@ type PreviewDialogProps = {
 export const PreviewDialog = (props: PreviewDialogProps) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const {bodyText, title, children, onClose} = props;
+  const {bodyText, title, children, open, onClose} = props;
   return (
     <Dialog
-      open
+      open={open}
       onClose={onClose}
       fullScreen={fullScreen}
       PaperProps={{elevation: 1}}

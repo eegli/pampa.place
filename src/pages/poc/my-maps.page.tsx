@@ -103,14 +103,6 @@ export const MyMapsPage: NextPage = () => {
     setMapToPreview(m);
   }
 
-  // Dialog cancel callbacks
-  function closePreview() {
-    setMapToPreview(null);
-  }
-  function closeDeletionDialog() {
-    setMapToDelete(null);
-  }
-
   // Debounce validation of JSON input
   useEffect(() => {
     if (geoJSON) {
@@ -211,8 +203,8 @@ export const MyMapsPage: NextPage = () => {
                 secondaryAction={
                   <IconButton
                     edge="end"
-                    aria-label="delete-map"
-                    name="delete-map"
+                    aria-label="delete-map-icon"
+                    name="delete-map-icon"
                     onClick={() => triggerMapDeletion(m)}
                   >
                     <DeleteIcon />
@@ -222,43 +214,42 @@ export const MyMapsPage: NextPage = () => {
                 <ListItemIcon>
                   <IconButton
                     edge="start"
-                    aria-label="edit-map"
-                    name="edit-map"
+                    aria-label="edit-map-icon"
+                    name="edit-map-icon"
                     onClick={() => editMap(m)}
                   >
                     <EditIcon />
                   </IconButton>
                 </ListItemIcon>
 
-                <ListItemButton>
+                <ListItemButton aria-label="preview-map-btn">
                   <ListItemText
                     onClick={() => triggerMapPreview(m)}
                     primary={m.properties.name}
-                    aria-label="preview-map"
                     secondary={`id: ${m.properties.id}`}
                   />
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
-          {mapToPreview && (
-            <PreviewDialog
-              onClose={closePreview}
-              title={`Local map preview`}
-              bodyText={`Rough bounds of the map "${mapToPreview.properties.name}"`}
-            >
-              <GoogleMap map={mapToPreview} mode="preview" />
-            </PreviewDialog>
-          )}
-          {mapToDelete && (
-            <ConfirmationDialog
-              title="Delete map"
-              message={`Are you sure you want to delete your local map "${mapToDelete.properties.name}"?`}
-              onCancel={closeDeletionDialog}
-              onConfirm={clearMap}
-              onConfirmTitle="Delete map"
-            />
-          )}
+
+          <PreviewDialog
+            open={!!mapToPreview}
+            onClose={() => setMapToPreview(null)}
+            title={`Local map preview`}
+            bodyText={`Rough bounds of the map "${mapToPreview?.properties.name}"`}
+          >
+            {mapToPreview && <GoogleMap map={mapToPreview} mode="preview" />}
+          </PreviewDialog>
+
+          <ConfirmationDialog
+            open={!!mapToDelete}
+            onClose={() => setMapToDelete(null)}
+            title="Delete map"
+            message={`Are you sure you want to delete your local map "${mapToDelete?.properties.name}"?`}
+            onConfirm={clearMap}
+            onConfirmTitle="Delete map"
+          />
         </SlimContainer>
       </PageContentWrapper>
     </>

@@ -9,24 +9,27 @@ import {
 
 export type ConfirmationDialogProps = {
   title: string;
+  open: boolean;
+  onClose: () => void;
   onConfirm: () => void | (() => Promise<void>);
   onConfirmTitle: string;
-  onCancel: () => void;
   onCancelTitle?: string;
   message?: string;
 };
 
 export const ConfirmationDialog = ({
   title,
+  open,
+  onClose,
   onConfirm,
-  onCancel,
   onCancelTitle = 'Cancel',
   message,
   onConfirmTitle,
 }: ConfirmationDialogProps) => {
   return (
     <Dialog
-      open
+      open={open}
+      onClose={onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       PaperProps={{elevation: 2}}
@@ -40,7 +43,7 @@ export const ConfirmationDialog = ({
         </DialogContent>
       )}
       <DialogActions>
-        <Button onClick={onCancel}>{onCancelTitle}</Button>
+        <Button onClick={onClose}>{onCancelTitle}</Button>
         <Button onClick={onConfirm} autoFocus>
           {onConfirmTitle}
         </Button>

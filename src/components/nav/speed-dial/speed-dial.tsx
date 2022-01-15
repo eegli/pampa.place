@@ -16,12 +16,13 @@ import {
   ConfirmationDialogProps,
 } from '../../feedback/dialog-confirm';
 
+type DialogProps = Omit<ConfirmationDialogProps, 'open' | 'onClose'>;
+
 export const SpeedDialNav = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const activeTheme = useAppSelector(s => s.app.theme);
-
-  const [dialog, setDialog] = useState<ConfirmationDialogProps | null>(null);
+  const [dialog, setDialog] = useState<DialogProps | null>(null);
 
   function handleToggleTheme() {
     dispatch(setTheme(activeTheme === 'light' ? 'dark' : 'light'));
@@ -42,16 +43,17 @@ export const SpeedDialNav = () => {
         }}
       >
         <SpeedDial
-          ariaLabel="SpeedDial tooltip example"
+          ariaLabel="speed-dial-menu"
           sx={{position: 'absolute', bottom: 16, left: 16, zIndex: 100}}
           icon={<ShortcutIcon />}
         >
           <SpeedDialAction
-            key="Restart"
+            key="restart"
+            aria-label="restart"
             icon={<RestartIcon />}
             tooltipTitle="Restart round"
             tooltipPlacement="right"
-            onClick={() =>
+            onClick={() => {
               setDialog({
                 title: 'Restart round?',
                 message:
@@ -59,36 +61,29 @@ export const SpeedDialNav = () => {
                 onConfirmTitle: 'Restart round',
                 onConfirm: function () {
                   dispatch(resetRound());
-                  setDialog(null);
                 },
-
-                onCancel: function () {
-                  setDialog(null);
-                },
-              })
-            }
+              });
+            }}
           />
           <SpeedDialAction
-            key="Home"
+            key="home"
+            aria-label="home"
             icon={<HomeIcon />}
             tooltipTitle="Home"
             tooltipPlacement="right"
-            onClick={() =>
+            onClick={() => {
               setDialog({
                 title: 'Abort the game and return home?',
                 onConfirmTitle: 'Abort game',
                 onConfirm: function () {
                   router.push('/');
                 },
-
-                onCancel: function () {
-                  setDialog(null);
-                },
-              })
-            }
+              });
+            }}
           />
           <SpeedDialAction
-            key="Mode"
+            key="theme"
+            aria-label="toggle-theme"
             icon={
               activeTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />
             }
@@ -98,7 +93,13 @@ export const SpeedDialNav = () => {
           />
         </SpeedDial>
       </Box>
-      {dialog && <ConfirmationDialog {...dialog} />}
+      {dialog && (
+        <ConfirmationDialog
+          {...dialog}
+          open={!!dialog}
+          onClose={() => setDialog(null)}
+        />
+      )}
     </>
   );
 };
