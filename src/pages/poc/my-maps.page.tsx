@@ -211,7 +211,8 @@ export const MyMapsPage: NextPage = () => {
                 secondaryAction={
                   <IconButton
                     edge="end"
-                    aria-label="delete"
+                    aria-label="delete-map"
+                    name="delete-map"
                     onClick={() => triggerMapDeletion(m)}
                   >
                     <DeleteIcon />
@@ -221,7 +222,8 @@ export const MyMapsPage: NextPage = () => {
                 <ListItemIcon>
                   <IconButton
                     edge="start"
-                    aria-label="edit"
+                    aria-label="edit-map"
+                    name="edit-map"
                     onClick={() => editMap(m)}
                   >
                     <EditIcon />
@@ -232,6 +234,7 @@ export const MyMapsPage: NextPage = () => {
                   <ListItemText
                     onClick={() => triggerMapPreview(m)}
                     primary={m.properties.name}
+                    aria-label="preview-map"
                     secondary={`id: ${m.properties.id}`}
                   />
                 </ListItemButton>

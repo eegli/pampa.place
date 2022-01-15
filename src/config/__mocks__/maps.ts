@@ -1,9 +1,9 @@
 /* http://localhost:3000/api/maps/mocks */
 
 import {generateMapData} from '../helpers/generator';
-import {testMap, testMapId} from '../__fixtures__';
+import {testMap} from '../__fixtures__';
 
 export const MAPS: ReturnType<typeof generateMapData> = new Map().set(
-  testMapId,
+  testMap.properties.id,
   testMap
 );

@@ -1,43 +1,12 @@
 import {FeatureCollection} from '@turf/helpers';
-import {MapData, MapProperties} from '../types';
-
-export const testMapId = '1mSRVyWP3tLQ';
-
-export const testMapProperties: MapProperties = {
-  name: 'Test map',
-  id: testMapId,
-  category: 'Test',
-  area: 34.542192851713864,
-  bb: [
-    8.472518920898438, 47.351384658074124, 8.576545715332031,
-    47.407179440027875,
-  ],
-  bbLiteral: {
-    SW: {
-      lng: 8.472518920898438,
-      lat: 47.351384658074124,
-    },
-    SE: {
-      lng: 8.576545715332031,
-      lat: 47.351384658074124,
-    },
-    NE: {
-      lng: 8.576545715332031,
-      lat: 47.407179440027875,
-    },
-    NW: {
-      lng: 8.472518920898438,
-      lat: 47.407179440027875,
-    },
-  },
-};
+import {MapData} from '../types';
 
 export const testMap: MapData = {
   type: 'Feature',
   properties: {
-    name: 'Test map',
-    id: testMapId,
-    category: 'Test',
+    name: 'my map',
+    id: 'test-my-map',
+    category: 'test',
     area: 34.542192851713864,
     bb: [
       8.472518920898438, 47.351384658074124, 8.576545715332031,
