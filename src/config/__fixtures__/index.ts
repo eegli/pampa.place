@@ -1,6 +1,8 @@
-import {InputMapData, MapData, MapProperties} from '../types';
+import {generateMapData} from '../helpers/generator';
+import {MapData, MapProperties} from '../types';
 
 export const testMapId = '1mSRVyWP3tLQ';
+
 export const testMapProperties: MapProperties = {
   name: 'Test map',
   id: testMapId,
@@ -79,7 +81,9 @@ export const testMap: MapData = {
   },
 };
 
-export const testFeatureCollecton: InputMapData = {
+export const testFeatureCollecton: Parameters<
+  typeof generateMapData
+>[0]['map'] = {
   type: 'FeatureCollection',
   features: [testMap],
 };
