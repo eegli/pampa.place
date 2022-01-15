@@ -1,4 +1,4 @@
-import {generateMapData} from '../helpers/generator';
+import {FeatureCollection} from '@turf/helpers';
 import {MapData, MapProperties} from '../types';
 
 export const testMapId = '1mSRVyWP3tLQ';
@@ -81,9 +81,7 @@ export const testMap: MapData = {
   },
 };
 
-export const testFeatureCollecton: Parameters<
-  typeof generateMapData
->[0]['map'] = {
+export const testFeatureCollecton: FeatureCollection = {
   type: 'FeatureCollection',
   features: [testMap],
 };
