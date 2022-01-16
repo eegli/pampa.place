@@ -61,6 +61,7 @@ export const SpeedDialNav = () => {
                 confirmMessage: 'Restart round',
                 onConfirmCallback: function () {
                   dispatch(resetRound());
+                  setDialog(null);
                 },
               });
             }}
