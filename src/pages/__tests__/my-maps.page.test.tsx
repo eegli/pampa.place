@@ -1,14 +1,16 @@
 import {MAPS} from '@/config/maps';
 import {testFeatureCollecton, testMap} from '@/config/__fixtures__';
 import {act, fireEvent, render, screen, within} from '@/tests/utils';
-import * as Dialog from '../../components/feedback/dialog-confirm';
+import * as ConfirmDialog from '../../components/feedback/dialog-confirm';
+import * as PreviewDialog from '../../components/feedback/dialog-preview';
 import {Constants} from '../../config/constants';
 import {LocalStorageMaps, MapData} from '../../config/types';
 import {MyMapsPage} from '../poc/my-maps.page';
 
 jest.useFakeTimers();
 
-const dialogSpy = jest.spyOn(Dialog, 'ConfirmationDialog');
+const confirmationSpy = jest.spyOn(ConfirmDialog, 'ConfirmationDialog');
+const previewSpy = jest.spyOn(PreviewDialog, 'PreviewDialog');
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -108,14 +110,16 @@ describe('My maps page', () => {
     const mapItem = screen.getByRole('listitem');
     expect(within(mapItem).getAllByRole('button')).toHaveLength(3);
     fireEvent.click(screen.getByRole('button', {name: 'delete-map-icon'}));
-    expect(dialogSpy).toHaveBeenCalledTimes(1);
-    expect(dialogSpy.mock.calls[0][0]).toMatchSnapshot('map deletion dialog');
+    expect(confirmationSpy).toHaveBeenCalledTimes(1);
+    expect(confirmationSpy.mock.calls[0][0]).toMatchSnapshot(
+      'map deletion dialog'
+    );
     act(() => {
-      dialogSpy.mock.calls[0][0].onCancelCallback();
+      confirmationSpy.mock.calls[0][0].onCancelCallback();
     });
     fireEvent.click(screen.getByRole('button', {name: 'delete-map-icon'}));
     act(() => {
-      dialogSpy.mock.calls[0][0].onConfirmCallback();
+      confirmationSpy.mock.calls[0][0].onConfirmCallback();
     });
     expect(MAPS.get(testMap.properties.id)).toBeUndefined();
     expect(MAPS.size).toBe(1);
@@ -135,9 +139,13 @@ describe('My maps page', () => {
   });
   it('allows previewing local maps', () => {
     const cleanup = loadLocalMaps();
-    const {container} = render(<MyMapsPage />);
+    render(<MyMapsPage />);
+    expect(
+      screen.getByRole('button', {name: 'preview-map-btn'})
+    ).toMatchSnapshot('test');
     fireEvent.click(screen.getByRole('button', {name: 'preview-map-btn'}));
-    // const previewDialog = screen.getAllByRole('dialog');
-    expect(container.firstChild).toMatchSnapshot();
+    expect(previewSpy).toHaveBeenCalledTimes(1);
+    expect(previewSpy.mock.calls[0][0]).toMatchSnapshot('local map preview');
+    cleanup();
   });
 });

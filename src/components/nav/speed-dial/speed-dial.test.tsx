@@ -97,7 +97,6 @@ describe('Speed dial', () => {
     act(() => {
       dialogSpy.mock.calls[0][0].onCancelCallback();
     });
-    expect(screen.queryByRole('dialog')).toBeNull();
     fireEvent.click(restartButton);
     act(() => {
       dialogSpy.mock.calls[0][0].onConfirmCallback();

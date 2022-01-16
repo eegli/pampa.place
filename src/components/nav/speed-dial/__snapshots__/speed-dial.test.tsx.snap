@@ -33,19 +33,19 @@ Object {
 
 exports[`Speed dial can restart round: restart confirmation dialog 1`] = `
 Object {
-  "message": "This will reset the current round progress for all players. The first player will start the current round again in a new location.",
-  "onCloseCallback": [Function],
+  "confirmMessage": "Restart round",
+  "infoMessage": "This will reset the current round progress for all players. The first player will start the current round again in a new location.",
+  "onCancelCallback": [Function],
   "onConfirmCallback": [Function],
-  "onConfirmTitle": "Restart round",
   "title": "Restart round?",
 }
 `;
 
 exports[`Speed dial has home navigation: home confirmation dialog 1`] = `
 Object {
-  "onCloseCallback": [Function],
+  "confirmMessage": "Abort game",
+  "onCancelCallback": [Function],
   "onConfirmCallback": [Function],
-  "onConfirmTitle": "Abort game",
   "title": "Abort the game and return home?",
 }
 `;

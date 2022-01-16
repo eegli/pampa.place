@@ -222,9 +222,11 @@ export const MyMapsPage: NextPage = () => {
                   </IconButton>
                 </ListItemIcon>
 
-                <ListItemButton aria-label="preview-map-btn">
+                <ListItemButton
+                  aria-label="preview-map-btn"
+                  onClick={() => triggerMapPreview(m)}
+                >
                   <ListItemText
-                    onClick={() => triggerMapPreview(m)}
                     primary={m.properties.name}
                     secondary={`id: ${m.properties.id}`}
                   />
@@ -237,7 +239,7 @@ export const MyMapsPage: NextPage = () => {
             <PreviewDialog
               onCloseCallback={() => setMapToPreview(null)}
               title={`Local map preview`}
-              bodyText={`Rough bounds of the map "${mapToPreview.properties.name}"`}
+              text={`Rough bounds of the map "${mapToPreview.properties.name}"`}
             >
               <GoogleMap map={mapToPreview} mode="preview" />
             </PreviewDialog>
@@ -248,8 +250,8 @@ export const MyMapsPage: NextPage = () => {
               onCancelCallback={() => setMapToDelete(null)}
               onConfirmCallback={clearMap}
               title="Delete map"
-              message={`Are you sure you want to delete your local map "${mapToDelete.properties.name}"?`}
-              onConfirmTitle="Delete map"
+              infoMessage={`Are you sure you want to delete your local map "${mapToDelete.properties.name}"?`}
+              confirmMessage="Delete map"
             />
           )}
         </SlimContainer>

@@ -56,9 +56,9 @@ export const SpeedDialNav = () => {
             onClick={() => {
               setDialog({
                 title: 'Restart round?',
-                message:
+                infoMessage:
                   'This will reset the current round progress for all players. The first player will start the current round again in a new location.',
-                onConfirmTitle: 'Restart round',
+                confirmMessage: 'Restart round',
                 onConfirmCallback: function () {
                   dispatch(resetRound());
                 },
@@ -74,7 +74,7 @@ export const SpeedDialNav = () => {
             onClick={() => {
               setDialog({
                 title: 'Abort the game and return home?',
-                onConfirmTitle: 'Abort game',
+                confirmMessage: 'Abort game',
                 onConfirmCallback: function () {
                   router.push('/');
                 },

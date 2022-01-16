@@ -14,13 +14,13 @@ type PreviewDialogProps = {
   onCloseCallback: () => void;
   children: React.ReactNode;
   title: string;
-  bodyText?: string;
+  text?: string;
 };
 
 export const PreviewDialog = (props: PreviewDialogProps) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const {bodyText, title, children, onCloseCallback} = props;
+  const {text, title, children, onCloseCallback} = props;
   return (
     <Dialog
       open={true}
@@ -39,7 +39,7 @@ export const PreviewDialog = (props: PreviewDialogProps) => {
         }}
       >
         <Box
-          id={`preview-dialog-${title}`}
+          id={`preview-dialog`}
           sx={{
             height: 600,
             maxHeight: '100%',
@@ -50,7 +50,7 @@ export const PreviewDialog = (props: PreviewDialogProps) => {
         >
           {children}
         </Box>
-        {bodyText && <DialogContentText p={2}>{bodyText}</DialogContentText>}
+        {text && <DialogContentText p={2}>{text}</DialogContentText>}
       </DialogContent>
       <DialogActions>
         <Button onClick={onCloseCallback}>Close</Button>

@@ -1,426 +1,131 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`My maps page allows previewing local maps 1`] = `
-<div
-  class="MuiContainer-root css-14j32mu-MuiContainer-root"
-  id="mother"
->
-  <div
-    data-testid="__GMAP__CONTAINER__"
-    id="__GMAP__CONTAINER__"
-  >
-    <div
-      data-testid="__GMAP__"
-      id="__GMAP__"
-      style="height: 100%;"
-    />
-  </div>
-  <div
-    data-testid="__GSTV__CONTAINER__"
-    id="__GSTV__CONTAINER__"
-  >
-    <div
-      data-testid="__GSTV__"
-      id="__GSTV__"
-      style="height: 100%;"
-    />
-  </div>
-  <header
-    class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed css-p25sbl-MuiPaper-root-MuiAppBar-root"
-    id="header"
-  >
-    <div
-      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-jkymtx-MuiPaper-root"
-    >
-      <div
-        class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-d9zx07-MuiToolbar-root"
-      >
-        <div
-          class="MuiBox-root css-i9gxme"
-        >
-          <button
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeLarge css-1rolj69-MuiButtonBase-root-MuiIconButton-root"
-            tabindex="0"
-            type="button"
-          >
-            <svg
-              aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-              data-testid="MenuIcon"
-              focusable="false"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
-              />
-            </svg>
-            <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-            />
-          </button>
-        </div>
-        <button
-          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeLarge css-1ltqg87-MuiButtonBase-root-MuiIconButton-root"
-          tabindex="0"
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-            data-testid="LightModeIcon"
-            focusable="false"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"
-            />
-          </svg>
-          <span
-            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-          />
-        </button>
-        <hr
-          class="MuiDivider-root MuiDivider-middle MuiDivider-vertical MuiDivider-flexItem css-v1k7gm-MuiDivider-root"
-        />
-        <a
-          class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-3khgtq-MuiTypography-root-MuiLink-root"
-          href="https://github.com/eegli/pampa.place"
-          rel="noopener"
-          target="_blank"
-        >
-          <button
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeLarge css-1ltqg87-MuiButtonBase-root-MuiIconButton-root"
-            tabindex="0"
-            type="button"
-          >
-            <svg
-              aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-              data-testid="GitHubIcon"
-              focusable="false"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"
-              />
-            </svg>
-            <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-            />
-          </button>
-        </a>
-      </div>
-    </div>
-  </header>
-  <div
-    class="MuiBox-root css-13xybwk"
-    id="my-maps-page"
-  >
-    <div
-      class="MuiBox-root css-2zfs59"
-    >
-      <h1
-        class="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom css-h93ljk-MuiTypography-root"
-      >
-        My Maps
-      </h1>
-      <p
-        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-zt1oku-MuiTypography-root"
-      >
-        Add custom maps to your collection. These maps are only saved in your browser. You can either paste valid GeoJSON or go to
-         
-        <a
-          class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ri3zio-MuiTypography-root-MuiLink-root"
-          href="https://geojson.io/"
-          target="_blank"
-        >
-          geojson.io
-        </a>
-        , draw a polygon and paste it below. 
-        <br />
-        <br />
-        Note that only GeoJSON objects of type 
-        <span
-          class="MuiBox-root css-pq50fq"
-        >
-          <b>
-            Polygon
-          </b>
-        </span>
-         and
-         
-        <span
-          class="MuiBox-root css-pq50fq"
-        >
-          <b>
-            Multipolygon
-          </b>
-        </span>
-         are allowed. For GeoJSON objects of type
-         
-        <span
-          class="MuiBox-root css-sc8rgw"
-        >
-          <b>
-            FeatureCollection
-          </b>
-        </span>
-        , only the first feature will saved.
-      </p>
-      <form
-        autocomplete="off"
-        class="MuiBox-root css-j7qwjs"
-        novalidate=""
-      >
-        <div
-          class="MuiFormControl-root MuiFormControl-marginNormal MuiTextField-root css-1rv3ei8-MuiFormControl-root-MuiTextField-root"
-        >
-          <label
-            class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-rb5gc9-MuiFormLabel-root-MuiInputLabel-root"
-            data-shrink="false"
-            for="mui-11"
-            id="mui-11-label"
-          >
-            Map name
-          </label>
-          <div
-            class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-px39cz-MuiInputBase-root-MuiOutlinedInput-root"
-          >
-            <input
-              aria-invalid="false"
-              class="MuiOutlinedInput-input MuiInputBase-input css-p51h6s-MuiInputBase-input-MuiOutlinedInput-input"
-              id="mui-11"
-              placeholder="Add a display name for the map"
-              type="text"
-              value=""
-            />
-            <fieldset
-              aria-hidden="true"
-              class="MuiOutlinedInput-notchedOutline css-9425fu-MuiOutlinedInput-notchedOutline"
-            >
-              <legend
-                class="css-173wfxe"
-              >
-                <span>
-                  Map name
-                </span>
-              </legend>
-            </fieldset>
-          </div>
-        </div>
-        <div
-          class="MuiFormControl-root MuiFormControl-marginNormal MuiTextField-root css-1rv3ei8-MuiFormControl-root-MuiTextField-root"
-        >
-          <label
-            class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-rb5gc9-MuiFormLabel-root-MuiInputLabel-root"
-            data-shrink="false"
-            for="mui-12"
-            id="mui-12-label"
-          >
-            GeoJSON
-          </label>
-          <div
-            class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-multiline css-qvjgzj-MuiInputBase-root-MuiOutlinedInput-root"
-          >
-            <textarea
-              aria-invalid="false"
-              class="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputMultiline css-18ax2bx-MuiInputBase-input-MuiOutlinedInput-input"
-              id="mui-12"
-              rows="8"
-              style="height: 0px; overflow: hidden;"
-            />
-            <textarea
-              aria-hidden="true"
-              class="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputMultiline css-18ax2bx-MuiInputBase-input-MuiOutlinedInput-input"
-              readonly=""
-              style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); padding: 0px; width: 100%;"
-              tabindex="-1"
-            />
-            <fieldset
-              aria-hidden="true"
-              class="MuiOutlinedInput-notchedOutline css-9425fu-MuiOutlinedInput-notchedOutline"
-            >
-              <legend
-                class="css-173wfxe"
-              >
-                <span>
-                  GeoJSON
-                </span>
-              </legend>
-            </fieldset>
-          </div>
-          
-        </div>
-      </form>
-      
-      <hr
-        class="MuiDivider-root MuiDivider-fullWidth MuiDivider-light css-18wzyuf-MuiDivider-root"
-      />
-      <h1
-        class="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom css-h93ljk-MuiTypography-root"
-      >
-        Local maps
-      </h1>
-      <p
-        class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-zt1oku-MuiTypography-root"
-      >
-        These maps are saved locally in your browser. Click on a map to preview the bounds.
-      </p>
-      <ul
-        class="MuiList-root MuiList-padding MuiList-dense css-h4y409-MuiList-root"
-        id="local-maps-list"
-      >
-        <li
-          class="MuiListItem-root MuiListItem-dense MuiListItem-gutters MuiListItem-padding css-5dqxhx-MuiListItem-root"
-        >
-          <div
-            class="MuiListItemIcon-root css-qklaqr-MuiListItemIcon-root"
-          >
-            <button
-              aria-label="edit-map-icon"
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeStart MuiIconButton-sizeMedium css-1t7w49f-MuiButtonBase-root-MuiIconButton-root"
-              name="edit-map-icon"
-              tabindex="0"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-                data-testid="EditIcon"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                />
-              </svg>
-              <span
-                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-              />
-            </button>
-          </div>
-          <div
-            aria-label="preview-map-btn"
-            class="MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiButtonBase-root css-1sk5ffb-MuiButtonBase-root-MuiListItemButton-root"
-            role="button"
-            tabindex="0"
-          >
-            <div
-              class="MuiListItemText-root MuiListItemText-dense MuiListItemText-multiline css-konndc-MuiListItemText-root"
-            >
-              <span
-                class="MuiTypography-root MuiTypography-body2 MuiListItemText-primary css-et1ao3-MuiTypography-root"
-              >
-                user map
-              </span>
-              <p
-                class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-1ijlrmj-MuiTypography-root"
-              >
-                id: local-user-map
-              </p>
-            </div>
-            <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-            />
-          </div>
-          <div
-            class="MuiListItemSecondaryAction-root css-518kzi-MuiListItemSecondaryAction-root"
-          >
-            <button
-              aria-label="delete-map-icon"
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-1k3ibsw-MuiButtonBase-root-MuiIconButton-root"
-              name="delete-map-icon"
-              tabindex="0"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-                data-testid="DeleteIcon"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
-                />
-              </svg>
-              <span
-                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-              />
-            </button>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+exports[`My maps page allows previewing local maps: local map preview 1`] = `
+Object {
+  "children": <GoogleMap
+    map={
+      Object {
+        "geometry": Object {
+          "coordinates": Array [
+            Array [
+              Array [
+                8.530540466308594,
+                47.35696679330478,
+              ],
+              Array [
+                8.576202392578125,
+                47.351384658074124,
+              ],
+              Array [
+                8.576545715332031,
+                47.36231578548192,
+              ],
+              Array [
+                8.568305969238281,
+                47.38789042338135,
+              ],
+              Array [
+                8.545989990234375,
+                47.39904637835624,
+              ],
+              Array [
+                8.490028381347656,
+                47.407179440027875,
+              ],
+              Array [
+                8.472518920898438,
+                47.39253902496185,
+              ],
+              Array [
+                8.473548889160156,
+                47.37277963653446,
+              ],
+              Array [
+                8.507537841796875,
+                47.357431944587034,
+              ],
+              Array [
+                8.530540466308594,
+                47.35696679330478,
+              ],
+            ],
+          ],
+          "type": "Polygon",
+        },
+        "properties": Object {
+          "area": 34.542192851713864,
+          "bb": Array [
+            8.472518920898438,
+            47.351384658074124,
+            8.576545715332031,
+            47.407179440027875,
+          ],
+          "bbLiteral": Object {
+            "NE": Object {
+              "lat": 47.407179440027875,
+              "lng": 8.576545715332031,
+            },
+            "NW": Object {
+              "lat": 47.407179440027875,
+              "lng": 8.472518920898438,
+            },
+            "SE": Object {
+              "lat": 47.351384658074124,
+              "lng": 8.576545715332031,
+            },
+            "SW": Object {
+              "lat": 47.351384658074124,
+              "lng": 8.472518920898438,
+            },
+          },
+          "category": "test",
+          "id": "local-user-map",
+          "name": "user map",
+        },
+        "type": "Feature",
+      }
+    }
+    mode="preview"
+  />,
+  "onCloseCallback": [Function],
+  "text": "Rough bounds of the map \\"user map\\"",
+  "title": "Local map preview",
+}
 `;
 
-exports[`My maps page removes input maps from global maps and local storage 1`] = `
+exports[`My maps page allows previewing local maps: test 1`] = `
 <div
-  aria-describedby="alert-dialog-description"
-  aria-labelledby="alert-dialog-title"
-  class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation2 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm css-18iwoi7-MuiPaper-root-MuiDialog-paper"
-  role="dialog"
+  aria-label="preview-map-btn"
+  class="MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiButtonBase-root css-1sk5ffb-MuiButtonBase-root-MuiListItemButton-root"
+  role="button"
+  tabindex="0"
 >
-  <h2
-    class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-bdhsul-MuiTypography-root-MuiDialogTitle-root"
-    id="alert-dialog-title"
-  >
-    Delete map
-  </h2>
   <div
-    class="MuiDialogContent-root css-ypiqx9-MuiDialogContent-root"
+    class="MuiListItemText-root MuiListItemText-dense MuiListItemText-multiline css-konndc-MuiListItemText-root"
   >
-    <p
-      class="MuiDialogContentText-root MuiTypography-root MuiTypography-body1 css-c0dc4c-MuiTypography-root-MuiDialogContentText-root"
-      id="alert-dialog-description"
+    <span
+      class="MuiTypography-root MuiTypography-body2 MuiListItemText-primary css-et1ao3-MuiTypography-root"
     >
-      Are you sure you want to delete your local map "user map"?
+      user map
+    </span>
+    <p
+      class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-1ijlrmj-MuiTypography-root"
+    >
+      id: local-user-map
     </p>
   </div>
-  <div
-    class="MuiDialogActions-root MuiDialogActions-spacing css-hlj6pa-MuiDialogActions-root"
-  >
-    <button
-      class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1o011v7-MuiButtonBase-root-MuiButton-root"
-      tabindex="0"
-      type="button"
-    >
-      Cancel
-      <span
-        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-      />
-    </button>
-    <button
-      class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root Mui-focusVisible  css-1o011v7-MuiButtonBase-root-MuiButton-root"
-      tabindex="0"
-      type="button"
-    >
-      Delete map
-      <span
-        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-      >
-        <span
-          class="css-y4cjyz-MuiTouchRipple-ripple MuiTouchRipple-ripple MuiTouchRipple-rippleVisible MuiTouchRipple-ripplePulsate"
-          style="width: 1px; height: 1px; top: -0.5px; left: -0.5px;"
-        >
-          <span
-            class="MuiTouchRipple-child MuiTouchRipple-childPulsate"
-          />
-        </span>
-      </span>
-    </button>
-  </div>
+  <span
+    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+  />
 </div>
 `;
 
 exports[`My maps page removes input maps from global maps and local storage: map deletion dialog 1`] = `
 Object {
-  "message": "Are you sure you want to delete your local map \\"user map\\"?",
-  "onCloseCallback": [Function],
+  "confirmMessage": "Delete map",
+  "infoMessage": "Are you sure you want to delete your local map \\"user map\\"?",
+  "onCancelCallback": [Function],
   "onConfirmCallback": [Function],
-  "onConfirmTitle": "Delete map",
   "title": "Delete map",
 }
 `;

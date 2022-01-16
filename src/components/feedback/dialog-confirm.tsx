@@ -9,39 +9,31 @@ import {
 
 export type ConfirmationDialogProps = {
   title: string;
+  infoMessage?: string;
   onCancelCallback: () => void;
   onConfirmCallback: () => void | (() => Promise<void>);
-  onConfirmTitle: string;
-  message?: string;
+  confirmMessage?: string;
+  cancelMessage?: string;
 };
 
 export const ConfirmationDialog = ({
   title,
+  infoMessage,
   onCancelCallback,
   onConfirmCallback,
-  message,
-  onConfirmTitle,
+  confirmMessage = 'Confirm',
+  cancelMessage = 'Cancel',
 }: ConfirmationDialogProps) => {
   return (
-    <Dialog
-      open={true}
-      onClose={onCancelCallback}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-      PaperProps={{elevation: 2}}
-    >
-      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
-      {message && (
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {message}
-          </DialogContentText>
-        </DialogContent>
-      )}
+    <Dialog open={true} onClose={onCancelCallback} PaperProps={{elevation: 2}}>
+      <DialogTitle>{title}</DialogTitle>
+      <DialogContent>
+        {infoMessage && <DialogContentText>{infoMessage}</DialogContentText>}
+      </DialogContent>
       <DialogActions>
-        <Button onClick={onCancelCallback}>Cancel</Button>
+        <Button onClick={onCancelCallback}>{cancelMessage}</Button>
         <Button onClick={onConfirmCallback} autoFocus>
-          {onConfirmTitle}
+          {confirmMessage}
         </Button>
       </DialogActions>
     </Dialog>
