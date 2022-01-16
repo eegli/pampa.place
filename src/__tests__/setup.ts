@@ -1,7 +1,22 @@
 import {initialize, LatLng, Size} from '@googlemaps/jest-mocks';
 import '@testing-library/jest-dom/extend-expect';
+import {NextRouter} from 'next/router';
 
 jest.mock('../config/maps');
+jest.mock('next/router', () => ({
+  useRouter() {
+    const router: Partial<NextRouter> = {
+      replace: jest.fn(),
+      route: '/',
+      pathname: '',
+      query: {},
+      asPath: '',
+      back: jest.fn(),
+      beforePopState: jest.fn(),
+    };
+    return router;
+  },
+}));
 
 jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
 jest.spyOn(global.console, 'info').mockImplementation(() => jest.fn());
