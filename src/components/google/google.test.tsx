@@ -57,7 +57,8 @@ describe('Google, Map', () => {
   it('renders and has containers in document', () => {
     const mapMountSpy = jest.spyOn(MapService, 'mount');
     const {unmount} = render(<GoogleMap map={testMap} />);
-    screen.getByTestId('__GMAP__CONTAINER__');
+    expect(screen.getByTestId('__GMAP__CONTAINER__')).toBeInTheDocument();
+    expect(screen.getByTestId('__GMAP__')).toBeInTheDocument();
     expect(screen.getByTestId('__GMAP__')).toHaveStyle('height:100%');
     expect(mapMountSpy).toHaveBeenCalledTimes(1);
     expect(services.gmap.map.setOptions).not.toHaveBeenCalled();
@@ -124,7 +125,8 @@ describe('Google, Map', () => {
 describe('Google, Street view', () => {
   it('renders and has containers in document', () => {
     render(<GoogleStreetView />);
-    screen.getByTestId('__GSTV__CONTAINER__');
+    expect(screen.getByTestId('__GSTV__CONTAINER__')).toBeInTheDocument();
+    expect(screen.getByTestId('__GSTV__')).toBeInTheDocument();
     expect(screen.getByTestId('__GSTV__')).toHaveStyle('height:100%');
   });
   it('has game mode', () => {

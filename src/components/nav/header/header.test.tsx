@@ -8,14 +8,10 @@ import {
 } from '@/tests/utils';
 import {Header} from './header';
 
-function getIconButton(iconName: string) {
-  return screen.getByTestId(new RegExp(iconName, 'ig'));
-}
-
 describe('Header', () => {
   it('opens drawer', () => {
     render(<Header />);
-    const menuButton = getIconButton('MenuIcon');
+    const menuButton = screen.getByRole('button', {name: 'menu-btn'});
     fireEvent.click(menuButton);
     screen.getByRole('presentation');
   });
@@ -33,13 +29,13 @@ describe('Header', () => {
     const state = createMockState({app: {theme: 'dark'}});
     const store = createMockStore(state);
     const {unmount} = render(<Header />, store);
-    let themeButton = getIconButton('ModeIcon');
+    let themeButton = screen.getByRole('button', {name: 'theme-toggle-btn'});
     fireEvent.click(themeButton);
     expect(store.getState().app.theme).toBe('light');
     expect(window.localStorage.getItem(Constants.THEME_KEY)).toBe('light');
     unmount();
     render(<Header />, store);
-    themeButton = getIconButton('ModeIcon');
+    themeButton = screen.getByRole('button', {name: 'theme-toggle-btn'});
     fireEvent.click(themeButton);
     expect(store.getState().app.theme).toBe('dark');
     expect(window.localStorage.getItem(Constants.THEME_KEY)).toBe('dark');

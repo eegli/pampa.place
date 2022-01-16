@@ -40,6 +40,7 @@ export const Header = () => {
                 size="large"
                 edge="start"
                 color="inherit"
+                aria-label="menu-btn"
                 sx={{mr: 2}}
               >
                 <MenuIcon />
@@ -54,6 +55,7 @@ export const Header = () => {
               size="large"
               edge="start"
               color="inherit"
+              aria-label="theme-toggle-btn"
               sx={{mx: 1}}
               onClick={handleToggleTheme}
             >
@@ -71,6 +73,7 @@ export const Header = () => {
                 size="large"
                 edge="start"
                 color="inherit"
+                aria-label="github-link"
                 sx={{mx: 1}}
               >
                 <GitHubIcon />
