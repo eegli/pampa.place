@@ -42,6 +42,7 @@ export const Login = () => {
         ).json();
         dispatch(setApiKey(res.apikey));
       } catch (e) {
+        console.error(e);
         setInputError('Invalid password');
       }
     }
