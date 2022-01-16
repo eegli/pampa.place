@@ -13,5 +13,8 @@ export const MAPS = generateMapData(
     category: 'switzerland',
     transformer: swissMapsTransformer,
   },
-  {map: require('geojson/alps.json'), category: 'alps'}
+  {
+    map: require('geojson/usa.json'),
+    category: 'usa',
+  }
 );
