@@ -1,5 +1,5 @@
 import {validateAndComputeGeoJSON} from '../helpers/validator';
-import {testFeatureCollecton, testMap} from '../__fixtures__';
+import {testFeatureCollecton, testMap} from '../__fixtures__/';
 
 describe('Config generation helpers', () => {
   it('works with features', () => {

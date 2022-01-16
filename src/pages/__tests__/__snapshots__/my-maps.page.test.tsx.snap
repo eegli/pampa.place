@@ -79,8 +79,8 @@ Object {
             },
           },
           "category": "test",
-          "id": "local-user-map",
-          "name": "user map",
+          "id": "local-user-input-map",
+          "name": "user input map",
         },
         "type": "Feature",
       }
@@ -88,7 +88,7 @@ Object {
     mode="preview"
   />,
   "onCloseCallback": [Function],
-  "text": "Rough bounds of the map \\"user map\\"",
+  "text": "Rough bounds of the map \\"user input map\\"",
   "title": "Local map preview",
 }
 `;
@@ -96,7 +96,7 @@ Object {
 exports[`My maps page removes input maps from global maps and local storage: map deletion dialog 1`] = `
 Object {
   "confirmMessage": "Delete map",
-  "infoMessage": "Are you sure you want to delete your local map \\"user map\\"?",
+  "infoMessage": "Are you sure you want to delete your local map \\"user input map\\"?",
   "onCancelCallback": [Function],
   "onConfirmCallback": [Function],
   "title": "Delete map",

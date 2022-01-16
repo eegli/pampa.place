@@ -52,5 +52,20 @@ export const testMap: MapData = {
 
 export const testFeatureCollecton: FeatureCollection = {
   type: 'FeatureCollection',
-  features: [testMap],
+  features: [
+    {
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [8.530540466308594, 47.35696679330478],
+            [8.576202392578125, 47.351384658074124],
+            [8.530540466308594, 47.35696679330478],
+          ],
+        ],
+      },
+    },
+  ],
 };

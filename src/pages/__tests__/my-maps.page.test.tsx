@@ -41,23 +41,24 @@ function expectDialogToBeGone() {
 }
 
 function loadLocalMaps() {
-  // Prepare localstorage before rendering
-  const userMap: MapData = {...testMap};
-  // Overwrite the mock map to have the properties of a user map
-  userMap.properties.name = 'user map';
-  userMap.properties.id = 'local-user-map';
-  expect(MAPS.size).toBe(1);
+  const userMap: MapData = JSON.parse(JSON.stringify(testMap));
+  userMap.properties.name = 'user input map';
+  userMap.properties.id = 'local-user-input-map';
+  const originalAmountOfMaps = MAPS.size;
   MAPS.set(userMap.properties.id, userMap);
-  expect(MAPS.size).toBe(2);
   const local: LocalStorageMaps = {[userMap.properties.id]: userMap};
   window.localStorage.setItem(
     Constants.LOCALSTORAGE_MAPS_KEY,
     JSON.stringify(local)
   );
 
-  return function cleanup() {
-    MAPS.delete('local-user-map');
-    window.localStorage.clear();
+  return {
+    userMapId: userMap.properties.id,
+    cleanup() {
+      MAPS.delete(userMap.properties.id);
+      window.localStorage.clear();
+      expect(MAPS.size).toBe(originalAmountOfMaps);
+    },
   };
 }
 
@@ -84,7 +85,7 @@ describe('My maps page', () => {
   });
   it('adds input maps to global maps and local storage', () => {
     render(<MyMapsPage />);
-    expect(MAPS.size).toBe(1);
+    const originalAmountOfMaps = MAPS.size;
     expect(screen.queryByRole('button', {name: /add map/gi})).toBeNull();
     // Add map 1 (a feature collection)
     enterName('collection map');
@@ -101,13 +102,14 @@ describe('My maps page', () => {
     );
     const localMaps = Object.values(local);
     expect(localMaps.length).toBe(2);
+    // Manual cleanup
     MAPS.delete('local-collection-map');
     MAPS.delete('local-feature-map');
-    expect(MAPS.size).toBe(1);
+    expect(MAPS.size).toBe(originalAmountOfMaps);
     window.localStorage.clear();
   });
   it('removes input maps from global maps and local storage', () => {
-    const cleanup = loadLocalMaps();
+    const {cleanup, userMapId} = loadLocalMaps();
     render(<MyMapsPage />);
     expect(screen.getAllByRole('listitem')).toHaveLength(1);
     // Delete, preview and edit buttons
@@ -124,11 +126,12 @@ describe('My maps page', () => {
     // Canceling should clear the dialog
     expectDialogToBeGone();
     fireEvent.click(screen.getByRole('button', {name: 'delete-map-icon'}));
+    // Delete the map from local storage and the global maps
     act(() => {
       confirmationSpy.mock.calls[0][0].onConfirmCallback();
     });
     expectDialogToBeGone();
-    expect(MAPS.get(testMap.properties.id)).toBeUndefined();
+    expect(MAPS.get(userMapId)).toBeUndefined();
     expect(MAPS.size).toBe(1);
     const updatedLocalMaps = window.localStorage.getItem(
       Constants.LOCALSTORAGE_MAPS_KEY
@@ -137,7 +140,7 @@ describe('My maps page', () => {
     cleanup();
   });
   it('allows previewing local maps', () => {
-    const cleanup = loadLocalMaps();
+    const {cleanup} = loadLocalMaps();
     render(<MyMapsPage />);
     fireEvent.click(screen.getByRole('button', {name: 'preview-map-btn'}));
     expect(previewSpy).toHaveBeenCalledTimes(1);
@@ -149,7 +152,7 @@ describe('My maps page', () => {
     cleanup();
   });
   it('allows editing local maps', () => {
-    const cleanup = loadLocalMaps();
+    const {cleanup} = loadLocalMaps();
     render(<MyMapsPage />);
     expect(jsonInput()).toHaveValue('');
     fireEvent.click(screen.getByRole('button', {name: 'edit-map-icon'}));
