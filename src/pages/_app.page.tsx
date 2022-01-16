@@ -24,7 +24,6 @@ const App = ({
   pageProps,
   emotionCache = clientSideEmotionCache,
 }: ExtendedAppProps) => {
-  console.log(process.env.NEXT_PUBLIC_GA_ID);
   return (
     <>
       <GoogleAnalytics />
