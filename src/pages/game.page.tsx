@@ -8,6 +8,7 @@ import {STATUS} from '@/redux/game';
 import {getRandomStreetView} from '@/redux/position/thunks';
 import {NextPage} from 'next';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
+import {resetError} from '../redux/position';
 import {PageContentWrapper} from '../styles/containers';
 
 // An approach to shallow rendering. Utils can easily be mocked in
@@ -35,6 +36,7 @@ export const GamePage: NextPage = () => {
   const positionError = useAppSelector(({position}) => position.error);
 
   function handleRetry() {
+    dispatch(resetError());
     dispatch(getRandomStreetView());
   }
 

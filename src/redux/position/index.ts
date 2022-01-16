@@ -28,6 +28,9 @@ const positonSlice = createSlice({
   name: 'position',
   initialState,
   reducers: {
+    resetError(state) {
+      state.error = null;
+    },
     resetSelectedPosition(state) {
       state.selectedPosition = null;
     },
@@ -57,6 +60,6 @@ const positonSlice = createSlice({
   },
 });
 
-export const {updateSelectedPosition, resetSelectedPosition} =
+export const {updateSelectedPosition, resetSelectedPosition, resetError} =
   positonSlice.actions;
 export default positonSlice;
