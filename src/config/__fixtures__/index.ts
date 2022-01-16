@@ -50,7 +50,7 @@ export const testMap: MapData = {
   },
 };
 
-export const testFeatureCollecton: FeatureCollection = {
+export const userInputFeatureCollection: FeatureCollection = {
   type: 'FeatureCollection',
   features: [
     {

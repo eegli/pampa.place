@@ -1,5 +1,120 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`My maps page adds input maps to global maps and local storage: add maps to global 1`] = `
+Array [
+  Array [
+    "local-collection-map",
+    Object {
+      "geometry": Object {
+        "coordinates": Array [
+          Array [
+            Array [
+              8.530540466308594,
+              47.35696679330478,
+            ],
+            Array [
+              8.576202392578125,
+              47.351384658074124,
+            ],
+            Array [
+              8.530540466308594,
+              47.35696679330478,
+            ],
+          ],
+        ],
+        "type": "Polygon",
+      },
+      "properties": Object {
+        "area": 0,
+        "bb": Array [
+          8.530540466308594,
+          47.351384658074124,
+          8.576202392578125,
+          47.35696679330478,
+        ],
+        "bbLiteral": Object {
+          "NE": Object {
+            "lat": 47.35696679330478,
+            "lng": 8.576202392578125,
+          },
+          "NW": Object {
+            "lat": 47.35696679330478,
+            "lng": 8.530540466308594,
+          },
+          "SE": Object {
+            "lat": 47.351384658074124,
+            "lng": 8.576202392578125,
+          },
+          "SW": Object {
+            "lat": 47.351384658074124,
+            "lng": 8.530540466308594,
+          },
+        },
+        "category": "local",
+        "id": "local-collection-map",
+        "name": "collection map",
+      },
+      "type": "Feature",
+    },
+  ],
+  Array [
+    "local-feature-map",
+    Object {
+      "geometry": Object {
+        "coordinates": Array [
+          Array [
+            Array [
+              8.530540466308594,
+              47.35696679330478,
+            ],
+            Array [
+              8.576202392578125,
+              47.351384658074124,
+            ],
+            Array [
+              8.530540466308594,
+              47.35696679330478,
+            ],
+          ],
+        ],
+        "type": "Polygon",
+      },
+      "properties": Object {
+        "area": 0,
+        "bb": Array [
+          8.530540466308594,
+          47.351384658074124,
+          8.576202392578125,
+          47.35696679330478,
+        ],
+        "bbLiteral": Object {
+          "NE": Object {
+            "lat": 47.35696679330478,
+            "lng": 8.576202392578125,
+          },
+          "NW": Object {
+            "lat": 47.35696679330478,
+            "lng": 8.530540466308594,
+          },
+          "SE": Object {
+            "lat": 47.351384658074124,
+            "lng": 8.576202392578125,
+          },
+          "SW": Object {
+            "lat": 47.351384658074124,
+            "lng": 8.530540466308594,
+          },
+        },
+        "category": "local",
+        "id": "local-feature-map",
+        "name": "feature map",
+      },
+      "type": "Feature",
+    },
+  ],
+]
+`;
+
 exports[`My maps page allows previewing local maps: local map preview 1`] = `
 Object {
   "children": <GoogleMap
@@ -79,8 +194,8 @@ Object {
             },
           },
           "category": "test",
-          "id": "local-user-input-map",
-          "name": "user input map",
+          "id": "test-my-map",
+          "name": "my map",
         },
         "type": "Feature",
       }
@@ -88,7 +203,7 @@ Object {
     mode="preview"
   />,
   "onCloseCallback": [Function],
-  "text": "Rough bounds of the map \\"user input map\\"",
+  "text": "Rough bounds of the map \\"my map\\"",
   "title": "Local map preview",
 }
 `;
@@ -96,7 +211,7 @@ Object {
 exports[`My maps page removes input maps from global maps and local storage: map deletion dialog 1`] = `
 Object {
   "confirmMessage": "Delete map",
-  "infoMessage": "Are you sure you want to delete your local map \\"user input map\\"?",
+  "infoMessage": "Are you sure you want to delete your local map \\"my map\\"?",
   "onCancelCallback": [Function],
   "onConfirmCallback": [Function],
   "title": "Delete map",

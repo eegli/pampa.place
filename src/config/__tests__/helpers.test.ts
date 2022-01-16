@@ -2,7 +2,7 @@ import {Constants} from '../constants';
 import {generateMapData} from '../helpers/generator';
 import {validateAndComputeGeoJSON} from '../helpers/validator';
 import {LocalStorageMaps, MapData} from '../types';
-import {testFeatureCollecton, testMap} from '../__fixtures__/';
+import {testMap, userInputFeatureCollection} from '../__fixtures__/';
 
 describe('Config generation helpers', () => {
   it('works with features', () => {
@@ -11,7 +11,7 @@ describe('Config generation helpers', () => {
   it('rejects featurecollections', () => {
     expect(() =>
       // @ts-expect-error test input
-      validateAndComputeGeoJSON(testFeatureCollecton, 'test')
+      validateAndComputeGeoJSON(userInputFeatureCollection, 'test')
     ).toThrow();
   });
   it('loads maps from localstorage', () => {
