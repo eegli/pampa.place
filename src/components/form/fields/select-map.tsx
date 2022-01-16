@@ -1,4 +1,5 @@
 import {MAPS} from '@/config/maps';
+import {MapData} from '@/config/types';
 import {setMap} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -15,7 +16,6 @@ import {
   Tooltip,
 } from '@mui/material';
 import {useMemo, useState} from 'react';
-import {MapData} from '../../../config/types';
 import {PreviewDialog} from '../../feedback/dialog-preview';
 import {GoogleMap} from '../../google/map';
 
@@ -78,7 +78,7 @@ export const FormMapSelect = () => {
                 onClick={() => setPreviewMap(!previewMap)}
                 edge="end"
                 sx={{mr: 1}}
-                data-testid="map-preview-button"
+                aria-label="preview-map-icon"
               >
                 <Tooltip title="Preview map">
                   <VisibilityIcon />

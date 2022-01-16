@@ -1,5 +1,5 @@
+import * as PreviewDialog from '@/components/feedback/dialog-preview';
 import {config} from '@/config/game';
-import {MapService} from '@/services/google';
 import {
   ByRoleOptions,
   createMockState,
@@ -132,15 +132,19 @@ describe('Form, duration select', () => {
 
 // TODO
 describe('Form, map selection and preview', () => {
-  const toggleSpy = jest.spyOn(MapService, 'mount');
+  const previewSpy = jest.spyOn(PreviewDialog, 'PreviewDialog');
   it('displays maps', () => {
     render(<FormMapSelect />);
-    screen.getByRole('button', {name: /my map/i});
+    expect(
+      screen.getByRole('button', {name: /my test map/i})
+    ).toBeInTheDocument();
   });
   it('displays map preview', () => {
     render(<FormMapSelect />);
-    const previewMapButton = screen.getByTestId('map-preview-button');
+    const previewMapButton = screen.getByRole('button', {
+      name: 'preview-map-icon',
+    });
     fireEvent.click(previewMapButton);
-    expect(toggleSpy).toHaveBeenCalledTimes(1);
+    expect(previewSpy).toHaveBeenCalledTimes(1);
   });
 });

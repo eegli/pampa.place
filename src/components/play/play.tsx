@@ -1,9 +1,9 @@
+import {MAPS} from '@/config/maps';
 import {setPlayerScore} from '@/redux/game';
 import {getActivePlayer} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {Box, Button} from '@mui/material';
 import {useState} from 'react';
-import {MAPS} from '../../config/maps';
 import {GoogleMap} from '../google/map';
 import {GoogleStreetView} from '../google/street-view';
 import {PlayHeader} from './header/header';

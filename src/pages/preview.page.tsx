@@ -1,9 +1,9 @@
+import {Header} from '@/components/nav/header/header';
 import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
 import {alpha, Checkbox, FormControlLabel, FormGroup} from '@mui/material';
 import {NextPage} from 'next';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Header} from '../components/nav/header/header';
 import {MapProperties} from '../config/types';
 import {MapService} from '../services/google';
 import {PageContentWrapper} from '../styles/containers';

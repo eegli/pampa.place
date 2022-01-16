@@ -4,8 +4,8 @@ import {MapData} from '../types';
 export const testMap: MapData = {
   type: 'Feature',
   properties: {
-    name: 'my map',
-    id: 'test-my-map',
+    name: 'my test map',
+    id: 'test-my-test-map',
     category: 'test',
     area: 34.542192851713864,
     bb: [

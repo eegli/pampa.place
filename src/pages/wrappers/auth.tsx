@@ -1,6 +1,6 @@
+import {Spinner} from '@/components/feedback/spinner';
 import {Status, Wrapper} from '@googlemaps/react-wrapper';
 import {ReactNode, useEffect} from 'react';
-import {Spinner} from '../../components/feedback/spinner';
 import {useAppSelector} from '../../redux/hooks';
 import {PageContentWrapper} from '../../styles/containers';
 import {Login} from './login';

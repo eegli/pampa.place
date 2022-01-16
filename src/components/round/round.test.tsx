@@ -1,3 +1,4 @@
+import {ValidationError} from '@/redux/position/thunks';
 import {
   createMockState,
   createMockStore,
@@ -6,7 +7,6 @@ import {
   screen,
   waitFor,
 } from '@/tests/utils';
-import {ValidationError} from '../../redux/position/thunks';
 import {GameOverSummary} from './game-over';
 import {RoundIntermission} from './intermission';
 import {RoundOverSummary} from './round-over';

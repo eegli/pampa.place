@@ -2,8 +2,8 @@
 
 exports[`Speed dial can restart round: reset round 1`] = `
 Object {
-  "mapId": "test-my-map",
-  "mapName": "my map",
+  "mapId": "test-my-test-map",
+  "mapName": "my test map",
   "players": Array [
     "player1",
     "player2",

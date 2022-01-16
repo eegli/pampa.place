@@ -1,10 +1,10 @@
+import * as ConfirmDialog from '@/components/feedback/dialog-confirm';
+import * as PreviewDialog from '@/components/feedback/dialog-preview';
+import {Constants} from '@/config/constants';
 import {MAPS} from '@/config/maps';
+import {LocalStorageMaps, MapData} from '@/config/types';
 import {testMap, userInputFeatureCollection} from '@/config/__fixtures__';
 import {act, fireEvent, render, screen} from '@/tests/utils';
-import * as ConfirmDialog from '../../components/feedback/dialog-confirm';
-import * as PreviewDialog from '../../components/feedback/dialog-preview';
-import {Constants} from '../../config/constants';
-import {LocalStorageMaps, MapData} from '../../config/types';
 import {MyMapsPage} from '../poc/my-maps.page';
 
 jest.useFakeTimers();

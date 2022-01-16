@@ -1,4 +1,5 @@
 import {config} from '@/config/game';
+import {testMap} from '@/config/__fixtures__';
 import {
   MapService,
   MarkerService,
@@ -7,7 +8,6 @@ import {
 } from '@/services/google';
 import {createMockStore, render, screen} from '@/tests/utils';
 import {mocked} from 'jest-mock';
-import {testMap} from '../../config/__fixtures__';
 import {GoogleMap, GoogleMapProps} from './map';
 import {svgMarkerColors} from './marker';
 import {GoogleStreetView} from './street-view';

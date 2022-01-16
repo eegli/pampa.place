@@ -1,11 +1,11 @@
+import {Header} from '@/components/nav/header/header';
+import {FancyRetroTitle} from '@/components/typography/retro-title';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import {NextPage} from 'next';
 import Link from 'next/link';
-import {Header} from '../components/nav/header/header';
-import {FancyRetroTitle} from '../components/typography/retro-title';
 import {PageContentWrapper, SlimContainer} from '../styles/containers';
 
 const InfoIcon = () => (

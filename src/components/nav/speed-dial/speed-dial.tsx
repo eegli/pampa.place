@@ -1,3 +1,7 @@
+import {
+  ConfirmationDialog,
+  ConfirmationDialogProps,
+} from '@/components/feedback/dialog-confirm';
 import {setTheme} from '@/redux/app';
 import {resetRound} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
@@ -11,10 +15,6 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import {useRouter} from 'next/router';
 import {useState} from 'react';
-import {
-  ConfirmationDialog,
-  ConfirmationDialogProps,
-} from '../../feedback/dialog-confirm';
 
 type DialogProps = Omit<ConfirmationDialogProps, 'onCancelCallback'>;
 
