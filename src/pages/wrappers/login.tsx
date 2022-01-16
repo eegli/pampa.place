@@ -2,7 +2,6 @@ import {Constants} from '@/config/constants';
 import {setApiKey} from '@/redux/app';
 import {useAppDispatch} from '@/redux/hooks';
 import {Box, Button, TextField, Tooltip, Typography} from '@mui/material';
-import {useRouter} from 'next/router';
 import {
   ChangeEvent,
   FormEvent,
@@ -19,7 +18,6 @@ export const Login = () => {
   const [userApiKey, setUserApiKey] = useState<string>('');
 
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   // Check if an api key is already present in local storage
   useEffect(() => {
@@ -28,11 +26,6 @@ export const Login = () => {
       dispatch(setApiKey(apiKey));
     }
   }, [dispatch]);
-
-  useEffect(() => {
-    router.replace(router.pathname, '/', {shallow: true});
-    /* eslint-disable react-hooks/exhaustive-deps */
-  }, []);
 
   async function handleSubmit() {
     if (!serverPassword && !userApiKey) {
@@ -45,7 +38,9 @@ export const Login = () => {
       };
       try {
         const res: AuthRes = await (
-          await fetch('api/auth?' + new URLSearchParams(params))
+          await fetch(
+            `${window.location.origin}/api/auth?` + new URLSearchParams(params)
+          )
         ).json();
         dispatch(setApiKey(res.apikey));
       } catch (e) {
