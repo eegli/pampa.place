@@ -1,6 +1,6 @@
 import {MAPS} from '@/config/maps';
 import {testFeatureCollecton, testMap} from '@/config/__fixtures__';
-import {act, fireEvent, render, screen, within} from '@/tests/utils';
+import {act, fireEvent, render, screen} from '@/tests/utils';
 import * as ConfirmDialog from '../../components/feedback/dialog-confirm';
 import * as PreviewDialog from '../../components/feedback/dialog-preview';
 import {Constants} from '../../config/constants';
@@ -41,10 +41,10 @@ function expectDialogToBeGone() {
 }
 
 function loadLocalMaps() {
+  const originalAmountOfMaps = MAPS.size;
   const userMap: MapData = JSON.parse(JSON.stringify(testMap));
   userMap.properties.name = 'user input map';
   userMap.properties.id = 'local-user-input-map';
-  const originalAmountOfMaps = MAPS.size;
   MAPS.set(userMap.properties.id, userMap);
   const local: LocalStorageMaps = {[userMap.properties.id]: userMap};
   window.localStorage.setItem(
@@ -84,8 +84,8 @@ describe('My maps page', () => {
     expect(screen.queryByText(/Error parsing GeoJSON/gi)).toBeNull();
   });
   it('adds input maps to global maps and local storage', () => {
-    render(<MyMapsPage />);
     const originalAmountOfMaps = MAPS.size;
+    render(<MyMapsPage />);
     expect(screen.queryByRole('button', {name: /add map/gi})).toBeNull();
     // Add map 1 (a feature collection)
     enterName('collection map');
@@ -93,7 +93,7 @@ describe('My maps page', () => {
     fireEvent.click(mapButton());
     // Add map 2 (a feature)
     enterName('feature map');
-    enterJSON(JSON.stringify(testMap));
+    enterJSON(JSON.stringify(testFeatureCollecton.features[0]));
     fireEvent.click(mapButton());
     expect(MAPS.get('local-collection-map')).toBeTruthy();
     expect(MAPS.get('local-feature-map')).toBeTruthy();
@@ -112,9 +112,6 @@ describe('My maps page', () => {
     const {cleanup, userMapId} = loadLocalMaps();
     render(<MyMapsPage />);
     expect(screen.getAllByRole('listitem')).toHaveLength(1);
-    // Delete, preview and edit buttons
-    const mapItem = screen.getByRole('listitem');
-    expect(within(mapItem).getAllByRole('button')).toHaveLength(3);
     fireEvent.click(screen.getByRole('button', {name: 'delete-map-icon'}));
     expect(confirmationSpy).toHaveBeenCalledTimes(1);
     expect(confirmationSpy.mock.calls[0][0]).toMatchSnapshot(
