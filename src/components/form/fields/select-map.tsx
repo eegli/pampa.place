@@ -111,7 +111,7 @@ export const FormMapSelect = () => {
         <PreviewDialog
           onCloseCallback={() => setPreviewMap(false)}
           title={activeMapName}
-          bodyText={`Rough bounds of the map "${activeMapName}"`}
+          text={`Rough bounds of the map "${activeMapName}"`}
         >
           {map && <GoogleMap map={map} mode="preview" />}
         </PreviewDialog>
