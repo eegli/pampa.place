@@ -178,8 +178,8 @@ exports[`My maps page allows previewing local maps 1`] = `
           <label
             class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-rb5gc9-MuiFormLabel-root-MuiInputLabel-root"
             data-shrink="false"
-            for="mui-16"
-            id="mui-16-label"
+            for="mui-11"
+            id="mui-11-label"
           >
             Map name
           </label>
@@ -189,7 +189,7 @@ exports[`My maps page allows previewing local maps 1`] = `
             <input
               aria-invalid="false"
               class="MuiOutlinedInput-input MuiInputBase-input css-p51h6s-MuiInputBase-input-MuiOutlinedInput-input"
-              id="mui-16"
+              id="mui-11"
               placeholder="Add a display name for the map"
               type="text"
               value=""
@@ -214,8 +214,8 @@ exports[`My maps page allows previewing local maps 1`] = `
           <label
             class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-rb5gc9-MuiFormLabel-root-MuiInputLabel-root"
             data-shrink="false"
-            for="mui-17"
-            id="mui-17-label"
+            for="mui-12"
+            id="mui-12-label"
           >
             GeoJSON
           </label>
@@ -225,7 +225,7 @@ exports[`My maps page allows previewing local maps 1`] = `
             <textarea
               aria-invalid="false"
               class="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputMultiline css-18ax2bx-MuiInputBase-input-MuiOutlinedInput-input"
-              id="mui-17"
+              id="mui-12"
               rows="8"
               style="height: 0px; overflow: hidden;"
             />
@@ -413,4 +413,14 @@ exports[`My maps page removes input maps from global maps and local storage 1`] 
     </button>
   </div>
 </div>
+`;
+
+exports[`My maps page removes input maps from global maps and local storage: map deletion dialog 1`] = `
+Object {
+  "message": "Are you sure you want to delete your local map \\"user map\\"?",
+  "onCloseCallback": [Function],
+  "onConfirmCallback": [Function],
+  "onConfirmTitle": "Delete map",
+  "title": "Delete map",
+}
 `;

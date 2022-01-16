@@ -233,23 +233,25 @@ export const MyMapsPage: NextPage = () => {
             ))}
           </List>
 
-          <PreviewDialog
-            open={!!mapToPreview}
-            onClose={() => setMapToPreview(null)}
-            title={`Local map preview`}
-            bodyText={`Rough bounds of the map "${mapToPreview?.properties.name}"`}
-          >
-            {mapToPreview && <GoogleMap map={mapToPreview} mode="preview" />}
-          </PreviewDialog>
+          {mapToPreview && (
+            <PreviewDialog
+              onCloseCallback={() => setMapToPreview(null)}
+              title={`Local map preview`}
+              bodyText={`Rough bounds of the map "${mapToPreview.properties.name}"`}
+            >
+              <GoogleMap map={mapToPreview} mode="preview" />
+            </PreviewDialog>
+          )}
 
-          <ConfirmationDialog
-            open={!!mapToDelete}
-            onClose={() => setMapToDelete(null)}
-            title="Delete map"
-            message={`Are you sure you want to delete your local map "${mapToDelete?.properties.name}"?`}
-            onConfirm={clearMap}
-            onConfirmTitle="Delete map"
-          />
+          {mapToDelete && (
+            <ConfirmationDialog
+              onCancelCallback={() => setMapToDelete(null)}
+              onConfirmCallback={clearMap}
+              title="Delete map"
+              message={`Are you sure you want to delete your local map "${mapToDelete.properties.name}"?`}
+              onConfirmTitle="Delete map"
+            />
+          )}
         </SlimContainer>
       </PageContentWrapper>
     </>

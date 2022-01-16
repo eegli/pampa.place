@@ -49,23 +49,21 @@ describe('Speed dial', () => {
     fireEvent.click(toggleButton);
     expect(store.getState().app.theme).toBe('dark');
   });
-  it('has home navigation', async () => {
+  it('has home navigation', () => {
     render(<SpeedDialNav />);
     hoverSpeedDial();
     const homeButton = screen.getByRole('menuitem', {name: 'home'});
     fireEvent.click(homeButton);
-    expect(screen.queryByRole('dialog')).toBeTruthy();
     expect(dialogSpy).toHaveBeenCalledTimes(1);
     expect(dialogSpy.mock.calls[0][0]).toMatchSnapshot(
       'home confirmation dialog'
     );
     act(() => {
-      dialogSpy.mock.calls[0][0].onClose();
+      dialogSpy.mock.calls[0][0].onCancelCallback();
     });
-    expect(screen.queryByRole('dialog')).toBeNull();
     fireEvent.click(homeButton);
     act(() => {
-      dialogSpy.mock.calls[0][0].onConfirm();
+      dialogSpy.mock.calls[0][0].onConfirmCallback();
     });
     expect(mockPush).toHaveBeenCalledWith('/');
   });
@@ -92,18 +90,17 @@ describe('Speed dial', () => {
     hoverSpeedDial();
     const restartButton = screen.getByRole('menuitem', {name: 'restart'});
     fireEvent.click(restartButton);
-    expect(screen.queryByRole('dialog')).toBeTruthy();
     expect(dialogSpy).toHaveBeenCalledTimes(1);
     expect(dialogSpy.mock.calls[0][0]).toMatchSnapshot(
       'restart confirmation dialog'
     );
     act(() => {
-      dialogSpy.mock.calls[0][0].onClose();
+      dialogSpy.mock.calls[0][0].onCancelCallback();
     });
     expect(screen.queryByRole('dialog')).toBeNull();
     fireEvent.click(restartButton);
     act(() => {
-      dialogSpy.mock.calls[0][0].onConfirm();
+      dialogSpy.mock.calls[0][0].onConfirmCallback();
     });
     expect(store.getState().game).toMatchSnapshot('reset round');
   });

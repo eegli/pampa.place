@@ -1,6 +1,6 @@
 import {MAPS} from '@/config/maps';
 import {testFeatureCollecton, testMap} from '@/config/__fixtures__';
-import {act, fireEvent, render, screen, waitFor, within} from '@/tests/utils';
+import {act, fireEvent, render, screen, within} from '@/tests/utils';
 import * as Dialog from '../../components/feedback/dialog-confirm';
 import {Constants} from '../../config/constants';
 import {LocalStorageMaps, MapData} from '../../config/types';
@@ -100,7 +100,7 @@ describe('My maps page', () => {
     expect(MAPS.size).toBe(1);
     window.localStorage.clear();
   });
-  it('removes input maps from global maps and local storage', async () => {
+  it('removes input maps from global maps and local storage', () => {
     const cleanup = loadLocalMaps();
     render(<MyMapsPage />);
     expect(screen.getAllByRole('listitem')).toHaveLength(1);
@@ -108,19 +108,15 @@ describe('My maps page', () => {
     const mapItem = screen.getByRole('listitem');
     expect(within(mapItem).getAllByRole('button')).toHaveLength(3);
     fireEvent.click(screen.getByRole('button', {name: 'delete-map-icon'}));
-    expect(dialogSpy).toHaveBeenCalledTimes(3);
-    const confirmationDialog = screen.getByRole('dialog');
-    expect(confirmationDialog).toMatchSnapshot();
-    expect(confirmationDialog).toHaveTextContent(
-      'Are you sure you want to delete your local map "user map"'
-    );
-    fireEvent.click(screen.getByRole('button', {name: /cancel/i}));
-    await waitFor(() => {
-      expect(screen.queryByRole('dialog')).toBeNull();
+    expect(dialogSpy).toHaveBeenCalledTimes(1);
+    expect(dialogSpy.mock.calls[0][0]).toMatchSnapshot('map deletion dialog');
+    act(() => {
+      dialogSpy.mock.calls[0][0].onCancelCallback();
     });
     fireEvent.click(screen.getByRole('button', {name: 'delete-map-icon'}));
-
-    fireEvent.click(screen.getByRole('button', {name: /delete map/gi}));
+    act(() => {
+      dialogSpy.mock.calls[0][0].onConfirmCallback();
+    });
     expect(MAPS.get(testMap.properties.id)).toBeUndefined();
     expect(MAPS.size).toBe(1);
     const updatedLocalMaps = window.localStorage.getItem(

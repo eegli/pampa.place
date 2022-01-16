@@ -16,7 +16,7 @@ import {
   ConfirmationDialogProps,
 } from '../../feedback/dialog-confirm';
 
-type DialogProps = Omit<ConfirmationDialogProps, 'open' | 'onClose'>;
+type DialogProps = Omit<ConfirmationDialogProps, 'onCancelCallback'>;
 
 export const SpeedDialNav = () => {
   const dispatch = useAppDispatch();
@@ -59,7 +59,7 @@ export const SpeedDialNav = () => {
                 message:
                   'This will reset the current round progress for all players. The first player will start the current round again in a new location.',
                 onConfirmTitle: 'Restart round',
-                onConfirm: function () {
+                onConfirmCallback: function () {
                   dispatch(resetRound());
                 },
               });
@@ -75,7 +75,7 @@ export const SpeedDialNav = () => {
               setDialog({
                 title: 'Abort the game and return home?',
                 onConfirmTitle: 'Abort game',
-                onConfirm: function () {
+                onConfirmCallback: function () {
                   router.push('/');
                 },
               });
@@ -96,8 +96,7 @@ export const SpeedDialNav = () => {
       {dialog && (
         <ConfirmationDialog
           {...dialog}
-          open={!!dialog}
-          onClose={() => setDialog(null)}
+          onCancelCallback={() => setDialog(null)}
         />
       )}
     </>
