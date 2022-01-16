@@ -60,8 +60,8 @@ export const SpeedDialNav = () => {
                   'This will reset the current round progress for all players. The first player will start the current round again in a new location.',
                 confirmMessage: 'Restart round',
                 onConfirmCallback: function () {
-                  dispatch(resetRound());
                   setDialog(null);
+                  dispatch(resetRound());
                 },
               });
             }}
@@ -77,6 +77,7 @@ export const SpeedDialNav = () => {
                 title: 'Abort the game and return home?',
                 confirmMessage: 'Abort game',
                 onConfirmCallback: function () {
+                  setDialog(null);
                   router.push('/');
                 },
               });

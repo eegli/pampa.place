@@ -93,33 +93,6 @@ Object {
 }
 `;
 
-exports[`My maps page allows previewing local maps: test 1`] = `
-<div
-  aria-label="preview-map-btn"
-  class="MuiListItemButton-root MuiListItemButton-dense MuiListItemButton-gutters MuiButtonBase-root css-1sk5ffb-MuiButtonBase-root-MuiListItemButton-root"
-  role="button"
-  tabindex="0"
->
-  <div
-    class="MuiListItemText-root MuiListItemText-dense MuiListItemText-multiline css-konndc-MuiListItemText-root"
-  >
-    <span
-      class="MuiTypography-root MuiTypography-body2 MuiListItemText-primary css-et1ao3-MuiTypography-root"
-    >
-      user map
-    </span>
-    <p
-      class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-1ijlrmj-MuiTypography-root"
-    >
-      id: local-user-map
-    </p>
-  </div>
-  <span
-    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-  />
-</div>
-`;
-
 exports[`My maps page removes input maps from global maps and local storage: map deletion dialog 1`] = `
 Object {
   "confirmMessage": "Delete map",

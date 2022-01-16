@@ -36,6 +36,10 @@ function enterJSON(value: string) {
   });
 }
 
+function expectDialogToBeGone() {
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+}
+
 function loadLocalMaps() {
   // Prepare localstorage before rendering
   const userMap: MapData = {...testMap};
@@ -117,10 +121,13 @@ describe('My maps page', () => {
     act(() => {
       confirmationSpy.mock.calls[0][0].onCancelCallback();
     });
+    // Canceling should clear the dialog
+    expectDialogToBeGone();
     fireEvent.click(screen.getByRole('button', {name: 'delete-map-icon'}));
     act(() => {
       confirmationSpy.mock.calls[0][0].onConfirmCallback();
     });
+    expectDialogToBeGone();
     expect(MAPS.get(testMap.properties.id)).toBeUndefined();
     expect(MAPS.size).toBe(1);
     const updatedLocalMaps = window.localStorage.getItem(
@@ -129,23 +136,24 @@ describe('My maps page', () => {
     expect(JSON.parse(updatedLocalMaps || '[]')).toStrictEqual({});
     cleanup();
   });
+  it('allows previewing local maps', () => {
+    const cleanup = loadLocalMaps();
+    render(<MyMapsPage />);
+    fireEvent.click(screen.getByRole('button', {name: 'preview-map-btn'}));
+    expect(previewSpy).toHaveBeenCalledTimes(1);
+    expect(previewSpy.mock.calls[0][0]).toMatchSnapshot('local map preview');
+    act(() => {
+      previewSpy.mock.calls[0][0].onCloseCallback();
+    });
+    expectDialogToBeGone();
+    cleanup();
+  });
   it('allows editing local maps', () => {
     const cleanup = loadLocalMaps();
     render(<MyMapsPage />);
     expect(jsonInput()).toHaveValue('');
     fireEvent.click(screen.getByRole('button', {name: 'edit-map-icon'}));
     expect(jsonInput()).not.toHaveValue('');
-    cleanup();
-  });
-  it('allows previewing local maps', () => {
-    const cleanup = loadLocalMaps();
-    render(<MyMapsPage />);
-    expect(
-      screen.getByRole('button', {name: 'preview-map-btn'})
-    ).toMatchSnapshot('test');
-    fireEvent.click(screen.getByRole('button', {name: 'preview-map-btn'}));
-    expect(previewSpy).toHaveBeenCalledTimes(1);
-    expect(previewSpy.mock.calls[0][0]).toMatchSnapshot('local map preview');
     cleanup();
   });
 });

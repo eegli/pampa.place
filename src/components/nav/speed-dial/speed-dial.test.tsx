@@ -29,6 +29,10 @@ function hoverSpeedDial() {
   fireEvent.mouseOver(speedDial);
 }
 
+function expectDialogToBeGone() {
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+}
+
 describe('Speed dial', () => {
   it(`items render`, () => {
     render(<SpeedDialNav />);
@@ -61,10 +65,12 @@ describe('Speed dial', () => {
     act(() => {
       dialogSpy.mock.calls[0][0].onCancelCallback();
     });
+    expectDialogToBeGone();
     fireEvent.click(homeButton);
     act(() => {
       dialogSpy.mock.calls[0][0].onConfirmCallback();
     });
+    expectDialogToBeGone();
     expect(mockPush).toHaveBeenCalledWith('/');
   });
   it('can restart round', () => {
@@ -97,10 +103,12 @@ describe('Speed dial', () => {
     act(() => {
       dialogSpy.mock.calls[0][0].onCancelCallback();
     });
+    expectDialogToBeGone();
     fireEvent.click(restartButton);
     act(() => {
       dialogSpy.mock.calls[0][0].onConfirmCallback();
     });
+    expectDialogToBeGone();
     expect(store.getState().game).toMatchSnapshot('reset round');
   });
 });
