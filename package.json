@@ -61,6 +61,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/geojson": "^7946.0.8",
     "@types/google.maps": "^3.47.1",
+    "@types/gtag.js": "^0.0.8",
     "@types/jest": "^27.0.3",
     "@types/lodash.merge": "^4.6.6",
     "@types/react": "17.0.37",

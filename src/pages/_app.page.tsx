@@ -2,6 +2,7 @@ import {GmapContainer, GstvContainer} from '@/services/google';
 import {EmotionCache} from '@emotion/react';
 import type {AppProps} from 'next/app';
 import {Provider} from 'react-redux';
+import {initAnalytics} from '../lib/analytics';
 import {store} from '../redux/store';
 import {createEmotionCache} from '../styles/ssr';
 import {AuthWrapper} from './wrappers/auth';
@@ -17,6 +18,7 @@ import {ThemeWrapper} from './wrappers/theme';
 type ExtendedAppProps = AppProps & {emotionCache: EmotionCache};
 
 const clientSideEmotionCache = createEmotionCache();
+const GoogleAnalytics = initAnalytics();
 
 const App = ({
   Component,
@@ -24,15 +26,18 @@ const App = ({
   emotionCache = clientSideEmotionCache,
 }: ExtendedAppProps) => {
   return (
-    <Provider store={store}>
-      <ThemeWrapper emotionCache={emotionCache}>
-        <GmapContainer />
-        <GstvContainer />
-        <AuthWrapper>
-          <Component {...pageProps} />
-        </AuthWrapper>
-      </ThemeWrapper>
-    </Provider>
+    <>
+      <GoogleAnalytics />
+      <Provider store={store}>
+        <ThemeWrapper emotionCache={emotionCache}>
+          <GmapContainer />
+          <GstvContainer />
+          <AuthWrapper>
+            <Component {...pageProps} />
+          </AuthWrapper>
+        </ThemeWrapper>
+      </Provider>
+    </>
   );
 };
 export default App;
