@@ -3,6 +3,7 @@ import '@testing-library/jest-dom/extend-expect';
 import {NextRouter} from 'next/router';
 
 jest.mock('../config/maps');
+
 jest.mock('next/router', () => ({
   useRouter() {
     const router: Partial<NextRouter> = {

@@ -12,7 +12,7 @@ export const validateAndComputeGeoJSON: GeoJSONValidator = (
     // Only GeoJSON features "with an area" are allowed in this
     // game - No Points, LineStrings, etc.
 
-    if (!['Polygon', 'MultiPolygon'].includes(feat.geometry.type)) {
+    if (!feat.geometry.type.match(/(MultiPolygon|Polygon)$/gi)) {
       throw new Error(
         `Feature "${feat.properties.name}" (category "${category}") is not a Polygon or MultiPolygon.`
       );

@@ -1,14 +1,39 @@
+import {Feature, GeometryTypes} from '@turf/helpers';
 import {Constants} from '../constants';
 import {generateMapData} from '../helpers/generator';
 import {validateAndComputeGeoJSON} from '../helpers/validator';
 import {LocalStorageMaps, MapData} from '../types';
 import {testMap, userInputFeatureCollection} from '../__fixtures__/';
 
+const mockData = (type: GeometryTypes): Feature => {
+  const clone: Feature = JSON.parse(JSON.stringify(testMap));
+  clone.geometry.type = type;
+  return clone;
+};
+
 describe('Config generation helpers', () => {
-  it('works with features', () => {
+  it('works with polygons', () => {
     expect(() => validateAndComputeGeoJSON(testMap, 'test')).not.toThrow();
   });
-  it('rejects featurecollections', () => {
+  it('works with multipolygons', () => {
+    expect(() =>
+      // @ts-expect-error test input
+      validateAndComputeGeoJSON(mockData('MultiPolygon'), 'test')
+    ).not.toThrow();
+  });
+  [
+    'Point',
+    'LineString',
+    'MultiPoint',
+    'MultiLineString',
+    'GeometryCollection',
+  ].forEach(type => {
+    it(`throws with geometry type ${type}`, () => {
+      // @ts-expect-error test input
+      expect(() => validateAndComputeGeoJSON(mockData(type), 'test')).toThrow();
+    });
+  });
+  it('throws with feature collections', () => {
     expect(() =>
       // @ts-expect-error test input
       validateAndComputeGeoJSON(userInputFeatureCollection, 'test')
