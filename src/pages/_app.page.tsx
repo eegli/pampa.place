@@ -4,6 +4,7 @@ import type {AppProps} from 'next/app';
 import {Provider} from 'react-redux';
 import {initAnalytics} from '../lib/analytics';
 import {store} from '../redux/store';
+import '../styles/global.css';
 import {createEmotionCache} from '../styles/ssr';
 import {AuthWrapper} from './wrappers/auth';
 import {ThemeWrapper} from './wrappers/theme';

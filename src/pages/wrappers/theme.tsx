@@ -9,7 +9,6 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import {ReactNode, useEffect} from 'react';
-import {GlobalStyles} from '../../styles/global';
 
 type ThemeWrapperProps = {
   emotionCache: EmotionCache;
@@ -33,7 +32,6 @@ export const ThemeWrapper = ({children, emotionCache}: ThemeWrapperProps) => {
   return (
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={theme}>
-        <GlobalStyles />
         <CssBaseline />
         <Container
           id="mother"
