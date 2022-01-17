@@ -44,11 +44,12 @@ export const GamePage: NextPage = () => {
     <PageContentWrapper id="game-page">
       {positionError ? (
         <Error
-          callback={handleRetry}
+          primaryAction={handleRetry}
+          primaryActionText="Choose different map"
           title="Error getting Street View data"
-          info="This is likely because the map you chose is a little
-                too small or has little Street View coverage."
-          reason={positionError.message}
+          info={`This is likely because the map you chose is a little
+                too small or has little Street View coverage`}
+          error={positionError.message}
         />
       ) : (
         utils.render(status)

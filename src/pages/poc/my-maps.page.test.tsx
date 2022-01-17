@@ -1,11 +1,11 @@
-import * as ConfirmDialog from '@/components/feedback/dialog-confirm';
+import * as ConfirmDialog from '@/components/feedback/dialog';
 import * as PreviewDialog from '@/components/feedback/dialog-preview';
 import {Constants} from '@/config/constants';
 import {MAPS} from '@/config/maps';
 import {LocalStorageMaps, MapData} from '@/config/types';
 import {testMap, userInputFeatureCollection} from '@/config/__fixtures__';
 import {act, fireEvent, render, screen} from '@/tests/utils';
-import {MyMapsPage} from '../poc/my-maps.page';
+import {MyMapsPage} from './my-maps.page';
 
 jest.useFakeTimers();
 
@@ -18,7 +18,7 @@ afterAll(() => {
   expect(MAPS.size).toBe(1);
 });
 
-const confirmationSpy = jest.spyOn(ConfirmDialog, 'ConfirmationDialog');
+const confirmationSpy = jest.spyOn(ConfirmDialog, 'Dialog');
 const previewSpy = jest.spyOn(PreviewDialog, 'PreviewDialog');
 const setMapsSpy = jest.spyOn(MAPS, 'set').mockImplementation(jest.fn());
 const deleteMapSpy = jest.spyOn(MAPS, 'delete').mockImplementation(jest.fn());

@@ -1,41 +1,45 @@
 import {
   Button,
-  Dialog,
+  Dialog as MuiDialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
 
-export type ConfirmationDialogProps = {
+export type DialogProps = {
   title: string;
-  infoMessage?: string;
+  infoMessage: string;
   onCancelCallback: () => void;
   onConfirmCallback: () => void | (() => Promise<void>);
   confirmMessage?: string;
   cancelMessage?: string;
 };
 
-export const ConfirmationDialog = ({
+export const Dialog = ({
   title,
   infoMessage,
   onCancelCallback,
   onConfirmCallback,
   confirmMessage = 'Confirm',
   cancelMessage = 'Cancel',
-}: ConfirmationDialogProps) => {
+}: DialogProps) => {
   return (
-    <Dialog open={true} onClose={onCancelCallback} PaperProps={{elevation: 2}}>
+    <MuiDialog
+      open={true}
+      onClose={onCancelCallback}
+      PaperProps={{elevation: 1}}
+    >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        {infoMessage && <DialogContentText>{infoMessage}</DialogContentText>}
+        <DialogContentText>{infoMessage}</DialogContentText>
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{mb: 2, justifyContent: 'space-evenly'}}>
         <Button onClick={onCancelCallback}>{cancelMessage}</Button>
-        <Button onClick={onConfirmCallback} autoFocus>
+        <Button variant="contained" onClick={onConfirmCallback} autoFocus>
           {confirmMessage}
         </Button>
       </DialogActions>
-    </Dialog>
+    </MuiDialog>
   );
 };

@@ -1,6 +1,6 @@
 import {STATUS} from '@/redux/game';
 import {createMockState, createMockStore, render} from '@/tests/utils';
-import {GamePage, utils} from '../game.page';
+import {GamePage, utils} from './game.page';
 
 const mockRender = jest.fn(() => null);
 

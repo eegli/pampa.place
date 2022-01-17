@@ -1,4 +1,4 @@
-import {ConfirmationDialog} from '@/components/feedback/dialog-confirm';
+import {Dialog} from '@/components/feedback/dialog';
 import {PreviewDialog} from '@/components/feedback/dialog-preview';
 import {GoogleMap} from '@/components/google/map';
 import {Header} from '@/components/nav/header/header';
@@ -246,7 +246,7 @@ export const MyMapsPage: NextPage = () => {
           )}
 
           {mapToDelete && (
-            <ConfirmationDialog
+            <Dialog
               onCancelCallback={() => setMapToDelete(null)}
               onConfirmCallback={clearMap}
               title="Delete map"

@@ -1,7 +1,4 @@
-import {
-  ConfirmationDialog,
-  ConfirmationDialogProps,
-} from '@/components/feedback/dialog-confirm';
+import {Dialog, DialogProps} from '@/components/feedback/dialog';
 import {setTheme} from '@/redux/app';
 import {resetRound} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
@@ -16,13 +13,13 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import {useRouter} from 'next/router';
 import {useState} from 'react';
 
-type DialogProps = Omit<ConfirmationDialogProps, 'onCancelCallback'>;
+type DialogStateProps = Omit<DialogProps, 'onCancelCallback'>;
 
 export const SpeedDialNav = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const activeTheme = useAppSelector(s => s.app.theme);
-  const [dialog, setDialog] = useState<DialogProps | null>(null);
+  const [dialog, setDialog] = useState<DialogStateProps | null>(null);
 
   function handleToggleTheme() {
     dispatch(setTheme(activeTheme === 'light' ? 'dark' : 'light'));
@@ -75,6 +72,7 @@ export const SpeedDialNav = () => {
             onClick={() => {
               setDialog({
                 title: 'Abort the game and return home?',
+                infoMessage: 'This will reset the current game',
                 confirmMessage: 'Abort game',
                 onConfirmCallback: function () {
                   setDialog(null);
@@ -96,10 +94,7 @@ export const SpeedDialNav = () => {
         </SpeedDial>
       </Box>
       {dialog && (
-        <ConfirmationDialog
-          {...dialog}
-          onCancelCallback={() => setDialog(null)}
-        />
+        <Dialog {...dialog} onCancelCallback={() => setDialog(null)} />
       )}
     </>
   );

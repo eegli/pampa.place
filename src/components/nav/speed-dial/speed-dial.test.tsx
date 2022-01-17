@@ -6,10 +6,10 @@ import {
   render,
   screen,
 } from '@/tests/utils';
-import * as Dialog from '../../feedback/dialog-confirm';
+import * as Dialog from '../../feedback/dialog';
 import {SpeedDialNav} from './speed-dial';
 
-const dialogSpy = jest.spyOn(Dialog, 'ConfirmationDialog');
+const dialogSpy = jest.spyOn(Dialog, 'Dialog');
 const mockPush = jest.fn();
 
 jest.mock('next/router', () => ({

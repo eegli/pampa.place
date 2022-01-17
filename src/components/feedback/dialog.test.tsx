@@ -1,5 +1,5 @@
 import {fireEvent, render, screen} from '@/tests/utils';
-import {ConfirmationDialog, ConfirmationDialogProps} from './dialog-confirm';
+import {Dialog, DialogProps} from './dialog';
 
 const mockConfirmCallback = jest.fn();
 const mockCancelCallback = jest.fn();
@@ -10,7 +10,7 @@ beforeEach(() => {
 
 describe('Confirmation dialog', () => {
   it('renders with all props', () => {
-    const props: ConfirmationDialogProps = {
+    const props: DialogProps = {
       title: 'title of a confirmation dialog',
       infoMessage: 'Blabla info',
       confirmMessage: 'Proceed?',
@@ -19,7 +19,7 @@ describe('Confirmation dialog', () => {
       onConfirmCallback: mockConfirmCallback,
     };
 
-    render(<ConfirmationDialog {...props} />);
+    render(<Dialog {...props} />);
     const buttons = screen.getAllByRole('button');
     expect(buttons).toHaveLength(2);
     expect(buttons[0]).toHaveTextContent('Abort');
@@ -34,13 +34,13 @@ describe('Confirmation dialog', () => {
     expect(screen.getByText('Blabla info')).toBeInTheDocument();
   });
   it('has default values', () => {
-    const props: ConfirmationDialogProps = {
+    const props: DialogProps = {
       title: 'a title is required',
       infoMessage: 'body text',
       onCancelCallback: mockCancelCallback,
       onConfirmCallback: mockConfirmCallback,
     };
-    render(<ConfirmationDialog {...props} />);
+    render(<Dialog {...props} />);
     const buttons = screen.getAllByRole('button');
     expect(buttons).toHaveLength(2);
     expect(buttons[0]).toHaveTextContent('Cancel');

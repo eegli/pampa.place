@@ -2,43 +2,53 @@ import {Alert, AlertTitle, Box, Button} from '@mui/material';
 import Link from 'next/link';
 
 type ErrorPros = {
-  callback?: () => void;
-  title?: string;
+  primaryAction: () => void;
+  primaryActionText: string;
+  secondaryAction?: () => void;
+  secondaryActionText?: string;
+  error: string;
   info?: string;
-  reason?: string;
+  title?: string;
 };
 
 export const Error = ({
-  callback,
+  primaryAction,
+  primaryActionText,
+  secondaryAction,
+  secondaryActionText,
   title = 'Something went wrong',
   info,
-  reason,
+  error,
 }: ErrorPros) => {
   return (
     <Box padding={4} margin="auto">
       <Alert variant="outlined" severity="error">
         <AlertTitle>{title}</AlertTitle>
-        <p>{info}</p>
+        {info && <p>{info}</p>}
         <p>
           <strong>Message:</strong>
         </p>
-        <pre style={{whiteSpace: 'pre-wrap', overflow: 'auto'}}>{reason}</pre>
+        <pre style={{whiteSpace: 'pre-wrap', overflow: 'auto'}}>{error}</pre>
       </Alert>
-      {callback && (
-        <Box
-          textAlign="center"
-          display="flex"
-          justifyContent="space-between"
-          sx={{mt: 2}}
-        >
+
+      <Box
+        textAlign="center"
+        display="flex"
+        justifyContent="space-between"
+        sx={{mt: 2}}
+      >
+        {secondaryAction ? (
+          <Button onClick={secondaryAction}>{secondaryActionText}</Button>
+        ) : (
           <Link href="/" passHref>
-            <Button>Choose different map</Button>
+            <Button>Home</Button>
           </Link>
-          <Button variant="contained" onClick={callback} sx={{mr: 3}}>
-            Retry
-          </Button>
-        </Box>
-      )}
+        )}
+
+        <Button variant="contained" onClick={primaryAction} sx={{mr: 3}}>
+          {primaryActionText}
+        </Button>
+      </Box>
     </Box>
   );
 };
