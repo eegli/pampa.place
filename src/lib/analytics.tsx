@@ -2,9 +2,9 @@ import {useRouter} from 'next/router';
 import Script from 'next/script';
 import {useEffect} from 'react';
 
-const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
-
 export const initAnalytics = () => {
+  const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
+
   if (!GA_TRACKING_ID) {
     return () => null;
   }

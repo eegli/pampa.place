@@ -6,7 +6,7 @@ jest.mock('../config/maps');
 
 jest.mock('next/router', () => ({
   useRouter() {
-    const router: Partial<NextRouter> = {
+    const router: NextRouter = {
       replace: jest.fn(),
       route: '/',
       pathname: '',
@@ -14,6 +14,11 @@ jest.mock('next/router', () => ({
       asPath: '',
       back: jest.fn(),
       beforePopState: jest.fn(),
+      // @ts-expect-error mock router
+      events: {
+        on: jest.fn(),
+        off: jest.fn(),
+      },
     };
     return router;
   },
