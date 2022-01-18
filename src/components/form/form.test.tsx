@@ -15,14 +15,6 @@ import {FormTimeLimitSelect} from './fields/select-time';
 import {FormPlayers} from './fields/set-players';
 import {Form} from './form';
 
-jest.mock('next/router', () => ({
-  useRouter() {
-    return {
-      push: jest.fn(),
-    };
-  },
-}));
-
 function getRadios(opts?: ByRoleOptions) {
   return screen.getAllByRole('radio', opts);
 }

@@ -3,6 +3,7 @@ import router from 'next/router';
 import {MenuDrawer} from './drawer';
 
 const mockRouter = router as jest.Mocked<typeof router>;
+
 mockRouter.reload = jest.fn();
 mockRouter.push = jest.fn();
 mockRouter.pathname = '/';
@@ -13,11 +14,9 @@ jest.mock('next/router', () => ({
   },
 }));
 
-Object.defineProperty(window, 'sessionStorage', {
-  value: {
-    clear: jest.fn(),
-  },
-});
+const clearStorageSpy = jest
+  .spyOn(window.sessionStorage, 'clear')
+  .mockImplementation(jest.fn());
 
 const mockToggleDrawer = jest.fn();
 
@@ -58,7 +57,7 @@ describe('Drawer', () => {
     render(<MenuDrawer open toggleDrawer={mockToggleDrawer} />);
     const navButton = getListItem('api key');
     fireEvent.click(navButton);
-    expect(window.sessionStorage.clear).toHaveBeenCalledTimes(1);
+    expect(clearStorageSpy).toHaveBeenCalledTimes(1);
     expect(mockRouter.reload).toHaveBeenCalledTimes(1);
   });
 });

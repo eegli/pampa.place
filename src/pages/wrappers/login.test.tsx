@@ -7,14 +7,12 @@ import {
   screen,
   waitFor,
 } from '@/tests/utils';
-import * as ReactWrapper from '@googlemaps/react-wrapper';
 import {AuthRes} from '../api/auth.page';
 import {Login} from './login';
 
 // The login component saves the key in the sessionStorage. Clear in
 // between tests
 
-const reactWrapperSpy = jest.spyOn(ReactWrapper, 'Wrapper');
 const mockFetch = jest.fn() as jest.MockedFunction<typeof global.fetch>;
 
 mockFetch.mockImplementation(url => {
@@ -31,10 +29,8 @@ mockFetch.mockImplementation(url => {
 
 global.fetch = mockFetch;
 
-// The login component saves the key in the sessionStorage. Clear in
-// between tests
 afterEach(() => {
-  reactWrapperSpy.mockClear();
+  jest.clearAllMocks();
   window.sessionStorage.clear();
 });
 

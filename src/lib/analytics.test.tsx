@@ -1,3 +1,4 @@
+/* DO use the original renderer */
 import {render} from '@testing-library/react';
 import {initAnalytics} from './analytics';
 

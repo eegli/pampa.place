@@ -8,12 +8,16 @@ jest.mock('next/router', () => ({
   useRouter() {
     const router: NextRouter = {
       replace: jest.fn(),
+      push: jest.fn(),
+      prefetch: jest.fn(),
+      reload: jest.fn(),
+      back: jest.fn(),
+      beforePopState: jest.fn(),
       route: '/',
       pathname: '',
       query: {},
       asPath: '',
-      back: jest.fn(),
-      beforePopState: jest.fn(),
+
       // @ts-expect-error mock router
       events: {
         on: jest.fn(),
@@ -23,6 +27,30 @@ jest.mock('next/router', () => ({
     return router;
   },
 }));
+
+const sessionStorageMock: typeof window.sessionStorage = (() => {
+  let store: Record<string, string> = {};
+  return {
+    getItem(key) {
+      return Object.prototype.hasOwnProperty.call(store, key)
+        ? store[key]
+        : null;
+    },
+    clear() {
+      store = {};
+    },
+    setItem(key, value) {
+      store[key] = value;
+    },
+    removeItem(key) {
+      delete store[key];
+    },
+    key: jest.fn(),
+    length: 0,
+  };
+})();
+
+Object.defineProperty(window, 'sessionStorage', {value: sessionStorageMock});
 
 jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
 jest.spyOn(global.console, 'info').mockImplementation(() => jest.fn());
