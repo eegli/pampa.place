@@ -13,16 +13,23 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import {useRouter} from 'next/router';
 import {useState} from 'react';
 
-type DialogStateProps = Omit<DialogProps, 'onCancelCallback'>;
+type DialogStateProps = Omit<DialogProps, 'onCancelCallback' | 'open'>;
 
 export const SpeedDialNav = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const activeTheme = useAppSelector(s => s.app.theme);
-  const [dialog, setDialog] = useState<DialogStateProps | null>(null);
+  const [dialog, setDialog] = useState<DialogProps | null>(null);
 
   function handleToggleTheme() {
     dispatch(setTheme(activeTheme === 'light' ? 'dark' : 'light'));
+  }
+
+  function createAndSetDialog(args: DialogStateProps) {
+    setDialog({
+      ...args,
+      onCancelCallback: () => setDialog(null),
+    });
   }
 
   return (
@@ -51,7 +58,7 @@ export const SpeedDialNav = () => {
             tooltipTitle="Restart round"
             tooltipPlacement="right"
             onClick={() => {
-              setDialog({
+              createAndSetDialog({
                 title: 'Restart round?',
                 infoMessage:
                   'This will reset the current round progress for all players. The first player will start the current round again in a new location.',
@@ -70,13 +77,13 @@ export const SpeedDialNav = () => {
             tooltipTitle="Home"
             tooltipPlacement="right"
             onClick={() => {
-              setDialog({
+              createAndSetDialog({
                 title: 'Abort the game and return home?',
                 infoMessage: 'This will reset the current game',
                 confirmMessage: 'Abort game',
-                onConfirmCallback: function () {
+                onConfirmCallback: async function () {
                   setDialog(null);
-                  router.push('/');
+                  await router.push('/');
                 },
               });
             }}
@@ -93,9 +100,8 @@ export const SpeedDialNav = () => {
           />
         </SpeedDial>
       </Box>
-      {dialog && (
-        <Dialog {...dialog} onCancelCallback={() => setDialog(null)} />
-      )}
+
+      {dialog && <Dialog {...dialog} />}
     </>
   );
 };

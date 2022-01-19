@@ -11,9 +11,9 @@ export const Form = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  function handleSubmit() {
+  async function handleSubmit() {
     dispatch(initGame());
-    router.push('/game');
+    await router.push('/game');
   }
 
   function handleReset() {

@@ -22,5 +22,10 @@ describe('Play header', () => {
 
     const headings = screen.getAllByRole('heading');
     expect(headings[1]).toHaveTextContent(/59s/gi);
+
+    act(() => {
+      jest.advanceTimersByTime(60 * 1000);
+    });
+    expect(mockCallback).toHaveBeenCalledTimes(1);
   });
 });

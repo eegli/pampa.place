@@ -2,32 +2,47 @@ import {initialize, LatLng, Size} from '@googlemaps/jest-mocks';
 import '@testing-library/jest-dom/extend-expect';
 import {NextRouter} from 'next/router';
 
-jest.mock('../config/maps');
+/* ----------- VARIA ----------- */
+jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
+jest.spyOn(global.console, 'info').mockImplementation(() => jest.fn());
+jest.spyOn(global.console, 'warn').mockImplementation(() => jest.fn());
 
-jest.mock('next/router', () => ({
-  useRouter() {
-    const router: NextRouter = {
-      replace: jest.fn(),
-      push: jest.fn(),
-      prefetch: jest.fn(),
-      reload: jest.fn(),
-      back: jest.fn(),
-      beforePopState: jest.fn(),
-      route: '/',
-      pathname: '',
-      query: {},
-      asPath: '',
+/* ----------- INTERNALS ----------- */
+jest.mock('../src/config/maps');
 
-      // @ts-expect-error mock router
-      events: {
-        on: jest.fn(),
-        off: jest.fn(),
-      },
-    };
-    return router;
-  },
-}));
+/* ----------- NODE MODULES ----------- */
+jest.mock('next/router', () => {
+  const mockRouter: NextRouter = {
+    replace: jest.fn(),
+    push: jest.fn(),
+    prefetch: jest.fn(),
+    reload: jest.fn(),
+    back: jest.fn(),
+    beforePopState: jest.fn(),
+    basePath: '',
+    isLocaleDomain: false,
+    isFallback: false,
+    isPreview: false,
+    isReady: true,
+    route: '/',
+    pathname: '/',
+    query: {},
+    asPath: '',
+    events: {
+      on: jest.fn(),
+      off: jest.fn(),
+      emit: jest.fn(),
+    },
+  };
 
+  return {
+    useRouter() {
+      return mockRouter;
+    },
+  };
+});
+
+/* ----------- GLOBALS ----------- */
 const sessionStorageMock: typeof window.sessionStorage = (() => {
   let store: Record<string, string> = {};
   return {
@@ -52,10 +67,7 @@ const sessionStorageMock: typeof window.sessionStorage = (() => {
 
 Object.defineProperty(window, 'sessionStorage', {value: sessionStorageMock});
 
-jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
-jest.spyOn(global.console, 'info').mockImplementation(() => jest.fn());
-jest.spyOn(global.console, 'warn').mockImplementation(() => jest.fn());
-
+/* ----------- GOOGLE MAPS ----------- */
 initialize();
 
 const MapsEventListener: google.maps.MapsEventListener = {

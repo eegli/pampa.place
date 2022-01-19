@@ -1,6 +1,3 @@
-const {pathsToModuleNameMapper} = require('ts-jest');
-const {compilerOptions} = require('./tsconfig.json');
-
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
   collectCoverageFrom: [
@@ -8,10 +5,16 @@ const config = {
     '!<rootDir>/src/pages/api/**/*',
     '!<rootDir>/src/pages/poc/**/*',
   ],
-  setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: '<rootDir>/',
-  }),
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
+  moduleNameMapper: {
+    '^@/config/(.*)$': '<rootDir>/src/config/$1',
+    '^@/components/(.*)$': '<rootDir>/src/components/$1',
+    '^@/services/(.*)$': '<rootDir>/src/services/$1',
+    '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
+    '^@/redux/(.*)$': '<rootDir>/src/redux/$1',
+    '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
+    '^@/tests/(.*)$': '<rootDir>/tests/$1',
+  },
   transform: {
     /* Use babel-jest to transpile tests with the next/babel preset
     https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object */
@@ -21,7 +24,7 @@ const config = {
     '/node_modules/',
     '^.+\\.module\\.(css|sass|scss)$',
   ],
-  roots: ['<rootDir>/src/'],
+  roots: ['<rootDir>/src/', '<rootDir>/tests/'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   testEnvironment: 'jsdom',
 };

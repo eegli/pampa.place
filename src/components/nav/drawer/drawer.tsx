@@ -18,12 +18,11 @@ export const MenuDrawer = ({open, toggleDrawer}: MenuDrawerProps) => {
     router.reload();
   }
 
-  function handleRouteChange(route: string) {
+  async function handleRouteChange(route: string) {
     if (router.pathname !== route) {
-      router.push(route);
-    } else {
-      toggleDrawer();
+      await router.push(route);
     }
+    toggleDrawer();
   }
 
   return (

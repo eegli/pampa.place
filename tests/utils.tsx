@@ -4,17 +4,17 @@ import {render, RenderOptions} from '@testing-library/react';
 import {merge} from 'lodash';
 import {FC, ReactElement} from 'react';
 import {Provider} from 'react-redux';
-import {ThemeWrapper} from '../pages/wrappers/theme';
-import {createStore, initialStates, RootState} from '../redux/store';
-import {createEmotionCache} from '../styles/ssr';
+import {ThemeWrapper} from '../src/pages/wrappers/theme';
+import {createStore, initialStates, RootState} from '../src/redux/store';
+import {createEmotionCache} from '../src/styles/ssr';
 
 const emotionCache = createEmotionCache();
 
-function customRender(
+const customRender = (
   ui: ReactElement,
   store: ReturnType<typeof createStore> = createStore(),
   options?: Omit<RenderOptions, 'wrapper'>
-) {
+) => {
   const Wrapper: FC = ({children}) => {
     return (
       <Provider store={store}>
@@ -31,12 +31,14 @@ function customRender(
     wrapper: Wrapper,
     ...options,
   });
-}
+};
 
-function createMockState(partialState: DeepPartial<RootState> = {}): RootState {
+const createMockState = (
+  partialState: DeepPartial<RootState> = {}
+): RootState => {
   if (!Object.keys(partialState).length) return initialStates;
   return merge({}, initialStates, partialState);
-}
+};
 
 export * from '@testing-library/react';
 export {customRender as render};

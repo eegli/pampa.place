@@ -24,7 +24,7 @@
       "@/styles/*": ["src/styles/*"],
       "@/redux/*": ["src/redux/*"],
       "@/utils/*": ["src/utils/*"],
-      "@/tests/*": ["src/__tests__/*"]
+      "@/tests/*": ["tests/*"]
     },
     "incremental": true
   },

@@ -11,7 +11,7 @@ export type DialogProps = {
   title: string;
   infoMessage: string;
   onCancelCallback: () => void;
-  onConfirmCallback: () => void | (() => Promise<void>);
+  onConfirmCallback: () => void;
   confirmMessage?: string;
   cancelMessage?: string;
 };
@@ -25,11 +25,7 @@ export const Dialog = ({
   cancelMessage = 'Cancel',
 }: DialogProps) => {
   return (
-    <MuiDialog
-      open={true}
-      onClose={onCancelCallback}
-      PaperProps={{elevation: 1}}
-    >
+    <MuiDialog open onClose={onCancelCallback} PaperProps={{elevation: 1}}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{infoMessage}</DialogContentText>
