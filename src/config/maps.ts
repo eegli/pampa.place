@@ -14,7 +14,11 @@ export const MAPS = generateMapData(
     transformer: swissMapsTransformer,
   },
   {
-    map: require('geojson/usa.json'),
+    map: require('geojson/us-states.json'),
+    category: 'usa',
+  },
+  {
+    map: require('geojson/us.json'),
     category: 'usa',
   }
 );

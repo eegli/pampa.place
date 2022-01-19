@@ -33,7 +33,7 @@ The easiest way to deploy a custom `pampa.place` is with Vercel.
 
 `APP_ACCESS_PW` with the value for your password for friends and family
 
-## Local testing and development
+### Local testing and development
 
 It makes sense to quickly test and preview your version of the game.
 Create an `.env.local` file in the root directory and add these two:
@@ -43,15 +43,21 @@ MAPS_API_KEY=<your local API key>
 APP_ACCESS_PW=<your local password>
 ```
 
-## Adding custom maps
+## Custom maps guide
 
-`pampa.place` comes preloaded with two GeoJSON datasets for both the US (states, 20m resolution) and EU (NUTS regions, 3m resolution).
+`pampa.place` comes preloaded with three GeoJSON datasets for the US states (20m resolution), the entire US (unknown res) and EU NUTS regions (3m resolution).
 
 - `geojson/raw/cb_2018_us_state_20m.json` (source: [US Census Bureau](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html))
 
+- `geojson/raw/US-geojson-maps.ash.ms.json` (source: [geojson-maps.ash.ms](https://geojson-maps.ash.ms/))
+
 - `geojson/raw/NUTS_RG_03M_2021_4326.json` (source: [Eurostat](https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/nuts))
 
-You can also provide your own GeoJSON files. If you have Shapefile maps (e.g. from the US Census Bureau), you can convert them to GeoJSON here:
+You can also provide your own GeoJSON files. Make sure to check the projections
+
+_Pro tip: More countries and entire continents can be downloaded easily from [geojson-maps.ash.ms](https://geojson-maps.ash.ms/). Kudos to [@AshKyd](https://github.com/AshKyd) for making this possible ❤️_
+
+If you have Shapefile maps (e.g. from the US Census Bureau), you can convert them to GeoJSON here:
 
 - [https://ogre.adc4gis.com/](https://ogre.adc4gis.com/)
 
@@ -61,9 +67,9 @@ If you're completely new to the GeoJSON format, this is a very great guide to ge
 
 ### Projections and EPGS standards⚠️
 
-In general, there are two things to keep in mind:
+In general, there are two things to keep in mind when you bring your custom GeoJSON files:
 
-1. All the data you add to your custom game will be included in the client bundle. If you include super detailed maps that are 10Mb in size, whoever visits your game will need to download those 10Mb and more.
+1. All the data you add to your game will be included in the client bundle. If you include super detailed maps that are 10Mb in size, whoever visits your game will need to download those 10Mb and more.
 2. Google Maps uses the [WGS 84 / Pseudo-Mercator projection](https://en.wikipedia.org/wiki/Web_Mercator_projection). Custom GeoJSON FeatureCollections need to be in **EPGS 4326** projection.
 
 ### Drawing maps
@@ -87,7 +93,7 @@ If you want to **use an existing GeoJSON file** that you did not create yourself
 Place your files in the `geojson` folder in the root directory. Then, run
 
 ```bash
-yarn scripts:make-maps
+yarn map
 ```
 
 You'll be taken through the steps to prepare your maps. GeoJSON files from other sources may not have the `name` property but it can easily be derived from another existing property. The utility will let you pick a property to use as `name`, clean up other unused properties and filter larger datasets, e.g. if you only want to include a specific country or region.
@@ -100,8 +106,8 @@ Go to `src/config/maps.ts`. New maps can be imported as follows:
 
 ```ts
 /* Example map configuration */
-import {computeMapData, computeMapIds} from './helpers/creator';
-import {MapDataCollection, MapIdCollection, PropertyTransformer} from './types';
+import {generateMapData} from './helpers/generator';
+import {PropertyTransformer} from './types';
 
 // Optional: A property transformer
 const swissMapsTransformer: PropertyTransformer = p => {
@@ -116,9 +122,14 @@ export const MAPS: MapDataCollection = computeMapData(
     category: 'switzerland',
     transformer: swissMapsTransformer,
   },
-  {map: require('geojson/alps.json'), category: 'alps'},
-    // Add your map here...
-  {...}
+  {
+    map: require('geojson/us-states.json'),
+    category: 'usa',
+  },
+  {
+    map: require('geojson/us.json'),
+    category: 'usa',
+  }
 );
 ```
 
