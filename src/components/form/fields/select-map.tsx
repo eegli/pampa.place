@@ -91,7 +91,7 @@ export const FormMapSelect = () => {
           {Object.keys(categoryMap).map(category => {
             const header = (
               <ListSubheader color="inherit" key={category}>
-                {category[0].toUpperCase() + category.substring(1)}
+                {category.toUpperCase()}
               </ListSubheader>
             );
             const children = categoryMap[category].map(m => (

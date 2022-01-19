@@ -1,5 +1,6 @@
 import * as PreviewDialog from '@/components/feedback/dialog-preview';
 import {config} from '@/config/game';
+import {testMap} from '@/config/__fixtures__';
 import {
   ByRoleOptions,
   createMockState,
@@ -17,6 +18,10 @@ import {Form} from './form';
 
 function getRadios(opts?: ByRoleOptions) {
   return screen.getAllByRole('radio', opts);
+}
+
+function queryPlayerInput() {
+  return screen.getAllByLabelText(/^player/i);
 }
 
 describe('Form', () => {
@@ -51,9 +56,6 @@ describe('Form', () => {
 });
 
 describe('Form, player name input', () => {
-  function queryPlayerInput() {
-    return screen.queryAllByLabelText(/^player/i);
-  }
   it('always renders at least one player input field', () => {
     render(<FormPlayers />);
     expect(queryPlayerInput()).toHaveLength(1);
@@ -122,14 +124,22 @@ describe('Form, duration select', () => {
   });
 });
 
-// TODO
-describe('Form, map selection and preview', () => {
+describe('Form, map selection with category subheaders', () => {
   const previewSpy = jest.spyOn(PreviewDialog, 'PreviewDialog');
-  it('displays maps', () => {
+  it('displays maps and categories', async () => {
     render(<FormMapSelect />);
-    expect(
-      screen.getByRole('button', {name: /my test map/i})
-    ).toBeInTheDocument();
+    const mapPreviewButtons = screen.getAllByRole('button', {
+      name: testMap.properties.name,
+    });
+    expect(mapPreviewButtons).toHaveLength(1);
+    fireEvent.mouseDown(mapPreviewButtons[0]);
+    const fields = screen.getAllByRole('option');
+    expect(fields).toHaveLength(2);
+    // The category is capitalized in the dropdown
+    expect(fields[0]).toHaveTextContent(
+      new RegExp(testMap.properties.category, 'i')
+    );
+    expect(fields[1]).toHaveTextContent(testMap.properties.name);
   });
   it('displays map preview', () => {
     render(<FormMapSelect />);
@@ -138,5 +148,6 @@ describe('Form, map selection and preview', () => {
     });
     fireEvent.click(previewMapButton);
     expect(previewSpy).toHaveBeenCalledTimes(1);
+    expect(previewSpy.mock.calls[0][0]).toMatchSnapshot('map preview');
   });
 });

@@ -25,7 +25,7 @@ export const Dialog = ({
   cancelMessage = 'Cancel',
 }: DialogProps) => {
   return (
-    <MuiDialog open onClose={onCancelCallback} PaperProps={{elevation: 1}}>
+    <MuiDialog open PaperProps={{elevation: 1}}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{infoMessage}</DialogContentText>
