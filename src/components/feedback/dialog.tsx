@@ -30,9 +30,16 @@ export const Dialog = ({
       <DialogContent>
         <DialogContentText>{infoMessage}</DialogContentText>
       </DialogContent>
-      <DialogActions sx={{mb: 2, justifyContent: 'space-evenly'}}>
-        <Button onClick={onCancelCallback}>{cancelMessage}</Button>
-        <Button variant="contained" onClick={onConfirmCallback} autoFocus>
+      <DialogActions sx={{mb: 2}}>
+        <Button onClick={onCancelCallback} sx={{mr: 2}}>
+          {cancelMessage}
+        </Button>
+        <Button
+          variant="contained"
+          onClick={onConfirmCallback}
+          autoFocus
+          sx={{mr: 2}}
+        >
           {confirmMessage}
         </Button>
       </DialogActions>

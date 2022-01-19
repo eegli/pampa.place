@@ -14,8 +14,8 @@ jest.mock('../src/config/maps');
 // Default implementation. For specific tests, create a dedicated mock
 jest.mock('next/router', () => {
   const mockRouter: NextRouter = {
-    replace: jest.fn(),
-    push: jest.fn(),
+    replace: jest.fn().mockResolvedValue(true),
+    push: jest.fn().mockResolvedValue(true),
     prefetch: jest.fn(),
     reload: jest.fn(),
     back: jest.fn(),

@@ -15,7 +15,7 @@ const mockRouter: Partial<typeof router> = {
 };
 
 jest.mock('next/router', () => ({
-  useRouter(): Partial<typeof router> {
+  useRouter() {
     return mockRouter;
   },
 }));
@@ -42,10 +42,11 @@ describe('Drawer', () => {
       mockRouter.pathname = route;
       fireEvent.click(navButton);
       expect(mockRouter.push).not.toHaveBeenCalled();
+      expect(mockToggleDrawer).toHaveBeenCalledTimes(1);
       mockRouter.pathname = '/blabluu';
       fireEvent.click(navButton);
       expect(mockRouter.push).toHaveBeenCalledWith(route);
-      expect(mockToggleDrawer).toHaveBeenCalledTimes(1);
+      expect(mockToggleDrawer).toHaveBeenCalledTimes(2);
       console.info(mockRouter);
     });
   });

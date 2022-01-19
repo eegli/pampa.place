@@ -19,7 +19,7 @@ import {MenuDrawer} from '../drawer/drawer';
 export const Header = () => {
   const dispatch = useAppDispatch();
   const activeTheme = useAppSelector(s => s.app.theme);
-  const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false);
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
   function handleToggleTheme() {
     dispatch(setTheme(activeTheme === 'light' ? 'dark' : 'light'));
