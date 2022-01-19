@@ -1,9 +1,9 @@
+import {testMap, userInputFeatureCollection} from '@/tests/fixtures/map';
 import {Feature, GeometryTypes} from '@turf/helpers';
 import {Constants} from '../constants';
 import {generateMapData} from '../helpers/generator';
 import {validateAndComputeGeoJSON} from '../helpers/validator';
 import {LocalStorageMaps, MapData} from '../types';
-import {testMap, userInputFeatureCollection} from '../__fixtures__/';
 
 const mockData = (type: GeometryTypes): Feature => {
   const clone: Feature = JSON.parse(JSON.stringify(testMap));

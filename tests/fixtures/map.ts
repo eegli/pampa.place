@@ -1,5 +1,5 @@
+import {MapData} from '@/config/types';
 import {FeatureCollection} from '@turf/helpers';
-import {MapData} from '../types';
 
 export const testMap: MapData = {
   type: 'Feature',

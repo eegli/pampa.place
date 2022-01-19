@@ -1,11 +1,11 @@
 import {config} from '@/config/game';
-import {testMap} from '@/config/__fixtures__';
 import {
   MapService,
   MarkerService,
   PolyLineService,
   StreetViewService,
 } from '@/services/google';
+import {testMap} from '@/tests/fixtures/map';
 import {createMockStore, render, screen} from '@/tests/utils';
 import {mocked} from 'jest-mock';
 import {GoogleMap, GoogleMapProps} from './map';

@@ -1,6 +1,6 @@
 import * as PreviewDialog from '@/components/feedback/dialog-preview';
 import {config} from '@/config/game';
-import {testMap} from '@/config/__fixtures__';
+import {testMap} from '@/tests/fixtures/map';
 import {
   act,
   ByRoleOptions,
@@ -127,7 +127,7 @@ describe('Form, duration select', () => {
 
 describe('Form, map selection with category subheaders', () => {
   const previewSpy = jest.spyOn(PreviewDialog, 'PreviewDialog');
-  it('displays maps and categories', async () => {
+  it('displays maps and categories', () => {
     render(<FormMapSelect />);
     const mapPreviewButtons = screen.getAllByRole('button', {
       name: testMap.properties.name,
