@@ -14,6 +14,10 @@ beforeEach(() => {
   window.localStorage.clear();
 });
 
+beforeAll(() => {
+  expect(MAPS.size).toBe(1);
+});
+
 afterAll(() => {
   expect(MAPS.size).toBe(1);
 });

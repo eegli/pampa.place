@@ -2,6 +2,7 @@ import * as PreviewDialog from '@/components/feedback/dialog-preview';
 import {config} from '@/config/game';
 import {testMap} from '@/config/__fixtures__';
 import {
+  act,
   ByRoleOptions,
   createMockState,
   createMockStore,
@@ -149,5 +150,9 @@ describe('Form, map selection with category subheaders', () => {
     fireEvent.click(previewMapButton);
     expect(previewSpy).toHaveBeenCalledTimes(1);
     expect(previewSpy.mock.calls[0][0]).toMatchSnapshot('map preview');
+    act(() => {
+      previewSpy.mock.calls[0][0].onCloseCallback();
+    });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });
