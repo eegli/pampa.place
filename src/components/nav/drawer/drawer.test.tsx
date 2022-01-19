@@ -8,14 +8,14 @@ const clearStorageSpy = jest
 
 const mockToggleDrawer = jest.fn();
 
-const mockRouter = router as jest.Mocked<typeof router>;
-
-mockRouter.reload = jest.fn();
-mockRouter.push = jest.fn();
-mockRouter.pathname = '/';
+const mockRouter: Partial<typeof router> = {
+  push: jest.fn(),
+  reload: jest.fn(),
+  pathname: '/',
+};
 
 jest.mock('next/router', () => ({
-  useRouter() {
+  useRouter(): Partial<typeof router> {
     return mockRouter;
   },
 }));
@@ -28,7 +28,7 @@ function getListItem(name: string) {
   return screen.getByRole('button', {name: new RegExp(name, 'ig')});
 }
 
-describe.only('Drawer', () => {
+describe('Drawer', () => {
   [
     {name: 'home', route: '/'},
     {name: 'preview maps', route: '/preview'},
@@ -53,7 +53,6 @@ describe.only('Drawer', () => {
     render(<MenuDrawer open toggleDrawer={mockToggleDrawer} />);
     const navButton = getListItem('api key');
     fireEvent.click(navButton);
-
     expect(clearStorageSpy).toHaveBeenCalledTimes(1);
     expect(mockRouter.reload).toHaveBeenCalledTimes(1);
   });

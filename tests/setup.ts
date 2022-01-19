@@ -11,6 +11,7 @@ jest.spyOn(global.console, 'warn').mockImplementation(() => jest.fn());
 jest.mock('../src/config/maps');
 
 /* ----------- NODE MODULES ----------- */
+// Default implementation. For specific tests, create a dedicated mock
 jest.mock('next/router', () => {
   const mockRouter: NextRouter = {
     replace: jest.fn(),
