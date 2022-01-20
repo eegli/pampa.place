@@ -1,20 +1,23 @@
 import {createMockState, createMockStore, render} from '@/tests/utils';
 import * as GoogleMapsReactWrapper from '@googlemaps/react-wrapper';
 import {AuthWrapper} from './auth';
+import * as login from './login';
+
+const mockRenderResult = <div />;
 
 const wrapperSpy = jest
   .spyOn(GoogleMapsReactWrapper, 'Wrapper')
-  .mockImplementation(({children}) => {
-    return <div id="wrapper rendered">{children}</div>;
-  });
+  .mockReturnValue(mockRenderResult);
+
+const loginSpy = jest.spyOn(login, 'Login').mockReturnValue(mockRenderResult);
 
 beforeEach(() => {
   wrapperSpy.mockClear();
 });
 
 describe('Auth wrapper', () => {
-  ['apikey', '', undefined].forEach(apiKey => {
-    it(`inits Google Maps with api key value: ${apiKey}`, () => {
+  ['123xyz', ''].forEach(apiKey => {
+    it(`calls Google Maps wrapper with valid key ${apiKey}`, () => {
       const state = createMockState({
         app: {
           apiKey,
@@ -22,15 +25,23 @@ describe('Auth wrapper', () => {
       });
       const store = createMockStore(state);
       render(<AuthWrapper />, store);
-      // Valid api keys
-      if (typeof apiKey === 'string') {
-        expect(wrapperSpy).toHaveBeenCalledTimes(1);
-        expect(wrapperSpy.mock.calls[0][0]).toMatchSnapshot(apiKey);
-        expect(wrapperSpy.mock.results[0].value).toMatchSnapshot(apiKey);
-      } else {
-        // undefined is not a valid key
-        expect(wrapperSpy).not.toHaveBeenCalled();
-      }
+      expect(wrapperSpy).toHaveBeenCalledTimes(1);
+      expect(loginSpy).not.toHaveBeenCalled();
+      expect(wrapperSpy.mock.calls[0][0].apiKey).toBe(apiKey);
+      expect(wrapperSpy.mock.calls[0][0].version).toBe('3.47.2');
+      expect(wrapperSpy.mock.results[0].value).toBe(mockRenderResult);
     });
+  });
+
+  it('returns login for invald key', () => {
+    const state = createMockState({
+      app: {
+        apiKey: undefined,
+      },
+    });
+    const store = createMockStore(state);
+    render(<AuthWrapper />, store);
+    expect(wrapperSpy).not.toHaveBeenCalled();
+    expect(loginSpy).toHaveBeenCalledTimes(1);
   });
 });

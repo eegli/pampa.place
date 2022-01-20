@@ -7,6 +7,7 @@ import {RoundOverSummary} from '@/components/round/round-over';
 import {STATUS} from '@/redux/game';
 import {getRandomStreetView} from '@/redux/position/thunks';
 import {NextPage} from 'next';
+import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {resetError} from '../redux/position';
 import {PageContentWrapper} from '../styles/containers';
@@ -40,12 +41,21 @@ export const GamePage: NextPage = () => {
     dispatch(getRandomStreetView());
   }
 
+  useEffect(() => {
+    if (positionError) {
+      return () => {
+        dispatch(resetError());
+      };
+    }
+  }, [positionError]);
+
   return (
     <PageContentWrapper id="game-page">
       {positionError ? (
         <Error
           primaryAction={handleRetry}
-          primaryActionText="Choose different map"
+          primaryActionText="Search again"
+          secondaryActionText="Choose different map"
           title="Error getting Street View data"
           info={`This is likely because the map you chose is a little
                 too small or has little Street View coverage`}

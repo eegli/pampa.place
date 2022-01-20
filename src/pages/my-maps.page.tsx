@@ -111,10 +111,10 @@ export const MyMapsPage: NextPage = () => {
           JSON.parse(geoJSON);
           setJSONErrMessage('');
           setIsValidJSON(true);
-        } catch (e) {
-          const message = 'Error parsing GeoJSON: ';
-          if (e instanceof SyntaxError) {
-            setJSONErrMessage(message + e.message);
+        } catch (error) {
+          const message = 'Parsing error: ';
+          if (error instanceof SyntaxError) {
+            setJSONErrMessage(message + error.message);
           } else {
             setJSONErrMessage(message + 'Invalid input');
           }
@@ -179,7 +179,7 @@ export const MyMapsPage: NextPage = () => {
                 onClick={handleSubmit}
               >
                 Add map
-              </Button>{' '}
+              </Button>
             </Box>
           )}
 
@@ -188,8 +188,7 @@ export const MyMapsPage: NextPage = () => {
             Local maps
           </Typography>
           <Typography gutterBottom variant="body1" color="text.secondary">
-            These maps are saved locally in your browser. Click on a map to
-            preview the bounds.
+            Click on a map to get a preview.
           </Typography>
           <List dense id="local-maps-list">
             {Object.keys(localMaps).length === 0 && (

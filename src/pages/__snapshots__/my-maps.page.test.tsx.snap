@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`My maps page allows previewing local maps: map preview dialog 1`] = `
+Object {
+  "children": <GoogleMap
+    map={
+      Object {
+        "geometry": Object {
+          "coordinates": Array [
+            Array [
+              Array [
+                8.530540466308594,
+                47.35696679330478,
+              ],
+              Array [
+                8.576202392578125,
+                47.351384658074124,
+              ],
+              Array [
+                8.576545715332031,
+                47.36231578548192,
+              ],
+              Array [
+                8.568305969238281,
+                47.38789042338135,
+              ],
+              Array [
+                8.545989990234375,
+                47.39904637835624,
+              ],
+              Array [
+                8.490028381347656,
+                47.407179440027875,
+              ],
+              Array [
+                8.472518920898438,
+                47.39253902496185,
+              ],
+              Array [
+                8.473548889160156,
+                47.37277963653446,
+              ],
+              Array [
+                8.507537841796875,
+                47.357431944587034,
+              ],
+              Array [
+                8.530540466308594,
+                47.35696679330478,
+              ],
+            ],
+          ],
+          "type": "Polygon",
+        },
+        "properties": Object {
+          "area": 34.542192851713864,
+          "bb": Array [
+            8.472518920898438,
+            47.351384658074124,
+            8.576545715332031,
+            47.407179440027875,
+          ],
+          "bbLiteral": Object {
+            "NE": Object {
+              "lat": 47.407179440027875,
+              "lng": 8.576545715332031,
+            },
+            "NW": Object {
+              "lat": 47.407179440027875,
+              "lng": 8.472518920898438,
+            },
+            "SE": Object {
+              "lat": 47.351384658074124,
+              "lng": 8.576545715332031,
+            },
+            "SW": Object {
+              "lat": 47.351384658074124,
+              "lng": 8.472518920898438,
+            },
+          },
+          "category": "test",
+          "id": "test-my-test-map",
+          "name": "my test map",
+        },
+        "type": "Feature",
+      }
+    }
+    mode="preview"
+  />,
+  "onCloseCallback": [Function],
+  "text": "Rough bounds of the map \\"my test map\\"",
+  "title": "Local map preview",
+}
+`;
+
+exports[`My maps page removes input maps from global maps and local storage: map deletion dialog 1`] = `
+Object {
+  "confirmMessage": "Delete map",
+  "infoMessage": "Are you sure you want to delete your local map \\"my test map\\"?",
+  "onCancelCallback": [Function],
+  "onConfirmCallback": [Function],
+  "title": "Delete map",
+}
+`;

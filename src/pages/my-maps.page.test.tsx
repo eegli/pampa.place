@@ -1,12 +1,12 @@
 import * as ConfirmDialog from '@/components/feedback/dialog';
 import * as PreviewDialog from '@/components/feedback/dialog-preview';
 import {Constants} from '@/config/constants';
+import * as helpers from '@/config/helpers/validator';
 import {MAPS} from '@/config/maps';
 import {LocalStorageMaps, MapData} from '@/config/types';
 import {testMap, userInputFeatureCollection} from '@/tests/fixtures/map';
 import {act, fireEvent, render, screen} from '@/tests/utils';
 import {MyMapsPage} from './my-maps.page';
-
 jest.useFakeTimers();
 
 beforeEach(() => {
@@ -26,6 +26,7 @@ const confirmationSpy = jest.spyOn(ConfirmDialog, 'Dialog');
 const previewSpy = jest.spyOn(PreviewDialog, 'PreviewDialog');
 const setMapsSpy = jest.spyOn(MAPS, 'set').mockImplementation(jest.fn());
 const deleteMapSpy = jest.spyOn(MAPS, 'delete').mockImplementation(jest.fn());
+const generateMapSpy = jest.spyOn(helpers, 'validateAndComputeGeoJSON');
 
 const userInputMap1 = JSON.stringify(userInputFeatureCollection);
 const userInputMap2 = JSON.stringify(userInputFeatureCollection.features[0]);
@@ -79,24 +80,32 @@ describe('My maps page', () => {
     enterJSON('asd');
     expect(input).toHaveValue('asd');
     // Make sure there is an error message
-    screen.getByText(/Error parsing GeoJSON/gi);
+    expect(jsonInput()).toBeInvalid();
     enterJSON('{}');
     expect(input).toHaveValue('{}');
-    expect(screen.queryByText(/Error parsing GeoJSON/gi)).toBeNull();
+    expect(jsonInput()).not.toBeInvalid();
   });
   it('adds input maps to global maps and local storage', () => {
     render(<MyMapsPage />);
     expect(screen.queryByRole('button', {name: /add map/gi})).toBeNull();
+    // Add invalid map
+    enterName('this wont work');
+    enterJSON('{}');
+    fireEvent.click(mapButton());
+    expect(jsonInput()).toBeInvalid();
     // Add map 1 (a feature collection)
     enterName('collection map');
     enterJSON(userInputMap1);
     fireEvent.click(mapButton());
+    expect(jsonInput()).not.toBeInvalid();
+    expect(generateMapSpy).toHaveBeenCalledTimes(1);
+    expect(generateMapSpy.mock.calls[0][1]).toEqual('local');
     // Add map 2 (a feature)
     enterName('feature map');
     enterJSON(userInputMap2);
     fireEvent.click(mapButton());
+    expect(generateMapSpy).toHaveBeenCalledTimes(2);
     expect(setMapsSpy).toHaveBeenCalledTimes(2);
-    expect(setMapsSpy.mock.calls).toMatchSnapshot('add maps to global');
     const local: LocalStorageMaps = JSON.parse(
       window.localStorage.getItem(Constants.LOCALSTORAGE_MAPS_KEY) || '{}'
     );
@@ -134,7 +143,7 @@ describe('My maps page', () => {
     render(<MyMapsPage />);
     fireEvent.click(screen.getByRole('button', {name: 'preview-map-btn'}));
     expect(previewSpy).toHaveBeenCalledTimes(1);
-    expect(previewSpy.mock.calls[0][0]).toMatchSnapshot('local map preview');
+    expect(previewSpy.mock.calls[0][0]).toMatchSnapshot('map preview dialog');
     act(() => {
       previewSpy.mock.calls[0][0].onCloseCallback();
     });

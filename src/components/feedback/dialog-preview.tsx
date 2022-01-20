@@ -25,6 +25,7 @@ export const PreviewDialog = (props: PreviewDialogProps) => {
     <Dialog
       open={true}
       fullScreen={fullScreen}
+      onClose={onCloseCallback}
       PaperProps={{elevation: 1}}
       sx={{
         borderRadius: 10,
