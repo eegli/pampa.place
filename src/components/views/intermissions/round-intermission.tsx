@@ -1,12 +1,12 @@
+import {LoadingProgress} from '@/components/feedback/progress';
 import {startOrResumeRound} from '@/redux/game';
 import {shouldRequestNewSV} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {resetSelectedPosition} from '@/redux/position';
 import {getRandomStreetView} from '@/redux/position/thunks';
+import {SlimContainer} from '@/styles/containers';
 import {Button, Divider, Stack, Typography} from '@mui/material';
 import {useLayoutEffect} from 'react';
-import {SlimContainer} from '../../styles/containers';
-import {LoadingProgress} from '../feedback/progress';
 
 export const RoundIntermission = () => {
   const dispatch = useAppDispatch();

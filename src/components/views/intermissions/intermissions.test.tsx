@@ -8,7 +8,7 @@ import {
   waitFor,
 } from '@/tests/utils';
 import {GameOverSummary} from './game-over';
-import {RoundIntermission} from './intermission';
+import {RoundIntermission} from './round-intermission';
 import {RoundOverSummary} from './round-over';
 
 const mockPush = jest.fn();

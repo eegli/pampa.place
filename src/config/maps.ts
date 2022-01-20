@@ -18,7 +18,7 @@ export const MAPS = generateMapData(
     category: 'usa',
   },
   {
-    map: require('geojson/us.json'),
+    map: require('geojson/america.json'),
     category: 'usa',
   }
 );

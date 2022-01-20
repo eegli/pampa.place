@@ -1,5 +1,6 @@
 import {getTotalScores} from '@/redux/game/selectors';
 import {useAppSelector} from '@/redux/hooks';
+import {SlimContainer} from '@/styles/containers';
 import {
   Button,
   Stack,
@@ -11,7 +12,6 @@ import {
   Typography,
 } from '@mui/material';
 import {useRouter} from 'next/router';
-import {SlimContainer} from '../../styles/containers';
 
 export const GameOverSummary = () => {
   const result = useAppSelector(getTotalScores);

@@ -1,4 +1,5 @@
 import {GmapContainer, GstvContainer} from '@/services/google';
+import {createEmotionCache} from '@/styles/utils/index';
 import {DeepPartial} from '@/utils/types';
 import {render, RenderOptions} from '@testing-library/react';
 import {merge} from 'lodash';
@@ -6,7 +7,6 @@ import {FC, ReactElement} from 'react';
 import {Provider} from 'react-redux';
 import {ThemeWrapper} from '../src/pages/wrappers/theme';
 import {createStore, initialStates, RootState} from '../src/redux/store';
-import {createEmotionCache} from '../src/styles/ssr';
 
 const emotionCache = createEmotionCache();
 

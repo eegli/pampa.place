@@ -1,6 +1,6 @@
+import {createEmotionCache} from '@/styles/utils';
 import createEmotionServer from '@emotion/server/create-instance';
 import Document, {Head, Html, Main, NextScript} from 'next/document';
-import {createEmotionCache} from '../styles/ssr';
 
 type DocumentProps = {
   emotionStyleTags: JSX.Element[];

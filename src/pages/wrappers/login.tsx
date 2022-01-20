@@ -9,7 +9,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import {PageContentWrapper} from '../../styles/containers';
+import {PageContent} from '../../styles/containers';
 import {AuthReq, AuthRes} from '../api/auth.page';
 
 export const Login = () => {
@@ -72,7 +72,7 @@ export const Login = () => {
   }
 
   return (
-    <PageContentWrapper id="login">
+    <PageContent id="login">
       <Box
         onSubmit={handleFormSubmit}
         height="100%"
@@ -138,6 +138,6 @@ export const Login = () => {
           </Button>
         </Box>
       </Box>
-    </PageContentWrapper>
+    </PageContent>
   );
 };

@@ -1,13 +1,13 @@
 import {Header} from '@/components/nav/header/header';
 import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
+import {MapProperties} from '@/config/types';
+import {PageContent} from '@/styles/containers';
+import {isInPolygon} from '@/utils/geo';
 import {alpha, Checkbox, FormControlLabel, FormGroup} from '@mui/material';
 import {NextPage} from 'next';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {MapProperties} from '../config/types';
 import {MapService} from '../services/google';
-import {PageContentWrapper} from '../styles/containers';
-import {isInPolygon} from '../utils/geo';
 
 type ClickEvent = {
   latLng: google.maps.LatLng;
@@ -18,7 +18,7 @@ type ClickEvent = {
 
 const PreviewPage: NextPage = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const [showCoverage, setShowCoverage] = useState<boolean>(true);
+  const [showCoverage, setShowCoverage] = useState<boolean>(false);
 
   function handleStreetViewCoverage() {
     setShowCoverage(!showCoverage);
@@ -87,7 +87,7 @@ const PreviewPage: NextPage = () => {
   return (
     <>
       <Header />
-      <PageContentWrapper headerGutter id="preview-page">
+      <PageContent headerGutter id="preview-page">
         <div
           ref={ref}
           style={{
@@ -115,7 +115,7 @@ const PreviewPage: NextPage = () => {
             label="Show street view coverage"
           />
         </FormGroup>
-      </PageContentWrapper>
+      </PageContent>
     </>
   );
 };

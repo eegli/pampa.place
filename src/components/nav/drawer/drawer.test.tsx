@@ -31,10 +31,8 @@ function getListItem(name: string) {
 describe('Drawer', () => {
   [
     {name: 'home', route: '/'},
-    {name: 'preview maps', route: '/preview'},
-    {name: 'how to play', route: '/docs#how-to-play'},
-    {name: 'customization guide', route: '/docs#customization-guide'},
-    {name: 'privacy', route: '/docs#about-privacy'},
+    {name: 'map preview', route: '/preview'},
+    {name: 'docs', route: '/docs'},
   ].forEach(({name, route}) => {
     it(`nav item, ${name}`, () => {
       render(<MenuDrawer open toggleDrawer={mockToggleDrawer} />);

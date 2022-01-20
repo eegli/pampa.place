@@ -1,16 +1,16 @@
 import {Error} from '@/components/feedback/error';
 import {SpeedDialNav} from '@/components/nav/speed-dial/speed-dial';
-import {Play} from '@/components/play/play';
-import {GameOverSummary} from '@/components/round/game-over';
-import {RoundIntermission} from '@/components/round/intermission';
-import {RoundOverSummary} from '@/components/round/round-over';
+import {Play} from '@/components/views/game/game';
+import {GameOverSummary} from '@/components/views/intermissions/game-over';
+import {RoundIntermission} from '@/components/views/intermissions/round-intermission';
+import {RoundOverSummary} from '@/components/views/intermissions/round-over';
 import {STATUS} from '@/redux/game';
 import {getRandomStreetView} from '@/redux/position/thunks';
 import {NextPage} from 'next';
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {resetError} from '../redux/position';
-import {PageContentWrapper} from '../styles/containers';
+import {PageContent} from '../styles/containers';
 
 // An approach to shallow rendering. Utils can easily be mocked in
 // tests.
@@ -50,7 +50,7 @@ export const GamePage: NextPage = () => {
   }, [dispatch, positionError]);
 
   return (
-    <PageContentWrapper id="game-page">
+    <PageContent id="game-page">
       {positionError ? (
         <Error
           primaryAction={handleRetry}
@@ -65,7 +65,7 @@ export const GamePage: NextPage = () => {
         utils.render(status)
       )}
       <SpeedDialNav />
-    </PageContentWrapper>
+    </PageContent>
   );
 };
 

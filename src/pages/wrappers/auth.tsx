@@ -2,7 +2,7 @@ import {Spinner} from '@/components/feedback/spinner';
 import {Status, Wrapper} from '@googlemaps/react-wrapper';
 import {ReactNode, useEffect} from 'react';
 import {useAppSelector} from '../../redux/hooks';
-import {PageContentWrapper} from '../../styles/containers';
+import {PageContent} from '../../styles/containers';
 import {Login} from './login';
 
 declare global {
@@ -13,7 +13,6 @@ declare global {
 
 export const AuthWrapper = ({children}: {children?: ReactNode}) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
-
   // https://developers.google.com/maps/documentation/javascript/events
   useEffect(() => {
     window.gm_authFailure = () => {
@@ -34,15 +33,15 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
             return <>{children}</>;
           case Status.LOADING:
             return (
-              <PageContentWrapper id="spinner">
+              <PageContent id="spinner">
                 <Spinner />
-              </PageContentWrapper>
+              </PageContent>
             );
           default:
             return (
-              <PageContentWrapper id="spinner">
+              <PageContent id="spinner">
                 <div>mega fail</div>
-              </PageContentWrapper>
+              </PageContent>
             );
         }
       }}
