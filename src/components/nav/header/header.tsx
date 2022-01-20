@@ -30,58 +30,53 @@ export const Header = () => {
   }
 
   return (
-    <>
-      <AppBar position="fixed" id="header">
-        <Paper elevation={1}>
-          <Toolbar sx={{py: 1}}>
-            <Box sx={{flexGrow: 1}}>
-              <IconButton
-                onClick={handleToggleDrawer}
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu-btn"
-                sx={{mr: 2}}
-              >
-                <MenuIcon />
-              </IconButton>
-              <MenuDrawer
-                open={drawerIsOpen}
-                toggleDrawer={handleToggleDrawer}
-              />
-            </Box>
+    <AppBar position="sticky" id="header">
+      <Paper elevation={1}>
+        <Toolbar>
+          <Box sx={{flexGrow: 1}}>
+            <IconButton
+              onClick={handleToggleDrawer}
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu-btn"
+              sx={{mr: 2}}
+            >
+              <MenuIcon />
+            </IconButton>
+            <MenuDrawer open={drawerIsOpen} toggleDrawer={handleToggleDrawer} />
+          </Box>
 
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="theme-toggle-btn"
+            sx={{mx: 1}}
+            onClick={handleToggleTheme}
+          >
+            {activeTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+          </IconButton>
+
+          <Divider orientation="vertical" variant="middle" flexItem />
+          <Link
+            href="https://github.com/eegli/pampa.place"
+            target="_blank"
+            rel="noopener"
+            color="text.primary"
+          >
             <IconButton
               size="large"
               edge="start"
               color="inherit"
-              aria-label="theme-toggle-btn"
+              aria-label="github-link"
               sx={{mx: 1}}
-              onClick={handleToggleTheme}
             >
-              {activeTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+              <GitHubIcon />
             </IconButton>
-
-            <Divider orientation="vertical" variant="middle" flexItem />
-            <Link
-              href="https://github.com/eegli/pampa.place"
-              target="_blank"
-              rel="noopener"
-              color="text.primary"
-            >
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="github-link"
-                sx={{mx: 1}}
-              >
-                <GitHubIcon />
-              </IconButton>
-            </Link>
-          </Toolbar>
-        </Paper>
-      </AppBar>
-    </>
+          </Link>
+        </Toolbar>
+      </Paper>
+    </AppBar>
   );
 };

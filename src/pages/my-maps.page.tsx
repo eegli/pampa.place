@@ -2,12 +2,12 @@ import {Dialog} from '@/components/feedback/dialog';
 import {PreviewDialog} from '@/components/feedback/dialog-preview';
 import {GoogleMap} from '@/components/google/map';
 import {Header} from '@/components/nav/header/header';
+import {em} from '@/components/typography/utils';
 import {Constants} from '@/config/constants';
 import {validateAndComputeGeoJSON} from '@/config/helpers/validator';
 import {MAPS} from '@/config/maps';
 import {LocalStorageMaps, MapData} from '@/config/types';
-import {PageContentWrapper, SlimContainer} from '@/styles/containers';
-import {em} from '@/styles/utils';
+import {PageContent, SlimContainer} from '@/styles/containers';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
@@ -127,7 +127,7 @@ export const MyMapsPage: NextPage = () => {
   return (
     <>
       <Header />
-      <PageContentWrapper headerGutter id="my-maps-page">
+      <PageContent headerGutter id="my-maps-page">
         <SlimContainer>
           <Typography component="h1" variant="h5" gutterBottom>
             My Maps
@@ -254,7 +254,7 @@ export const MyMapsPage: NextPage = () => {
             />
           )}
         </SlimContainer>
-      </PageContentWrapper>
+      </PageContent>
     </>
   );
 };

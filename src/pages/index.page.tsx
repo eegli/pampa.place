@@ -1,17 +1,17 @@
 import {Form} from '@/components/form/form';
 import {Header} from '@/components/nav/header/header';
-import {FancyRetroTitle} from '@/components/typography/retro-title';
+import {FancyRetroTitle} from '@/components/typography/headings/retro-title';
 import {NextPage} from 'next';
-import {PageContentWrapper} from '../styles/containers';
+import {PageContent} from '../styles/containers';
 
 const HomePage: NextPage = () => {
   return (
     <>
       <Header />
-      <PageContentWrapper headerGutter id="index-page">
+      <PageContent headerGutter id="index-page">
         <FancyRetroTitle primary="PAMPA" secondary="PLACE" />
         <Form />
-      </PageContentWrapper>
+      </PageContent>
     </>
   );
 };

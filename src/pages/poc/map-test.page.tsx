@@ -5,7 +5,7 @@ import {Box} from '@mui/system';
 import {NextPage} from 'next';
 import {useEffect, useRef, useState} from 'react';
 import {MapService} from '../../services/google';
-import {PageContentWrapper} from '../../styles/containers';
+import {PageContent} from '../../styles/containers';
 
 const GoodMapsComponent = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -67,7 +67,7 @@ const ExamplePage: NextPage = () => {
   return (
     <>
       <Header />
-      <PageContentWrapper headerGutter id="preview-page">
+      <PageContent headerGutter id="preview-page">
         <Box height="100%" width="100%">
           <Box display="flex" mt={2}>
             <Box flex="1 0 auto" height={300} p={2}>
@@ -94,7 +94,7 @@ const ExamplePage: NextPage = () => {
             </Button>
           </Box>
         </Box>
-      </PageContentWrapper>
+      </PageContent>
     </>
   );
 };

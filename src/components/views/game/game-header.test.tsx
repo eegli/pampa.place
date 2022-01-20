@@ -5,7 +5,7 @@ import {
   render,
   screen,
 } from '@/tests/utils';
-import {PlayHeader} from './header';
+import {PlayHeader} from './game-header';
 
 const mockCallback = jest.fn();
 

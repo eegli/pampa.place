@@ -24,6 +24,10 @@ export const validateAndComputeGeoJSON: GeoJSONValidator = (
       );
     }
 
+    if (transformer) {
+      transformer(feat.properties);
+    }
+
     const bb = Tbbox(feat);
     const bbPoly = TbboxPolygon(bb);
 
@@ -32,9 +36,6 @@ export const validateAndComputeGeoJSON: GeoJSONValidator = (
       .replace(/\s/g, '-')
       .toLowerCase();
 
-    if (transformer) {
-      transformer(feat.properties);
-    }
     return {
       type: feat.type,
       geometry: feat.geometry,

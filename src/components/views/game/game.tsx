@@ -3,11 +3,26 @@ import {setPlayerScore} from '@/redux/game';
 import {getActivePlayer} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {Box, Button} from '@mui/material';
+import {BoxProps} from '@mui/material/Box';
+import {styled} from '@mui/material/styles';
 import {useState} from 'react';
-import {GoogleMap} from '../google/map';
-import {GoogleStreetView} from '../google/street-view';
-import {PlayHeader} from './header/header';
-import {StyledMapOverlay} from './styles/styles';
+import {GoogleMap} from '../../google/map';
+import {GoogleStreetView} from '../../google/street-view';
+import {PlayHeader} from './game-header';
+
+interface StyledMapOverlayProps extends BoxProps {
+  pos: 'map' | 'submit';
+}
+const StyledMapOverlay = styled(Box)<StyledMapOverlayProps>(({pos}) => ({
+  zIndex: 10,
+  position: 'fixed',
+  width: '4rem',
+  bottom: pos === 'map' ? 40 : 130,
+  right: pos === 'map' ? 70 : 90,
+  '&:hover': {
+    cursor: 'pointer',
+  },
+}));
 
 export const Play = () => {
   const dispatch = useAppDispatch();
