@@ -79,6 +79,7 @@ export const Login = () => {
         justifyContent="center"
         alignItems="flex-end"
         width="100%"
+        padding={4}
         maxWidth={500}
       >
         <TextField
