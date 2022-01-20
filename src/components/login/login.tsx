@@ -109,7 +109,7 @@ export const Login = () => {
         />
         <Box my={2}>
           <Typography color="text.secondary" variant="body2">
-            Unsure? Choose <b>dev mode</b> mode and explore.
+            Unsure? Choose <b>dev mode</b> and explore.
           </Typography>
         </Box>
         <Box>
