@@ -147,7 +147,7 @@ export const Login = () => {
           target="_blank"
           href="https://github.com/eegli/pampa.place"
         >
-          I`&apos;m open source
+          I&apos;m open source
           <IconButton disableRipple color="inherit">
             <GitHubIcon />
           </IconButton>
