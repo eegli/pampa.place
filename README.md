@@ -57,7 +57,7 @@ MAPS_API_KEY=<your local API key>
 APP_ACCESS_PW=<your local password>
 ```
 
-## Custom maps for hosters
+# Custom maps
 
 The game's map handling is based on the GeoJSON format. If you're completely new to GeoJSON, this is a very great guide to get started:
 
@@ -71,7 +71,7 @@ In general, there are a few things to keep in mind when you bring your custom Ge
 2. All GeoJSON `Features` must be of type `Polygon` or `MultiPolygon`.
 3. Google Maps uses the [WGS 84 / Pseudo-Mercator projection](https://en.wikipedia.org/wiki/Web_Mercator_projection). Custom GeoJSON FeatureCollections need to be in **EPGS 4326** projection.
 
-### GeoJSON sources
+## Map sources
 
 For starters, this website is a great source for countries and entire continents. Kudos to [@AshKyd](https://github.com/AshKyd) for making this possible ❤️
 
@@ -83,7 +83,7 @@ If you have Shapefile maps (e.g. from the US Census Bureau), you can convert the
 
 If you import GeoJSON from an external source, make sure to read the section about preparing maps below.
 
-### Drawing maps
+## Drawing maps
 
 If you want super custom maps, you can **draw a polygon** here [https://geojson.io](https://geojson.io).
 
@@ -97,7 +97,7 @@ Make sure that for each polygon you draw, you add a `name` entry to the `propert
 
 You may add as many `features` to the `FeatureCollection` in your custom GeoJSON as you want. Just be sure to give them individual names! Maps that you drew yourself can be directly put into the `geojson` folder in the root directory. You can skip the next step as they are already cleaned up and good to go.
 
-### Preparing maps
+## Preparing maps
 
 If you want to **use an existing GeoJSON file** that you did not create yourself, you may want to run it through the cleanup utility first.
 
@@ -111,7 +111,7 @@ You'll be taken through the steps to prepare your maps. GeoJSON files from other
 
 Your shiny new maps will automatically be put into the `geojson` folder in the root directory. This folder is meant for processed files that are ready to be used in the game (the `raw` folder contains datasets from which other maps can be created). From there on, the final step is to include them in the source code.
 
-### Adding maps to the game
+## Adding maps to the game
 
 Go to `src/config/maps.ts`. New maps can be imported as follows:
 
