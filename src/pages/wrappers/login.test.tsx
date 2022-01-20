@@ -52,7 +52,7 @@ describe('Login', () => {
     expect(getElem('devModeButton')).toBeInTheDocument();
     expect(getElem('enterButton')).toBeInTheDocument();
   });
-  it('displays error message if no input is provided', async () => {
+  it('displays error message if no input is provided', () => {
     render(<Login />);
     fireEvent.click(getElem('enterButton'));
     expect(getElem('passwordInput')).toBeInvalid();

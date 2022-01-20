@@ -47,7 +47,7 @@ export const GamePage: NextPage = () => {
         dispatch(resetError());
       };
     }
-  }, [positionError]);
+  }, [dispatch, positionError]);
 
   return (
     <PageContentWrapper id="game-page">
