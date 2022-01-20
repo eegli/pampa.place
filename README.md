@@ -2,7 +2,7 @@
 
 ![GitHub top language](https://img.shields.io/github/languages/top/eegli/pampa.place?logo=ts) ![GitHub repo size](https://img.shields.io/github/repo-size/eegli/pampa.place) [![codecov](https://codecov.io/gh/eegli/pampa.place/branch/main/graph/badge.svg?token=8RPSUCWXEZ)](https://codecov.io/gh/eegli/pampa.place)
 
-### A customizable multiplayer geography game. Select a place. Be dropped somewhere in that place. Figure out where in the pampa you are 🌍
+### A customizable multiplayer geography game. Figure out where in the pampa you are 🌍
 
 # Overview
 
@@ -28,9 +28,9 @@ The game comes preloaded with three GeoJSON datasets for the US states (20m reso
 
 # Custom maps
 
-👉 [I just want to play and add new maps dynamically](https://pampa.place/my-maps)
+👉 [I just want to play and add new maps dynamically](https://pampa.place/docs##customization-guide)
 
-👉 [I want to self-host a game and add custom maps](#custom-maps-for-hosters)
+👉 I want to self-host a game and add custom maps. Read below
 
 # Host your own
 
