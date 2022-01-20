@@ -1,3 +1,4 @@
+import * as timer from '@/hooks/useTimer';
 import {
   createMockState,
   createMockStore,
@@ -5,7 +6,6 @@ import {
   render,
   screen,
 } from '@/tests/utils';
-import * as timer from '../../../hooks/useTimer';
 import {Play} from './game';
 
 /* WORK IN PROGRESS */

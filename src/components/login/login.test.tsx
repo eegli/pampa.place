@@ -7,7 +7,7 @@ import {
   screen,
   waitFor,
 } from '@/tests/utils';
-import {AuthRes} from '../api/auth.page';
+import {AuthRes} from '../../pages/api/auth.page';
 import {Login} from './login';
 
 const mockFetch = jest.fn() as jest.MockedFunction<typeof global.fetch>;
@@ -51,11 +51,26 @@ describe('Login', () => {
     expect(getElem('passwordInput')).toBeInTheDocument();
     expect(getElem('devModeButton')).toBeInTheDocument();
     expect(getElem('enterButton')).toBeInTheDocument();
+    expect(screen.getByRole('link')).toBeInTheDocument();
   });
   it('displays error message if no input is provided', () => {
     render(<Login />);
     fireEvent.click(getElem('enterButton'));
-    expect(getElem('passwordInput')).toBeInvalid();
+    const passwordInput = getElem('passwordInput');
+    expect(passwordInput).toBeInvalid();
+    fireEvent.change(passwordInput, {target: {value: 'password'}});
+    expect(passwordInput).not.toBeInvalid();
+  });
+  it('displays error for invalid password', async () => {
+    mockFetch.mockRejectedValueOnce(undefined);
+    render(<Login />);
+    const passwordInput = getElem('passwordInput');
+    const enterButton = getElem('enterButton');
+    fireEvent.change(passwordInput, {target: {value: 'password'}});
+    fireEvent.click(enterButton);
+    await waitFor(() => {
+      expect(getElem('passwordInput')).toBeInvalid();
+    });
   });
   it('allows entering via dev mode', () => {
     const state = createMockState();

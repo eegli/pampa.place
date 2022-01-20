@@ -2,12 +2,12 @@ import {Dialog} from '@/components/feedback/dialog';
 import {PreviewDialog} from '@/components/feedback/dialog-preview';
 import {GoogleMap} from '@/components/google/map';
 import {Header} from '@/components/nav/header/header';
-import {em} from '@/components/typography/utils';
 import {Constants} from '@/config/constants';
 import {validateAndComputeGeoJSON} from '@/config/helpers/validator';
 import {MAPS} from '@/config/maps';
 import {LocalStorageMaps, MapData} from '@/config/types';
 import {PageContent, SlimContainer} from '@/styles/containers';
+import {colorize} from '@/styles/utils';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
@@ -140,9 +140,13 @@ export const MyMapsPage: NextPage = () => {
             </Link>
             , draw a polygon and paste it below. <br />
             <br />
-            Note that only GeoJSON objects of type {em('Polygon', 'g')} and{' '}
-            {em('Multipolygon', 'g')} are allowed. For GeoJSON objects of type{' '}
-            {em('FeatureCollection', 'v')}, only the first feature will saved.
+            Note that only GeoJSON objects of type {colorize(
+              'Polygon',
+              'g'
+            )}{' '}
+            and {colorize('Multipolygon', 'g')} are allowed. For GeoJSON objects
+            of type {colorize('FeatureCollection', 'v')}, only the first feature
+            will saved.
           </Typography>
           <Box
             component="form"

@@ -1,16 +1,16 @@
-import {Constants} from '@/config/constants';
 import {setApiKey} from '@/redux/app';
 import {useAppDispatch} from '@/redux/hooks';
-import {Box, Button, TextField, Tooltip, Typography} from '@mui/material';
-import {
-  ChangeEvent,
-  FormEvent,
-  KeyboardEvent,
-  useEffect,
-  useState,
-} from 'react';
-import {PageContent} from '../../styles/containers';
-import {AuthReq, AuthRes} from '../api/auth.page';
+import {PageContent} from '@/styles/containers';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
+import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import {ChangeEvent, FormEvent, KeyboardEvent, useState} from 'react';
+import {AuthReq, AuthRes} from '../../pages/api/auth.page';
 
 export const Login = () => {
   const [inputError, setInputError] = useState<string>('');
@@ -18,14 +18,6 @@ export const Login = () => {
   const [userApiKey, setUserApiKey] = useState<string>('');
 
   const dispatch = useAppDispatch();
-
-  // Check if an api key is already present in local storage
-  useEffect(() => {
-    const apiKey = window.sessionStorage.getItem(Constants.SESSION_APIKEY_KEY);
-    if (typeof apiKey === 'string') {
-      dispatch(setApiKey(apiKey));
-    }
-  }, [dispatch]);
 
   async function handleSubmit() {
     if (!serverPassword && !userApiKey) {
@@ -54,6 +46,9 @@ export const Login = () => {
   }
 
   function handlePasswordInput(e: ChangeEvent<HTMLInputElement>) {
+    if (inputError) {
+      setInputError('');
+    }
     setServerPassword(e.target.value);
   }
 
@@ -83,8 +78,8 @@ export const Login = () => {
         flexDirection="column"
         justifyContent="center"
         alignItems="flex-end"
-        width="80%"
-        maxWidth={400}
+        width="100%"
+        maxWidth={500}
       >
         <TextField
           fullWidth
@@ -111,11 +106,16 @@ export const Login = () => {
           onChange={handleApiKeyInput}
           onKeyUp={handleKeyUp}
         />
+        <Box my={2}>
+          <Typography color="text.secondary" variant="body2">
+            Unsure? Choose <b>dev mode</b> mode and explore.
+          </Typography>
+        </Box>
         <Box>
           <Tooltip title="No maps API key required - play in development mode">
             <Button
               sx={{
-                my: 2,
+                my: 1,
                 mr: 2,
               }}
               variant="outlined"
@@ -137,6 +137,20 @@ export const Login = () => {
             Enter
           </Button>
         </Box>
+      </Box>
+      <Box position="absolute" margin="auto" bottom={30} color="text.secondary">
+        <Link
+          aria-label="github-link"
+          color="inherit"
+          underline="none"
+          target="_blank"
+          href="https://github.com/eegli/pampa.place"
+        >
+          I`&apos;m open source
+          <IconButton disableRipple color="inherit">
+            <GitHubIcon />
+          </IconButton>
+        </Link>
       </Box>
     </PageContent>
   );

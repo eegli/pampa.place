@@ -1,10 +1,10 @@
+import {useTimer} from '@/hooks/useTimer';
 import {useAppSelector} from '@/redux/hooks';
 import {keyedColorFade} from '@/styles/utils';
 import {formatDur} from '@/utils/misc';
 import {Box, Divider, Stack, Typography} from '@mui/material';
 import {red} from '@mui/material/colors';
 import {useEffect} from 'react';
-import {useTimer} from '../../../hooks/useTimer';
 
 type PlayHeaderProps = {
   player: string;

@@ -1,9 +1,11 @@
 import {Spinner} from '@/components/feedback/spinner';
+import {Login} from '@/components/login/login';
+import {Constants} from '@/config/constants';
+import {setApiKey} from '@/redux/app';
+import {useAppDispatch, useAppSelector} from '@/redux/hooks';
+import {PageContent} from '@/styles/containers';
 import {Status, Wrapper} from '@googlemaps/react-wrapper';
 import {ReactNode, useEffect} from 'react';
-import {useAppSelector} from '../../redux/hooks';
-import {PageContent} from '../../styles/containers';
-import {Login} from './login';
 
 declare global {
   interface Window {
@@ -13,6 +15,16 @@ declare global {
 
 export const AuthWrapper = ({children}: {children?: ReactNode}) => {
   const apiKey = useAppSelector(s => s.app.apiKey);
+  const dispatch = useAppDispatch();
+
+  // Check if an api key is already present in local storage
+  useEffect(() => {
+    const apiKey = window.sessionStorage.getItem(Constants.SESSION_APIKEY_KEY);
+    if (typeof apiKey === 'string') {
+      dispatch(setApiKey(apiKey));
+    }
+  }, [dispatch]);
+
   // https://developers.google.com/maps/documentation/javascript/events
   useEffect(() => {
     window.gm_authFailure = () => {

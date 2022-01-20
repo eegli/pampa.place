@@ -1,7 +1,7 @@
+import * as login from '@/components/login/login';
 import {createMockState, createMockStore, render} from '@/tests/utils';
 import * as GoogleMapsReactWrapper from '@googlemaps/react-wrapper';
 import {AuthWrapper} from './auth';
-import * as login from './login';
 
 const mockRenderResult = <div />;
 

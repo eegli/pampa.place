@@ -1,16 +1,16 @@
 import {Error} from '@/components/feedback/error';
+import {Play} from '@/components/game/game';
+import {GameOverSummary} from '@/components/game/intermissions/game-over';
+import {RoundIntermission} from '@/components/game/intermissions/round-intermission';
+import {RoundOverSummary} from '@/components/game/intermissions/round-over';
 import {SpeedDialNav} from '@/components/nav/speed-dial/speed-dial';
-import {Play} from '@/components/views/game/game';
-import {GameOverSummary} from '@/components/views/intermissions/game-over';
-import {RoundIntermission} from '@/components/views/intermissions/round-intermission';
-import {RoundOverSummary} from '@/components/views/intermissions/round-over';
 import {STATUS} from '@/redux/game';
+import {useAppDispatch, useAppSelector} from '@/redux/hooks';
+import {resetError} from '@/redux/position';
 import {getRandomStreetView} from '@/redux/position/thunks';
+import {PageContent} from '@/styles/containers';
 import {NextPage} from 'next';
 import {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../redux/hooks';
-import {resetError} from '../redux/position';
-import {PageContent} from '../styles/containers';
 
 // An approach to shallow rendering. Utils can easily be mocked in
 // tests.

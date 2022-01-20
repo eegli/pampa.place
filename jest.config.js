@@ -12,6 +12,7 @@ const config = {
     '^@/services/(.*)$': '<rootDir>/src/services/$1',
     '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
     '^@/redux/(.*)$': '<rootDir>/src/redux/$1',
+    '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@/tests/(.*)$': '<rootDir>/tests/$1',
   },

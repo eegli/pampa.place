@@ -24,6 +24,7 @@
       "@/services/*": ["src/services/*"],
       "@/styles/*": ["src/styles/*"],
       "@/redux/*": ["src/redux/*"],
+      "@/hooks/*": ["src/hooks/*"],
       "@/utils/*": ["src/utils/*"],
       "@/tests/*": ["tests/*"]
     },
