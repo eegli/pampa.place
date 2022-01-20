@@ -94,8 +94,9 @@ const DocsPage: NextPage = () => {
             <Typography>
               why does this project exist? a while ago, a geo game i loved
               removed my favorite feature - local multiplayer. and there was no
-              way to play on custom maps. competing against your friends in a
-              place you know is way more fun, so i made my own.
+              way to play on custom maps. since competing against your friends
+              in a place you know is way more fun, i decided to make my own geo
+              game.
             </Typography>
             <Typography>
               working on pampa.place turned out to be a lot of fun and i quickly
