@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Intermission, round ongoing requests new street view location, fulfilled: sv request, fulfilled 1`] = `
+Object {
+  "error": null,
+  "initialPosition": Object {
+    "lat": 0,
+    "lng": 0,
+  },
+  "loading": false,
+  "panoDescription": "Fake panorama description",
+  "panoId": "69",
+  "selectedPosition": null,
+}
+`;
+
+exports[`Intermission, round ongoing requests new street view location, pending: sv request, pending 1`] = `
+Object {
+  "error": null,
+  "initialPosition": null,
+  "loading": true,
+  "panoDescription": "",
+  "panoId": "",
+  "selectedPosition": null,
+}
+`;
+
+exports[`Intermission, round ongoing requests new street view location, rejected: sv request, rejected 1`] = `
+Object {
+  "error": Object {
+    "code": "ZERO_RESULTS",
+    "endpoint": "getRandomPanorama",
+    "message": "unable to find sv",
+    "name": "MapsRequestError",
+  },
+  "initialPosition": null,
+  "loading": false,
+  "panoDescription": "",
+  "panoId": "",
+  "selectedPosition": null,
+}
+`;
