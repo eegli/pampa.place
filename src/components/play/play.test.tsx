@@ -6,7 +6,7 @@ import {
   render,
   screen,
 } from '@/tests/utils';
-import {Play} from './game';
+import {Play} from './play';
 
 /* WORK IN PROGRESS */
 

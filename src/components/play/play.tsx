@@ -8,7 +8,7 @@ import {Box, Button} from '@mui/material';
 import {BoxProps} from '@mui/material/Box';
 import {styled} from '@mui/material/styles';
 import {useState} from 'react';
-import {PlayHeader} from './game-header';
+import {PlayHeader} from './play-header';
 
 interface StyledMapOverlayProps extends BoxProps {
   pos: 'map' | 'submit';

@@ -1,9 +1,9 @@
 import {Error} from '@/components/feedback/error';
-import {Play} from '@/components/game/game';
-import {GameOverSummary} from '@/components/game/intermissions/game-over';
-import {RoundIntermission} from '@/components/game/intermissions/round-intermission';
-import {RoundOverSummary} from '@/components/game/intermissions/round-over';
+import {GameOverSummary} from '@/components/intermissions/game-over';
+import {RoundIntermission} from '@/components/intermissions/round-intermission';
+import {RoundOverSummary} from '@/components/intermissions/round-over';
 import {SpeedDialNav} from '@/components/nav/speed-dial/speed-dial';
+import {Play} from '@/components/play/play';
 import {STATUS} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {resetError} from '@/redux/position';
