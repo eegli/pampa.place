@@ -31,10 +31,10 @@ const positonSlice = createSlice({
     resetError(state) {
       state.error = null;
     },
-    resetSelectedPosition(state) {
-      state.selectedPosition = null;
-    },
-    updateSelectedPosition(state, action: PayloadAction<LatLngLiteral>) {
+    updateSelectedPosition(
+      state,
+      action: PayloadAction<OrNull<LatLngLiteral>>
+    ) {
       state.selectedPosition = action.payload;
     },
   },
@@ -47,8 +47,6 @@ const positonSlice = createSlice({
       state.error = null;
     });
     builder.addCase(getRandomStreetView.pending, state => {
-      state.initialPosition = null;
-      state.selectedPosition = null;
       state.loading = true;
     });
     builder.addCase(getRandomStreetView.rejected, (state, action) => {
@@ -60,6 +58,5 @@ const positonSlice = createSlice({
   },
 });
 
-export const {updateSelectedPosition, resetSelectedPosition, resetError} =
-  positonSlice.actions;
+export const {updateSelectedPosition, resetError} = positonSlice.actions;
 export default positonSlice;

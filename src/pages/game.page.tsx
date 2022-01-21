@@ -7,10 +7,9 @@ import {SpeedDialNav} from '@/components/nav/speed-dial/speed-dial';
 import {STATUS} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {resetError} from '@/redux/position';
-import {getRandomStreetView} from '@/redux/position/thunks';
 import {PageContent} from '@/styles/containers';
 import {NextPage} from 'next';
-import {useEffect} from 'react';
+import {useRouter} from 'next/router';
 
 // An approach to shallow rendering. Utils can easily be mocked in
 // tests.
@@ -35,19 +34,17 @@ export const GamePage: NextPage = () => {
   const dispatch = useAppDispatch();
   const status = useAppSelector(({game}) => game.status);
   const positionError = useAppSelector(({position}) => position.error);
+  const router = useRouter();
 
   function handleRetry() {
     dispatch(resetError());
-    dispatch(getRandomStreetView());
   }
 
-  useEffect(() => {
-    if (positionError) {
-      return () => {
-        dispatch(resetError());
-      };
-    }
-  }, [dispatch, positionError]);
+  function handleGoHome() {
+    router.push('/').then(() => {
+      dispatch(resetError());
+    });
+  }
 
   return (
     <PageContent id="game-page">
@@ -55,6 +52,7 @@ export const GamePage: NextPage = () => {
         <Error
           primaryAction={handleRetry}
           primaryActionText="Search again"
+          secondaryAction={handleGoHome}
           secondaryActionText="Choose different map"
           title="Error getting Street View data"
           info={`This is likely because the map you chose is a little

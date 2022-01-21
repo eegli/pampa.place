@@ -1,12 +1,11 @@
 import {LoadingProgress} from '@/components/feedback/progress';
 import {startOrResumeRound} from '@/redux/game';
-import {shouldRequestNewSV} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
-import {resetSelectedPosition} from '@/redux/position';
+import {updateSelectedPosition} from '@/redux/position';
 import {getRandomStreetView} from '@/redux/position/thunks';
 import {SlimContainer} from '@/styles/containers';
 import {Button, Divider, Stack, Typography} from '@mui/material';
-import {useLayoutEffect} from 'react';
+import {useEffect} from 'react';
 
 export const RoundIntermission = () => {
   const dispatch = useAppDispatch();
@@ -15,16 +14,16 @@ export const RoundIntermission = () => {
   const currentPlayer = useAppSelector(({game}) => game.players[0]);
   const currentRound = useAppSelector(({game}) => game.rounds.current);
   const totalRounds = useAppSelector(({game}) => game.rounds.total);
-  const shouldGetNewSV = useAppSelector(shouldRequestNewSV);
+  const shouldGetNewSV = useAppSelector(({game}) => game.rounds.progress === 0);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (shouldGetNewSV) {
       dispatch(getRandomStreetView());
     }
   }, [dispatch, shouldGetNewSV]);
 
   function handleClick() {
-    dispatch(resetSelectedPosition());
+    dispatch(updateSelectedPosition(null));
     dispatch(startOrResumeRound());
   }
 
