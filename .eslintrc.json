@@ -34,6 +34,7 @@
       }
     ],
     "react-hooks/exhaustive-deps": "error",
-    "require-await": "error"
+    "require-await": "error",
+    "@typescript-eslint/no-var-requires": "off"
   }
 }

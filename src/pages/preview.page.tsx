@@ -1,4 +1,4 @@
-import {Header} from '@/components/nav/header/header';
+import {Header} from '@/components/header/header';
 import {config} from '@/config/google';
 import {MAPS} from '@/config/maps';
 import {MapProperties} from '@/config/types';

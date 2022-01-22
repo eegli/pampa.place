@@ -1,11 +1,11 @@
-import {Header} from '@/components/nav/header/header';
+import {Header} from '@/components/header/header';
 import {config} from '@/config/google';
+import {MapService} from '@/services/google';
+import {PageContent} from '@/styles/containers';
 import {Button} from '@mui/material';
 import {Box} from '@mui/system';
 import {NextPage} from 'next';
 import {useEffect, useRef, useState} from 'react';
-import {MapService} from '../../services/google';
-import {PageContent} from '../../styles/containers';
 
 const GoodMapsComponent = () => {
   const ref = useRef<HTMLDivElement>(null);

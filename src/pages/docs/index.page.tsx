@@ -1,4 +1,4 @@
-import {Header} from '@/components/nav/header/header';
+import {Header} from '@/components/header/header';
 import {FancyRetroTitle} from '@/components/typography/headings/retro-title';
 import {LinkSection} from '@/components/typography/paragraph';
 import {InfoBox} from '@/components/typography/paragraph/info-box';

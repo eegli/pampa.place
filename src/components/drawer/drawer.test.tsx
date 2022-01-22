@@ -14,11 +14,7 @@ const mockRouter: Partial<typeof router> = {
   pathname: '/',
 };
 
-jest.mock('next/router', () => ({
-  useRouter() {
-    return mockRouter;
-  },
-}));
+jest.spyOn(require('next/router'), 'useRouter').mockReturnValue(mockRouter);
 
 afterEach(() => {
   jest.clearAllMocks();

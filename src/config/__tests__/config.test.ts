@@ -2,7 +2,10 @@ import {config as gameConfig} from '../game';
 import {config as googleConfig} from '../google';
 
 describe('Game config', () => {
+  jest.unmock('../game');
+
   it('includes unlimited time mode', () => {
+    expect(gameConfig).toMatchSnapshot();
     expect(gameConfig.timeLimits).toContain(-1);
   });
   it('defaults options are included by the config', () => {

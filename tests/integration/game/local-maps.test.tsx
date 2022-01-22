@@ -6,7 +6,8 @@ import {MAPS} from '@/config/maps';
 import {LocalStorageMaps, MapData} from '@/config/types';
 import {testMap, userInputFeatureCollection} from '@/tests/fixtures/map';
 import {act, fireEvent, render, screen} from '@/tests/utils';
-import {MyMapsPage} from './my-maps.page';
+import {MyMapsPage} from 'src/pages/my-maps.page';
+
 jest.useFakeTimers();
 
 beforeEach(() => {

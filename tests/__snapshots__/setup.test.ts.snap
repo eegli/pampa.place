@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test global setup has global definitions 1`] = `
+exports[`Global mock setup has global definitions 1`] = `
 Object {
   "Circle": [Function],
   "ControlPosition": Object {

@@ -8,7 +8,9 @@ import {
   Box,
   BoxProps,
   Button,
-  Paper,
+  List,
+  ListItem,
+  ListItemText,
   Stack,
   Tab,
   Table,
@@ -20,8 +22,8 @@ import {
   Typography,
 } from '@mui/material';
 import {ReactNode, SyntheticEvent, useState} from 'react';
-import {GoogleMap} from '../../google/map';
-import {GoogleStreetView} from '../../google/street-view';
+import {GoogleMap} from '../google/map';
+import {GoogleStreetView} from '../google/street-view';
 
 interface TabPanelProps extends BoxProps {
   children?: ReactNode;
@@ -156,17 +158,26 @@ export const RoundOverSummary = () => {
 
       <TabPanel selected={selectedPanel} index={3}>
         <SlimContainer id="round-end-loc-info">
-          <Typography variant="h5" alignSelf="flex-start" mb={2}>
-            Location info
-          </Typography>
+          <List>
+            <ListItem>
+              <ListItemText
+                primaryTypographyProps={{fontWeight: 'bold', fontSize: 18}}
+                secondaryTypographyProps={{fontSize: 16}}
+                primary="Panorama description"
+                secondary={panoDescription}
+              />
+            </ListItem>
 
-          <Paper sx={{p: 2, mb: 1}} elevation={1}>
-            Panorama description: {panoDescription}
-          </Paper>
-          <Paper sx={{p: 2}}>
-            Coordinates (lat/lng): {initialPosition?.lat},{' '}
-            {initialPosition?.lng}
-          </Paper>
+            <ListItem>
+              <ListItemText
+                primaryTypographyProps={{fontWeight: 'bold', fontSize: 18}}
+                secondaryTypographyProps={{fontSize: 16}}
+                primary="Coordinates (lat/lng)"
+                secondary={`${initialPosition?.lat}, 
+            ${initialPosition?.lng}`}
+              />
+            </ListItem>
+          </List>
         </SlimContainer>
       </TabPanel>
     </>
