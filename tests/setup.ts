@@ -9,7 +9,8 @@ jest.spyOn(global.console, 'info').mockImplementation(() => jest.fn());
 jest.spyOn(global.console, 'warn').mockImplementation(() => jest.fn());
 
 /* ----------- INTERNALS ----------- */
-jest.mock('../src/config/maps');
+jest.mock('@/config/maps');
+jest.mock('@/config/game');
 
 /* ----------- NODE MODULES ----------- */
 // Default implementation. For specific tests, create a dedicated mock

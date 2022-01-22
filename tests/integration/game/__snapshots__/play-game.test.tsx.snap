@@ -1,6 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Game play integration test round 1 summary: round 1 info 1`] = `
+exports[`Game play integration test final game summary:  summary 1`] = `
+<table
+  aria-label="result-table"
+  class="MuiTable-root css-1puexzi-MuiTable-root"
+>
+  <thead
+    class="MuiTableHead-root css-15wwp11-MuiTableHead-root"
+  >
+    <tr
+      class="MuiTableRow-root MuiTableRow-head css-1pgphf0-MuiTableRow-root"
+    >
+      <th
+        class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall css-gvmp1b-MuiTableCell-root"
+        scope="col"
+      >
+        Name
+      </th>
+      <th
+        class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight MuiTableCell-sizeSmall css-w5jrf1-MuiTableCell-root"
+        scope="col"
+      >
+        Total Score
+      </th>
+    </tr>
+  </thead>
+  <tbody
+    class="MuiTableBody-root css-apqrd9-MuiTableBody-root"
+  >
+    <tr
+      class="MuiTableRow-root css-1pgphf0-MuiTableRow-root"
+    >
+      <th
+        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall css-13rbi0f-MuiTableCell-root"
+        scope="row"
+      >
+        Player 1
+      </th>
+      <td
+        class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight MuiTableCell-sizeSmall css-d5rns7-MuiTableCell-root"
+      >
+        64
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Game play integration test round 1/2 summary: info table 1`] = `
 Array [
   <li
     class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-13v49lt-MuiListItem-root"
@@ -42,7 +89,7 @@ Array [
 ]
 `;
 
-exports[`Game play integration test round 1 summary: round 1 summary 1`] = `
+exports[`Game play integration test round 1/2 summary: summary screen 1`] = `
 <table
   class="MuiTable-root css-1puexzi-MuiTable-root"
 >
@@ -93,6 +140,63 @@ exports[`Game play integration test round 1 summary: round 1 summary 1`] = `
         class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight MuiTableCell-sizeSmall css-d5rns7-MuiTableCell-root"
       >
         64
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`Game play integration test round 2/2 ends after time runs out: summary 1`] = `
+<table
+  class="MuiTable-root css-1puexzi-MuiTable-root"
+>
+  <thead
+    class="MuiTableHead-root css-15wwp11-MuiTableHead-root"
+  >
+    <tr
+      class="MuiTableRow-root MuiTableRow-head css-1pgphf0-MuiTableRow-root"
+    >
+      <th
+        class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall css-gvmp1b-MuiTableCell-root"
+        scope="col"
+      >
+        Name
+      </th>
+      <th
+        class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight MuiTableCell-sizeSmall css-w5jrf1-MuiTableCell-root"
+        scope="col"
+      >
+        Distance
+      </th>
+      <th
+        class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight MuiTableCell-sizeSmall css-w5jrf1-MuiTableCell-root"
+        scope="col"
+      >
+        Score
+      </th>
+    </tr>
+  </thead>
+  <tbody
+    class="MuiTableBody-root css-apqrd9-MuiTableBody-root"
+  >
+    <tr
+      class="MuiTableRow-root css-1pgphf0-MuiTableRow-root"
+    >
+      <th
+        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall css-13rbi0f-MuiTableCell-root"
+        scope="row"
+      >
+        Player 1
+      </th>
+      <td
+        class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight MuiTableCell-sizeSmall css-d5rns7-MuiTableCell-root"
+      >
+        -
+      </td>
+      <td
+        class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight MuiTableCell-sizeSmall css-d5rns7-MuiTableCell-root"
+      >
+        0
       </td>
     </tr>
   </tbody>

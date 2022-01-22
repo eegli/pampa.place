@@ -7,6 +7,7 @@ import {
   GoogleStreetViewResponse,
 } from '../../payloads/google';
 import {
+  act,
   createMockState,
   createMockStore,
   fireEvent,
@@ -16,14 +17,21 @@ import {
   within,
 } from '../../utils';
 
-beforeEach(() => {
-  jest.clearAllMocks();
+const mockPush = jest.fn().mockResolvedValue(true);
+
+/* eslint-disable-next-line @typescript-eslint/no-var-requires */
+jest.spyOn(require('next/router'), 'useRouter').mockReturnValue({
+  push: mockPush,
 });
 
 const getPanoramSpy = jest.spyOn(
   google.maps.StreetViewService.prototype,
   'getPanorama'
 );
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('Game play integration test', () => {
   const state = createMockState();
@@ -54,14 +62,14 @@ describe('Game play integration test', () => {
       expect(screen.queryByRole('alert')).not.toBeInTheDocument()
     );
     expect(
-      screen.getByRole('button', {name: /start round/gi})
+      screen.getByRole('button', {name: /Start round/gi})
     ).not.toBeDisabled();
     expect(screen.getAllByRole('heading')).toMatchSnapshot(
       'intermission screen'
     );
   });
 
-  test('round 1 with user interaction', async () => {
+  test('round 1/2 with user interaction', async () => {
     const mockClickEvent: Record<string, () => void> = {};
     jest
       .spyOn(MapService.map, 'addListener')
@@ -89,10 +97,10 @@ describe('Game play integration test', () => {
     expect(sv).not.toBeInTheDocument();
     // console.debug(store.getState());
   });
-  test('round 1 summary', () => {
+  test('round 1/2 summary', () => {
     render(<GamePage />, store);
     expect(screen.getByRole('heading')).toHaveTextContent(/Round 1 is over!/i);
-    expect(screen.getByRole('table')).toMatchSnapshot('round 1 summary');
+    expect(screen.getByRole('table')).toMatchSnapshot('summary screen');
     expect(screen.getByRole('tablist')).toHaveTextContent(
       /(Result|Map|Street View|Info)/i
     );
@@ -105,14 +113,39 @@ describe('Game play integration test', () => {
     expect(screen.getByTestId(GoogleDOMIds.STV_DIV)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('tab', {name: /Info/i}));
     const infoItems = screen.getAllByRole('listitem');
-    expect(infoItems).toMatchSnapshot('round 1 info');
+    expect(infoItems).toMatchSnapshot('info table');
     expect(infoItems).toHaveLength(2);
     fireEvent.click(screen.getByRole('tab', {name: /Result/i}));
-    fireEvent.click(screen.getByRole('button', {name: /Continue/i}));
+    fireEvent.click(
+      screen.getByRole('button', {name: /Continue with round 2/i})
+    );
   });
-  test('round 2 ends after time runs out', () => {
+  test('round 2/2 ends after time runs out', async () => {
     jest.useFakeTimers('modern');
     render(<GamePage />, store);
+    fireEvent.click(await screen.findByRole('button', {name: /start round/gi}));
+    const map = screen.getByTestId('play-google-map');
+    expect(map).toBeInTheDocument();
+    // In tests, the time limit is 30 seconds
+    act(() => {
+      jest.advanceTimersByTime(31 * 1000);
+    });
+    expect(map).not.toBeInTheDocument();
+    expect(screen.getByRole('table')).toMatchSnapshot('summary');
+    const resultButton = screen.getByRole('button', {name: /See results!/i});
+    expect(resultButton).toBeInTheDocument();
+    fireEvent.click(resultButton);
     jest.useRealTimers();
+  });
+  test('final game summary', () => {
+    render(<GamePage />, store);
+    expect(screen.getByRole('table')).toMatchSnapshot(' summary');
+    const headings = screen.getAllByRole('heading');
+    expect(headings[0]).toHaveTextContent(/Game over!/gi);
+    expect(headings[1]).toHaveTextContent(/Player 1 wins/gi);
+    const restartButton = screen.getByRole('button', {name: /Play again/i});
+    expect(restartButton).toBeInTheDocument();
+    fireEvent.click(restartButton);
+    expect(mockPush).toHaveBeenCalledWith('/');
   });
 });
