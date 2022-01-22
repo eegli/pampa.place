@@ -7,6 +7,7 @@ const createJestConfig = nextJest({
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
   collectCoverageFrom: [
+    '<rootDir>/tests/integration/*.{js,jsx,ts,tsx}',
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
     '!<rootDir>/src/pages/api/**/*',
     '!<rootDir>/src/pages/poc/**/*',

@@ -1,7 +1,7 @@
 import {Dialog} from '@/components/feedback/dialog';
 import {PreviewDialog} from '@/components/feedback/dialog-preview';
 import {GoogleMap} from '@/components/google/map';
-import {Header} from '@/components/nav/header/header';
+import {Header} from '@/components/header/header';
 import {Constants} from '@/config/constants';
 import {validateAndComputeGeoJSON} from '@/config/helpers/validator';
 import {MAPS} from '@/config/maps';
@@ -25,8 +25,6 @@ import Typography from '@mui/material/Typography';
 import {NextPage} from 'next';
 import {ChangeEvent, useEffect, useState} from 'react';
 import {useLocalStorage} from 'usehooks-ts';
-
-/* EXPERIMENTAL */
 
 export const MyMapsPage: NextPage = () => {
   const [localMaps, setLocalMaps] = useLocalStorage<LocalStorageMaps>(

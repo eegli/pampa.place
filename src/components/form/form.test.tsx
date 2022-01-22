@@ -35,6 +35,7 @@ describe('Form', () => {
       `"PENDING_PLAYER"`
     );
   });
+  // TODO improve this
   it('resets game state and fields', () => {
     const state = createMockState({
       game: {

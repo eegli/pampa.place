@@ -19,7 +19,6 @@ import {
 
 const mockPush = jest.fn().mockResolvedValue(true);
 
-/* eslint-disable-next-line @typescript-eslint/no-var-requires */
 jest.spyOn(require('next/router'), 'useRouter').mockReturnValue({
   push: mockPush,
 });

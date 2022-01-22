@@ -6,19 +6,16 @@ import {
   render,
   screen,
 } from '@/tests/utils';
-import * as Dialog from '../../feedback/dialog';
+import * as Dialog from '../feedback/dialog';
 import {SpeedDialNav} from './speed-dial';
 
 const dialogSpy = jest.spyOn(Dialog, 'Dialog');
-const mockPush = jest.fn();
 
-jest.mock('next/router', () => ({
-  useRouter() {
-    return {
-      push: mockPush,
-    };
-  },
-}));
+const mockPush = jest.fn().mockResolvedValue(true);
+
+jest.spyOn(require('next/router'), 'useRouter').mockReturnValue({
+  push: mockPush,
+});
 
 beforeEach(() => {
   jest.clearAllMocks();

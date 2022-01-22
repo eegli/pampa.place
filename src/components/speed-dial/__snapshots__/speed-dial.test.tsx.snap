@@ -27,7 +27,7 @@ Object {
     Array [],
   ],
   "status": "PENDING_PLAYER",
-  "timeLimit": 60,
+  "timeLimit": 30,
 }
 `;
 
