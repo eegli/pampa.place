@@ -5,7 +5,7 @@ import {GamePage} from 'src/pages/game.page';
 import {
   GoogleStreetViewFailedResponse,
   GoogleStreetViewResponse,
-} from '../../payloads/google';
+} from '../payloads/google';
 import {
   act,
   createMockState,
@@ -15,7 +15,7 @@ import {
   screen,
   waitFor,
   within,
-} from '../../utils';
+} from '../utils';
 
 const mockPush = jest.fn().mockResolvedValue(true);
 
@@ -32,12 +32,12 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-describe('Game play integration test', () => {
+describe('Integration, game play', () => {
   const state = createMockState();
   const store = createMockStore(state);
   store.dispatch(setRounds(2));
   store.dispatch(initGame());
-  test('searches panorama and does not find one first', async () => {
+  it('searches panorama and does not find one first', async () => {
     getPanoramSpy.mockRejectedValue(GoogleStreetViewFailedResponse);
     render(<GamePage />, store);
     expect(
@@ -68,7 +68,7 @@ describe('Game play integration test', () => {
     );
   });
 
-  test('round 1/2 with user interaction', async () => {
+  it('round 1 works with user interaction', async () => {
     const mockClickEvent: Record<string, () => void> = {};
     jest
       .spyOn(MapService.map, 'addListener')
@@ -96,7 +96,7 @@ describe('Game play integration test', () => {
     expect(sv).not.toBeInTheDocument();
     // console.debug(store.getState());
   });
-  test('round 1/2 summary', () => {
+  it('displays round 1 summary', () => {
     render(<GamePage />, store);
     expect(screen.getByRole('heading')).toHaveTextContent(/Round 1 is over!/i);
     expect(screen.getByRole('table')).toMatchSnapshot('summary screen');
@@ -119,7 +119,7 @@ describe('Game play integration test', () => {
       screen.getByRole('button', {name: /Continue with round 2/i})
     );
   });
-  test('round 2/2 ends after time runs out', async () => {
+  it('dispatches score in round 2 after time runs out', async () => {
     jest.useFakeTimers('modern');
     render(<GamePage />, store);
     fireEvent.click(await screen.findByRole('button', {name: /start round/gi}));
@@ -130,15 +130,16 @@ describe('Game play integration test', () => {
       jest.advanceTimersByTime(31 * 1000);
     });
     expect(map).not.toBeInTheDocument();
+    // Skip the round summary - it has already been tested in round 1
     expect(screen.getByRole('table')).toMatchSnapshot('summary');
     const resultButton = screen.getByRole('button', {name: /See results!/i});
     expect(resultButton).toBeInTheDocument();
     fireEvent.click(resultButton);
     jest.useRealTimers();
   });
-  test('final game summary', () => {
+  it('displays final game summary', () => {
     render(<GamePage />, store);
-    expect(screen.getByRole('table')).toMatchSnapshot(' summary');
+    expect(screen.getByRole('table')).toMatchSnapshot('summary');
     const headings = screen.getAllByRole('heading');
     expect(headings[0]).toHaveTextContent(/Game over!/gi);
     expect(headings[1]).toHaveTextContent(/Player 1 wins/gi);

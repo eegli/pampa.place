@@ -18,9 +18,6 @@ describe('Mock map for tests', () => {
 });
 
 describe('Global mock setup', () => {
-  it('has global definitions', () => {
-    expect(google.maps).toMatchSnapshot();
-  });
   it('event listeners return a listener object', () => {
     const l1 = google.maps.event.addListenerOnce({}, 'click', () => {});
     expect(l1.remove).toBeTruthy();

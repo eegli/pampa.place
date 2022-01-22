@@ -19,7 +19,7 @@ const logger = createLogger();
 
 const windowStorage: Middleware<unknown, RootState> = () => next => action => {
   if (action.type.includes('setApiKey') && typeof action.payload === 'string') {
-    window.sessionStorage.setItem(Constants.SESSION_APIKEY_KEY, action.payload);
+    window.sessionStorage.setItem(Constants.SESSION_API_KEY, action.payload);
   }
   if (action.type.includes('setTheme') && typeof action.payload === 'string') {
     window.localStorage.setItem(Constants.THEME_KEY, action.payload);

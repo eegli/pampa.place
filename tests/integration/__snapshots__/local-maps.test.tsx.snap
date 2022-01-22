@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`My maps page allows previewing local maps: map preview dialog 1`] = `
+exports[`Integration, local map handling allows previewing local maps: map preview dialog 1`] = `
 Object {
   "children": <GoogleMap
     map={
@@ -93,7 +93,7 @@ Object {
 }
 `;
 
-exports[`My maps page removes input maps from global maps and local storage: map deletion dialog 1`] = `
+exports[`Integration, local map handling removes input maps from global maps and local storage: map deletion dialog 1`] = `
 Object {
   "confirmMessage": "Delete map",
   "infoMessage": "Are you sure you want to delete your local map \\"my test map\\"?",

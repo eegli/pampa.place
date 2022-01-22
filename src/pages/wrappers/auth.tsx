@@ -19,7 +19,7 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
 
   // Check if an api key is already present in local storage
   useEffect(() => {
-    const apiKey = window.sessionStorage.getItem(Constants.SESSION_APIKEY_KEY);
+    const apiKey = window.sessionStorage.getItem(Constants.SESSION_API_KEY);
     if (typeof apiKey === 'string') {
       dispatch(setApiKey(apiKey));
     }
@@ -41,8 +41,6 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
       version="3.47.2"
       render={status => {
         switch (status) {
-          case Status.SUCCESS:
-            return <>{children}</>;
           case Status.LOADING:
             return (
               <PageContent id="spinner">
@@ -57,6 +55,8 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
             );
         }
       }}
-    />
+    >
+      {children}
+    </Wrapper>
   );
 };

@@ -65,7 +65,7 @@ function expectDialogToBeGone() {
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 }
 
-describe('My maps page', () => {
+describe('Integration, local map handling', () => {
   it('map name input', () => {
     render(<MyMapsPage />);
     const input = nameInput();

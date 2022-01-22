@@ -1,10 +1,7 @@
 import {fireEvent, render, screen} from '@/tests/utils';
 import router from 'next/router';
+import {Constants} from '../../config/constants';
 import {MenuDrawer} from './drawer';
-
-const clearStorageSpy = jest
-  .spyOn(window.sessionStorage, 'clear')
-  .mockImplementation(jest.fn());
 
 const mockToggleDrawer = jest.fn();
 
@@ -44,11 +41,13 @@ describe('Drawer', () => {
       console.info(mockRouter);
     });
   });
-  it(`nav item, change api key`, () => {
+  it(`nav item, change local api key`, () => {
+    window.sessionStorage.setItem(Constants.SESSION_API_KEY, 'old key');
+    expect(window.sessionStorage.length).toBe(1);
     render(<MenuDrawer open toggleDrawer={mockToggleDrawer} />);
     const navButton = getListItem('api key');
     fireEvent.click(navButton);
-    expect(clearStorageSpy).toHaveBeenCalledTimes(1);
+    expect(window.sessionStorage.length).toBe(0);
     expect(mockRouter.reload).toHaveBeenCalledTimes(1);
   });
 });
