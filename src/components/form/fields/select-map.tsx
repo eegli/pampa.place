@@ -1,3 +1,5 @@
+import {PreviewDialog} from '@/components/feedback/dialog-preview';
+import {GoogleMap} from '@/components/google/map';
 import {MAPS} from '@/config/maps';
 import {MapData} from '@/config/types';
 import {setMap} from '@/redux/game';
@@ -16,8 +18,6 @@ import {
   Tooltip,
 } from '@mui/material';
 import {useMemo, useState} from 'react';
-import {PreviewDialog} from '../../feedback/dialog-preview';
-import {GoogleMap} from '../../google/map';
 
 export const FormMapSelect = () => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);

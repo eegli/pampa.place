@@ -43,6 +43,10 @@ export const Play = () => {
     );
   }
 
+  if (!map || !initialPos) {
+    return null;
+  }
+
   return (
     <Box
       id="play-mode"
@@ -59,7 +63,7 @@ export const Play = () => {
       <Box position="relative" height="100%" width="100%">
         <StyledMapOverlay pos="map" onClick={() => setShowMap(!showMap)}>
           {/* eslint-disable-next-line  @next/next/no-img-element */}
-          <img src="/map.svg" alt="map-icon" />
+          <img aria-label="map-toggle" src="/map.svg" alt="map-icon" />
         </StyledMapOverlay>
 
         <StyledMapOverlay pos="submit" onClick={() => setShowMap(!showMap)}>
@@ -75,14 +79,23 @@ export const Play = () => {
         </StyledMapOverlay>
 
         <div
+          data-testid="play-google-street-view"
           style={{
             display: showMap ? 'none' : 'block',
             height: '100%',
           }}
         >
-          {initialPos && <GoogleStreetView />}
+          <GoogleStreetView />
         </div>
-        {map && <GoogleMap map={map} mode="play" />}
+        <div
+          data-testid="play-google-map"
+          style={{
+            display: 'block',
+            height: '100%',
+          }}
+        >
+          <GoogleMap map={map} mode="play" />
+        </div>
       </Box>
     </Box>
   );

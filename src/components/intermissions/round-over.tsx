@@ -20,8 +20,8 @@ import {
   Typography,
 } from '@mui/material';
 import {ReactNode, SyntheticEvent, useState} from 'react';
-import {GoogleMap} from '../../google/map';
-import {GoogleStreetView} from '../../google/street-view';
+import {GoogleMap} from '../google/map';
+import {GoogleStreetView} from '../google/street-view';
 
 interface TabPanelProps extends BoxProps {
   children?: ReactNode;

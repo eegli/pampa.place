@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Game play integration test play mode 1`] = `
+Object {
+  "@@observable": [Function],
+  "dispatch": [Function],
+  "getState": [Function],
+  "replaceReducer": [Function],
+  "subscribe": [Function],
+}
+`;
+
+exports[`Game play integration test searches panorama and does not find one first: intermission screen 1`] = `
+Array [
+  <h4
+    class="MuiTypography-root MuiTypography-h4 MuiTypography-alignCenter css-149xwtl-MuiTypography-root"
+  >
+    Player 1
+    , it's your turn!
+  </h4>,
+  <h6
+    class="MuiTypography-root MuiTypography-h6 css-13nzsfx-MuiTypography-root"
+  >
+    Round 
+    1
+    /
+    3
+  </h6>,
+]
+`;

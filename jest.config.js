@@ -1,3 +1,9 @@
+const nextJest = require('next/jest');
+
+const createJestConfig = nextJest({
+  dir: './',
+});
+
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
   collectCoverageFrom: [
@@ -5,7 +11,6 @@ const config = {
     '!<rootDir>/src/pages/api/**/*',
     '!<rootDir>/src/pages/poc/**/*',
   ],
-  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   moduleNameMapper: {
     '^@/config/(.*)$': '<rootDir>/src/config/$1',
     '^@/components/(.*)$': '<rootDir>/src/components/$1',
@@ -16,18 +21,11 @@ const config = {
     '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@/tests/(.*)$': '<rootDir>/tests/$1',
   },
-  transform: {
-    /* Use babel-jest to transpile tests with the next/babel preset
-    https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object */
-    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', {presets: ['next/babel']}],
-  },
-  transformIgnorePatterns: [
-    '/node_modules/',
-    '^.+\\.module\\.(css|sass|scss)$',
-  ],
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
+  moduleDirectories: ['node_modules', '<rootDir>/'],
   roots: ['<rootDir>/src/', '<rootDir>/tests/'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   testEnvironment: 'jsdom',
 };
 
-module.exports = config;
+module.exports = createJestConfig(config);

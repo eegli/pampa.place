@@ -27,14 +27,9 @@ Object {
 
 exports[`Intermission, round ongoing requests new street view location, rejected: sv request, rejected 1`] = `
 Object {
-  "error": Object {
-    "code": "ZERO_RESULTS",
-    "endpoint": "getRandomPanorama",
-    "message": "unable to find sv",
-    "name": "MapsRequestError",
-  },
+  "error": null,
   "initialPosition": null,
-  "loading": false,
+  "loading": true,
   "panoDescription": "",
   "panoId": "",
   "selectedPosition": null,
