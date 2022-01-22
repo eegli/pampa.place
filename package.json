@@ -14,7 +14,7 @@
     "url": "https://github.com/eegli/pampa.place/issues"
   },
   "scripts": {
-    "ci": "yarn install --frozen-lockfile --ignore-optional",
+    "ci": "yarn install --frozen-lockfile",
     "dev": "next dev",
     "build": "next build",
     "build:local": "cross-env ANALYZE=true next build",
