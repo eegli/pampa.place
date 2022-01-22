@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Play dispatches no score when time runs out: no score 1`] = `
+Array [
+  Array [
+    Object {
+      "dist": -1,
+      "name": "player 1",
+      "score": 0,
+      "selected": null,
+    },
+  ],
+]
+`;
+
+exports[`Play dispatches score when position is set: score 1`] = `
+Array [
+  Array [
+    Object {
+      "dist": 157225.64920708904,
+      "name": "player 1",
+      "score": 65,
+      "selected": Object {
+        "lat": 1,
+        "lng": 1,
+      },
+    },
+  ],
+]
+`;

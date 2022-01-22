@@ -1,4 +1,5 @@
 import {LatLng, Size} from '@googlemaps/jest-mocks';
+import {ValidationError} from '../redux/position/thunks';
 
 export const GoogleStreetViewResponse: google.maps.StreetViewResponse = {
   data: {
@@ -9,7 +10,7 @@ export const GoogleStreetViewResponse: google.maps.StreetViewResponse = {
       description: 'Fake panorama description',
       pano: '69',
       shortDescription: null,
-      latLng: new LatLng(1, 2),
+      latLng: new LatLng(1, 1),
     },
     tiles: {
       centerHeading: 0,
@@ -18,4 +19,11 @@ export const GoogleStreetViewResponse: google.maps.StreetViewResponse = {
       worldSize: new Size(1, 1),
     },
   },
+};
+
+export const GoogleStreetViewFailedResponse: ValidationError = {
+  code: 'ZERO_RESULTS',
+  name: 'MapsRequestError',
+  endpoint: 'maps',
+  message: 'No results found',
 };

@@ -1,4 +1,4 @@
-export const enum GoogleDOMIds {
+export enum GoogleDOMIds {
   MAP_CONTAINER = '__GMAP__CONTAINER__',
   MAP_DIV = '__GMAP__',
   STV_CONTAINER = '__GSTV__CONTAINER__',

@@ -12,7 +12,7 @@ import {Play} from './play';
 
 describe('Play', () => {
   function getSubmitButton() {
-    return screen.getByRole('button', {name: /submit/i});
+    return screen.getByRole('button', {name: /submit/i, hidden: true});
   }
   it('has disabled submit button state', () => {
     const state = createMockState({
@@ -31,6 +31,10 @@ describe('Play', () => {
         selectedPosition: {
           lat: 1,
           lng: 1,
+        },
+        initialPosition: {
+          lat: 0,
+          lng: 0,
         },
       },
     });

@@ -1,8 +1,11 @@
-import {initGame} from '@/redux/game';
-import {ValidationError} from '@/redux/position/thunks';
+import {initGame, setRounds} from '@/redux/game';
 import {MapService} from '@/services/google';
+import {GoogleDOMIds} from '@/services/google/dom';
 import {GamePage} from 'src/pages/game.page';
-import {GoogleStreetViewResponse} from '../../payloads/google';
+import {
+  GoogleStreetViewFailedResponse,
+  GoogleStreetViewResponse,
+} from '../../payloads/google';
 import {
   createMockState,
   createMockStore,
@@ -12,13 +15,6 @@ import {
   waitFor,
   within,
 } from '../../utils';
-
-const panoError: ValidationError = {
-  code: 'ZERO_RESULTS',
-  name: 'MapsRequestError',
-  endpoint: 'maps',
-  message: 'No results found',
-};
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -32,9 +28,10 @@ const getPanoramSpy = jest.spyOn(
 describe('Game play integration test', () => {
   const state = createMockState();
   const store = createMockStore(state);
+  store.dispatch(setRounds(2));
   store.dispatch(initGame());
   test('searches panorama and does not find one first', async () => {
-    getPanoramSpy.mockRejectedValue(panoError);
+    getPanoramSpy.mockRejectedValue(GoogleStreetViewFailedResponse);
     render(<GamePage />, store);
     expect(
       screen.getByRole('button', {name: /getting a random street view/gi})
@@ -64,18 +61,17 @@ describe('Game play integration test', () => {
     );
   });
 
-  test('play mode', async () => {
+  test('round 1 with user interaction', async () => {
     const mockClickEvent: Record<string, () => void> = {};
     jest
       .spyOn(MapService.map, 'addListener')
       .mockImplementation((event, handler) => {
-        const clickEvent = {latLng: {lat: () => 8, lng: () => 8}};
+        const clickEvent = {latLng: {lat: () => 1, lng: () => 1}};
         const func = () => handler(clickEvent);
         mockClickEvent[event] = func;
         return {remove: () => null};
       });
     render(<GamePage />, store);
-    expect(store).toMatchSnapshot();
     fireEvent.click(await screen.findByRole('button', {name: /start round/gi}));
     const map = screen.getByTestId('play-google-map');
     const sv = screen.getByTestId('play-google-street-view');
@@ -92,5 +88,31 @@ describe('Game play integration test', () => {
     expect(map).not.toBeInTheDocument();
     expect(sv).not.toBeInTheDocument();
     // console.debug(store.getState());
+  });
+  test('round 1 summary', () => {
+    render(<GamePage />, store);
+    expect(screen.getByRole('heading')).toHaveTextContent(/Round 1 is over!/i);
+    expect(screen.getByRole('table')).toMatchSnapshot('round 1 summary');
+    expect(screen.getByRole('tablist')).toHaveTextContent(
+      /(Result|Map|Street View|Info)/i
+    );
+    expect(screen.getByRole('tab', {selected: true})).toHaveTextContent(
+      /Result/i
+    );
+    fireEvent.click(screen.getByRole('tab', {name: /Map/i}));
+    expect(screen.getByTestId(GoogleDOMIds.MAP_DIV)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('tab', {name: /Street View/i}));
+    expect(screen.getByTestId(GoogleDOMIds.STV_DIV)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('tab', {name: /Info/i}));
+    const infoItems = screen.getAllByRole('listitem');
+    expect(infoItems).toMatchSnapshot('round 1 info');
+    expect(infoItems).toHaveLength(2);
+    fireEvent.click(screen.getByRole('tab', {name: /Result/i}));
+    fireEvent.click(screen.getByRole('button', {name: /Continue/i}));
+  });
+  test('round 2 ends after time runs out', () => {
+    jest.useFakeTimers('modern');
+    render(<GamePage />, store);
+    jest.useRealTimers();
   });
 });
