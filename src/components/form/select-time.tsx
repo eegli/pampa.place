@@ -22,7 +22,7 @@ export const FormTimeLimitSelect = () => {
   return (
     <FormControl component="fieldset" sx={{mb: 3}} id="form-timelimit">
       <FormLabel component="legend">Time limit</FormLabel>
-      <RadioGroup row onChange={handleChange} name="form-time-select">
+      <RadioGroup row onChange={handleChange} name="form-time-select" id="sd">
         {config.timeLimits.map(val => {
           const label = formatDur(val);
           return (

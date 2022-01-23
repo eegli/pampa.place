@@ -22,7 +22,7 @@
     "lint": "eslint src tests --cache",
     "format": "prettier --write src scripts",
     "test": "jest --verbose",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watch --verbose",
     "test:coverage": "jest --coverage",
     "map": "node scripts/geojson-maker.js",
     "prepare": "husky install"

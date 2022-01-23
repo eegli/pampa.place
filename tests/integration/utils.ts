@@ -1,5 +1,4 @@
 import {AuthRes} from '../pages/api/auth.page';
-import {screen} from '../utils';
 
 export const mockFetch = jest.fn() as jest.MockedFunction<typeof global.fetch>;
 
@@ -19,19 +18,4 @@ export function setupGlobalFetch() {
       return reject();
     });
   });
-}
-
-export function getLoginElement(
-  elem: 'keyInput' | 'passwordInput' | 'devModeButton' | 'enterButton'
-) {
-  switch (elem) {
-    case 'keyInput':
-      return screen.getByLabelText(/api/gi);
-    case 'passwordInput':
-      return screen.getByLabelText(/password/gi);
-    case 'devModeButton':
-      return screen.getByRole('button', {name: /dev/gi});
-    case 'enterButton':
-      return screen.getByRole('button', {name: /enter/gi});
-  }
 }

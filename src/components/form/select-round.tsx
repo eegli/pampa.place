@@ -21,7 +21,7 @@ export const FormRoundSelect = () => {
   return (
     <FormControl component="fieldset" sx={{mb: 3}} id="form-rounds">
       <FormLabel component="legend">Rounds</FormLabel>
-      <RadioGroup row onChange={handleChange} name="row-radio-buttons-group">
+      <RadioGroup row onChange={handleChange} name="form-round-select">
         {config.rounds.map(val => {
           const label = val === 1 ? `1 Round` : `${val} Rounds`;
           return (

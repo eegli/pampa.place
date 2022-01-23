@@ -2,7 +2,7 @@ import {Constants} from '@/config/constants';
 import {fireEvent, render, screen, waitFor} from '@/tests/utils';
 import * as GoogleMapsReactWrapper from '@googlemaps/react-wrapper';
 import {AuthWrapper} from 'src/pages/wrappers/auth';
-import {getLoginElement, setupGlobalFetch} from './utils';
+import {setupGlobalFetch} from './utils';
 
 const mockchildren = <div data-testid="mock-children" />;
 
@@ -20,6 +20,21 @@ beforeEach(() => {
   window.sessionStorage.clear();
   jest.clearAllMocks();
 });
+
+function getLoginElement(
+  elem: 'keyInput' | 'passwordInput' | 'devModeButton' | 'enterButton'
+) {
+  switch (elem) {
+    case 'keyInput':
+      return screen.getByLabelText(/api/gi);
+    case 'passwordInput':
+      return screen.getByLabelText(/password/gi);
+    case 'devModeButton':
+      return screen.getByRole('button', {name: /dev/gi});
+    case 'enterButton':
+      return screen.getByRole('button', {name: /enter/gi});
+  }
+}
 
 describe('Integration, app login', () => {
   it('logs in automatically with api key in session storage', () => {
