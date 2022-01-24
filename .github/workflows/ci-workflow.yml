@@ -9,7 +9,6 @@ on:
 jobs:
   type-check:
     name: TypeScript checks
-    needs: [setup-node]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
