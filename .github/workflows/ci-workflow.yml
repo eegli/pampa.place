@@ -1,4 +1,4 @@
-name: CI Workflow
+name: ci
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
         run: yarn
 
   type-check:
-    name: Run type checks
+    name: TypeScript checks
     needs: [setup-node]
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +37,7 @@ jobs:
         run: yarn type-check
 
   tests:
-    name: Run tests
+    name: Tests
     needs: [type-check]
     runs-on: ubuntu-latest
     steps:
