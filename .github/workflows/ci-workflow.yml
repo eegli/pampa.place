@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  type-check:
-    name: TypeScript checks
+  ts-checks:
+    name: ts-checks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,22 +19,34 @@ jobs:
           cache: 'yarn'
           node-version-file: '.nvmrc'
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: yarn
       - name: Run Typescript checks
         run: yarn type-check
+
   unit-tests:
-    name: Unit tests
+    name: unit-tests
     needs: [type-check]
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+          node-version-file: '.nvmrc'
+      - name: Install dependencies
+        run: yarn
       - name: Run unit tests
         run: yarn test:unit
+
   integration-tests:
-    name: Integration tests
+    name: integration-tests
     needs: [type-check]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v2
         with:
@@ -44,12 +56,14 @@ jobs:
         run: yarn
       - name: Run integration tests
         run: yarn test:integration
+
   upload-coverage:
-    name: Upload coverage
+    name: upload-coverage
     needs: [unit-tests, integration-tests]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v2
         with:
