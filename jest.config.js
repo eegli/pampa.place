@@ -22,6 +22,7 @@ const config = {
     '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@/tests/(.*)$': '<rootDir>/tests/$1',
   },
+  bail: true,
   setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   moduleDirectories: ['node_modules', '<rootDir>/'],
   roots: ['<rootDir>/src/', '<rootDir>/tests/'],

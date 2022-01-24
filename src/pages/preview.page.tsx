@@ -4,7 +4,11 @@ import {MAPS} from '@/config/maps';
 import {MapProperties} from '@/config/types';
 import {PageContent} from '@/styles/containers';
 import {isInPolygon} from '@/utils/geo';
-import {alpha, Checkbox, FormControlLabel, FormGroup} from '@mui/material';
+import {alpha} from '@mui/material';
+import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 import {NextPage} from 'next';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {MapService} from '../services/google';
@@ -88,13 +92,7 @@ const PreviewPage: NextPage = () => {
     <>
       <Header />
       <PageContent headerGutter id="preview-page">
-        <div
-          ref={ref}
-          style={{
-            height: '100%',
-            width: '100%',
-          }}
-        />
+        <Box ref={ref} width="100%" height="100%" />
         <FormGroup
           sx={{
             position: 'absolute',

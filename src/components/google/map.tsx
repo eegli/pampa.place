@@ -5,6 +5,7 @@ import {Result} from '@/redux/game';
 import {useAppDispatch} from '@/redux/hooks';
 import {updateSelectedPosition} from '@/redux/position';
 import {MapService, MarkerService, PolyLineService} from '@/services/google';
+import Box from '@mui/material/Box';
 import {useEffect, useRef} from 'react';
 
 export type GoogleMapProps = {
@@ -154,12 +155,5 @@ export const GoogleMap = ({
     }
   }, [mode, initialPosition, results]);
 
-  return (
-    <div
-      ref={ref}
-      style={{
-        height: '100%',
-      }}
-    />
-  );
+  return <Box data-testid="play-google-map" ref={ref} height="100%" />;
 };

@@ -37,6 +37,7 @@ describe('Integration, game play', () => {
   const store = createMockStore(state);
   store.dispatch(setRounds(2));
   store.dispatch(initGame());
+
   it('searches panorama and does not find one first', async () => {
     getPanoramSpy.mockRejectedValue(GoogleStreetViewFailedResponse);
     render(<GamePage />, store);
@@ -66,6 +67,7 @@ describe('Integration, game play', () => {
     expect(screen.getAllByRole('heading')).toMatchSnapshot(
       'intermission screen'
     );
+    expect(getPanoramSpy).toHaveBeenCalledTimes(51);
   });
 
   it('round 1 works with user interaction', async () => {
@@ -78,6 +80,7 @@ describe('Integration, game play', () => {
         mockClickEvent[event] = func;
         return {remove: () => null};
       });
+
     render(<GamePage />, store);
     fireEvent.click(await screen.findByRole('button', {name: /start round/gi}));
     const map = screen.getByTestId('play-google-map');
@@ -94,7 +97,6 @@ describe('Integration, game play', () => {
     fireEvent.click(submit);
     expect(map).not.toBeInTheDocument();
     expect(sv).not.toBeInTheDocument();
-    // console.debug(store.getState());
   });
   it('displays round 1 summary', () => {
     render(<GamePage />, store);

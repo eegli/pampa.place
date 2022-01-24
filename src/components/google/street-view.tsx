@@ -1,15 +1,16 @@
 import {config} from '@/config/google';
 import {useAppSelector} from '@/redux/hooks';
 import {StreetViewService} from '@/services/google';
-import {Fade} from '@mui/material';
+import Box, {BoxProps} from '@mui/system/Box';
 import {useEffect, useRef} from 'react';
 
-type GoogleStreetViewProps = {
+interface GoogleStreetViewProps extends BoxProps {
   staticPos?: boolean;
-};
+}
 
 export const GoogleStreetView = ({
   staticPos = false,
+  ...rest
 }: GoogleStreetViewProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const panoId = useAppSelector(({position}) => position.panoId);
@@ -40,13 +41,11 @@ export const GoogleStreetView = ({
   }, [staticPos]);
 
   return (
-    <Fade in timeout={500}>
-      <div
-        ref={ref}
-        style={{
-          height: '100%',
-        }}
-      />
-    </Fade>
+    <Box
+      {...rest}
+      data-testid="play-google-street-view"
+      height="100%"
+      ref={ref}
+    />
   );
 };

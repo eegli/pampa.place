@@ -77,25 +77,8 @@ export const Play = () => {
             Submit
           </Button>
         </StyledMapOverlay>
-
-        <div
-          data-testid="play-google-street-view"
-          style={{
-            display: showMap ? 'none' : 'block',
-            height: '100%',
-          }}
-        >
-          <GoogleStreetView />
-        </div>
-        <div
-          data-testid="play-google-map"
-          style={{
-            display: 'block',
-            height: '100%',
-          }}
-        >
-          <GoogleMap map={map} mode="play" />
-        </div>
+        <GoogleStreetView display={showMap ? 'none' : 'block'} />
+        <GoogleMap map={map} mode="play" />
       </Box>
     </Box>
   );

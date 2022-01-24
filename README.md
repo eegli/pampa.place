@@ -95,13 +95,13 @@ Make sure that for each polygon you draw, you add a `name` entry to the `propert
 }
 ```
 
-You may add as many `features` to the `FeatureCollection` in your custom GeoJSON as you want. Just be sure to give them individual names! Maps that you drew yourself can be directly put into the `geojson` folder in the root directory. You can skip the next step as they are already cleaned up and good to go.
+On geojson.io, you may add as many `features` (maps) to the generated `FeatureCollection` as you want. Just be sure to give them individual names! Maps that you drew yourself can be directly put into the `geojson` folder in the root directory. You can skip the next step as they are already cleaned up and good to go.
 
 ## Preparing maps
 
 If you want to **use an existing GeoJSON file** that you did not create yourself, you may want to run it through the cleanup utility first.
 
-Place your files in the `geojson` folder in the root directory. Then, run
+Place your files in `geojson/raw`. Then, run
 
 ```bash
 yarn map
@@ -109,7 +109,7 @@ yarn map
 
 You'll be taken through the steps to prepare your maps. GeoJSON files from other sources may not have the `name` property but it can easily be derived from another existing property. The utility will let you pick a property to use as `name`, clean up other unused properties and filter larger datasets, e.g. if you only want to include a specific country or region.
 
-Your shiny new maps will automatically be put into the `geojson` folder in the root directory. This folder is meant for processed files that are ready to be used in the game (the `raw` folder contains datasets from which other maps can be created). From there on, the final step is to include them in the source code.
+Your shiny new maps will automatically be available in the `geojson` folder. The final step is to include them in the source code.
 
 ## Adding maps to the game
 
