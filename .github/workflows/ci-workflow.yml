@@ -17,7 +17,7 @@ jobs:
           node-version: '14'
           cache: 'yarn'
           node-version-file: '.nvmrc'
-      - run: yarn install:ci
+      - run: yarn
   type-check:
     name: Run type checks
     needs: [setup-node]
