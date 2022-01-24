@@ -25,7 +25,7 @@ jobs:
 
   unit-tests:
     name: unit-tests
-    needs: [type-check]
+    needs: [ts-checks]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
