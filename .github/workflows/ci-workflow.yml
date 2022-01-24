@@ -36,7 +36,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: node_modules-${{ hashFiles('npm-shrinkwrap.json') }}
+          key: node_modules-${{ hashFiles('yarn.lock') }}
       - name: Run Typescript checks
         run: yarn type-check
 
