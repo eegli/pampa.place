@@ -17,14 +17,27 @@ jobs:
           node-version: '14'
           cache: 'yarn'
           node-version-file: '.nvmrc'
-      - run: yarn
+      - name: Install dependencies
+        run: yarn
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
   type-check:
     name: Run type checks
     needs: [setup-node]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ needs.setup-node.outputs.build_id }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
       - name: Run Typescript checks
         run: yarn type-check
+
   tests:
     name: Run tests
     needs: [type-check]
