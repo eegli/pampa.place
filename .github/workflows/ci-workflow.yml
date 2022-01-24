@@ -33,6 +33,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
+          cache: 'yarn'
           node-version-file: '.nvmrc'
       - name: Install dependencies
         run: yarn
