@@ -28,6 +28,7 @@ jobs:
     needs: [setup-node]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/cache@v2
         id: yarn-cache
         with:
@@ -43,6 +44,7 @@ jobs:
     needs: [type-check]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Run tests and get coverage
         run: yarn test:coverage
       - name: Upload coverage to Codecov
