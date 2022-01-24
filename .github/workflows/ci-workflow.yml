@@ -52,7 +52,7 @@ jobs:
         run: yarn
       - name: Run integration tests
         run: yarn test:integration
-  upload coverage:
+  upload-coverage:
     name: Upload coverage
     needs: [unit-tests, integration-tests]
     runs-on: ubuntu-latest
