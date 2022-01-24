@@ -12,30 +12,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v2
+      - name: Read .nvmrc
+        run: echo NVMRC=`cat .nvmrc` >> $GITHUB_ENV
         with:
           cache: 'yarn'
-          node-version-file: '.nvmrc'
+          node-version: ${{ env.NVMRC }}
       - name: Install dependencies
         run: yarn
-      - name: Cache node_modules
-        id: cached-node-modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            node_modules-
 
   type-check:
     name: Run type checks
     needs: [setup-node]
     runs-on: ubuntu-latest
     steps:
-      - name: Load node_modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: node_modules-${{ hashFiles('yarn.lock') }}
+      - uses: actions/setup-node@v2
+      - name: Install dependencies
+        run: yarn
       - name: Run Typescript checks
         run: yarn type-check
 
@@ -44,6 +36,9 @@ jobs:
     needs: [type-check]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v2
+      - name: Install dependencies
+          run: yarn
       - name: Run tests and get coverage
         run: yarn test:coverage
       - name: Upload coverage to Codecov
