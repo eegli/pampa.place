@@ -26,7 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+          node-version-file: '.nvmrc'
       - name: Install dependencies
         run: yarn
       - name: Run Typescript checks
@@ -38,7 +42,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+          node-version-file: '.nvmrc'
       - name: Install dependencies
         run: yarn
       - name: Run tests and get coverage
