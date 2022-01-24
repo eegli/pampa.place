@@ -1,4 +1,4 @@
-name: CI Tests
+name: ci
 
 on:
   push:
@@ -7,24 +7,72 @@ on:
     branches: [main]
 
 jobs:
-  unit-tests:
+  ts-checks:
+    name: ts-checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Read .nvmrc
-        run: echo NVMRC=`cat .nvmrc` >> $GITHUB_ENV
-
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ env.NVMRC }}
-
+          cache: 'yarn'
+          node-version-file: '.nvmrc'
       - name: Install dependencies
-        run: yarn ci
+        run: yarn
+      - name: Run Typescript checks
+        run: yarn type-check
 
+  unit-tests:
+    name: unit-tests
+    needs: [ts-checks]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+          node-version-file: '.nvmrc'
+      - name: Install dependencies
+        run: yarn
+      - name: Run unit tests
+        run: yarn test:unit
+
+  integration-tests:
+    name: integration-tests
+    needs: [ts-checks]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+          node-version-file: '.nvmrc'
+      - name: Install dependencies
+        run: yarn
+      - name: Run integration tests
+        run: yarn test:integration
+
+  upload-coverage:
+    name: upload-coverage
+    needs: [unit-tests, integration-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+          node-version-file: '.nvmrc'
+      - name: Install dependencies
+        run: yarn
       - name: Run tests and get coverage
         run: yarn test:coverage
-
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
