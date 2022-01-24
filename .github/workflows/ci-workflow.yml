@@ -17,7 +17,6 @@ jobs:
         with:
           cache: 'yarn'
           node-version-file: '.nvmrc'
-          node-version: ${{ env.NVMRC }}
       - name: Install dependencies
         run: yarn
 
