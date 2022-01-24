@@ -14,6 +14,7 @@
     "url": "https://github.com/eegli/pampa.place/issues"
   },
   "scripts": {
+    "install:ci": "yarn --frozen-lockfile",
     "type-check": "tsc",
     "dev": "next dev",
     "build": "next build",

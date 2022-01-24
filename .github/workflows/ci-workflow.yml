@@ -18,7 +18,8 @@ jobs:
           cache: 'yarn'
           node-version-file: '.nvmrc'
       - name: Install dependencies
-        run: yarn
+        uses: bahmutov/npm-install@v1
+        run: yarn install:ci
       - name: Run Typescript checks
         run: yarn type-check
   unit-tests:
@@ -26,14 +27,6 @@ jobs:
     needs: [type-check]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup node
-        uses: actions/setup-node@v2
-        with:
-          cache: 'yarn'
-          node-version-file: '.nvmrc'
-      - name: Install dependencies
-        run: yarn
       - name: Run unit tests
         run: yarn test:unit
   integration-tests:
