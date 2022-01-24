@@ -24,6 +24,8 @@
     "test": "jest --verbose",
     "test:watch": "jest --watch --verbose",
     "test:coverage": "jest --coverage",
+    "test:unit": "jest tests/setup.test.ts src",
+    "test:integration": "jest tests/integration",
     "map": "node scripts/geojson-maker.js",
     "prepare": "husky install"
   },
