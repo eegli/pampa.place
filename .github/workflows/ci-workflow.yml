@@ -11,6 +11,7 @@ jobs:
     name: Setup node
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Read .nvmrc
         run: echo NVMRC=`cat .nvmrc` >> $GITHUB_ENV
       - name: Setup node
@@ -26,6 +27,7 @@ jobs:
     needs: [setup-node]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - name: Install dependencies
         run: yarn
@@ -37,6 +39,7 @@ jobs:
     needs: [type-check]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - name: Install dependencies
         run: yarn
