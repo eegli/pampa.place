@@ -89,7 +89,8 @@ export const GoogleMap = ({
       });
       return () => {
         console.info('PLAY MODE UNMOUNT');
-        if (listener) listener.remove();
+        // TODO Remove once mocks are stable
+        listener?.remove();
         // https://developers.google.com/maps/documentation/javascript/markers#remove
         MarkerService.clearAllItems();
       };

@@ -48,6 +48,7 @@ jest.mock('next/router', () => {
 /* ----------- GOOGLE MAPS ----------- */
 initialize();
 
+// TODO Remove once maps are stable
 const MapsEventListener: google.maps.MapsEventListener = {
   remove: jest.fn(),
 };

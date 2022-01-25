@@ -20,7 +20,7 @@ type ClickEvent = {
   };
 };
 
-const PreviewPage: NextPage = () => {
+export const PreviewPage: NextPage = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [showCoverage, setShowCoverage] = useState<boolean>(false);
 
@@ -67,12 +67,12 @@ const PreviewPage: NextPage = () => {
           console.info(hits.map(m => m.name));
         }
       );
-
       return () => {
         geojson.forEach(feat => {
           MapService.map.data.remove(feat);
         });
-        listener.remove();
+        // TODO Remove once mocks are stable
+        listener?.remove();
         unmount();
       };
     }
