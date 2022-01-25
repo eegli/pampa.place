@@ -449,10 +449,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@googlemaps/jest-mocks@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@googlemaps/jest-mocks/-/jest-mocks-2.2.0.tgz#4684a37b1330372bb7e9e5d5ef63af737321cda9"
-  integrity sha512-8AgpXLPv7WA5VYAZkAW5HZj+3/fUgoraG1TovI42iKeQ380rhbyJbIfUZHohzRkWdiqt6G2Gv+WZz/SaxllCTA==
+"@googlemaps/jest-mocks@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@googlemaps/jest-mocks/-/jest-mocks-2.3.0.tgz#645492ca4cd9bf0b84bbe015f9e850213adeb364"
+  integrity sha512-l58n7iZcIhY/ZajCtcvUwLCRQ49hil1B3q3uXScCzG74HvI+YZxQfgwvigWBQuks62ViJJT3LWEJaiBXbfNG9w==
 
 "@googlemaps/js-api-loader@^1.11.1":
   version "1.13.2"
@@ -461,10 +461,10 @@
   dependencies:
     fast-deep-equal "^3.1.3"
 
-"@googlemaps/react-wrapper@^1.1.20":
-  version "1.1.20"
-  resolved "https://registry.yarnpkg.com/@googlemaps/react-wrapper/-/react-wrapper-1.1.20.tgz#32d2fa81930179a833c48bae872da285e3a84efa"
-  integrity sha512-gP3VFsoA1Yvlk3LIh/xQyaIQZhijuUHNBL0PxFHMhwDGfarPT/FewP7txYbuE5lPrLm0zkOZxlJmBLbtcL+ktg==
+"@googlemaps/react-wrapper@^1.1.21":
+  version "1.1.21"
+  resolved "https://registry.yarnpkg.com/@googlemaps/react-wrapper/-/react-wrapper-1.1.21.tgz#341845def2b3dec3a4b09804c8483a6997e0adce"
+  integrity sha512-Q2FH/iUXG8y4VVqCyb5bLR/Md6Z8JPtQ8IyBDxHZVnTgdMz6yzHM2+R3iLNAXZlel4wYUaMyGrjx6P7gh0hBMQ==
   dependencies:
     "@googlemaps/js-api-loader" "^1.11.1"
 
@@ -1071,10 +1071,10 @@
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.8.tgz#30744afdb385e2945e22f3b033f897f76b1f12ca"
   integrity sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==
 
-"@types/google.maps@^3.47.2":
-  version "3.47.2"
-  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.47.2.tgz#112484a9b334df7ffa3ec16658dd0a9dfc2ef39d"
-  integrity sha512-mFmt428CY4UN49U8KH5J4RfcdkeRu6SZyPIXxU1MA0pnHb4pqn/c/whawTodB3pkKWe8F9fXfUlpBFsk9HucXw==
+"@types/google.maps@^3.47.3":
+  version "3.47.3"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.47.3.tgz#36ec9cfb421ef8db11ba7337e006143dbd374522"
+  integrity sha512-BF/BzpO0LWiwR/bBoGVriy7e2n+syuGNQMQ0r/+GtisUcgKn9P7Z4rmLNmZko9niE8JJ5dpMkxHeen7gADlNaw==
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"

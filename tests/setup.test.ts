@@ -18,10 +18,6 @@ describe('Mock map for tests', () => {
 });
 
 describe('Global mock setup', () => {
-  it('event listeners return a listener object', () => {
-    const l1 = google.maps.event.addListenerOnce({}, 'click', () => {});
-    expect(l1.remove).toBeTruthy();
-  });
   it('street view service resolves', async () => {
     const service = new google.maps.StreetViewService();
     expect(service).toBeTruthy();

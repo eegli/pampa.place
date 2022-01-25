@@ -71,8 +71,7 @@ export const PreviewPage: NextPage = () => {
         geojson.forEach(feat => {
           MapService.map.data.remove(feat);
         });
-        // TODO Remove once mocks are stable
-        listener?.remove();
+        listener.remove();
         unmount();
       };
     }

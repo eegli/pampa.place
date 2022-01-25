@@ -48,23 +48,6 @@ jest.mock('next/router', () => {
 /* ----------- GOOGLE MAPS ----------- */
 initialize();
 
-// TODO Remove once maps are stable
-const MapsEventListener: google.maps.MapsEventListener = {
-  remove: jest.fn(),
-};
-
-global.google.maps.event = {
-  addListenerOnce: jest.fn().mockReturnValue(MapsEventListener),
-  addListener: jest.fn().mockReturnValue(MapsEventListener),
-  addDomListenerOnce: jest.fn().mockReturnValue(MapsEventListener),
-  addDomListener: jest.fn().mockReturnValue(MapsEventListener),
-  hasListeners: jest.fn(),
-  clearInstanceListeners: jest.fn(),
-  clearListeners: jest.fn(),
-  removeListener: jest.fn(),
-  trigger: jest.fn(),
-};
-
 global.google.maps.StreetViewService = class StreetViewService
   implements google.maps.StreetViewService
 {
