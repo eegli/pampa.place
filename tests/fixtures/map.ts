@@ -1,12 +1,16 @@
 import {MapData} from '@/config/types';
 import {FeatureCollection} from '@turf/helpers';
 
+export const testMapCategory = 'test';
+export const testMapName = 'my test map';
+export const testMapId = 'test-my-test-map';
+
 export const testMap: MapData = {
   type: 'Feature',
   properties: {
-    name: 'my test map',
-    id: 'test-my-test-map',
-    category: 'test',
+    name: testMapName,
+    id: testMapId,
+    category: testMapCategory,
     area: 34.542192851713864,
     bb: [
       8.472518920898438, 47.351384658074124, 8.576545715332031,
@@ -69,3 +73,5 @@ export const userInputFeatureCollection: FeatureCollection = {
     },
   ],
 };
+
+export const userInputFeature = userInputFeatureCollection.features[0];

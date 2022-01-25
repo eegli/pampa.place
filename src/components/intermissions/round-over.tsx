@@ -1,4 +1,3 @@
-import {MAPS} from '@/config/maps';
 import {endRound} from '@/redux/game';
 import {getCurrentRoundScores, isFinished} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
@@ -22,6 +21,7 @@ import {
   Typography,
 } from '@mui/material';
 import {ReactNode, SyntheticEvent, useState} from 'react';
+import {MAPS} from 'src/maps';
 import {GoogleMap} from '../google/map';
 import {GoogleStreetView} from '../google/street-view';
 

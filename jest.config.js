@@ -16,6 +16,7 @@ const config = {
     '^@/config/(.*)$': '<rootDir>/src/config/$1',
     '^@/components/(.*)$': '<rootDir>/src/components/$1',
     '^@/services/(.*)$': '<rootDir>/src/services/$1',
+    '^@/maps/(.*)$': '<rootDir>/src/maps/$1',
     '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
     '^@/redux/(.*)$': '<rootDir>/src/redux/$1',
     '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',

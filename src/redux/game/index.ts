@@ -1,9 +1,9 @@
 import {config} from '@/config/game';
-import {MAPS} from '@/config/maps';
 import {LatLngLiteral, MapData} from '@/config/types';
 import {calcDist, calcScore} from '@/utils/geo';
 import {OrNull} from '@/utils/types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {MAPS} from 'src/maps';
 
 export type Result = {
   name: string;

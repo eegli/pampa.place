@@ -23,6 +23,7 @@
       "@/components/*": ["src/components/*"],
       "@/services/*": ["src/services/*"],
       "@/styles/*": ["src/styles/*"],
+      "@/maps/*": ["src/maps/*"],
       "@/redux/*": ["src/redux/*"],
       "@/hooks/*": ["src/hooks/*"],
       "@/utils/*": ["src/utils/*"],

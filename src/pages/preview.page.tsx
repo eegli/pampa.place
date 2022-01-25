@@ -1,6 +1,5 @@
 import {Header} from '@/components/header/header';
 import {config} from '@/config/google';
-import {MAPS} from '@/config/maps';
 import {MapProperties} from '@/config/types';
 import {PageContent} from '@/styles/containers';
 import {isInPolygon} from '@/utils/geo';
@@ -11,6 +10,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import {NextPage} from 'next';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {MAPS} from 'src/maps';
 import {MapService} from '../services/google';
 
 type ClickEvent = {

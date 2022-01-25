@@ -3,9 +3,8 @@ import {PreviewDialog} from '@/components/feedback/dialog-preview';
 import {GoogleMap} from '@/components/google/map';
 import {Header} from '@/components/header/header';
 import {Constants} from '@/config/constants';
-import {validateAndComputeGeoJSON} from '@/config/helpers/validator';
-import {MAPS} from '@/config/maps';
 import {LocalStorageMaps, MapData} from '@/config/types';
+import {parseUserGeoJSON} from '@/maps/helpers/parser';
 import {PageContent, SlimContainer} from '@/styles/containers';
 import {colorize} from '@/styles/utils';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -24,6 +23,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import {NextPage} from 'next';
 import {ChangeEvent, useEffect, useState} from 'react';
+import {MAPS} from 'src/maps';
 import {useLocalStorage} from 'usehooks-ts';
 
 export const MyMapsPage: NextPage = () => {
@@ -53,16 +53,7 @@ export const MyMapsPage: NextPage = () => {
 
   function handleSubmit() {
     try {
-      let feature = JSON.parse(geoJSON);
-      // The parser is made for Features, not FeatureCollections. The
-      // default output from hand-drawn maps on geojson.io is a
-      // FeatureCollection. Only the first feature is used. Might be
-      // changed later
-      if (feature.type === 'FeatureCollection') {
-        feature = feature.features[0];
-      }
-      feature.properties.name = name;
-      const newMap = validateAndComputeGeoJSON(feature, 'local');
+      const newMap = parseUserGeoJSON(geoJSON, name, 'local');
       addMap(newMap);
     } catch (e) {
       setJSONErrMessage("That doesn't look like a valid map");
