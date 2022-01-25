@@ -113,40 +113,29 @@ Your shiny new maps will automatically be available in the `geojson` folder. The
 
 ## Adding maps to the game
 
-Go to `src/config/maps.ts`. New maps can be imported as follows:
+Go to `src/maps/index.ts`. New maps can be imported as follows:
 
 ```ts
 /* Example map configuration */
 import {generateMapData} from './helpers/generator';
-import {PropertyTransformer} from './types';
-
-// Optional: A property transformer
-const swissMapsTransformer: PropertyTransformer = p => {
-  if (p.name.includes('/')) {
-    p.name = p.name.split('/')[0];
-  }
-};
 
 export const MAPS = generateMapData(
   {
-    map: require('geojson/switzerland.json'),
+    collection: require('geojson/switzerland.json'),
     category: 'switzerland',
-    transformer: swissMapsTransformer,
   },
   {
-    map: require('geojson/us-states.json'),
+    collection: require('geojson/us-states.json'),
     category: 'usa',
   },
   {
-    map: require('geojson/america.json'),
+    collection: require('geojson/america.json'),
     category: 'usa',
   }
 );
 ```
 
-Each map may specify a custom transformer for its feature properties. For example, there is a map in the Swiss dataset that includes some forward slashes in its `name` property. In such a scenario, the transformer can fix that. The transformer is applied before any properties are used.
-
-Additionally, a category needs to be provided. Since all maps are stored in one large object, the category is used to provide a more unique key. This way, multiple maps can have the same name as long as their category is the same. Maps belonging to the same category that share the same name will overwrite each other.
+Each map collection must provide a category. Since all maps are stored in one large object, the category is used to provide a more unique key. This way, multiple maps can have the same name as long as their category is the same. Maps belonging to the same category that share the same name will overwrite each other.
 
 Categories are also used for some API endpoints that provide (meta) data for your maps. See: https://beta.pampa.place/api/maps/v1. Docs will follow.
 
