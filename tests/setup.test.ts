@@ -6,13 +6,13 @@ defined initial implementation that can later be overwritten
 individually for each test. 
 */
 
-import {validateAndComputeGeoJSON} from '@/config/helpers/validator';
+import {parseGeoJSONFeature} from '@/maps/helpers/parser';
 import {testMap} from './fixtures/map';
 import {GoogleStreetViewResponse} from './payloads/google';
 
 describe('Mock map for tests', () => {
   it('fixtures match computed maps', () => {
-    const computed = validateAndComputeGeoJSON(testMap, 'test');
+    const computed = parseGeoJSONFeature(testMap, 'test');
     expect(computed).toStrictEqual(testMap);
   });
 });

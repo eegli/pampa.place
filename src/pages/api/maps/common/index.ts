@@ -1,5 +1,5 @@
-import {MAPS} from '@/config/maps';
 import {MapProperties} from '@/config/types';
+import {MAPS} from '@/maps/index';
 import {NextApiHandler} from 'next';
 
 type ErrorResponse = {

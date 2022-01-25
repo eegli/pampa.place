@@ -1,9 +1,9 @@
 import {config} from '@/config/google';
-import {MAPS} from '@/config/maps';
 import {LatLngLiteral} from '@/config/types';
 import {RootState} from '@/redux/store';
 import {randomPointInMap} from '@/utils/geo';
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import {MAPS} from 'src/maps';
 import {PositionState} from '.';
 
 export interface ValidationError {

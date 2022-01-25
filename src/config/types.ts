@@ -48,24 +48,26 @@ export interface MapProperties extends BaseMapProperties {
 export type MapData = Feature<Polygon | MultiPolygon, MapProperties>;
 
 /* Helper types for map generation */
-type Input<T> = {
-  map: T;
+type Input<Type> = {
+  collection: Type;
   category: string;
-  transformer?: PropertyTransformer;
 };
 
-export type PropertyTransformer = (props: BaseMapProperties) => void;
-
-export type MapGenerator<
-  T = FeatureCollection<Polygon | MultiPolygon, BaseMapProperties>
-> = (...inputs: Input<T>[]) => Map<string, MapData>;
-
-export type GeoJSONValidator<
-  T = Feature<Polygon | MultiPolygon, BaseMapProperties>
-> = (feat: T, category: string, transformer?: PropertyTransformer) => MapData;
-
-export type LocalMapEnhancer = (
-  map: Map<string, MapData>
+export type MapGenerator<Type = FeatureCollection<Polygon | MultiPolygon>> = (
+  ...inputs: Input<Type>[]
 ) => Map<string, MapData>;
+
+export type FeatureParser<Type = Feature<Polygon | MultiPolygon>> = (
+  feat: Type,
+  category: string
+) => MapData;
+
+export type UserGeoJSONParser = (
+  rawMap: string,
+  name: string,
+  category: string
+) => MapData;
+
+export type LocalMapEnhancer<T = Map<string, MapData>> = (map: T) => T;
 
 export type LocalStorageMaps = Record<string, MapData>;

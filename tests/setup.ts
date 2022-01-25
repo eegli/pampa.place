@@ -9,7 +9,7 @@ jest.spyOn(global.console, 'info').mockImplementation(() => jest.fn());
 jest.spyOn(global.console, 'warn').mockImplementation(() => jest.fn());
 
 /* ----------- INTERNALS ----------- */
-jest.mock('@/config/maps');
+jest.mock('@/maps/index');
 jest.mock('@/config/game');
 
 /* ----------- NODE MODULES ----------- */

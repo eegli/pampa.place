@@ -1,6 +1,6 @@
-import {Constants} from '../constants';
-import {LocalMapEnhancer, LocalStorageMaps} from '../types';
-import {validateAndComputeGeoJSON} from './validator';
+import {Constants} from '@/config/constants';
+import {LocalMapEnhancer, LocalStorageMaps} from '@/config/types';
+import {parseGeoJSONFeature} from './parser';
 
 export const addLocalMaps: LocalMapEnhancer = maps => {
   if (typeof window !== 'undefined') {
@@ -11,7 +11,7 @@ export const addLocalMaps: LocalMapEnhancer = maps => {
     Object.values(parsedMaps).forEach(map => {
       try {
         // Recompute local properties in case anything has changed
-        const validatedMap = validateAndComputeGeoJSON(map, 'local');
+        const validatedMap = parseGeoJSONFeature(map, 'local');
         maps.set(validatedMap.properties.id, map);
       } catch (e) {
         console.error(`Failed to add local map ${map}, ${e}`);

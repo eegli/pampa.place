@@ -1,6 +1,5 @@
 import {GoogleMap} from '@/components/google/map';
 import {GoogleStreetView} from '@/components/google/street-view';
-import {MAPS} from '@/config/maps';
 import {setPlayerScore} from '@/redux/game';
 import {getActivePlayer} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
@@ -8,6 +7,7 @@ import {Box, Button} from '@mui/material';
 import {BoxProps} from '@mui/material/Box';
 import {styled} from '@mui/material/styles';
 import {useState} from 'react';
+import {MAPS} from 'src/maps';
 import {PlayHeader} from './play-header';
 
 interface StyledMapOverlayProps extends BoxProps {
