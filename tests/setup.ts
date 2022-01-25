@@ -53,11 +53,6 @@ const MapsEventListener: google.maps.MapsEventListener = {
   remove: jest.fn(),
 };
 
-// Enhance the default mock with an actual method
-global.google.maps.MVCObject.prototype.addListener = jest
-  .fn()
-  .mockReturnValue(MapsEventListener);
-
 global.google.maps.event = {
   addListenerOnce: jest.fn().mockReturnValue(MapsEventListener),
   addListener: jest.fn().mockReturnValue(MapsEventListener),
