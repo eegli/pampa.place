@@ -72,31 +72,3 @@ global.google.maps.StreetViewService = class StreetViewService
     return Promise.resolve(GoogleStreetViewResponse);
   }
 };
-
-/* 
-
-const sessionStorageMock: typeof window.sessionStorage = (() => {
-  let store: Record<string, string> = {};
-  return {
-    getItem(key) {
-      return Object.prototype.hasOwnProperty.call(store, key)
-        ? store[key]
-        : null;
-    },
-    clear() {
-      store = {};
-    },
-    setItem(key, value) {
-      store[key] = value;
-    },
-    removeItem(key) {
-      delete store[key];
-    },
-    key: jest.fn(),
-    length: (() => Object.keys(store).length)(),
-  };
-})();
-
-Object.defineProperty(window, 'sessionStorage', {value: sessionStorageMock});
-
-*/

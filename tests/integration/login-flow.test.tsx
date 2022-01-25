@@ -21,20 +21,12 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-function getLoginElement(
-  elem: 'keyInput' | 'passwordInput' | 'devModeButton' | 'enterButton'
-) {
-  switch (elem) {
-    case 'keyInput':
-      return screen.getByLabelText(/api/gi);
-    case 'passwordInput':
-      return screen.getByLabelText(/password/gi);
-    case 'devModeButton':
-      return screen.getByRole('button', {name: /dev/gi});
-    case 'enterButton':
-      return screen.getByRole('button', {name: /enter/gi});
-  }
-}
+const elements = {
+  apikeyInput: () => screen.getByLabelText(/api/gi),
+  passwordInput: () => screen.getByLabelText(/password/gi),
+  devModeBtn: () => screen.getByRole('button', {name: /dev/gi}),
+  enterBtn: () => screen.getByRole('button', {name: /enter/gi}),
+};
 
 describe('Integration, app login', () => {
   it('logs in automatically with api key in session storage', () => {
@@ -45,8 +37,8 @@ describe('Integration, app login', () => {
   it('allows login with password', async () => {
     render(<AuthWrapper>{mockchildren}</AuthWrapper>);
     expect(screen.queryByTestId('mock-children')).not.toBeInTheDocument();
-    const enterButton = getLoginElement('enterButton');
-    const passwordInput = getLoginElement('passwordInput');
+    const enterButton = elements.enterBtn();
+    const passwordInput = elements.passwordInput();
     expect(passwordInput).not.toBeInvalid();
     fireEvent.click(enterButton);
     expect(passwordInput).toBeInvalid();
@@ -63,9 +55,8 @@ describe('Integration, app login', () => {
   it('allows login with own api key', () => {
     render(<AuthWrapper>{mockchildren}</AuthWrapper>);
     expect(screen.queryByTestId('mock-children')).not.toBeInTheDocument();
-    const ownKeyInput = getLoginElement('keyInput');
-    fireEvent.change(ownKeyInput, {target: {value: 'user api key'}});
-    fireEvent.click(getLoginElement('enterButton'));
+    fireEvent.change(elements.apikeyInput(), {target: {value: 'user api key'}});
+    fireEvent.click(elements.enterBtn());
     expect(screen.getByTestId('mock-children')).toBeInTheDocument();
     expect(window.sessionStorage.getItem(Constants.SESSION_API_KEY)).toBe(
       'user api key'
@@ -74,7 +65,7 @@ describe('Integration, app login', () => {
   it('allows login with dev mode', () => {
     render(<AuthWrapper>{mockchildren}</AuthWrapper>);
     expect(screen.queryByTestId('mock-children')).not.toBeInTheDocument();
-    fireEvent.click(getLoginElement('devModeButton'));
+    fireEvent.click(elements.devModeBtn());
     expect(screen.getByTestId('mock-children')).toBeInTheDocument();
     expect(window.sessionStorage.getItem(Constants.SESSION_API_KEY)).toBe('');
   });

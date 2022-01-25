@@ -1,4 +1,4 @@
-import {initGame, setRounds} from '@/redux/game';
+import {initGame, setRounds, STATUS} from '@/redux/game';
 import {MapService} from '@/services/google';
 import {GoogleDOMIds} from '@/services/google/dom';
 import {GamePage} from 'src/pages/game.page';
@@ -40,6 +40,8 @@ describe('Integration, game play', () => {
 
   it('searches panorama and does not find one first', async () => {
     getPanoramSpy.mockRejectedValue(GoogleStreetViewFailedResponse);
+    expect(store.getState().game.status).toBe(STATUS.PENDING_PLAYER);
+
     render(<GamePage />, store);
     expect(
       screen.getByRole('button', {name: /getting a random street view/gi})
@@ -80,6 +82,7 @@ describe('Integration, game play', () => {
         mockClickEvent[event] = func;
         return {remove: () => null};
       });
+    expect(store.getState().game.status).toBe(STATUS.PENDING_PLAYER);
 
     render(<GamePage />, store);
     fireEvent.click(await screen.findByRole('button', {name: /start round/gi}));
@@ -98,7 +101,10 @@ describe('Integration, game play', () => {
     expect(map).not.toBeInTheDocument();
     expect(sv).not.toBeInTheDocument();
   });
+
   it('displays round 1 summary', () => {
+    expect(store.getState().game.status).toBe(STATUS.ROUND_ENDED);
+
     render(<GamePage />, store);
     expect(screen.getByRole('heading')).toHaveTextContent(/Round 1 is over!/i);
     expect(screen.getByRole('table')).toMatchSnapshot('summary screen');
@@ -121,8 +127,11 @@ describe('Integration, game play', () => {
       screen.getByRole('button', {name: /Continue with round 2/i})
     );
   });
+
   it('dispatches score in round 2 after time runs out', async () => {
     jest.useFakeTimers('modern');
+    expect(store.getState().game.status).toBe(STATUS.PENDING_PLAYER);
+
     render(<GamePage />, store);
     fireEvent.click(await screen.findByRole('button', {name: /start round/gi}));
     const map = screen.getByTestId('play-google-map');
@@ -139,7 +148,10 @@ describe('Integration, game play', () => {
     fireEvent.click(resultButton);
     jest.useRealTimers();
   });
+
   it('displays final game summary', () => {
+    expect(store.getState().game.status).toBe(STATUS.FINISHED);
+
     render(<GamePage />, store);
     expect(screen.getByRole('table')).toMatchSnapshot('summary');
     const headings = screen.getAllByRole('heading');
