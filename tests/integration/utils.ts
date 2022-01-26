@@ -1,8 +1,7 @@
 import {AuthRes} from '../pages/api/auth.page';
 
-export const mockFetch = jest.fn() as jest.MockedFunction<typeof global.fetch>;
-
 export function setupGlobalFetch() {
+  const mockFetch = jest.fn() as jest.MockedFunction<typeof global.fetch>;
   global.fetch = mockFetch.mockImplementation(url => {
     return new Promise((resolve, reject) => {
       if (url.toString().includes('password')) {
@@ -18,4 +17,6 @@ export function setupGlobalFetch() {
       return reject();
     });
   });
+
+  return mockFetch;
 }
