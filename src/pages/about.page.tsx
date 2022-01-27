@@ -7,15 +7,35 @@ import MuiLink from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import {NextPage} from 'next';
 import NextLink from 'next/link';
+import {useAppSelector} from '../redux/hooks';
 import {PageContent, SlimContainer} from '../styles/containers';
 
 const DocsPage: NextPage = () => {
+  const apiKey = useAppSelector(({app}) => app.apiKey);
+  const isDevMode = apiKey === '';
   return (
     <>
       <Header />
       <PageContent headerGutter id="docs-page">
         <SlimContainer>
           <FancyRetroTitle primary="PAMPA" secondary="DOCS" />
+          {isDevMode && (
+            <>
+              <LinkSection
+                titleProps={{color: 'primary.main'}}
+                href="#"
+                title="google maps can't load correctly!"
+              >
+                <Typography>
+                  welcome! it looks like you&apos;re playing the game in
+                  development mode. this means that google maps loads without
+                  api key. if you want the full experience, ask whoever is
+                  hosting this game for the password or read below to get your
+                  own google maps api key.
+                </Typography>
+              </LinkSection>
+            </>
+          )}
           <LinkSection href="#how-to-play" title="how to play 📖">
             <Typography>
               you will be abandoned in a random place on a map that you choose.

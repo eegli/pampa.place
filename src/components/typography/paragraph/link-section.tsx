@@ -1,13 +1,14 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Box, {BoxProps} from '@mui/material/Box';
+import Typography, {TypographyProps} from '@mui/material/Typography';
 import NextLink from 'next/link';
 import {ReactNode} from 'react';
 
-interface LinkSectionProps {
+interface LinkSectionProps extends Omit<BoxProps, 'sx'> {
   href: string;
   title: string;
   children: ReactNode;
   isLast?: boolean;
+  titleProps?: TypographyProps<'h2'>;
 }
 
 export const LinkSection = ({
@@ -15,10 +16,13 @@ export const LinkSection = ({
   title,
   children,
   isLast,
+  titleProps,
+  ...rest
 }: LinkSectionProps) => {
   return (
     <>
       <Box
+        {...rest}
         sx={{
           marginBottom: isLast ? 5 : 7,
           '& > p': {
@@ -35,6 +39,7 @@ export const LinkSection = ({
             sx={{
               scrollMarginTop: '80px',
             }}
+            {...titleProps}
           >
             {title}
           </Typography>
