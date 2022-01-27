@@ -1,4 +1,4 @@
-import {Box, Drawer, List, Paper} from '@mui/material';
+import {Box, Divider, Drawer, List, Paper} from '@mui/material';
 import {useRouter} from 'next/router';
 import React from 'react';
 import {CustomListItem} from './drawer-item';
@@ -38,19 +38,20 @@ export const MenuDrawer = ({open, toggleDrawer}: MenuDrawerProps) => {
             />
             <CustomListItem
               primarText="My maps"
-              secondaryText="Add, edit and preview local maps"
+              secondaryText="Add, edit and preview custom maps"
               onClick={() => handleRouteChange('/my-maps')}
             />
             <CustomListItem
-              primarText="Map preview"
+              primarText="Preview maps"
               secondaryText="View all maps at once and check their Street View coverage"
               onClick={() => handleRouteChange('/preview')}
             />
             <CustomListItem
-              primarText="Docs &amp; privacy"
+              primarText="About"
               secondaryText="All you need to know about pampa.place"
-              onClick={() => handleRouteChange('/docs')}
+              onClick={() => handleRouteChange('/about')}
             />
+            <Divider />
             <CustomListItem
               primarText="Change API key"
               secondaryText="Play with a different API key or change into development mode"

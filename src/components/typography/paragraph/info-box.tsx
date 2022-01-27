@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import React, {ReactNode} from 'react';
 
 export const InfoBox = ({children}: {children: ReactNode}) => (
-  <Box display="flex">
+  <Box display="flex" mb={2}>
     <LightbulbIcon
       color="warning"
       style={{
