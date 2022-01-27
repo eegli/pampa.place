@@ -22,7 +22,7 @@ const DocsPage: NextPage = () => {
           {isDevMode && (
             <>
               <LinkSection
-                titleProps={{color: 'primary.main'}}
+                titleProps={{color: 'secondary'}}
                 href="#"
                 title="google maps can't load correctly!"
               >
