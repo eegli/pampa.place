@@ -45,7 +45,7 @@ Array [
 ]
 `;
 
-exports[`Google, Map has result mode: result settings 1`] = `
+exports[`Google, Map has review mode: result settings 1`] = `
 Array [
   Object {
     "clickableIcons": false,

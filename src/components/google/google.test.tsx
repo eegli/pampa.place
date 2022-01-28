@@ -1,4 +1,3 @@
-import {config} from '@/config/game';
 import {
   MapService,
   MarkerService,
@@ -9,7 +8,6 @@ import {testMap} from '@/tests/fixtures/map';
 import {createMockStore, render, screen} from '@/tests/utils';
 import {mocked} from 'jest-mock';
 import {GoogleMap, GoogleMapProps} from './map';
-import {svgMarkerColors} from './marker';
 import {GoogleStreetView} from './street-view';
 // Mock implementation for listeners. The handler will be caught and
 // called with the event it would get from google.maps.Map's click
@@ -100,10 +98,10 @@ describe('Google, Map', () => {
     unmount();
     expect(services.gmarkers.items).toHaveLength(0);
   });
-  it('has result mode', () => {
+  it('has review mode', () => {
     const props: GoogleMapProps = {
       map: testMap,
-      mode: 'result',
+      mode: 'review',
       results: [
         {name: 'a', selected: {lat: 1, lng: 1}},
         {name: 'b', selected: {lat: 1, lng: 1}},
@@ -142,11 +140,5 @@ describe('Google, Street view', () => {
     expect(services.gsv.sv.setOptions.mock.calls[0][0]).toMatchSnapshot(
       'options static'
     );
-  });
-});
-
-describe('Google, custom marker', () => {
-  it('defines a marker color for each player', () => {
-    expect(config.maxPlayers).toBeLessThanOrEqual(svgMarkerColors.length);
   });
 });

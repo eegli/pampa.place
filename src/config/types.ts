@@ -12,7 +12,17 @@ export type GoogleConfig = {
     radius: number;
   };
   streetview: google.maps.StreetViewPanoramaOptions;
-  map: google.maps.MapOptions;
+  map: Record<
+    'default' | 'preview' | 'play' | 'review',
+    google.maps.MapOptions
+  >;
+  marker: {
+    svg: {
+      path: string;
+      anchor: [number, number];
+    };
+    colors: string[];
+  };
 };
 
 /* Game */

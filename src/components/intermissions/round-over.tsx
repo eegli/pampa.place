@@ -141,7 +141,7 @@ export const RoundOverSummary = () => {
         <Box height="100%" id="round-end-map">
           {initialPosition && map && (
             <GoogleMap
-              mode="result"
+              mode="review"
               map={map}
               results={scores}
               initialPosition={initialPosition}

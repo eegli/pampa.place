@@ -1,4 +1,3 @@
-import {svgMarker, svgMarkerColors} from '@/components/google/marker';
 import {config} from '@/config/google';
 import {LatLngLiteral, MapData} from '@/config/types';
 import {Result} from '@/redux/game';
@@ -10,7 +9,7 @@ import {useEffect, useRef} from 'react';
 
 export type GoogleMapProps = {
   map: MapData;
-  mode?: 'preview' | 'play' | 'result';
+  mode?: 'preview' | 'play' | 'review';
   results?: Pick<Result, 'selected' | 'name'>[];
   initialPosition?: LatLngLiteral;
 };
@@ -45,12 +44,7 @@ export const GoogleMap = ({
   useEffect(() => {
     if (mode === 'preview') {
       console.info('PREVIEW MODE MOUNT');
-      MapService.map.setOptions({
-        ...config.map,
-        gestureHandling: 'none',
-        mapTypeId: 'roadmap',
-        mapTypeControl: false,
-      });
+      MapService.map.setOptions(config.map.preview);
 
       const features = MapService.map.data.addGeoJson(map);
 
@@ -71,7 +65,7 @@ export const GoogleMap = ({
   useEffect(() => {
     if (mode === 'play') {
       console.info('PLAY MODE MOUNT');
-      MapService.map.setOptions(config.map);
+      MapService.map.setOptions(config.map.play);
 
       const marker = new google.maps.Marker();
       marker.setMap(MapService.map);
@@ -96,9 +90,9 @@ export const GoogleMap = ({
   }, [mode, dispatch]);
 
   useEffect(() => {
-    if (mode === 'result' && initialPosition) {
+    if (mode === 'review' && initialPosition) {
       console.info('RESULT MODE MOUNT');
-      MapService.map.setOptions(config.map);
+      MapService.map.setOptions(config.map.review);
 
       // Add original location marker
       const originMarker = new google.maps.Marker();
@@ -120,12 +114,12 @@ export const GoogleMap = ({
                 className: 'map-marker',
               },
               icon: {
-                path: svgMarker.path,
-                fillColor: `#${svgMarkerColors[idx]}`,
+                path: config.marker.svg.path,
+                fillColor: `#${config.marker.colors[idx]}`,
                 fillOpacity: 1,
                 anchor: new google.maps.Point(
-                  svgMarker.anchor[0],
-                  svgMarker.anchor[1]
+                  config.marker.svg.anchor[0],
+                  config.marker.svg.anchor[1]
                 ),
                 strokeWeight: 0,
                 scale: 1,
@@ -137,7 +131,7 @@ export const GoogleMap = ({
               path: [initialPosition, p.selected],
               map: MapService.map,
               geodesic: true,
-              strokeColor: `#${svgMarkerColors[idx]}`,
+              strokeColor: `#${config.marker.colors[idx]}`,
               strokeOpacity: 1.0,
               strokeWeight: 4,
             });

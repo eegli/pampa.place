@@ -1,5 +1,5 @@
-import {svgMarkerColors} from '@/components/google/marker';
-import {config} from '@/config/game';
+import {config as gameConfig} from '@/config/game';
+import {config as googleConfig} from '@/config/google';
 import {setPlayers} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {min} from '@/utils/misc';
@@ -7,7 +7,7 @@ import RoomIcon from '@mui/icons-material/Room';
 import {Box, Fade, InputAdornment, TextField} from '@mui/material';
 import {ChangeEvent} from 'react';
 
-const MAX_PLAYERS = config.maxPlayers;
+const MAX_PLAYERS = gameConfig.maxPlayers;
 
 export const FormPlayers = () => {
   const players = useAppSelector(({game}) => game.players);
@@ -50,7 +50,9 @@ export const FormPlayers = () => {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <RoomIcon style={{color: svgMarkerColors[idx]}} />
+                      <RoomIcon
+                        style={{color: googleConfig.marker.colors[idx]}}
+                      />
                     </InputAdornment>
                   ),
                 }}
