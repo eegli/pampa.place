@@ -5,11 +5,12 @@ import {pageview} from './analytics-events';
 
 export const initAnalytics = () => {
   const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
-  const isDev = process.env.NODE_ENV !== 'production';
 
   if (!GA_TRACKING_ID) {
     return () => null;
   }
+
+  const debugMode = process.env.NEXT_PUBLIC_DEBUG_ANALYTICS === 'true';
 
   return function GoogleAnalytics() {
     const router = useRouter();
@@ -21,24 +22,24 @@ export const initAnalytics = () => {
         router.events.off('routeChangeComplete', handleRouteChange);
       };
     }, [router.events]);
+    const debug = debugMode ? ", '{debug_mode: true}'" : '';
 
     return (
       <>
         <Script
+          id="ga"
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
         />
         <Script
-          id="ga-script"
+          id={`ga-script${debugMode ? '-debug' : ''}`}
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${GA_TRACKING_ID}', ${
-              isDev ? '{debug_mode: true}' : ''
-            });`,
+            gtag('config', '${GA_TRACKING_ID}'${debug});`,
           }}
         />
       </>
