@@ -1,21 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Analytics initialization enters debug mode if env is development 1`] = `
-<body>
-  <div />
-  <script
-    data-nscript="afterInteractive"
-    id="ga-script-debug"
-  >
-    
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'test-id', '{debug_mode: true}');
-  </script>
-</body>
-`;
-
 exports[`Analytics initialization returns null if tracking ID is not set 1`] = `
 <body>
   <div />

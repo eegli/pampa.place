@@ -24,16 +24,4 @@ describe('Analytics initialization', () => {
     render(<Script />);
     expect(document.body).toMatchSnapshot();
   });
-  it('enters debug mode if env is development', () => {
-    process.env.NEXT_PUBLIC_GA_ID = 'test-id';
-    process.env.NEXT_PUBLIC_DEBUG_ANALYTICS = 'true';
-
-    expect(process.env.NEXT_PUBLIC_GA_ID).toBe('test-id');
-    expect(process.env.NEXT_PUBLIC_DEBUG_ANALYTICS).toBe('true');
-
-    const Script = initAnalytics();
-
-    render(<Script />);
-    expect(document.body).toMatchSnapshot();
-  });
 });
