@@ -1,12 +1,8 @@
-import {Constants} from '@/config/constants';
-import {
-  configureStore,
-  Middleware,
-  StateFromReducersMapObject,
-} from '@reduxjs/toolkit';
+import {configureStore, StateFromReducersMapObject} from '@reduxjs/toolkit';
 import {createLogger} from 'redux-logger';
 import app from './app';
 import game from './game';
+import {eventLogger, windowStorage} from './middlewares';
 import position from './position';
 
 const reducer = {
@@ -17,19 +13,9 @@ const reducer = {
 
 const logger = createLogger();
 
-const windowStorage: Middleware<unknown, RootState> = () => next => action => {
-  if (action.type.includes('setApiKey') && typeof action.payload === 'string') {
-    window.sessionStorage.setItem(Constants.SESSION_API_KEY, action.payload);
-  }
-  if (action.type.includes('setTheme') && typeof action.payload === 'string') {
-    window.localStorage.setItem(Constants.THEME_KEY, action.payload);
-  }
-  return next(action);
-};
-
 const isDev = process.env.NODE_ENV === 'development';
-const devMiddleware = [logger, windowStorage];
-const prodMiddleware = [windowStorage];
+const devMiddleware = [logger, windowStorage, eventLogger];
+const prodMiddleware = [windowStorage, eventLogger];
 
 export const initialStates = {
   position: position.reducer(undefined, {type: '@@INIT'}),

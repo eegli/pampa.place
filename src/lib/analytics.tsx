@@ -1,9 +1,11 @@
 import {useRouter} from 'next/router';
 import Script from 'next/script';
 import {useEffect} from 'react';
+import {pageview} from './analytics-events';
 
 export const initAnalytics = () => {
   const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
+  const isDev = process.env.NODE_ENV !== 'production';
 
   if (!GA_TRACKING_ID) {
     return () => null;
@@ -13,11 +15,7 @@ export const initAnalytics = () => {
     const router = useRouter();
 
     useEffect(() => {
-      const handleRouteChange = (url: string) => {
-        window.gtag('config', GA_TRACKING_ID, {
-          page_path: url,
-        });
-      };
+      const handleRouteChange = (url: string) => pageview(url);
       router.events.on('routeChangeComplete', handleRouteChange);
       return () => {
         router.events.off('routeChangeComplete', handleRouteChange);
@@ -35,13 +33,12 @@ export const initAnalytics = () => {
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '${GA_TRACKING_ID}', {
-      page_path: window.location.pathname,
-    });
-  `,
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', ${
+              isDev ? '{debug_mode: true}' : ''
+            });`,
           }}
         />
       </>

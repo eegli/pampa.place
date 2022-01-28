@@ -25,6 +25,7 @@ import {NextPage} from 'next';
 import {ChangeEvent, useEffect, useState} from 'react';
 import {MAPS} from 'src/maps';
 import {useLocalStorage} from 'usehooks-ts';
+import {CustomHead} from '../components/head/custom-head';
 
 export const MyMapsPage: NextPage = () => {
   const [localMaps, setLocalMaps] = useLocalStorage<LocalStorageMaps>(
@@ -115,6 +116,7 @@ export const MyMapsPage: NextPage = () => {
 
   return (
     <>
+      <CustomHead title="my maps" />
       <Header />
       <PageContent headerGutter id="my-maps-page">
         <SlimContainer>

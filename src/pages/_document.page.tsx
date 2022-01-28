@@ -10,7 +10,7 @@ export default class MyDocument extends Document<DocumentProps> {
   render() {
     return (
       <Html lang="en">
-        <title>Pampa Place 🚩</title>
+        <title>pampa.place</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <meta

@@ -9,6 +9,7 @@ import {useAppDispatch} from '@/redux/hooks';
 import {Box, Button} from '@mui/material';
 import {NextPage} from 'next';
 import {useRouter} from 'next/router';
+import {CustomHead} from '../components/head/custom-head';
 import {PageContent} from '../styles/containers';
 
 export const HomePage: NextPage = () => {
@@ -26,6 +27,7 @@ export const HomePage: NextPage = () => {
 
   return (
     <>
+      <CustomHead title="home" />
       <Header />
       <PageContent headerGutter id="index-page">
         <FancyRetroTitle primary="PAMPA" secondary="PLACE" />

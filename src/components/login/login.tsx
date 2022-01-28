@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import {ChangeEvent, FormEvent, KeyboardEvent, useState} from 'react';
+import {gaevent, LoginEvent} from '../../lib/analytics-events';
 import {AuthReq, AuthRes} from '../../pages/api/auth.page';
 
 export const Login = () => {
@@ -34,15 +35,27 @@ export const Login = () => {
             `${window.location.origin}/api/auth?` + new URLSearchParams(params)
           )
         ).json();
+        gaevent<LoginEvent>({
+          eventName: 'login_password',
+          category: 'login',
+        });
         dispatch(setApiKey(res.apikey));
       } catch (e) {
         setInputError('Invalid password');
+        gaevent<LoginEvent>({
+          eventName: 'login_password_failed',
+          category: 'login',
+        });
       }
     }
   }
 
   function handleDevMode() {
     dispatch(setApiKey(''));
+    gaevent<LoginEvent>({
+      eventName: 'login_dev_mode',
+      category: 'login',
+    });
   }
 
   function handlePasswordInput(e: ChangeEvent<HTMLInputElement>) {
@@ -54,6 +67,10 @@ export const Login = () => {
 
   function handleApiKeyInput(e: ChangeEvent<HTMLInputElement>) {
     setUserApiKey(e.target.value);
+    gaevent<LoginEvent>({
+      eventName: 'login_apikey',
+      category: 'login',
+    });
   }
 
   function handleKeyUp(e: KeyboardEvent<HTMLInputElement>) {

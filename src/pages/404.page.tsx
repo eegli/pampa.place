@@ -1,11 +1,13 @@
 import {Error} from '@/components/feedback/error';
 import {NextPage} from 'next';
+import {CustomHead} from '../components/head/custom-head';
 import {Header} from '../components/header/header';
 import {PageContent} from '../styles/containers';
 
 const Error404Page: NextPage = () => {
   return (
     <>
+      <CustomHead title="404 :(" />
       <Header />
       <PageContent headerGutter id="index-page">
         <Error

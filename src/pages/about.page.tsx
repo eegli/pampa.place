@@ -8,6 +8,7 @@ import MuiLink from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import {NextPage} from 'next';
 import NextLink from 'next/link';
+import {CustomHead} from '../components/head/custom-head';
 import {useAppSelector} from '../redux/hooks';
 import {PageContent, SlimContainer} from '../styles/containers';
 
@@ -16,6 +17,7 @@ const DocsPage: NextPage = () => {
   const isDevMode = apiKey === '';
   return (
     <>
+      <CustomHead title="about" />
       <Header />
       <PageContent headerGutter id="docs-page">
         <SlimContainer>
