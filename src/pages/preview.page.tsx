@@ -32,7 +32,7 @@ export const PreviewPage: NextPage = () => {
   useEffect(() => {
     if (ref.current) {
       const unmount = MapService.mount(ref.current);
-      MapService.map.setOptions(config.map);
+      MapService.map.setOptions(config.map.default);
 
       // Each map is a GeoJSON Featurecollection that could
       // potentially include multiple GeoJSON features. In practice,

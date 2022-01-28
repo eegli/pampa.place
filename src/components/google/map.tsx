@@ -7,19 +7,26 @@ import {MapService, MarkerService, PolyLineService} from '@/services/google';
 import Box from '@mui/material/Box';
 import {useEffect, useRef} from 'react';
 
-export type GoogleMapProps = {
-  map: MapData;
-  mode?: 'preview' | 'play' | 'review';
-  results?: Pick<Result, 'selected' | 'name'>[];
-  initialPosition?: LatLngLiteral;
+type PreviewMode = {
+  mode: 'preview';
 };
 
-export const GoogleMap = ({
-  map,
-  mode,
-  results,
-  initialPosition,
-}: GoogleMapProps) => {
+type PlayMode = {
+  mode: 'play';
+};
+
+type ReviewMode = {
+  mode: 'review';
+  results: Pick<Result, 'selected' | 'name'>[];
+  initialPosition: LatLngLiteral;
+};
+
+export type GoogleMapProps = {
+  map: MapData;
+} & (PreviewMode | PlayMode | ReviewMode);
+
+export const GoogleMap = (props: GoogleMapProps) => {
+  const {map, mode} = props;
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -42,67 +49,64 @@ export const GoogleMap = ({
   }, [map]);
 
   useEffect(() => {
-    if (mode === 'preview') {
-      console.info('PREVIEW MODE MOUNT');
-      MapService.map.setOptions(config.map.preview);
+    switch (mode) {
+      case 'preview': {
+        console.info('PREVIEW MODE MOUNT');
+        MapService.map.setOptions(config.map.preview);
 
-      const features = MapService.map.data.addGeoJson(map);
+        const features = MapService.map.data.addGeoJson(map);
 
-      MapService.map.data.setStyle({
-        fillColor: '#003d80',
-        fillOpacity: 0.2,
-        strokeWeight: 0.8,
-      });
-      return () => {
-        console.info('PREVIEW MODE UNMOUNT');
-        features.forEach(feat => {
-          MapService.map.data.remove(feat);
+        MapService.map.data.setStyle({
+          fillColor: '#003d80',
+          fillOpacity: 0.2,
+          strokeWeight: 0.8,
         });
-      };
-    }
-  }, [mode, map]);
+        return () => {
+          console.info('PREVIEW MODE UNMOUNT');
+          features.forEach(feat => {
+            MapService.map.data.remove(feat);
+          });
+        };
+      }
+      case 'play': {
+        console.info('PLAY MODE MOUNT');
+        MapService.map.setOptions(config.map.play);
 
-  useEffect(() => {
-    if (mode === 'play') {
-      console.info('PLAY MODE MOUNT');
-      MapService.map.setOptions(config.map.play);
+        const marker = new google.maps.Marker();
+        marker.setMap(MapService.map);
+        marker.setDraggable(true);
 
-      const marker = new google.maps.Marker();
-      marker.setMap(MapService.map);
-      marker.setDraggable(true);
+        MarkerService.add(marker);
 
-      MarkerService.add(marker);
+        // This Google Map event is not typed unfortunately
+        const listener = MapService.map.addListener('click', (e: unknown) => {
+          const {latLng} = e as {latLng: google.maps.LatLng};
+          marker.setPosition(latLng);
+          dispatch(
+            updateSelectedPosition({lat: latLng.lat(), lng: latLng.lng()})
+          );
+        });
+        return () => {
+          console.info('PLAY MODE UNMOUNT');
+          listener.remove();
+          MarkerService.clearAllItems();
+        };
+      }
+      case 'review': {
+        console.info('RESULT MODE MOUNT');
+        MapService.map.setOptions(config.map.review);
 
-      // This Google Map event is not typed unfortunately
-      const listener = MapService.map.addListener('click', (e: unknown) => {
-        const {latLng} = e as {latLng: google.maps.LatLng};
-        marker.setPosition(latLng);
-        dispatch(
-          updateSelectedPosition({lat: latLng.lat(), lng: latLng.lng()})
-        );
-      });
-      return () => {
-        console.info('PLAY MODE UNMOUNT');
-        listener.remove();
-        MarkerService.clearAllItems();
-      };
-    }
-  }, [mode, dispatch]);
+        const {results, initialPosition} = props;
 
-  useEffect(() => {
-    if (mode === 'review' && initialPosition) {
-      console.info('RESULT MODE MOUNT');
-      MapService.map.setOptions(config.map.review);
+        // Add original location marker
+        const originMarker = new google.maps.Marker();
 
-      // Add original location marker
-      const originMarker = new google.maps.Marker();
-      originMarker.setPosition(initialPosition);
-      originMarker.setMap(MapService.map);
+        originMarker.setPosition(initialPosition);
+        originMarker.setMap(MapService.map);
 
-      MarkerService.add(originMarker);
+        MarkerService.add(originMarker);
 
-      // Add marker for each result
-      results &&
+        // Add marker for each result
         results.forEach((p, idx) => {
           if (p.selected) {
             const playerMarker = new google.maps.Marker({
@@ -140,13 +144,15 @@ export const GoogleMap = ({
           }
         });
 
-      return () => {
-        console.info('RESULT MODE UNMOUNT');
-        MarkerService.clearAllItems();
-        PolyLineService.clearAllItems();
-      };
+        return () => {
+          console.info('RESULT MODE UNMOUNT');
+          MarkerService.clearAllItems();
+          PolyLineService.clearAllItems();
+        };
+      }
     }
-  }, [mode, initialPosition, results]);
+    /* eslint-disable react-hooks/exhaustive-deps */
+  }, [mode, map, dispatch]);
 
   return <Box data-testid="play-google-map" ref={ref} height="100%" />;
 };

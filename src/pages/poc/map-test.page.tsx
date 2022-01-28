@@ -13,7 +13,7 @@ const GoodMapsComponent = () => {
     if (ref.current) {
       console.info('mount');
       const unmount = MapService.mount(ref.current);
-      MapService.map.setOptions(config.map);
+      MapService.map.setOptions(config.map.default);
       MapService.map.setCenter({lat: 35, lng: 0});
       MapService.map.setZoom(3);
 
@@ -41,7 +41,7 @@ const BadMapsComponent = () => {
     if (ref.current) {
       console.info('mount');
       const map = new google.maps.Map(ref.current);
-      map.setOptions(config.map);
+      map.setOptions(config.map.default);
       map.setCenter({lat: 35, lng: 0});
       map.setZoom(3);
       return () => {
