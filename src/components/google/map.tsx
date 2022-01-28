@@ -23,7 +23,7 @@ type ReviewMode = {
 
 export type GoogleMapProps = {
   map: MapData;
-} & (PreviewMode | PlayMode | ReviewMode);
+} & (PreviewMode | PlayMode | ReviewMode | {mode?: never});
 
 export const GoogleMap = (props: GoogleMapProps) => {
   const {map, mode} = props;
