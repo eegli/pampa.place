@@ -2,6 +2,7 @@ import {Header} from '@/components/header/header';
 import {FancyRetroTitle} from '@/components/typography/headings/retro-title';
 import {LinkSection} from '@/components/typography/paragraph';
 import {InfoBox} from '@/components/typography/paragraph/info-box';
+import {amber} from '@mui/material/colors';
 import Divider from '@mui/material/Divider';
 import MuiLink from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
@@ -20,21 +21,31 @@ const DocsPage: NextPage = () => {
         <SlimContainer>
           <FancyRetroTitle primary="PAMPA" secondary="DOCS" />
           {isDevMode && (
-            <>
-              <LinkSection
-                titleProps={{color: 'secondary'}}
-                href="#"
-                title="google maps can't load correctly!"
-              >
-                <Typography>
-                  welcome! it looks like you&apos;re playing the game in
-                  development mode. this means that google maps loads without
-                  api key. if you want the full experience, ask whoever is
-                  hosting this game for the password or read below to get your
-                  own google maps api key.
-                </Typography>
-              </LinkSection>
-            </>
+            <LinkSection
+              href=""
+              title="it says that google maps can't load correctly?"
+              titleProps={{variant: 'h5', color: amber[500]}}
+              sx={{
+                border: 1,
+                p: 2,
+                borderColor: amber[500],
+                borderStyle: 'double',
+                borderWidth: 2,
+              }}
+            >
+              <Typography>hoi 👋🏽</Typography>{' '}
+              <Typography>
+                it looks like you&apos;re playing the game in development mode.
+                this means that google maps loads <em>without</em> api key and
+                therefore can&apos;t display map data. you can still play the
+                game and take a glance at how it works.
+              </Typography>
+              <Typography>
+                for the full experience, ask whoever is hosting this game for
+                the password or read the <em>about</em> section below to get
+                your own google maps api key.
+              </Typography>
+            </LinkSection>
           )}
           <LinkSection href="#how-to-play" title="how to play 📖">
             <Typography>

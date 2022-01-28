@@ -3,7 +3,7 @@ import Typography, {TypographyProps} from '@mui/material/Typography';
 import NextLink from 'next/link';
 import {ReactNode} from 'react';
 
-interface LinkSectionProps extends Omit<BoxProps, 'sx'> {
+interface LinkSectionProps extends BoxProps {
   href: string;
   title: string;
   children: ReactNode;
@@ -19,11 +19,13 @@ export const LinkSection = ({
   titleProps,
   ...rest
 }: LinkSectionProps) => {
+  const {sx} = rest;
   return (
     <>
       <Box
         {...rest}
         sx={{
+          ...sx,
           marginBottom: isLast ? 5 : 7,
           '& > p': {
             my: 2,
