@@ -4,8 +4,6 @@ import {initAnalytics} from './analytics';
 
 beforeEach(() => {
   delete process.env.NEXT_PUBLIC_GA_ID;
-  delete process.env.NEXT_PUBLIC_DEBUG_ANALYTICS;
-  document.body.innerHTML = '';
 });
 
 describe('Analytics initialization', () => {
