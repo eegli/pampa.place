@@ -11,6 +11,7 @@ import FormGroup from '@mui/material/FormGroup';
 import {NextPage} from 'next';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {MAPS} from 'src/maps';
+import {CustomHead} from '../components/head/custom-head';
 import {MapService} from '../services/google';
 
 type ClickEvent = {
@@ -89,6 +90,7 @@ export const PreviewPage: NextPage = () => {
 
   return (
     <>
+      <CustomHead title="map preview" />
       <Header />
       <PageContent headerGutter id="preview-page">
         <Box ref={ref} width="100%" height="100%" />

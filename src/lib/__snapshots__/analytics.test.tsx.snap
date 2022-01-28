@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Analytics initialization returns null if tracking ID is not set 1`] = `
+<body>
+  <div />
+</body>
+`;
+
+exports[`Analytics initialization returns script tag if tracking ID is set 1`] = `
+<body>
+  <div />
+  <script
+    data-nscript="afterInteractive"
+    id="ga"
+    src="https://www.googletagmanager.com/gtag/js?id=test-id"
+  />
+  <script
+    data-nscript="afterInteractive"
+    id="ga-script"
+  >
+    
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'test-id');
+  </script>
+</body>
+`;

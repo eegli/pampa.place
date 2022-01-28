@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {PageContent} from '@/styles/containers';
 import {Status, Wrapper} from '@googlemaps/react-wrapper';
 import {ReactNode, useEffect} from 'react';
+import {CustomHead} from '../../components/head/custom-head';
 
 declare global {
   interface Window {
@@ -33,7 +34,13 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
   }, [apiKey]);
 
   // An empty string as api key is allowed for development mode
-  if (typeof apiKey !== 'string') return <Login />;
+  if (typeof apiKey !== 'string')
+    return (
+      <>
+        <CustomHead title="login" />
+        <Login />
+      </>
+    );
 
   return (
     <Wrapper
