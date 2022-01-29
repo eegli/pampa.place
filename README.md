@@ -28,7 +28,7 @@ The game comes preloaded with three GeoJSON datasets for the US states (20m reso
 
 # Custom maps
 
-👉 [I just want to play and add new maps dynamically](https://pampa.place/docs##customization-guide)
+👉 [I just want to play and add new maps dynamically](https://pampa.place/about#how-to-customize)
 
 👉 I want to self-host a game and add custom maps. Read below
 
