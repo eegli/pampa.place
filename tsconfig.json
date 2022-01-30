@@ -27,6 +27,7 @@
       "@/redux/*": ["src/redux/*"],
       "@/hooks/*": ["src/hooks/*"],
       "@/utils/*": ["src/utils/*"],
+      "@/lib/*": ["src/lib/*"],
       "@/tests/*": ["tests/*"]
     },
     "incremental": true
