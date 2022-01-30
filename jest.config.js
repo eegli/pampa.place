@@ -21,6 +21,7 @@ const config = {
     '^@/redux/(.*)$': '<rootDir>/src/redux/$1',
     '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
+    '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
     '^@/tests/(.*)$': '<rootDir>/tests/$1',
   },
   bail: true,
