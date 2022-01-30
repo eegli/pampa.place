@@ -3,7 +3,7 @@ const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || '';
 type GenericEvent<
   C extends string = string,
   E extends string = string,
-  P extends Record<string, unknown> = Record<string, unknown>
+  P = Record<string, unknown>
 > = {
   category: C;
   eventName: E;
