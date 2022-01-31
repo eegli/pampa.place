@@ -6,7 +6,7 @@ import {useAppDispatch} from '@/redux/hooks';
 import {updateSelectedPosition} from '@/redux/position';
 import {MapService, MarkerService, PolyLineService} from '@/services/google';
 import Box from '@mui/material/Box';
-import {useEffect, useRef} from 'react';
+import {memo, useEffect, useRef} from 'react';
 
 type PreviewMode = {
   mode: 'preview';
@@ -26,7 +26,7 @@ export type GoogleMapProps = {
   map: MapData;
 } & (PreviewMode | PlayMode | ReviewMode | {mode?: never});
 
-export const GoogleMap = (props: GoogleMapProps) => {
+const _GoogleMap = (props: GoogleMapProps) => {
   const {map, mode} = props;
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
@@ -140,8 +140,11 @@ export const GoogleMap = (props: GoogleMapProps) => {
         };
       }
     }
-    /* eslint-disable react-hooks/exhaustive-deps */
-  }, [mode, map, dispatch]);
+  }, [props, mode, map, dispatch]);
 
   return <Box data-testid="play-google-map" ref={ref} height="100%" />;
 };
+
+export const GoogleMap = memo(_GoogleMap, (prev, next) => {
+  return prev.mode === next.mode && prev.map === next.map;
+});

@@ -1,16 +1,17 @@
 import {config} from '@/config/google';
 import {useAppSelector} from '@/redux/hooks';
 import {StreetViewService} from '@/services/google';
-import Box, {BoxProps} from '@mui/system/Box';
+import Box from '@mui/system/Box';
 import {useEffect, useRef} from 'react';
 
-interface GoogleStreetViewProps extends BoxProps {
+interface GoogleStreetViewProps {
   staticPos?: boolean;
+  display: 'block' | 'none';
 }
 
 export const GoogleStreetView = ({
   staticPos = false,
-  ...rest
+  display,
 }: GoogleStreetViewProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const panoId = useAppSelector(({position}) => position.panoId);
@@ -42,7 +43,7 @@ export const GoogleStreetView = ({
 
   return (
     <Box
-      {...rest}
+      display={display}
       data-testid="play-google-street-view"
       height="100%"
       ref={ref}

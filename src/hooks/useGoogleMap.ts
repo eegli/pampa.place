@@ -44,6 +44,5 @@ export function useGoogleMap(props: Props) {
         console.info('%cMAP UNMOUNT', 'color: yellow');
       };
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [ref, rest]);
 }
