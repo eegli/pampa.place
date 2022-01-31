@@ -12,6 +12,7 @@ import {NextPage} from 'next';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {MAPS} from 'src/maps';
 import {CustomHead} from '../components/head/custom-head';
+import {useGoogleMap} from '../hooks/useGoogleMap';
 import {MapService} from '../services/google';
 
 type ClickEvent = {
@@ -30,52 +31,50 @@ export const PreviewPage: NextPage = () => {
   }
   const features = useMemo(() => Array.from(MAPS.values()), []);
 
+  useGoogleMap({
+    ref,
+    opts: config.map.default,
+    center: {lat: 35, lng: 0},
+    zoom: 3,
+  });
+
   useEffect(() => {
-    if (ref.current) {
-      const unmount = MapService.mount(ref.current);
-      MapService.map.setOptions(config.map.default);
+    // Each map is a GeoJSON Featurecollection that could
+    // potentially include multiple GeoJSON features. In practice,
+    // each collection ("const feature" below) will only contain one
+    // feature
+    const geojson = features.reduce((acc, curr) => {
+      const feature = MapService.map.data.addGeoJson(curr);
+      acc.push(...feature);
+      return acc;
+    }, [] as google.maps.Data.Feature[]);
 
-      // Each map is a GeoJSON Featurecollection that could
-      // potentially include multiple GeoJSON features. In practice,
-      // each collection ("const feature" below) will only contain one
-      // feature
-      const geojson = features.reduce((acc, curr) => {
-        const feature = MapService.map.data.addGeoJson(curr);
-        acc.push(...feature);
-        return acc;
-      }, [] as google.maps.Data.Feature[]);
+    MapService.map.data.setStyle({
+      fillColor: '#e46fb7',
+      fillOpacity: 0.1,
+      strokeWeight: 0.8,
+    });
 
-      MapService.map.setCenter({lat: 35, lng: 0});
-      MapService.map.setZoom(3);
-
-      MapService.map.data.setStyle({
-        fillColor: '#e46fb7',
-        fillOpacity: 0.1,
-        strokeWeight: 0.8,
+    const listener = MapService.map.data.addListener(
+      'click',
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (event: ClickEvent) => {
+        const coords = event.latLng.toJSON();
+        const hits = features.reduce((acc, curr) => {
+          if (isInPolygon(coords, curr.geometry)) {
+            acc.push(curr.properties);
+          }
+          return acc;
+        }, [] as MapProperties[]);
+        console.info(hits.map(m => m.name));
+      }
+    );
+    return () => {
+      geojson.forEach(feat => {
+        MapService.map.data.remove(feat);
       });
-
-      const listener = MapService.map.data.addListener(
-        'click',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (event: ClickEvent) => {
-          const coords = event.latLng.toJSON();
-          const hits = features.reduce((acc, curr) => {
-            if (isInPolygon(coords, curr.geometry)) {
-              acc.push(curr.properties);
-            }
-            return acc;
-          }, [] as MapProperties[]);
-          console.info(hits.map(m => m.name));
-        }
-      );
-      return () => {
-        geojson.forEach(feat => {
-          MapService.map.data.remove(feat);
-        });
-        listener.remove();
-        unmount();
-      };
-    }
+      listener.remove();
+    };
   }, [features]);
 
   useEffect(() => {

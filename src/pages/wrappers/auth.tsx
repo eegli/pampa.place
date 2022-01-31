@@ -45,7 +45,7 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
   return (
     <Wrapper
       apiKey={apiKey}
-      version="3.47.2"
+      version="3.47.6"
       render={status => {
         switch (status) {
           case Status.LOADING:

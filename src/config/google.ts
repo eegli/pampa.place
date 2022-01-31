@@ -1,10 +1,9 @@
 import {GoogleConfig} from './types';
 
-const defaultMapOpts: GoogleConfig['map']['default'] = {
+const defaultMapOpts: google.maps.MapOptions = {
   draggableCursor: 'crosshair',
   clickableIcons: false,
   disableDefaultUI: true,
-  mapTypeId: 'roadmap',
   mapTypeControl: true,
   gestureHandling: 'auto',
   mapTypeControlOptions: {
