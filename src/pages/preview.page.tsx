@@ -12,7 +12,6 @@ import {NextPage} from 'next';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {MAPS} from 'src/maps';
 import {CustomHead} from '../components/head/custom-head';
-import {useGoogleMap} from '../hooks/useGoogleMap';
 import {MapService} from '../services/google';
 
 type ClickEvent = {
@@ -31,12 +30,21 @@ export const PreviewPage: NextPage = () => {
   }
   const features = useMemo(() => Array.from(MAPS.values()), []);
 
-  useGoogleMap({
-    ref,
-    opts: config.map.default,
-    center: {lat: 35, lng: 0},
-    zoom: 4,
-  });
+  useEffect(() => {
+    if (ref.current) {
+      console.info('%cMAP MOUNT', 'color: yellow');
+      const unmount = MapService.mount(ref.current);
+
+      MapService.map.setOptions(config.map.default);
+      MapService.map.setCenter({lat: 35, lng: 0});
+      MapService.map.setZoom(4);
+
+      return () => {
+        unmount();
+        console.info('%cMAP UNMOUNT', 'color: yellow');
+      };
+    }
+  }, []);
 
   useEffect(() => {
     // Each map is a GeoJSON Featurecollection that could

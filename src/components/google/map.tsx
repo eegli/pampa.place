@@ -1,6 +1,5 @@
 import {config} from '@/config/google';
 import {LatLngLiteral, MapData} from '@/config/types';
-import {useGoogleMap} from '@/hooks/useGoogleMap';
 import {Result} from '@/redux/game';
 import {useAppDispatch} from '@/redux/hooks';
 import {updateSelectedPosition} from '@/redux/position';
@@ -31,11 +30,26 @@ const _GoogleMap = (props: GoogleMapProps) => {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
 
-  useGoogleMap({
-    ref,
-    SW: map.properties.bbLiteral.SW,
-    NE: map.properties.bbLiteral.NE,
-  });
+  useEffect(() => {
+    if (ref.current) {
+      console.info('%cMAP MOUNT', 'color: yellow');
+      const unmount = MapService.mount(ref.current);
+
+      /* Order in constructor is important! SW, NE  */
+      const bounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(map.properties.bbLiteral.SW),
+        new google.maps.LatLng(map.properties.bbLiteral.NE)
+      );
+      google.maps.event.addListenerOnce(MapService.map, 'idle', () => {
+        MapService.map.fitBounds(bounds, 0);
+      });
+
+      return () => {
+        unmount();
+        console.info('%cMAP UNMOUNT', 'color: yellow');
+      };
+    }
+  }, [ref, map.properties.bbLiteral.NE, map.properties.bbLiteral.SW]);
 
   useEffect(() => {
     switch (mode) {

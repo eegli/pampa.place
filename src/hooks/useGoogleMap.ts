@@ -17,6 +17,7 @@ type Props = {ref: RefObject<HTMLDivElement>; opts?: google.maps.MapOptions} & (
   | BoundsProps
 );
 
+// TODO make this work
 export function useGoogleMap(props: Props) {
   const {ref, ...rest} = props;
 
