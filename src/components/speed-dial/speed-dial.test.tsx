@@ -30,6 +30,7 @@ function expectDialogToBeGone() {
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 }
 
+// TODO move to integration
 describe('Speed dial', () => {
   it(`items render`, () => {
     render(<SpeedDialNav />);
@@ -41,19 +42,19 @@ describe('Speed dial', () => {
     const state = createMockState({app: {theme: 'dark'}});
     const store = createMockStore(state);
     const {unmount} = render(<SpeedDialNav />, store);
-    let toggleButton = screen.getByRole('menuitem', {name: 'toggle-theme'});
+    let toggleButton = screen.getByRole('menuitem', {name: /lights/i});
     fireEvent.click(toggleButton);
     expect(store.getState().app.theme).toBe('light');
     unmount();
     render(<SpeedDialNav />, store);
-    toggleButton = screen.getByRole('menuitem', {name: 'toggle-theme'});
+    toggleButton = screen.getByRole('menuitem', {name: /lights/i});
     fireEvent.click(toggleButton);
     expect(store.getState().app.theme).toBe('dark');
   });
   it('has home navigation', () => {
     render(<SpeedDialNav />);
     hoverSpeedDial();
-    const homeButton = screen.getByRole('menuitem', {name: 'home'});
+    const homeButton = screen.getByRole('menuitem', {name: /home/i});
     fireEvent.click(homeButton);
     expect(dialogSpy).toHaveBeenCalledTimes(1);
     expect(dialogSpy.mock.calls[0][0]).toMatchSnapshot(
@@ -91,7 +92,7 @@ describe('Speed dial', () => {
     const store = createMockStore(state);
     render(<SpeedDialNav />, store);
     hoverSpeedDial();
-    const restartButton = screen.getByRole('menuitem', {name: 'restart'});
+    const restartButton = screen.getByRole('menuitem', {name: /restart/i});
     fireEvent.click(restartButton);
     expect(dialogSpy).toHaveBeenCalledTimes(1);
     expect(dialogSpy.mock.calls[0][0]).toMatchSnapshot(

@@ -50,9 +50,11 @@ export const SpeedDialNav = () => {
           icon={<ShortcutIcon />}
         >
           <SpeedDialAction
+            sx={{whiteSpace: 'nowrap'}}
             key="restart"
             aria-label="restart"
             icon={<RestartIcon />}
+            tooltipOpen
             tooltipTitle="Restart round"
             tooltipPlacement="right"
             onClick={() => {
@@ -69,10 +71,12 @@ export const SpeedDialNav = () => {
             }}
           />
           <SpeedDialAction
+            sx={{whiteSpace: 'nowrap'}}
             key="home"
             aria-label="home"
             icon={<HomeIcon />}
-            tooltipTitle="Home"
+            tooltipOpen
+            tooltipTitle="Go home"
             tooltipPlacement="right"
             onClick={() => {
               setDialog({
@@ -87,11 +91,13 @@ export const SpeedDialNav = () => {
             }}
           />
           <SpeedDialAction
+            sx={{whiteSpace: 'nowrap'}}
             key="theme"
             aria-label="toggle-theme"
             icon={
               activeTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />
             }
+            tooltipOpen
             tooltipTitle={activeTheme === 'light' ? 'Lights off' : 'Lights on'}
             tooltipPlacement="right"
             onClick={handleToggleTheme}
