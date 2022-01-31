@@ -4,7 +4,7 @@ import {MapService} from '../services/google';
 
 type CenterProps = {
   center: google.maps.LatLng | google.maps.LatLngLiteral;
-  zoom: number;
+  zoom?: number;
 };
 
 type BoundsProps = {
@@ -22,12 +22,12 @@ export function useGoogleMap(props: Props) {
 
   useEffect(() => {
     if (ref.current) {
-      console.info('MAP MOUNT');
+      console.info('%cMAP MOUNT', 'color: yellow');
       const unmount = MapService.mount(ref.current);
 
       if ('center' in rest) {
-        MapService.map.setCenter({lat: 35, lng: 0});
-        MapService.map.setZoom(3);
+        MapService.map.setCenter(rest.center);
+        MapService.map.setZoom(rest.zoom || 3);
       } else {
         /* Order in constructor is important! SW, NE  */
         const bounds = new google.maps.LatLngBounds(
@@ -41,7 +41,7 @@ export function useGoogleMap(props: Props) {
 
       return () => {
         unmount();
-        console.info('MAP UNMOUNT');
+        console.info('%cMAP UNMOUNT', 'color: yellow');
       };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

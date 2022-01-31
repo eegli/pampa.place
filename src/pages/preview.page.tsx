@@ -35,7 +35,7 @@ export const PreviewPage: NextPage = () => {
     ref,
     opts: config.map.default,
     center: {lat: 35, lng: 0},
-    zoom: 3,
+    zoom: 4,
   });
 
   useEffect(() => {
