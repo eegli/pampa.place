@@ -6,12 +6,12 @@ import {useEffect, useRef} from 'react';
 
 interface GoogleStreetViewProps {
   staticPos?: boolean;
-  display: 'block' | 'none';
+  display?: 'block' | 'none';
 }
 
 export const GoogleStreetView = ({
   staticPos = false,
-  display,
+  display = 'block',
 }: GoogleStreetViewProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const panoId = useAppSelector(({position}) => position.panoId);
