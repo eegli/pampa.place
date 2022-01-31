@@ -44,5 +44,6 @@ export function useGoogleMap(props: Props) {
         console.info('MAP UNMOUNT');
       };
     }
-  }, [ref, rest]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 }
