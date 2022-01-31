@@ -32,7 +32,7 @@ export const PreviewPage: NextPage = () => {
 
   useEffect(() => {
     if (ref.current) {
-      console.info('%cMAP MOUNT', 'color: yellow');
+      console.info('%cMAP PREVIEW MOUNT', 'color: yellow');
       const unmount = MapService.mount(ref.current);
 
       MapService.map.setOptions(config.map.default);
@@ -41,7 +41,7 @@ export const PreviewPage: NextPage = () => {
 
       return () => {
         unmount();
-        console.info('%cMAP UNMOUNT', 'color: yellow');
+        console.info('%cMAP PREVIEW UNMOUNT', 'color: yellow');
       };
     }
   }, []);

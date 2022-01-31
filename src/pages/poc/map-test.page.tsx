@@ -1,21 +1,29 @@
 import {Header} from '@/components/header/header';
 import {config} from '@/config/google';
-import {useGoogleMap} from '@/hooks/useGoogleMap';
 import {PageContent} from '@/styles/containers';
 import {Button} from '@mui/material';
 import {Box} from '@mui/system';
 import {NextPage} from 'next';
 import {useEffect, useRef, useState} from 'react';
+import {MapService} from '../../services/google';
 
 const GoodMapsComponent = () => {
   const ref = useRef<HTMLDivElement>(null);
 
-  useGoogleMap({
-    ref,
-    center: {lat: 35, lng: 0},
-    zoom: 3,
-    opts: config.map.default,
-  });
+  useEffect(() => {
+    if (ref.current) {
+      console.info('mount');
+      const unmount = MapService.mount(ref.current);
+      MapService.map.setOptions(config.map.default);
+      MapService.map.setCenter({lat: 35, lng: 0});
+      MapService.map.setZoom(3);
+
+      return () => {
+        console.info('unmount');
+        unmount();
+      };
+    }
+  }, []);
 
   return (
     <div
