@@ -135,7 +135,7 @@ export const MAPS = generateMapData(
 );
 ```
 
-Each map collection must provide a category. Since all maps are stored in one large object, the category is used to provide a more unique key. This way, multiple maps can have the same name as long as their category is the same. Maps belonging to the same category that share the same name will overwrite each other.
+Each map collection must provide a category. Since all maps are stored in one large object, the category is used to provide a more unique key. This way, multiple maps can have the same name as long as their categories are different. Maps belonging to the same category that share the same name will overwrite each other.
 
 Categories are also used for some API endpoints that provide (meta) data for your maps. See: https://beta.pampa.place/api/maps/v1. Docs will follow.
 
