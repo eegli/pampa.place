@@ -2,26 +2,28 @@ import {config} from '@/config/google';
 import {useAppSelector} from '@/redux/hooks';
 import {StreetViewService} from '@/services/google';
 import Box from '@mui/system/Box';
-import {useEffect, useRef} from 'react';
+import {memo, useEffect, useRef} from 'react';
 
 interface GoogleStreetViewProps {
   staticPos?: boolean;
   display?: 'block' | 'none';
 }
 
-export const GoogleStreetView = ({
+export const GoogleStreetView = memo(function GoogleStreetView({
   staticPos = false,
   display = 'block',
-}: GoogleStreetViewProps) => {
+}: GoogleStreetViewProps) {
   const ref = useRef<HTMLDivElement>(null);
   const panoId = useAppSelector(({position}) => position.panoId);
 
   // Initialization
   useEffect(() => {
     if (ref.current) {
+      console.info('%cGOOGLE STREET VIEW MOUNT', 'color: yellow');
       const unmount = StreetViewService.mount(ref.current);
       return () => {
         unmount();
+        console.info('%cGOOGLE STREET VIEW UNMOUNT', 'color: yellow');
       };
     }
   }, []);
@@ -49,4 +51,4 @@ export const GoogleStreetView = ({
       ref={ref}
     />
   );
-};
+});

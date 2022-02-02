@@ -1,29 +1,32 @@
 import {MapService} from '@/services/google';
 import Box from '@mui/material/Box';
-import {ReactNode, useEffect, useRef} from 'react';
+import {memo, ReactNode, useEffect, useRef} from 'react';
 
-type InstanceMethods = Omit<
-  InstanceType<typeof google.maps.Map>,
-  'setCenter' | 'fitBounds'
->;
+type BoundsProps = {
+  bounds: {
+    SW: google.maps.LatLngLiteral;
+    NE: google.maps.LatLngLiteral;
+  };
+  padding?: number;
+};
+
+type CenterProps = {
+  center: google.maps.LatLngLiteral;
+  zoom?: number;
+};
 
 export type GoogleMapContainerProps = {
-  children: ReactNode;
-  onMount?: (map: InstanceMethods) => unknown;
-  onUnmount?: (map: InstanceMethods) => unknown;
-} & (
-  | {
-      bounds: google.maps.LatLngLiteral;
-      padding?: number;
-    }
-  | {
-      center: google.maps.LatLngLiteral;
-      zoom?: number;
-    }
-);
+  id: string;
+  children?: ReactNode;
+  autoCleanup?: boolean;
+  onMount?: (map: google.maps.Map) => unknown;
+  onUnmount?: (map: google.maps.Map) => unknown;
+} & (BoundsProps | CenterProps);
 
-export const GoogleMapContainer = ({
+const _GoogleMapContainer = ({
   children,
+  autoCleanup = true,
+  id = 'google-map',
   onMount,
   onUnmount,
   ...rest
@@ -32,11 +35,15 @@ export const GoogleMapContainer = ({
 
   useEffect(() => {
     if (ref.current) {
-      const unmount = MapService.mount(ref.current);
+      const unmountMap = MapService.mount(ref.current);
+      console.info('%cGOOGLE MAP MOUNT', 'color: yellow');
 
       if ('bounds' in rest) {
         /* Order in constructor is important! SW, NE  */
-        const bounds = new google.maps.LatLngBounds(rest.bounds);
+        const bounds = new google.maps.LatLngBounds(
+          rest.bounds.SW,
+          rest.bounds.NE
+        );
         google.maps.event.addListenerOnce(MapService.map, 'idle', () => {
           MapService.map.fitBounds(bounds, rest.padding || 0);
         });
@@ -50,18 +57,32 @@ export const GoogleMapContainer = ({
       }
 
       return () => {
+        // Any cleanup logic
         if (typeof onUnmount === 'function') {
           onUnmount(MapService.map);
         }
-        unmount();
+        if (autoCleanup) {
+          //  Cleanup GeoJSON
+          MapService.map.data.forEach(feature => {
+            MapService.map.data.remove(feature);
+          });
+          // Cleanup GeoJSON styles
+          MapService.map.data.setStyle({});
+        }
+        unmountMap();
+        console.info('%cGOOGLE MAP UNMOUNT', 'color: yellow');
       };
     }
-  }, [ref, onMount, onUnmount, rest]);
+  }, [ref, onMount, onUnmount, autoCleanup, rest]);
 
   return (
-    <>
-      <Box data-testid="play-google-map" ref={ref} height="100%" width="100%" />
+    <Box id={id} data-testid={id} ref={ref} height="100%" width="100%">
       {children}
-    </>
+    </Box>
   );
 };
+
+export const GoogleMapContainer = memo(
+  _GoogleMapContainer,
+  (prev, next) => prev.id === next.id
+);
