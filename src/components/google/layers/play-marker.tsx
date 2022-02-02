@@ -19,6 +19,7 @@ export const GoogleMapPlayMarkerLayer = () => {
 
     return () => {
       listener.remove();
+      marker?.setMap(null);
       marker = null;
     };
   }, [dispatch]);
