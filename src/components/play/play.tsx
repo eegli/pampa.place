@@ -1,38 +1,27 @@
-import {GoogleMap} from '@/components/google/map';
-import {GoogleStreetView} from '@/components/google/street-view';
+import {GoogleStreetView} from '@/components/google/google-street-view';
+import {config} from '@/config/google';
 import {setPlayerScore} from '@/redux/game';
-import {getActivePlayer} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
-import {Box, Button} from '@mui/material';
-import {BoxProps} from '@mui/material/Box';
-import {styled} from '@mui/material/styles';
+import {Box, Button, ClickAwayListener} from '@mui/material';
 import {useState} from 'react';
 import {MAPS} from 'src/maps';
+import {GoogleMap} from '../google/google-map';
+import {GoogleMapPlayMarkerLayer} from '../google/layers/play-marker';
 import {PlayHeader} from './play-header';
-
-interface StyledMapOverlayProps extends BoxProps {
-  pos: 'map' | 'submit';
-}
-const StyledMapOverlay = styled(Box)<StyledMapOverlayProps>(({pos}) => ({
-  zIndex: 10,
-  position: 'fixed',
-  width: '4rem',
-  bottom: pos === 'map' ? 40 : 130,
-  right: pos === 'map' ? 70 : 90,
-  '&:hover': {
-    cursor: 'pointer',
-  },
-}));
 
 export const Play = () => {
   const dispatch = useAppDispatch();
   const [showMap, setShowMap] = useState<boolean>(false);
 
-  const activePlayer = useAppSelector(getActivePlayer);
   const initialPos = useAppSelector(({position}) => position.initialPosition);
   const selectedPos = useAppSelector(({position}) => position.selectedPosition);
   const activeMapId = useAppSelector(({game}) => game.mapId);
   const map = MAPS.get(activeMapId);
+
+  if (!map || !initialPos) {
+    return null;
+  }
+  const displaySubmitButton = selectedPos && showMap;
 
   function submitScore() {
     dispatch(
@@ -43,8 +32,14 @@ export const Play = () => {
     );
   }
 
-  if (!map || !initialPos) {
-    return null;
+  function toggleMap() {
+    setShowMap(!showMap);
+  }
+
+  function hideMap() {
+    if (showMap) {
+      setShowMap(false);
+    }
   }
 
   return (
@@ -53,33 +48,81 @@ export const Play = () => {
       sx={{
         display: 'flex',
         flexFlow: 'column',
-        alignItems: 'center',
         height: '100%',
         width: '100%',
-        overflow: 'hidden',
       }}
     >
-      <PlayHeader player={activePlayer} timerCallback={submitScore} />
-      <Box position="relative" height="100%" width="100%">
-        <StyledMapOverlay pos="map" onClick={() => setShowMap(!showMap)}>
-          {/* eslint-disable-next-line  @next/next/no-img-element */}
-          <img aria-label="map-toggle" src="/map.svg" alt="map-icon" />
-        </StyledMapOverlay>
-
-        <StyledMapOverlay pos="submit" onClick={() => setShowMap(!showMap)}>
-          <Button
-            size={'large'}
-            variant="contained"
-            color="secondary"
-            onClick={submitScore}
-            disabled={!selectedPos}
+      <PlayHeader timerCallback={submitScore} />
+      <ClickAwayListener onClickAway={hideMap}>
+        <Box
+          id="mini-map-container"
+          role="region"
+          position="absolute"
+          bottom={30}
+          right={30}
+          maxHeight="70%"
+          maxWidth="60%"
+          height={showMap ? 800 : 150}
+          width={showMap ? 800 : 200}
+          sx={{
+            transition: '0.2s ease',
+          }}
+          zIndex={2}
+        >
+          <Box
+            id="mini-map-click-area"
+            height="100%"
+            width="100%"
+            position="absolute"
+            display={showMap ? 'none' : 'block'}
+            zIndex={2}
+            onClick={toggleMap}
+            sx={{
+              backdropFilter: 'blur(2px)',
+            }}
+          />
+          <GoogleMap
+            id="google-map-play-mode"
+            bounds={map.properties.bbLiteral}
+            onMount={map => {
+              map.setOptions(config.map.play);
+            }}
           >
-            Submit
+            <GoogleMapPlayMarkerLayer />
+          </GoogleMap>
+
+          {displaySubmitButton ? (
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={submitScore}
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                width: '50%',
+              }}
+            >
+              Submit
+            </Button>
+          ) : null}
+
+          <Button
+            variant="contained"
+            onClick={toggleMap}
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              zIndex: 2,
+              right: 0,
+              width: displaySubmitButton ? '50%' : '100%',
+            }}
+          >
+            {showMap ? 'Hide map' : 'Show map'}
           </Button>
-        </StyledMapOverlay>
-        <GoogleStreetView display={showMap ? 'none' : 'block'} />
-        <GoogleMap map={map} mode="play" />
-      </Box>
+        </Box>
+      </ClickAwayListener>
+      <GoogleStreetView id="google-sv-play-mode" />
     </Box>
   );
 };

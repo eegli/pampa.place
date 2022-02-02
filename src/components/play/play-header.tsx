@@ -5,13 +5,14 @@ import {formatDur} from '@/utils/misc';
 import {Box, Divider, Stack, Typography} from '@mui/material';
 import {red} from '@mui/material/colors';
 import {useEffect} from 'react';
+import {getActivePlayer} from '../../redux/game/selectors';
 
 type PlayHeaderProps = {
-  player: string;
   timerCallback: () => void;
 };
 
-export const PlayHeader = ({player, timerCallback}: PlayHeaderProps) => {
+export const PlayHeader = ({timerCallback}: PlayHeaderProps) => {
+  const player = useAppSelector(getActivePlayer);
   const timeLimit = useAppSelector(s => s.game.timeLimit);
   const [timeRemaining] = useTimer(timeLimit);
   const isUnlimitedTimeMode = timeLimit < 0;

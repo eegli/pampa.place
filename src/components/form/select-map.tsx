@@ -1,5 +1,4 @@
 import {PreviewDialog} from '@/components/feedback/dialog-preview';
-import {GoogleMap} from '@/components/google/map';
 import {MapData} from '@/config/types';
 import {setMap} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
@@ -18,12 +17,13 @@ import {
 } from '@mui/material';
 import {useMemo, useState} from 'react';
 import {MAPS} from 'src/maps';
+import {config} from '../../config/google';
+import {GoogleMap} from '../google/google-map';
 
 export const FormMapSelect = () => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const activeMapId = useAppSelector(({game}) => game.mapId);
-  const activeMapName = useAppSelector(({game}) => game.mapName);
   const map = MAPS.get(activeMapId);
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -50,6 +50,10 @@ export const FormMapSelect = () => {
     });
     return categoryMap;
   }, []);
+
+  if (!map) {
+    return null;
+  }
 
   return (
     <Box id="form-map-select">
@@ -110,10 +114,30 @@ export const FormMapSelect = () => {
       {previewMap && (
         <PreviewDialog
           onCloseCallback={() => setPreviewMap(false)}
-          title={activeMapName}
-          text={`Rough bounds of the map "${activeMapName}"`}
+          title={map.properties.name}
+          text={`Rough bounds of the map "${map.properties.name}"`}
         >
-          {map && <GoogleMap map={map} mode="preview" />}
+          <GoogleMap
+            id={`map-preview-${map.properties.id}`}
+            bounds={{
+              SW: map?.properties.bbLiteral.SW,
+              NE: map?.properties.bbLiteral.NE,
+            }}
+            onMount={googleMap => {
+              googleMap.setOptions(config.map.preview);
+              googleMap.data.addGeoJson(map);
+              googleMap.data.setStyle({
+                fillColor: '#003d80',
+                fillOpacity: 0.2,
+                strokeWeight: 0.8,
+              });
+            }}
+            onUnmount={map => {
+              map.data.forEach(feature => {
+                map.data.remove(feature);
+              });
+            }}
+          />
         </PreviewDialog>
       )}
     </Box>

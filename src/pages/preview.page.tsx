@@ -1,20 +1,16 @@
+import {GoogleMap} from '@/components/google/google-map';
+import {CustomHead} from '@/components/head/custom-head';
 import {Header} from '@/components/header/header';
 import {config} from '@/config/google';
 import {MapProperties} from '@/config/types';
 import {PageContent} from '@/styles/containers';
-import {isInPolygon} from '@/utils/geo';
-import {alpha} from '@mui/material';
-import Box from '@mui/material/Box';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
 import {NextPage} from 'next';
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useMemo} from 'react';
 import {MAPS} from 'src/maps';
-import {CustomHead} from '../components/head/custom-head';
-import {MapService} from '../services/google';
+import {GoogleMapStreetViewCoverageLayer} from '../components/google/layers/coverage';
 
-type ClickEvent = {
+// TODO
+export type ClickEvent = {
   latLng: google.maps.LatLng;
   feature: {
     h: MapProperties;
@@ -22,105 +18,36 @@ type ClickEvent = {
 };
 
 export const PreviewPage: NextPage = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [showCoverage, setShowCoverage] = useState<boolean>(false);
-
-  function handleStreetViewCoverage() {
-    setShowCoverage(!showCoverage);
-  }
-  const features = useMemo(() => Array.from(MAPS.values()), []);
-
-  useEffect(() => {
-    if (ref.current) {
-      console.info('%cMAP PREVIEW MOUNT', 'color: yellow');
-      const unmount = MapService.mount(ref.current);
-
-      MapService.map.setOptions(config.map.default);
-      MapService.map.setCenter({lat: 35, lng: 0});
-      MapService.map.setZoom(4);
-
-      return () => {
-        unmount();
-        console.info('%cMAP PREVIEW UNMOUNT', 'color: yellow');
-      };
-    }
+  const geojson = useMemo(() => {
+    return Array.from(MAPS.values());
   }, []);
-
-  useEffect(() => {
-    // Each map is a GeoJSON Featurecollection that could
-    // potentially include multiple GeoJSON features. In practice,
-    // each collection ("const feature" below) will only contain one
-    // feature
-    const geojson = features.reduce((acc, curr) => {
-      const feature = MapService.map.data.addGeoJson(curr);
-      acc.push(...feature);
-      return acc;
-    }, [] as google.maps.Data.Feature[]);
-
-    MapService.map.data.setStyle({
-      fillColor: '#e46fb7',
-      fillOpacity: 0.1,
-      strokeWeight: 0.8,
-    });
-
-    const listener = MapService.map.data.addListener(
-      'click',
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (event: ClickEvent) => {
-        const coords = event.latLng.toJSON();
-        const hits = features.reduce((acc, curr) => {
-          if (isInPolygon(coords, curr.geometry)) {
-            acc.push(curr.properties);
-          }
-          return acc;
-        }, [] as MapProperties[]);
-        console.info(hits.map(m => m.name));
-      }
-    );
-    return () => {
-      geojson.forEach(feat => {
-        MapService.map.data.remove(feat);
-      });
-      listener.remove();
-    };
-  }, [features]);
-
-  useEffect(() => {
-    if (showCoverage) {
-      const coverageLayer = new google.maps.StreetViewCoverageLayer();
-      coverageLayer.setMap(MapService.map);
-      return () => {
-        coverageLayer.setMap(null);
-      };
-    }
-  }, [showCoverage]);
 
   return (
     <>
       <CustomHead title="map preview" />
       <Header />
       <PageContent headerGutter id="preview-page">
-        <Box ref={ref} width="100%" height="100%" />
-        <FormGroup
-          sx={{
-            position: 'absolute',
-            bottom: 30,
-            padding: '0 1rem',
-            backgroundColor: ({palette}) =>
-              alpha(palette.background.default, 0.6),
-            borderRadius: 3,
+        <GoogleMap
+          id="map-preview-all"
+          center={{lat: 35, lng: 0}}
+          zoom={4}
+          onMount={map => {
+            geojson.forEach(feat => map.data.addGeoJson(feat));
+            map.data.setStyle({
+              fillColor: '#e46fb7',
+              fillOpacity: 0.1,
+              strokeWeight: 0.8,
+            });
+            map.setOptions(config.map.default);
+          }}
+          onUnmount={map => {
+            map.data.forEach(feature => {
+              map.data.remove(feature);
+            });
           }}
         >
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={showCoverage}
-                onChange={handleStreetViewCoverage}
-              />
-            }
-            label="Show street view coverage"
-          />
-        </FormGroup>
+          <GoogleMapStreetViewCoverageLayer />
+        </GoogleMap>
       </PageContent>
     </>
   );
