@@ -89,13 +89,13 @@ describe('Integration, game play', () => {
     expect(screen.getByTestId('google-map-play-mode')).toBeInTheDocument();
     expect(screen.getByTestId('google-sv-play-mode')).toBeInTheDocument();
     const miniMap = screen.getByRole('region');
-    expect(miniMap).toHaveStyle({height: '100px', width: '200px'});
+    expect(miniMap).toHaveStyle({height: '150px', width: '200px'});
     const toggleBtn = screen.getByRole('button', {name: /show map/i});
     fireEvent.click(toggleBtn);
     expect(miniMap).toHaveStyle({height: '800px', width: '800px'});
     expect(toggleBtn).toHaveTextContent(/hide map/i);
     fireEvent.click(toggleBtn);
-    expect(miniMap).toHaveStyle({height: '100px', width: '200px'});
+    expect(miniMap).toHaveStyle({height: '150px', width: '200px'});
 
     fireEvent.click(toggleBtn);
     // Fake putting a marker on the map

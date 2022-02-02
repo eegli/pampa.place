@@ -1,7 +1,6 @@
 import {GoogleStreetView} from '@/components/google/google-street-view';
 import {config} from '@/config/google';
 import {setPlayerScore} from '@/redux/game';
-import {getActivePlayer} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {Box, Button, ClickAwayListener} from '@mui/material';
 import {useState} from 'react';
@@ -14,7 +13,6 @@ export const Play = () => {
   const dispatch = useAppDispatch();
   const [showMap, setShowMap] = useState<boolean>(false);
 
-  const activePlayer = useAppSelector(getActivePlayer);
   const initialPos = useAppSelector(({position}) => position.initialPosition);
   const selectedPos = useAppSelector(({position}) => position.selectedPosition);
   const activeMapId = useAppSelector(({game}) => game.mapId);
@@ -54,7 +52,7 @@ export const Play = () => {
         width: '100%',
       }}
     >
-      <PlayHeader player={activePlayer} timerCallback={submitScore} />
+      <PlayHeader timerCallback={submitScore} />
       <ClickAwayListener onClickAway={hideMap}>
         <Box
           id="mini-map-container"
@@ -64,7 +62,7 @@ export const Play = () => {
           right={30}
           maxHeight="70%"
           maxWidth="60%"
-          height={showMap ? 800 : 100}
+          height={showMap ? 800 : 150}
           width={showMap ? 800 : 200}
           sx={{
             transition: '0.2s ease',
@@ -80,7 +78,6 @@ export const Play = () => {
             zIndex={2}
             onClick={toggleMap}
             sx={{
-              border: '2px solid',
               backdropFilter: 'blur(2px)',
             }}
           />
