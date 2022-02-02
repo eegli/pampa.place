@@ -1,5 +1,5 @@
 import {config} from '@/config/google';
-import {MapService, MarkerService, PolyLineService} from '@/services/google';
+import {MapService} from '@/services/google';
 import {useEffect} from 'react';
 import {getCurrentRoundScores} from '../../../redux/game/selectors';
 import {useAppSelector} from '../../../redux/hooks';
@@ -13,12 +13,10 @@ export const GoogleMapReviewMarkerLayer = () => {
   useEffect(() => {
     if (initialPosition) {
       // Add original location marker
-      const originMarker = new google.maps.Marker();
+      let markers = [new google.maps.Marker()];
 
-      originMarker.setPosition(initialPosition);
-      originMarker.setMap(MapService.map);
-
-      MarkerService.add(originMarker);
+      markers[0].setPosition(initialPosition);
+      markers[0].setMap(MapService.map);
 
       // Add marker for each result
       scores.forEach((p, idx) => {
@@ -45,7 +43,7 @@ export const GoogleMapReviewMarkerLayer = () => {
             },
           });
 
-          const polyLine = new google.maps.Polyline({
+          new google.maps.Polyline({
             path: [initialPosition, p.selected],
             map: MapService.map,
             geodesic: true,
@@ -53,14 +51,14 @@ export const GoogleMapReviewMarkerLayer = () => {
             strokeOpacity: 1.0,
             strokeWeight: 4,
           });
-          PolyLineService.add(polyLine);
-          MarkerService.add(playerMarker);
+          markers.push(playerMarker);
         }
       });
-
+      // Cleanup is important!
+      // https://developers.google.com/maps/documentation/javascript/examples/marker-remove
       return () => {
-        MarkerService.clearAllItems();
-        PolyLineService.clearAllItems();
+        markers.forEach(m => m.setMap(null));
+        markers = [];
       };
     }
   }, [scores, initialPosition]);

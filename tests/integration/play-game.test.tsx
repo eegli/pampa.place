@@ -1,5 +1,5 @@
 import {initGame, setRounds, STATUS} from '@/redux/game';
-import {MapService, MarkerService, PolyLineService} from '@/services/google';
+import {MapService} from '@/services/google';
 import {GamePage} from 'src/pages/game.page';
 import {
   GoogleStreetViewFailedResponse,
@@ -102,7 +102,6 @@ describe('Integration, game play', () => {
     mockClickEvent.click();
     const submitBtn = screen.getByRole('button', {name: /submit/i});
     fireEvent.click(submitBtn);
-    expect(MarkerService.items).toHaveLength(0);
   });
 
   it('displays round 1 summary', () => {
@@ -130,8 +129,6 @@ describe('Integration, game play', () => {
     fireEvent.click(
       screen.getByRole('button', {name: /Continue with round 2/i})
     );
-    expect(MarkerService.items).toHaveLength(0);
-    expect(PolyLineService.items).toHaveLength(0);
   });
 
   it('dispatches score in round 2 after time runs out', async () => {
