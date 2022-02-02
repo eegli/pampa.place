@@ -3,7 +3,7 @@ import {setPlayerScore} from '@/redux/game';
 import {getActivePlayer} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {Box, Button, ClickAwayListener} from '@mui/material';
-import {useCallback, useState} from 'react';
+import {useState} from 'react';
 import {MAPS} from 'src/maps';
 import {config} from '../../config/google';
 import {GoogleMapContainer} from '../google/gmap-container';
@@ -20,6 +20,11 @@ export const Play = () => {
   const activeMapId = useAppSelector(({game}) => game.mapId);
   const map = MAPS.get(activeMapId);
 
+  if (!map || !initialPos) {
+    return null;
+  }
+  const displaySubmitButton = selectedPos && showMap;
+
   function submitScore() {
     dispatch(
       setPlayerScore({
@@ -29,20 +34,14 @@ export const Play = () => {
     );
   }
 
-  function toggleMap() {
-    setShowMap(!showMap);
-  }
-
-  const hideMap = useCallback(() => {
-    setShowMap(false);
-  }, [setShowMap]);
-
-  function displayMap() {
+  function openMap() {
     setShowMap(true);
   }
 
-  if (!map || !initialPos) {
-    return null;
+  function hideMap() {
+    if (showMap) {
+      setShowMap(false);
+    }
   }
 
   return (
@@ -53,21 +52,20 @@ export const Play = () => {
         flexFlow: 'column',
         height: '100%',
         width: '100%',
-        overflow: 'hidden',
       }}
     >
       <PlayHeader player={activePlayer} timerCallback={submitScore} />
       <ClickAwayListener onClickAway={hideMap}>
         <Box
           position="absolute"
-          bottom={50}
-          right={50}
-          maxHeight="80%"
-          maxWidth="50%"
-          height={showMap ? 800 : 200}
+          bottom={30}
+          right={30}
+          maxHeight="70%"
+          maxWidth="60%"
+          height={showMap ? 800 : 100}
           width={showMap ? 800 : 200}
           sx={{
-            transition: '0.3s ease',
+            transition: '0.2s ease',
           }}
           zIndex={2}
         >
@@ -76,9 +74,10 @@ export const Play = () => {
             width="100%"
             position="absolute"
             display={showMap ? 'none' : 'block'}
-            zIndex={3}
-            onClick={displayMap}
+            zIndex={2}
+            onClick={openMap}
             sx={{
+              border: '2px solid',
               backdropFilter: 'blur(2px)',
             }}
           />
@@ -91,20 +90,36 @@ export const Play = () => {
           >
             <GoogleMapMarkerLayer />
           </GoogleMapContainer>
-
-          <Button
-            variant="contained"
-            onClick={toggleMap}
-            sx={{
-              position: 'absolute',
-              zIndex: 10,
-              bottom: 0,
-              right: 0,
-              width: '100%',
-            }}
-          >
-            {showMap ? 'Hide map' : 'Show map'}
-          </Button>
+          {displaySubmitButton ? (
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={submitScore}
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                width: '50%',
+              }}
+            >
+              Submit
+            </Button>
+          ) : null}
+          {showMap ? (
+            <Button
+              variant="contained"
+              onClick={hideMap}
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                zIndex: 2,
+                right: 0,
+                width: displaySubmitButton ? '50%' : '100%',
+              }}
+            >
+              {showMap ? 'Hide map' : 'Show map'}
+            </Button>
+          ) : null}
         </Box>
       </ClickAwayListener>
       <GoogleStreetView />
