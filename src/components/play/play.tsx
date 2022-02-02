@@ -21,6 +21,7 @@ export const Play = () => {
   if (!map || !initialPos) {
     return null;
   }
+
   const displaySubmitButton = selectedPos && showMap;
 
   function submitScore() {
@@ -61,13 +62,14 @@ export const Play = () => {
           bottom={30}
           right={30}
           maxHeight="70%"
-          maxWidth="60%"
+          maxWidth="85%"
           height={showMap ? 800 : 150}
           width={showMap ? 800 : 200}
           sx={{
             transition: '0.2s ease',
           }}
-          zIndex={2}
+          // Display on top of speed dial
+          zIndex={1000}
         >
           <Box
             id="mini-map-click-area"
@@ -77,9 +79,11 @@ export const Play = () => {
             display={showMap ? 'none' : 'block'}
             zIndex={2}
             onClick={toggleMap}
-            sx={{
-              backdropFilter: 'blur(2px)',
-            }}
+            sx={
+              {
+                // backdropFilter: 'blur(2px)',
+              }
+            }
           />
           <GoogleMap
             id="google-map-play-mode"

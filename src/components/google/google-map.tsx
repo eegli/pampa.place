@@ -16,7 +16,7 @@ type CenterProps = {
 };
 
 export type GoogleMapProps = {
-  id: string;
+  id?: string;
   children?: ReactNode;
   onMount?: (map: google.maps.Map) => unknown;
   onUnmount?: (map: google.maps.Map) => unknown;

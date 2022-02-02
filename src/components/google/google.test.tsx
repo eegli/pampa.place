@@ -28,14 +28,14 @@ const services = {
 describe('Google, Map', () => {
   it('has containers in document', () => {
     const mapMountSpy = jest.spyOn(MapService, 'mount');
-    render(<GoogleMap id="gmap" center={{lat: 0, lng: 0}} />);
+    render(<GoogleMap center={{lat: 0, lng: 0}} />);
     expect(screen.getByTestId('__GMAP__CONTAINER__')).toBeInTheDocument();
     expect(screen.getByTestId('__GMAP__')).toBeInTheDocument();
     expect(screen.getByTestId('__GMAP__')).toHaveStyle('height:100%');
     expect(mapMountSpy).toHaveBeenCalledTimes(1);
   });
   it('renders with center props', () => {
-    render(<GoogleMap id="gmap" center={{lat: 0, lng: 0}} />);
+    render(<GoogleMap center={{lat: 0, lng: 0}} />);
     expect(services.gmap.map.setOptions).not.toHaveBeenCalled();
     expect(listenerSpy).not.toHaveBeenCalled();
 
@@ -61,20 +61,20 @@ describe('Google, Map', () => {
 
 describe('Google, Street view', () => {
   it('renders and has containers in document', () => {
-    render(<GoogleStreetView id="" />);
+    render(<GoogleStreetView />);
     expect(screen.getByTestId('__GSTV__CONTAINER__')).toBeInTheDocument();
     expect(screen.getByTestId('__GSTV__')).toBeInTheDocument();
     expect(screen.getByTestId('__GSTV__')).toHaveStyle('height:100%');
   });
   it('has game mode', () => {
-    render(<GoogleStreetView id="" />);
+    render(<GoogleStreetView />);
     expect(services.gsv.sv.setPano).toHaveBeenCalledTimes(1);
     expect(services.gsv.sv.setOptions.mock.calls[0][0]).toMatchSnapshot(
       'options default'
     );
   });
   it('has static review mode', () => {
-    render(<GoogleStreetView id="" staticPos />);
+    render(<GoogleStreetView staticPos />);
     expect(services.gsv.sv.setPano).toHaveBeenCalledTimes(1);
     expect(services.gsv.sv.setOptions.mock.calls[0][0]).toMatchSnapshot(
       'options static'
