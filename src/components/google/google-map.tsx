@@ -15,22 +15,20 @@ type CenterProps = {
   zoom?: number;
 };
 
-export type GoogleMapContainerProps = {
+export type GoogleMapProps = {
   id: string;
   children?: ReactNode;
-  autoCleanup?: boolean;
   onMount?: (map: google.maps.Map) => unknown;
   onUnmount?: (map: google.maps.Map) => unknown;
 } & (BoundsProps | CenterProps);
 
-const _GoogleMapContainer = ({
+const _GoogleMap = ({
   children,
-  autoCleanup = true,
   id = 'google-map',
   onMount,
   onUnmount,
   ...rest
-}: GoogleMapContainerProps) => {
+}: GoogleMapProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -61,28 +59,24 @@ const _GoogleMapContainer = ({
         if (typeof onUnmount === 'function') {
           onUnmount(MapService.map);
         }
-        if (autoCleanup) {
-          //  Cleanup GeoJSON
-          MapService.map.data.forEach(feature => {
-            MapService.map.data.remove(feature);
-          });
-          // Cleanup GeoJSON styles
-          MapService.map.data.setStyle({});
-        }
+
         unmountMap();
         console.info('%cGOOGLE MAP UNMOUNT', 'color: yellow');
       };
     }
-  }, [ref, onMount, onUnmount, autoCleanup, rest]);
+  }, [ref, onMount, onUnmount, rest]);
 
   return (
-    <Box id={id} data-testid={id} ref={ref} height="100%" width="100%">
+    <Box
+      id={id}
+      data-testid={'__google-map__'}
+      ref={ref}
+      height="100%"
+      width="100%"
+    >
       {children}
     </Box>
   );
 };
 
-export const GoogleMapContainer = memo(
-  _GoogleMapContainer,
-  (prev, next) => prev.id === next.id
-);
+export const GoogleMap = memo(_GoogleMap, (prev, next) => prev.id === next.id);

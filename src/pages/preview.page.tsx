@@ -1,13 +1,13 @@
-import {GoogleMapContainer} from '@/components/google/gmap-container';
+import {GoogleMap} from '@/components/google/google-map';
 import {GoogleMapStreetViewCoverageLayer} from '@/components/google/overlay/coverage-layer';
 import {CustomHead} from '@/components/head/custom-head';
 import {Header} from '@/components/header/header';
+import {config} from '@/config/google';
 import {MapProperties} from '@/config/types';
 import {PageContent} from '@/styles/containers';
 import {NextPage} from 'next';
 import React, {useMemo} from 'react';
 import {MAPS} from 'src/maps';
-import {config} from '../config/google';
 
 // TODO
 export type ClickEvent = {
@@ -27,7 +27,8 @@ export const PreviewPage: NextPage = () => {
       <CustomHead title="map preview" />
       <Header />
       <PageContent headerGutter id="preview-page">
-        <GoogleMapContainer
+        <GoogleMap
+          id="map-preview-all"
           center={{lat: 35, lng: 0}}
           zoom={4}
           onMount={map => {
@@ -46,7 +47,7 @@ export const PreviewPage: NextPage = () => {
           }}
         >
           <GoogleMapStreetViewCoverageLayer />
-        </GoogleMapContainer>
+        </GoogleMap>
       </PageContent>
     </>
   );

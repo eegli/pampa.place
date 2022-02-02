@@ -18,7 +18,7 @@ import {
 import {useMemo, useState} from 'react';
 import {MAPS} from 'src/maps';
 import {config} from '../../config/google';
-import {GoogleMapContainer} from '../google/gmap-container';
+import {GoogleMap} from '../google/google-map';
 
 export const FormMapSelect = () => {
   const [previewMap, setPreviewMap] = useState<boolean>(false);
@@ -117,7 +117,7 @@ export const FormMapSelect = () => {
           title={map.properties.name}
           text={`Rough bounds of the map "${map.properties.name}"`}
         >
-          <GoogleMapContainer
+          <GoogleMap
             id={`map-preview-${map.properties.id}`}
             bounds={{
               SW: map?.properties.bbLiteral.SW,
@@ -130,6 +130,11 @@ export const FormMapSelect = () => {
                 fillColor: '#003d80',
                 fillOpacity: 0.2,
                 strokeWeight: 0.8,
+              });
+            }}
+            onUnmount={map => {
+              map.data.forEach(feature => {
+                map.data.remove(feature);
               });
             }}
           />

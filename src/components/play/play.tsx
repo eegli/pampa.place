@@ -1,13 +1,13 @@
-import {GoogleStreetView} from '@/components/google/street-view';
+import {GoogleStreetView} from '@/components/google/google-street-view';
+import {config} from '@/config/google';
 import {setPlayerScore} from '@/redux/game';
 import {getActivePlayer} from '@/redux/game/selectors';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {Box, Button, ClickAwayListener} from '@mui/material';
 import {useState} from 'react';
 import {MAPS} from 'src/maps';
-import {config} from '../../config/google';
-import {GoogleMapContainer} from '../google/gmap-container';
-import {GoogleMapMarkerLayer} from '../google/overlay/marker-layer';
+import {GoogleMap} from '../google/google-map';
+import {GoogleMapPlayMarkerLayer} from '../google/overlay/play-marker-layer';
 import {PlayHeader} from './play-header';
 
 export const Play = () => {
@@ -81,15 +81,15 @@ export const Play = () => {
               backdropFilter: 'blur(2px)',
             }}
           />
-          <GoogleMapContainer
-            id="play-map"
+          <GoogleMap
+            id="goole-map-play-mode"
             bounds={map.properties.bbLiteral}
             onMount={map => {
               map.setOptions(config.map.play);
             }}
           >
-            <GoogleMapMarkerLayer />
-          </GoogleMapContainer>
+            <GoogleMapPlayMarkerLayer />
+          </GoogleMap>
           {displaySubmitButton ? (
             <Button
               variant="contained"

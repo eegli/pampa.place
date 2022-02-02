@@ -1,8 +1,9 @@
 import {Dialog} from '@/components/feedback/dialog';
 import {PreviewDialog} from '@/components/feedback/dialog-preview';
-import {GoogleMap} from '@/components/google/map';
+import {GoogleMap} from '@/components/google/google-map';
 import {Header} from '@/components/header/header';
 import {Constants} from '@/config/constants';
+import {config} from '@/config/google';
 import {LocalStorageMaps, MapData} from '@/config/types';
 import {parseUserGeoJSON} from '@/maps/helpers/parser';
 import {PageContent, SlimContainer} from '@/styles/containers';
@@ -235,7 +236,24 @@ export const MyMapsPage: NextPage = () => {
               title={`Local map preview`}
               text={`Rough bounds of the map "${mapToPreview.properties.name}"`}
             >
-              <GoogleMap map={mapToPreview} mode="preview" />
+              <GoogleMap
+                id={`map-preview-${mapToPreview.properties.id}`}
+                bounds={mapToPreview.properties.bbLiteral}
+                onMount={googleMap => {
+                  googleMap.setOptions(config.map.preview);
+                  googleMap.data.addGeoJson(mapToPreview);
+                  googleMap.data.setStyle({
+                    fillColor: '#003d80',
+                    fillOpacity: 0.2,
+                    strokeWeight: 0.8,
+                  });
+                }}
+                onUnmount={map => {
+                  map.data.forEach(feature => {
+                    map.data.remove(feature);
+                  });
+                }}
+              />
             </PreviewDialog>
           )}
 

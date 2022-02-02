@@ -4,11 +4,10 @@ import {
   PolyLineService,
   StreetViewService,
 } from '@/services/google';
-import {testMap} from '@/tests/fixtures/map';
-import {createMockStore, render, screen} from '@/tests/utils';
+import {render, screen} from '@/tests/utils';
 import {mocked} from 'jest-mock';
-import {GoogleMap, GoogleMapProps} from './map';
-import {GoogleStreetView} from './street-view';
+import {GoogleMap} from './google-map';
+import {GoogleStreetView} from './google-street-view';
 // Mock implementation for listeners. The handler will be caught and
 // called with the event it would get from google.maps.Map's click
 // event. Unfortunately, this event has no official types
@@ -54,7 +53,7 @@ const services = {
 describe('Google, Map', () => {
   it('renders and has containers in document', () => {
     const mapMountSpy = jest.spyOn(MapService, 'mount');
-    const {unmount} = render(<GoogleMap map={testMap} />);
+    const {unmount} = render(<GoogleMap id="gmap" center={{lat: 0, lng: 0}} />);
     expect(screen.getByTestId('__GMAP__CONTAINER__')).toBeInTheDocument();
     expect(screen.getByTestId('__GMAP__')).toBeInTheDocument();
     expect(screen.getByTestId('__GMAP__')).toHaveStyle('height:100%');
@@ -65,58 +64,6 @@ describe('Google, Map', () => {
     events[0].func();
     expect(services.gmap.map.fitBounds).toHaveBeenCalledTimes(1);
     unmount();
-  });
-  it('has preview mode', () => {
-    const {unmount} = render(<GoogleMap map={testMap} mode="preview" />);
-    expect(services.gmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
-      'preview settings'
-    );
-    expect(services.gmap.map.data.setStyle).toHaveBeenCalledTimes(1);
-    expect(services.gmap.map.data.addGeoJson).toHaveBeenCalledTimes(1);
-    expect(services.gmap.map.data.setStyle).toHaveBeenCalledTimes(1);
-    unmount();
-    expect(services.gmap.map.data.remove).toHaveBeenCalledTimes(1);
-  });
-  it('has play mode', () => {
-    const store = createMockStore();
-    const {unmount} = render(<GoogleMap map={testMap} mode="play" />, store);
-    expect(services.gmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
-      'play settings'
-    );
-    expect(services.gmarkers.items).toHaveLength(1);
-    expect(services.gmarkers.items[0].setMap).toHaveBeenCalledTimes(1);
-    expect(services.gmarkers.items[0].setDraggable).toHaveBeenCalledTimes(1);
-    expect(events.length).toBe(2);
-    expect(events[1].event).toBe('click');
-    events[1].func();
-    expect(services.gmarkers.items[0].setPosition).toHaveBeenCalledTimes(1);
-    events[1].func();
-    expect(services.gmarkers.items[0].setPosition).toHaveBeenCalledTimes(2);
-    expect(store.getState().position.selectedPosition).toMatchSnapshot(
-      'update selected position'
-    );
-    unmount();
-    expect(services.gmarkers.items).toHaveLength(0);
-  });
-  it('has review mode', () => {
-    const props: GoogleMapProps = {
-      map: testMap,
-      mode: 'review',
-      results: [
-        {name: 'a', selected: {lat: 1, lng: 1}},
-        {name: 'b', selected: {lat: 1, lng: 1}},
-      ],
-      initialPosition: {lat: 1, lng: 1},
-    };
-    const {unmount} = render(<GoogleMap {...props} />);
-    expect(services.gmap.map.setOptions.mock.calls[0]).toMatchSnapshot(
-      'result settings'
-    );
-    expect(services.gmarkers.items).toHaveLength(3);
-    expect(services.gpolylines.items).toHaveLength(2);
-    unmount();
-    expect(services.gmarkers.items).toHaveLength(0);
-    expect(services.gpolylines.items).toHaveLength(0);
   });
 });
 

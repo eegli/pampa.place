@@ -22,8 +22,10 @@ import {
 } from '@mui/material';
 import {ReactNode, SyntheticEvent, useState} from 'react';
 import {MAPS} from 'src/maps';
-import {GoogleMap} from '../google/map';
-import {GoogleStreetView} from '../google/street-view';
+import {config} from '../../config/google';
+import {GoogleMap} from '../google/google-map';
+import {GoogleStreetView} from '../google/google-street-view';
+import {GoogleMapReviewMarkerLayer} from '../google/overlay/review-marker-layer';
 
 interface TabPanelProps extends BoxProps {
   children?: ReactNode;
@@ -139,14 +141,17 @@ export const RoundOverSummary = () => {
 
       <TabPanel selected={selectedPanel} index={1}>
         <Box height="100%" id="round-end-map">
-          {initialPosition && map && (
+          {map ? (
             <GoogleMap
-              mode="review"
-              map={map}
-              results={scores}
-              initialPosition={initialPosition}
-            />
-          )}
+              id="goole-map-play-mode"
+              bounds={map.properties.bbLiteral}
+              onMount={map => {
+                map.setOptions(config.map.review);
+              }}
+            >
+              <GoogleMapReviewMarkerLayer />
+            </GoogleMap>
+          ) : null}
         </Box>
       </TabPanel>
 

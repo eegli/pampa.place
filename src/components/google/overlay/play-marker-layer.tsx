@@ -3,7 +3,7 @@ import {useAppDispatch} from '../../../redux/hooks';
 import {updateSelectedPosition} from '../../../redux/position';
 import {MapService, MarkerService} from '../../../services/google';
 
-export const GoogleMapMarkerLayer = () => {
+export const GoogleMapPlayMarkerLayer = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
