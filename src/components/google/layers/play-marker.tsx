@@ -11,11 +11,17 @@ export const GoogleMapPlayMarkerLayer = () => {
     marker.setMap(MapService.map);
     marker.setDraggable(true);
 
-    const listener = MapService.map.addListener('click', (e: unknown) => {
-      const {latLng} = e as {latLng: google.maps.LatLng};
-      if (marker) marker.setPosition(latLng);
-      dispatch(updateSelectedPosition({lat: latLng.lat(), lng: latLng.lng()}));
-    });
+    const listener = MapService.map.addListener(
+      'click',
+      ({latLng}: google.maps.MapMouseEvent) => {
+        if (marker && latLng) {
+          marker.setPosition(latLng);
+          dispatch(
+            updateSelectedPosition({lat: latLng.lat(), lng: latLng.lng()})
+          );
+        }
+      }
+    );
 
     return () => {
       listener.remove();
