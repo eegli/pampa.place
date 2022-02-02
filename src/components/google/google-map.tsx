@@ -67,13 +67,7 @@ const _GoogleMap = ({
   }, [ref, onMount, onUnmount, rest]);
 
   return (
-    <Box
-      id={id}
-      data-testid={'__google-map__'}
-      ref={ref}
-      height="100%"
-      width="100%"
-    >
+    <Box id={id} data-testid={id} ref={ref} height="100%" width="100%">
       {children}
     </Box>
   );

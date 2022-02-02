@@ -1,5 +1,4 @@
 import {GoogleMap} from '@/components/google/google-map';
-import {GoogleMapStreetViewCoverageLayer} from '@/components/google/overlay/coverage-layer';
 import {CustomHead} from '@/components/head/custom-head';
 import {Header} from '@/components/header/header';
 import {config} from '@/config/google';
@@ -8,6 +7,7 @@ import {PageContent} from '@/styles/containers';
 import {NextPage} from 'next';
 import React, {useMemo} from 'react';
 import {MAPS} from 'src/maps';
+import {GoogleMapStreetViewCoverageLayer} from '../components/google/layers/coverage';
 
 // TODO
 export type ClickEvent = {

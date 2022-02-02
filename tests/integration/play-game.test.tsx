@@ -1,6 +1,5 @@
 import {initGame, setRounds, STATUS} from '@/redux/game';
 import {MapService} from '@/services/google';
-import {GoogleDOMIds} from '@/services/google/dom';
 import {GamePage} from 'src/pages/game.page';
 import {
   GoogleStreetViewFailedResponse,
@@ -85,21 +84,24 @@ describe('Integration, game play', () => {
     expect(store.getState().game.status).toBe(STATUS.PENDING_PLAYER);
 
     render(<GamePage />, store);
-    fireEvent.click(await screen.findByRole('button', {name: /start round/gi}));
-    const map = screen.getByTestId('play-google-map');
-    const sv = screen.getByTestId('play-google-street-view');
-    const submit = screen.getByRole('button', {name: 'Submit'});
-    expect(map).toHaveStyle('height:100%;display:block');
-    expect(sv).toHaveStyle('height:100%;display:block');
-    expect(submit).toBeDisabled();
-    fireEvent.click(screen.getByRole('img', {name: 'map-toggle'}));
-    expect(sv).toHaveStyle('height:100%;display:none');
-    expect(mockClickEvent).toHaveProperty('click');
+    const startBtn = await screen.findByRole('button', {name: /start round/gi});
+    fireEvent.click(startBtn);
+    expect(screen.getByTestId('google-map-play-mode')).toBeInTheDocument();
+    expect(screen.getByTestId('google-sv-play-mode')).toBeInTheDocument();
+    const miniMap = screen.getByRole('region');
+    expect(miniMap).toHaveStyle({height: '100px', width: '200px'});
+    const toggleBtn = screen.getByRole('button', {name: /show map/i});
+    fireEvent.click(toggleBtn);
+    expect(miniMap).toHaveStyle({height: '800px', width: '800px'});
+    expect(toggleBtn).toHaveTextContent(/hide map/i);
+    fireEvent.click(toggleBtn);
+    expect(miniMap).toHaveStyle({height: '100px', width: '200px'});
+
+    fireEvent.click(toggleBtn);
+    // Fake putting a marker on the map
     mockClickEvent.click();
-    expect(submit).not.toBeDisabled();
-    fireEvent.click(submit);
-    expect(map).not.toBeInTheDocument();
-    expect(sv).not.toBeInTheDocument();
+    const submitBtn = screen.getByRole('button', {name: /submit/i});
+    fireEvent.click(submitBtn);
   });
 
   it('displays round 1 summary', () => {
@@ -115,9 +117,9 @@ describe('Integration, game play', () => {
       /Result/i
     );
     fireEvent.click(screen.getByRole('tab', {name: /Map/i}));
-    expect(screen.getByTestId(GoogleDOMIds.MAP_DIV)).toBeInTheDocument();
+    expect(screen.getByTestId('google-map-review-mode')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('tab', {name: /Street View/i}));
-    expect(screen.getByTestId(GoogleDOMIds.STV_DIV)).toBeInTheDocument();
+    expect(screen.getByTestId('google-sv-review-mode')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('tab', {name: /Info/i}));
     const infoItems = screen.getAllByRole('listitem');
     expect(infoItems).toMatchSnapshot('info table');
@@ -133,14 +135,14 @@ describe('Integration, game play', () => {
     expect(store.getState().game.status).toBe(STATUS.PENDING_PLAYER);
 
     render(<GamePage />, store);
-    fireEvent.click(await screen.findByRole('button', {name: /start round/gi}));
-    const map = screen.getByTestId('play-google-map');
-    expect(map).toBeInTheDocument();
+    const startBtn = await screen.findByRole('button', {name: /start round/gi});
+    fireEvent.click(startBtn);
+
     // In tests, the time limit is 30 seconds
     act(() => {
       jest.advanceTimersByTime(31 * 1000);
     });
-    expect(map).not.toBeInTheDocument();
+
     // Skip the round summary - it has already been tested in round 1
     expect(screen.getByRole('table')).toMatchSnapshot('summary');
     const resultButton = screen.getByRole('button', {name: /See results!/i});

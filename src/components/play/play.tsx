@@ -7,7 +7,7 @@ import {Box, Button, ClickAwayListener} from '@mui/material';
 import {useState} from 'react';
 import {MAPS} from 'src/maps';
 import {GoogleMap} from '../google/google-map';
-import {GoogleMapPlayMarkerLayer} from '../google/overlay/play-marker-layer';
+import {GoogleMapPlayMarkerLayer} from '../google/layers/play-marker';
 import {PlayHeader} from './play-header';
 
 export const Play = () => {
@@ -34,8 +34,8 @@ export const Play = () => {
     );
   }
 
-  function openMap() {
-    setShowMap(true);
+  function toggleMap() {
+    setShowMap(!showMap);
   }
 
   function hideMap() {
@@ -57,6 +57,8 @@ export const Play = () => {
       <PlayHeader player={activePlayer} timerCallback={submitScore} />
       <ClickAwayListener onClickAway={hideMap}>
         <Box
+          id="mini-map-container"
+          role="region"
           position="absolute"
           bottom={30}
           right={30}
@@ -70,19 +72,20 @@ export const Play = () => {
           zIndex={2}
         >
           <Box
+            id="mini-map-click-area"
             height="100%"
             width="100%"
             position="absolute"
             display={showMap ? 'none' : 'block'}
             zIndex={2}
-            onClick={openMap}
+            onClick={toggleMap}
             sx={{
               border: '2px solid',
               backdropFilter: 'blur(2px)',
             }}
           />
           <GoogleMap
-            id="goole-map-play-mode"
+            id="google-map-play-mode"
             bounds={map.properties.bbLiteral}
             onMount={map => {
               map.setOptions(config.map.play);
@@ -90,6 +93,7 @@ export const Play = () => {
           >
             <GoogleMapPlayMarkerLayer />
           </GoogleMap>
+
           {displaySubmitButton ? (
             <Button
               variant="contained"
@@ -105,24 +109,23 @@ export const Play = () => {
               Submit
             </Button>
           ) : null}
-          {showMap ? (
-            <Button
-              variant="contained"
-              onClick={hideMap}
-              sx={{
-                position: 'absolute',
-                bottom: 0,
-                zIndex: 2,
-                right: 0,
-                width: displaySubmitButton ? '50%' : '100%',
-              }}
-            >
-              {showMap ? 'Hide map' : 'Show map'}
-            </Button>
-          ) : null}
+
+          <Button
+            variant="contained"
+            onClick={toggleMap}
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              zIndex: 2,
+              right: 0,
+              width: displaySubmitButton ? '50%' : '100%',
+            }}
+          >
+            {showMap ? 'Hide map' : 'Show map'}
+          </Button>
         </Box>
       </ClickAwayListener>
-      <GoogleStreetView />
+      <GoogleStreetView id="google-sv-play-mode" />
     </Box>
   );
 };

@@ -5,13 +5,13 @@ import Box from '@mui/system/Box';
 import {memo, useEffect, useRef} from 'react';
 
 interface GoogleStreetViewProps {
+  id: string;
   staticPos?: boolean;
-  display?: 'block' | 'none';
 }
 
 export const GoogleStreetView = memo(function GoogleStreetView({
   staticPos = false,
-  display = 'block',
+  id,
 }: GoogleStreetViewProps) {
   const ref = useRef<HTMLDivElement>(null);
   const panoId = useAppSelector(({position}) => position.panoId);
@@ -43,12 +43,5 @@ export const GoogleStreetView = memo(function GoogleStreetView({
     });
   }, [staticPos]);
 
-  return (
-    <Box
-      display={display}
-      data-testid="play-google-street-view"
-      height="100%"
-      ref={ref}
-    />
-  );
+  return <Box id={id} data-testid={id} height="100%" ref={ref} />;
 });
