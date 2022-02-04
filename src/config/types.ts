@@ -34,9 +34,6 @@ export type GameConfig = {
   timeLimitsDefault: number;
 };
 
-/* Geo utilities */
-export type LatLngLiteral = {lat: number; lng: number};
-
 /* Each input map needs to have at least these properties */
 export interface BaseMapProperties {
   name: string;
@@ -51,7 +48,7 @@ export interface MapProperties extends BaseMapProperties {
   // Used to generate a random point
   bb: BBox;
   // Poly bounding box: SW SE NE NW
-  bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', LatLngLiteral>;
+  bbLiteral: Record<'NE' | 'SE' | 'SW' | 'NW', google.maps.LatLngLiteral>;
 }
 
 /* Type for all GeoJSON data */

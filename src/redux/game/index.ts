@@ -1,5 +1,5 @@
 import {config} from '@/config/game';
-import {LatLngLiteral, MapData} from '@/config/types';
+import {MapData} from '@/config/types';
 import {calcDist, calcScore} from '@/utils/geo';
 import {OrNull} from '@/utils/types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
@@ -7,7 +7,7 @@ import {MAPS} from 'src/maps';
 
 export type Result = {
   name: string;
-  selected: OrNull<LatLngLiteral>;
+  selected: OrNull<google.maps.LatLngLiteral>;
   dist: number;
   score: number;
 };
@@ -97,14 +97,14 @@ const gameSlice = createSlice({
       {
         payload,
       }: PayloadAction<{
-        selected: OrNull<LatLngLiteral>;
-        initial: OrNull<LatLngLiteral>;
+        selected: OrNull<google.maps.LatLngLiteral>;
+        initial: OrNull<google.maps.LatLngLiteral>;
       }>
     ) {
       // Payload when the user fails to set a location in time
       let score = 0;
       let dist = -1;
-      let selected: OrNull<LatLngLiteral> = null;
+      let selected: OrNull<google.maps.LatLngLiteral> = null;
       const map = MAPS.get(state.mapId);
       // User managed to set a location
       if (payload.selected && payload.initial && map) {

@@ -1,4 +1,3 @@
-import {LatLngLiteral} from '@/config/types';
 import {OrNull} from '@/utils/types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {getRandomStreetView, ValidationError} from './thunks';
@@ -6,9 +5,9 @@ import {getRandomStreetView, ValidationError} from './thunks';
 export interface PositionState {
   // The initial position is a random location on Google Maps with
   // StreetView available
-  initialPosition: OrNull<LatLngLiteral>;
+  initialPosition: OrNull<google.maps.LatLngLiteral>;
   // The user selected position
-  selectedPosition: OrNull<LatLngLiteral>;
+  selectedPosition: OrNull<google.maps.LatLngLiteral>;
   panoId: string;
   panoDescription: string;
   error: OrNull<ValidationError>;
@@ -33,7 +32,7 @@ const positonSlice = createSlice({
     },
     updateSelectedPosition(
       state,
-      action: PayloadAction<OrNull<LatLngLiteral>>
+      action: PayloadAction<OrNull<google.maps.LatLngLiteral>>
     ) {
       state.selectedPosition = action.payload;
     },

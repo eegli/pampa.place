@@ -1,4 +1,3 @@
-import {LatLngLiteral} from '@/config/types';
 import TisInPolygon from '@turf/boolean-point-in-polygon';
 import Tdistance from '@turf/distance';
 import {BBox, MultiPolygon, point, Polygon, Units} from '@turf/helpers';
@@ -8,7 +7,7 @@ import {randomPoint as TrandomPoint} from '@turf/random';
 export function randomPointInMap(
   bbox: BBox,
   polygon: Polygon | MultiPolygon
-): LatLngLiteral {
+): google.maps.LatLngLiteral {
   do {
     const random = TrandomPoint(20, {bbox});
     const ptsWithin = TpointsWithinPolygon(random, polygon);
@@ -20,7 +19,7 @@ export function randomPointInMap(
 }
 
 export function isInPolygon(
-  pnt: LatLngLiteral,
+  pnt: google.maps.LatLngLiteral,
   polygon: Polygon | MultiPolygon
 ): boolean {
   return TisInPolygon(point([pnt.lng, pnt.lat]), polygon);
@@ -37,8 +36,8 @@ export function calcScore(area: number, dist: number): number {
 
 // Returns distance between two points in kilometers
 export function calcDist(
-  p1: LatLngLiteral,
-  p2: LatLngLiteral,
+  p1: google.maps.LatLngLiteral,
+  p2: google.maps.LatLngLiteral,
   units: Units = 'meters'
 ): number {
   const from = point([p1.lng, p1.lat]);

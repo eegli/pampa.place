@@ -1,5 +1,4 @@
 import {config} from '@/config/google';
-import {LatLngLiteral} from '@/config/types';
 import {RootState} from '@/redux/store';
 import {randomPointInMap} from '@/utils/geo';
 import {createAsyncThunk} from '@reduxjs/toolkit';
@@ -13,7 +12,7 @@ export interface ValidationError {
   message: string;
 }
 
-type RandomStreetViewRes = {pos: LatLngLiteral} & Pick<
+type RandomStreetViewRes = {pos: google.maps.LatLngLiteral} & Pick<
   PositionState,
   'panoDescription' | 'panoId'
 >;
