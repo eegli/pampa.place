@@ -1,7 +1,7 @@
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import React, {ReactNode} from 'react';
+import {ReactNode} from 'react';
 
 export const InfoBox = ({children}: {children: ReactNode}) => (
   <Box display="flex" mb={2}>

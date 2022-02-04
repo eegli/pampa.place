@@ -7,6 +7,7 @@ const eventSpy = jest.spyOn(analytics, 'gaevent').mockImplementation(jest.fn());
 beforeEach(() => {
   jest.clearAllMocks();
 });
+
 // Maybe TODO move to integration tests
 describe('Analytics events', () => {
   it('logs start and end game events', () => {

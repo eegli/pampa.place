@@ -1,10 +1,10 @@
+import {MapService} from '@/services/google';
 import {alpha} from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Box from '@mui/system/Box';
-import React, {useEffect, useState} from 'react';
-import {MapService} from '../../../services/google';
+import {useEffect, useState} from 'react';
 
 export const GoogleMapStreetViewCoverageLayer = () => {
   const [showCoverage, setShowCoverage] = useState<boolean>(false);

@@ -1,36 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Speed dial can restart round: reset round 1`] = `
-Object {
-  "mapId": "test-my-test-map",
-  "mapName": "my test map",
-  "players": Array [
-    "player1",
-    "player2",
-  ],
-  "rounds": Object {
-    "current": 2,
-    "progress": 0,
-    "total": 3,
-  },
-  "scores": Array [
-    Array [
-      Object {
-        "name": "player2",
-        "score": 0,
-      },
-      Object {
-        "name": "player1",
-        "score": 0,
-      },
-    ],
-    Array [],
-  ],
-  "status": "PENDING_PLAYER",
-  "timeLimit": 30,
-}
-`;
-
 exports[`Speed dial can restart round: restart confirmation dialog 1`] = `
 Object {
   "confirmMessage": "Restart round",

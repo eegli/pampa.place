@@ -2,20 +2,11 @@ import {GoogleMap} from '@/components/google/google-map';
 import {CustomHead} from '@/components/head/custom-head';
 import {Header} from '@/components/header/header';
 import {config} from '@/config/google';
-import {MapProperties} from '@/config/types';
 import {PageContent} from '@/styles/containers';
 import {NextPage} from 'next';
-import React, {useMemo} from 'react';
+import {useMemo} from 'react';
 import {MAPS} from 'src/maps';
 import {GoogleMapStreetViewCoverageLayer} from '../components/google/layers/coverage';
-
-// TODO
-export type ClickEvent = {
-  latLng: google.maps.LatLng;
-  feature: {
-    h: MapProperties;
-  };
-};
 
 export const PreviewPage: NextPage = () => {
   const geojson = useMemo(() => {

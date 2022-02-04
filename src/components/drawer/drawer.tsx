@@ -1,6 +1,5 @@
 import {Box, Drawer, List, Paper} from '@mui/material';
 import {useRouter} from 'next/router';
-import React from 'react';
 import {CustomListItem} from './drawer-item';
 
 type MenuDrawerProps = {

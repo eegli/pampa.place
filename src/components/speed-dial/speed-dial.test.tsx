@@ -6,6 +6,8 @@ import {
   render,
   screen,
 } from '@/tests/utils';
+import {RootState} from '../../redux/store';
+import {DeepPartial, PickActual} from '../../utils/types';
 import * as Dialog from '../feedback/dialog';
 import {SpeedDialNav} from './speed-dial';
 
@@ -72,11 +74,12 @@ describe('Speed dial', () => {
     expect(mockPush).toHaveBeenCalledWith('/');
   });
   it('can restart round', () => {
+    // Second round, second player's turn
     const state = createMockState({
       game: {
         players: ['player2', 'player1'],
         rounds: {
-          total: 3,
+          total: 2,
           current: 2,
           progress: 1,
         },
@@ -107,6 +110,23 @@ describe('Speed dial', () => {
       dialogSpy.mock.calls[0][0].onConfirmCallback();
     });
     expectDialogToBeGone();
-    expect(store.getState().game).toMatchSnapshot('reset round');
+    // Second round is restarted, first player's turn again
+    expect(store.getState().game).toMatchObject<
+      DeepPartial<PickActual<RootState, 'game'>>
+    >({
+      players: ['player1', 'player2'],
+      rounds: {
+        total: 2,
+        current: 2,
+        progress: 0,
+      },
+      scores: [
+        [
+          {name: 'player2', score: 0},
+          {name: 'player1', score: 0},
+        ],
+        [],
+      ],
+    });
   });
 });

@@ -17,16 +17,24 @@ jest.spyOn(MapService.map.data, 'addGeoJson').mockImplementation(f => {
   features.push(f);
   return features;
 });
+
 jest.spyOn(MapService.map.data, 'forEach').mockImplementation(() => {
-  features.pop();
+  for (let i = 0; i < features.length; ++i) {
+    features.pop();
+  }
 });
 
 describe('Integration, preview maps', () => {
-  it('can preview maps', () => {
+  it('loads and removes GeoJSON', () => {
     expect(features).toHaveLength(0);
     const {unmount} = render(<PreviewPage />);
-    expect(features).not.toHaveLength(0);
+    // GeoJSON from our test map
+    expect(features).toHaveLength(1);
     unmount();
     expect(features).toHaveLength(0);
+  });
+  it('can toggle Street View Coverage', () => {
+    render(<PreviewPage />);
+    // TODO inspect google mock instances once new version is out that supports it
   });
 });
