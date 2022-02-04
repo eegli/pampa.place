@@ -90,17 +90,24 @@ describe('Integration, game play', () => {
     expect(screen.getByTestId('google-sv-play-mode')).toBeInTheDocument();
     const miniMap = screen.getByRole('region');
     expect(miniMap).toHaveStyle({height: '150px', width: '200px'});
-    const toggleBtn = screen.getByRole('button', {name: /show map/i});
-    fireEvent.click(toggleBtn);
-    expect(miniMap).toHaveStyle({height: '800px', width: '800px'});
-    expect(toggleBtn).toHaveTextContent(/hide map/i);
-    fireEvent.click(toggleBtn);
+    const openMiniMapIcon = screen.getByRole('button', {
+      name: /mini-map open button/i,
+    });
+    fireEvent.click(openMiniMapIcon);
+    expect(miniMap).toHaveStyle({height: '700px', width: '700px'});
+    const closeMiniMapIcon = screen.getByRole('button', {
+      name: /mini-map close button/i,
+    });
+    fireEvent.click(closeMiniMapIcon);
     expect(miniMap).toHaveStyle({height: '150px', width: '200px'});
-
-    fireEvent.click(toggleBtn);
+    fireEvent.click(openMiniMapIcon);
+    const submitBtn = screen.getByRole('button', {
+      name: /location submit button/i,
+    });
+    expect(submitBtn).toHaveTextContent(/place the marker/i);
     // Fake putting a marker on the map
     mockClickEvent.click();
-    const submitBtn = screen.getByRole('button', {name: /submit/i});
+    expect(submitBtn).toHaveTextContent(/i'm here/i);
     fireEvent.click(submitBtn);
   });
 
