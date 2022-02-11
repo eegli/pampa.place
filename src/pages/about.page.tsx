@@ -12,7 +12,7 @@ import {CustomHead} from '../components/head/custom-head';
 import {useAppSelector} from '../redux/hooks';
 import {PageContent, SlimContainer} from '../styles/containers';
 
-const DocsPage: NextPage = () => {
+export const AboutPage: NextPage = () => {
   const apiKey = useAppSelector(({app}) => app.apiKey);
   const isDevMode = apiKey === '';
   return (
@@ -194,4 +194,4 @@ const DocsPage: NextPage = () => {
   );
 };
 
-export default DocsPage;
+export default AboutPage;

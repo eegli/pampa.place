@@ -1,0 +1,297 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Integration, about and docs page matches snapshot 1`] = `
+<main
+  class="MuiBox-root css-7o0bqi"
+  id="docs-page"
+>
+  <div
+    class="MuiBox-root css-2zfs59"
+  >
+    <div
+      style="display: flex; margin: 2rem auto; align-items: center; justify-content: center; flex-direction: column;"
+    >
+      <h1
+        style="position: relative; font-family: Exo; font-size: 7em; margin: 0px; transform: skew(-15deg); letter-spacing: 0.03em;"
+      >
+        <span
+          style="text-shadow: 0 0 0.1em #8ba2d0, 0 0 0.2em black, 0 0 5em #165ff3;"
+        >
+          PAMPA
+        </span>
+        <span
+          style="position: absolute; left: 0px; top: 0px; color: transparent;"
+        >
+          PAMPA
+        </span>
+      </h1>
+      <h2
+        style="font-family: Mr Dafoe; font-weight: 400; margin: -1.1em 0px 0px 0px; font-size: 4.5em; color: white; text-shadow: 0 0 0.05em #fff, 0 0 0.2em #fe05e1, 0 0 0.3em #fe05e1; transform: rotate(-7deg);"
+      >
+        DOCS
+      </h2>
+    </div>
+    <div
+      class="MuiBox-root css-1i8zkde"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-1rh92yo-MuiTypography-root"
+        href="/#how-to-play"
+        id="how-to-play"
+      >
+        how to play 📖
+      </h2>
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        you will be abandoned in a random place on a map that you choose. check your surroundings for clues and find out where you are.
+      </p>
+      <hr
+        class="MuiDivider-root MuiDivider-middle MuiDivider-light css-1ffzl3n-MuiDivider-root"
+      />
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        the gameplay is simple. first, enter your name and prefered game settings and select a map. if you're unsure about the location, you can preview it by clicking the icon next to the map dropdown.
+      </p>
+      <hr
+        class="MuiDivider-root MuiDivider-middle MuiDivider-light css-1ffzl3n-MuiDivider-root"
+      />
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        once you start the game, it will find a random street view panorama somewhere on the map. click "start round" and, if you set a time limit, hurry up! if you think you know where you are, click the map icon in the bottom right corner and set your position.
+      </p>
+      <hr
+        class="MuiDivider-root MuiDivider-middle MuiDivider-light css-1ffzl3n-MuiDivider-root"
+      />
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        after time has run out, your turn will end automatically and it's your opponent's turn.
+      </p>
+      <div
+        class="MuiBox-root css-1kukc4r"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-colorWarning MuiSvgIcon-fontSizeMedium css-w8yy7u-MuiSvgIcon-root"
+          data-testid="LightbulbIcon"
+          focusable="false"
+          style="position: relative; margin: 0px 12px 0px 0px;"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"
+          />
+        </svg>
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1ky6jtx-MuiTypography-root"
+        >
+          you can preview all available maps by clicking "preview maps" in the menu
+        </p>
+      </div>
+      <div
+        class="MuiBox-root css-1kukc4r"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-colorWarning MuiSvgIcon-fontSizeMedium css-w8yy7u-MuiSvgIcon-root"
+          data-testid="LightbulbIcon"
+          focusable="false"
+          style="position: relative; margin: 0px 12px 0px 0px;"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"
+          />
+        </svg>
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1ky6jtx-MuiTypography-root"
+        >
+          pampa.place is great for exploring new places. just disable the time limit and enjoy
+        </p>
+      </div>
+    </div>
+    <div
+      class="MuiBox-root css-1i8zkde"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-1rh92yo-MuiTypography-root"
+        href="/#how-to-customize"
+        id="how-to-customize"
+      >
+        how to customize 🗺️
+      </h2>
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        you can easily add new maps to this server on the
+         
+        <a
+          class="MuiTypography-root MuiTypography-body1 MuiLink-root MuiLink-underlineNone css-13jwwzp-MuiTypography-root-MuiLink-root"
+          href="/my-maps"
+        >
+          my maps page
+        </a>
+         
+        - as many as you like, one at a time. maps that you add there are only available in your current browser.
+      </p>
+      <hr
+        class="MuiDivider-root MuiDivider-middle MuiDivider-light css-1ffzl3n-MuiDivider-root"
+      />
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        if, for some reason, adding your own maps is not working, refer to the readme (link below) - it may be possible that your map input is not in the right format.
+      </p>
+      <hr
+        class="MuiDivider-root MuiDivider-middle MuiDivider-light css-1ffzl3n-MuiDivider-root"
+      />
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        if you want to customize everything and have persistent maps, you'll likely need to host your own server. refer to the docs on
+         
+        <a
+          class="MuiTypography-root MuiTypography-body1 MuiLink-root MuiLink-underlineNone css-13jwwzp-MuiTypography-root-MuiLink-root"
+          href="https://github.com/eegli/pampa.place"
+          target="_blank"
+        >
+          github
+        </a>
+        .
+      </p>
+    </div>
+    <div
+      class="MuiBox-root css-1i8zkde"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-1rh92yo-MuiTypography-root"
+        href="/#about"
+        id="about"
+      >
+        about 🎨
+      </h2>
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        why does this project exist? if you're a connoisseur of geo games, you probably know that few of them are free to play. and even fewer allow users to play wherever they want.
+      </p>
+      <hr
+        class="MuiDivider-root MuiDivider-middle MuiDivider-light css-1ffzl3n-MuiDivider-root"
+      />
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        pampa.place is an
+         
+        <a
+          class="MuiTypography-root MuiTypography-body1 MuiLink-root MuiLink-underlineNone css-13jwwzp-MuiTypography-root-MuiLink-root"
+          href="https://github.com/eegli/pampa.place"
+          target="_blank"
+        >
+          open-source
+        </a>
+         
+        project that aims to make it possible for everyone to explore any place in the world, without any limitations. it's built using data from google maps. at the time of writing, every google account gets 200$ per month for free to spend on the google maps platform.
+      </p>
+      <hr
+        class="MuiDivider-root MuiDivider-middle MuiDivider-light css-1ffzl3n-MuiDivider-root"
+      />
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        instead of paying for a service, the idea behind pampa.place is that everyone brings their own api key associated with their account. the game is optimized to use very little data from google maps - 200$ per month can last for thousands of games.
+      </p>
+      <hr
+        class="MuiDivider-root MuiDivider-middle MuiDivider-light css-1ffzl3n-MuiDivider-root"
+      />
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        in the past months, i've had a lot of fun working on pampa.place. i'm by no means a professional web developer and many things could possibly be improved. that being said, contributions to this project are very welcome!
+      </p>
+      <div
+        class="MuiBox-root css-1kukc4r"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-colorWarning MuiSvgIcon-fontSizeMedium css-w8yy7u-MuiSvgIcon-root"
+          data-testid="LightbulbIcon"
+          focusable="false"
+          style="position: relative; margin: 0px 12px 0px 0px;"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"
+          />
+        </svg>
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1ky6jtx-MuiTypography-root"
+        >
+          you can get your own google maps api key here:
+           
+          <a
+            class="MuiTypography-root MuiTypography-body1 MuiLink-root MuiLink-underlineNone css-13jwwzp-MuiTypography-root-MuiLink-root"
+            href="https://developers.google.com/maps/documentation/javascript/get-api-key"
+            target="_blank"
+          >
+            google maps platform
+          </a>
+          . note that you will need a key specifically for the
+           
+          <em>
+            maps javascript api
+          </em>
+        </p>
+      </div>
+      <div
+        class="MuiBox-root css-1kukc4r"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-colorWarning MuiSvgIcon-fontSizeMedium css-w8yy7u-MuiSvgIcon-root"
+          data-testid="LightbulbIcon"
+          focusable="false"
+          style="position: relative; margin: 0px 12px 0px 0px;"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"
+          />
+        </svg>
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-1ky6jtx-MuiTypography-root"
+        >
+          for more information, go checkout the
+           
+          <a
+            class="MuiTypography-root MuiTypography-body1 MuiLink-root MuiLink-underlineNone css-13jwwzp-MuiTypography-root-MuiLink-root"
+            href="https://github.com/eegli/pampa.place#readme"
+            target="_blank"
+          >
+            readme on github
+          </a>
+        </p>
+      </div>
+    </div>
+    <div
+      class="MuiBox-root css-km0cv9"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-1rh92yo-MuiTypography-root"
+        href="/#privacy"
+        id="privacy"
+      >
+        privacy 🕵️
+      </h2>
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+      >
+        this game uses a very minimal google analytics integration. no personal data is collected.
+      </p>
+    </div>
+  </div>
+</main>
+`;
