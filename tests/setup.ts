@@ -46,7 +46,10 @@ jest.mock('next/router', () => {
 });
 
 /* ----------- GOOGLE MAPS ----------- */
+
 initialize();
+
+// Overwrite the mock implementation provided by the initialize function so we can play with the response and reject when needed
 
 global.google.maps.StreetViewService = class StreetViewService
   implements google.maps.StreetViewService

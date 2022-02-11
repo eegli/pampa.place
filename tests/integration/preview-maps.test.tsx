@@ -28,11 +28,8 @@ jest.spyOn(MapService.map.data, 'forEach').mockImplementation(() => {
 describe('Integration, preview maps', () => {
   it('loads and removes GeoJSON', () => {
     expect(features).toHaveLength(0);
-    const {unmount} = render(<PreviewPage />);
-    // GeoJSON from our test map
+    render(<PreviewPage />);
     expect(features).toHaveLength(1);
-    unmount();
-    expect(features).toHaveLength(0);
   });
   it('can toggle Street View Coverage', () => {
     const {unmount} = render(<PreviewPage />);
