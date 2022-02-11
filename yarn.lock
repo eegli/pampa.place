@@ -434,10 +434,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@googlemaps/jest-mocks@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@googlemaps/jest-mocks/-/jest-mocks-2.3.0.tgz#645492ca4cd9bf0b84bbe015f9e850213adeb364"
-  integrity sha512-l58n7iZcIhY/ZajCtcvUwLCRQ49hil1B3q3uXScCzG74HvI+YZxQfgwvigWBQuks62ViJJT3LWEJaiBXbfNG9w==
+"@googlemaps/jest-mocks@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@googlemaps/jest-mocks/-/jest-mocks-2.4.0.tgz#4be986789fc992f51d99eab05edeb9ecf14fd2ce"
+  integrity sha512-jWkyzsEoO1DAsuO6Vhazkl4G29OGKAl2zz2wEQZmB4NF+7cesnlie8VpWz7q7IH8xyZKNeIpHn5OXlVp4YJ+RQ==
 
 "@googlemaps/js-api-loader@^1.11.1":
   version "1.13.2"

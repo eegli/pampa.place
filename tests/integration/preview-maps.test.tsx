@@ -1,5 +1,6 @@
 import {MapService} from '@/services/google';
-import {render} from '@/tests/utils';
+import {fireEvent, render, screen} from '@/tests/utils';
+import {mockInstances, StreetViewCoverageLayer} from '@googlemaps/jest-mocks';
 import {PreviewPage} from 'src/pages/preview.page';
 
 beforeEach(() => {
@@ -34,7 +35,18 @@ describe('Integration, preview maps', () => {
     expect(features).toHaveLength(0);
   });
   it('can toggle Street View Coverage', () => {
-    render(<PreviewPage />);
-    // TODO inspect google mock instances once new version is out that supports it
+    const {unmount} = render(<PreviewPage />);
+    const toggleBtn = screen.getByLabelText('Show street view coverage');
+    expect(toggleBtn).not.toBeChecked();
+    let coverageLayers = mockInstances.get(StreetViewCoverageLayer);
+    expect(coverageLayers).toHaveLength(0);
+    fireEvent.click(toggleBtn);
+    expect(toggleBtn).toBeChecked();
+    coverageLayers = mockInstances.get(StreetViewCoverageLayer);
+    expect(coverageLayers).toHaveLength(1);
+    expect(coverageLayers[0].setMap).toHaveBeenCalledWith(MapService.map);
+    expect(coverageLayers[0].setMap).toHaveBeenCalledWith(MapService.map);
+    unmount();
+    expect(coverageLayers[0].setMap).toHaveBeenCalledWith(null);
   });
 });
