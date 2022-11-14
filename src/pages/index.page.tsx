@@ -27,7 +27,7 @@ export const HomePage: NextPage = () => {
 
   return (
     <>
-      <CustomHead title="home" />
+      <CustomHead title="play" />
       <Header />
       <PageContent headerGutter id="index-page">
         <FancyRetroTitle primary="PAMPA" secondary="PLACE" />
