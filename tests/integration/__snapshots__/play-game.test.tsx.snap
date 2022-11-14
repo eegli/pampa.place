@@ -1,142 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Integration, game play dispatches score in round 2 after time runs out: summary 1`] = `
-<table
-  class="MuiTable-root css-1puexzi-MuiTable-root"
->
-  <thead
-    class="MuiTableHead-root css-15wwp11-MuiTableHead-root"
-  >
-    <tr
-      class="MuiTableRow-root MuiTableRow-head css-1pgphf0-MuiTableRow-root"
-    >
-      <th
-        class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall css-gvmp1b-MuiTableCell-root"
-        scope="col"
-      >
-        Name
-      </th>
-      <th
-        class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight MuiTableCell-sizeSmall css-w5jrf1-MuiTableCell-root"
-        scope="col"
-      >
-        Distance
-      </th>
-      <th
-        class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight MuiTableCell-sizeSmall css-w5jrf1-MuiTableCell-root"
-        scope="col"
-      >
-        Score
-      </th>
-    </tr>
-  </thead>
-  <tbody
-    class="MuiTableBody-root css-apqrd9-MuiTableBody-root"
-  >
-    <tr
-      class="MuiTableRow-root css-1pgphf0-MuiTableRow-root"
-    >
-      <th
-        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall css-13rbi0f-MuiTableCell-root"
-        scope="row"
-      >
-        Player 1
-      </th>
-      <td
-        class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight MuiTableCell-sizeSmall css-d5rns7-MuiTableCell-root"
-      >
-        -
-      </td>
-      <td
-        class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight MuiTableCell-sizeSmall css-d5rns7-MuiTableCell-root"
-      >
-        0
-      </td>
-    </tr>
-  </tbody>
-</table>
-`;
-
-exports[`Integration, game play displays final game summary: summary 1`] = `
-<table
-  aria-label="result-table"
-  class="MuiTable-root css-1puexzi-MuiTable-root"
->
-  <thead
-    class="MuiTableHead-root css-15wwp11-MuiTableHead-root"
-  >
-    <tr
-      class="MuiTableRow-root MuiTableRow-head css-1pgphf0-MuiTableRow-root"
-    >
-      <th
-        class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall css-gvmp1b-MuiTableCell-root"
-        scope="col"
-      >
-        Name
-      </th>
-      <th
-        class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight MuiTableCell-sizeSmall css-w5jrf1-MuiTableCell-root"
-        scope="col"
-      >
-        Total Score
-      </th>
-    </tr>
-  </thead>
-  <tbody
-    class="MuiTableBody-root css-apqrd9-MuiTableBody-root"
-  >
-    <tr
-      class="MuiTableRow-root css-1pgphf0-MuiTableRow-root"
-    >
-      <th
-        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall css-13rbi0f-MuiTableCell-root"
-        scope="row"
-      >
-        Player 1
-      </th>
-      <td
-        class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight MuiTableCell-sizeSmall css-d5rns7-MuiTableCell-root"
-      >
-        64
-      </td>
-    </tr>
-  </tbody>
-</table>
-`;
-
 exports[`Integration, game play displays round 1 summary: info table 1`] = `
-Array [
+[
   <li
-    class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-13v49lt-MuiListItem-root"
+    class="MuiListItem-root MuiListItem-gutters MuiListItem-padding mui-style-13v49lt-MuiListItem-root"
   >
     <div
-      class="MuiListItemText-root MuiListItemText-multiline css-konndc-MuiListItemText-root"
+      class="MuiListItemText-root MuiListItemText-multiline mui-style-konndc-MuiListItemText-root"
     >
       <span
-        class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-126dpoc-MuiTypography-root"
+        class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary mui-style-126dpoc-MuiTypography-root"
       >
         Panorama description
       </span>
       <p
-        class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-14laof0-MuiTypography-root"
+        class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary mui-style-14laof0-MuiTypography-root"
       >
         Fake panorama description
       </p>
     </div>
   </li>,
   <li
-    class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-13v49lt-MuiListItem-root"
+    class="MuiListItem-root MuiListItem-gutters MuiListItem-padding mui-style-13v49lt-MuiListItem-root"
   >
     <div
-      class="MuiListItemText-root MuiListItemText-multiline css-konndc-MuiListItemText-root"
+      class="MuiListItemText-root MuiListItemText-multiline mui-style-konndc-MuiListItemText-root"
     >
       <span
-        class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-126dpoc-MuiTypography-root"
+        class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary mui-style-126dpoc-MuiTypography-root"
       >
         Coordinates (lat/lng)
       </span>
       <p
-        class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-14laof0-MuiTypography-root"
+        class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary mui-style-14laof0-MuiTypography-root"
       >
         0, 
             0
@@ -148,28 +44,28 @@ Array [
 
 exports[`Integration, game play displays round 1 summary: summary screen 1`] = `
 <table
-  class="MuiTable-root css-1puexzi-MuiTable-root"
+  class="MuiTable-root mui-style-1puexzi-MuiTable-root"
 >
   <thead
-    class="MuiTableHead-root css-15wwp11-MuiTableHead-root"
+    class="MuiTableHead-root mui-style-15wwp11-MuiTableHead-root"
   >
     <tr
-      class="MuiTableRow-root MuiTableRow-head css-1pgphf0-MuiTableRow-root"
+      class="MuiTableRow-root MuiTableRow-head mui-style-1pgphf0-MuiTableRow-root"
     >
       <th
-        class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall css-gvmp1b-MuiTableCell-root"
+        class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall mui-style-gvmp1b-MuiTableCell-root"
         scope="col"
       >
         Name
       </th>
       <th
-        class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight MuiTableCell-sizeSmall css-w5jrf1-MuiTableCell-root"
+        class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight MuiTableCell-sizeSmall mui-style-w5jrf1-MuiTableCell-root"
         scope="col"
       >
         Distance
       </th>
       <th
-        class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight MuiTableCell-sizeSmall css-w5jrf1-MuiTableCell-root"
+        class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight MuiTableCell-sizeSmall mui-style-w5jrf1-MuiTableCell-root"
         scope="col"
       >
         Score
@@ -177,24 +73,24 @@ exports[`Integration, game play displays round 1 summary: summary screen 1`] = `
     </tr>
   </thead>
   <tbody
-    class="MuiTableBody-root css-apqrd9-MuiTableBody-root"
+    class="MuiTableBody-root mui-style-apqrd9-MuiTableBody-root"
   >
     <tr
-      class="MuiTableRow-root css-1pgphf0-MuiTableRow-root"
+      class="MuiTableRow-root mui-style-1pgphf0-MuiTableRow-root"
     >
       <th
-        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall css-13rbi0f-MuiTableCell-root"
+        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall mui-style-13rbi0f-MuiTableCell-root"
         scope="row"
       >
         Player 1
       </th>
       <td
-        class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight MuiTableCell-sizeSmall css-d5rns7-MuiTableCell-root"
+        class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight MuiTableCell-sizeSmall mui-style-d5rns7-MuiTableCell-root"
       >
         157.25 km
       </td>
       <td
-        class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight MuiTableCell-sizeSmall css-d5rns7-MuiTableCell-root"
+        class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight MuiTableCell-sizeSmall mui-style-d5rns7-MuiTableCell-root"
       >
         64
       </td>
@@ -204,15 +100,15 @@ exports[`Integration, game play displays round 1 summary: summary screen 1`] = `
 `;
 
 exports[`Integration, game play searches panorama and does not find one first: intermission screen 1`] = `
-Array [
+[
   <h4
-    class="MuiTypography-root MuiTypography-h4 MuiTypography-alignCenter css-149xwtl-MuiTypography-root"
+    class="MuiTypography-root MuiTypography-h4 MuiTypography-alignCenter mui-style-149xwtl-MuiTypography-root"
   >
     Player 1
     , it's your turn!
   </h4>,
   <h6
-    class="MuiTypography-root MuiTypography-h6 css-13nzsfx-MuiTypography-root"
+    class="MuiTypography-root MuiTypography-h6 mui-style-13nzsfx-MuiTypography-root"
   >
     Round 
     1

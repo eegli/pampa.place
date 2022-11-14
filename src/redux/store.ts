@@ -14,6 +14,8 @@ const reducer = {
 const logger = createLogger();
 
 const isDev = process.env.NODE_ENV === 'development';
+const isTest = process.env.NODE_ENV === 'test';
+const testMiddleware = [windowStorage];
 const devMiddleware = [logger, windowStorage, eventLogger];
 const prodMiddleware = [windowStorage, eventLogger];
 
@@ -29,7 +31,9 @@ export function createStore(preloadedState?: RootState) {
     preloadedState,
     devTools: false,
     middleware: getDefault =>
-      isDev
+      isTest
+        ? getDefault().concat(testMiddleware)
+        : isDev
         ? getDefault().concat(devMiddleware)
         : getDefault().concat(prodMiddleware),
   });
