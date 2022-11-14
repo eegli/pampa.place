@@ -6,6 +6,9 @@
     "name": "Eric Egli",
     "email": "lx180777+github@gmail.com"
   },
+  "engines": {
+    "node": ">=16.15"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/eegli/pampa.place"
