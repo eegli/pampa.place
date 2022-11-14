@@ -71,8 +71,14 @@ export default class MyDocument extends Document<DocumentProps> {
   }
 }
 
-/* Currently buggy: */
-/* https://github.com/mui-org/material-ui/issues/29742#issuecomment-982597676 */
+/*
+Currently buggy: 
+https://github.com/mui-org/material-ui/issues/29742#issuecomment-982597676
+
+Copied from:
+https://github.com/mui/material-ui/blob/master/examples/nextjs-with-typescript/pages/_document.tsx
+*/
+
 MyDocument.getInitialProps = async ctx => {
   const originalRenderPage = ctx.renderPage;
   const cache = createEmotionCache();
@@ -88,6 +94,8 @@ MyDocument.getInitialProps = async ctx => {
     });
 
   const initialProps = await Document.getInitialProps(ctx);
+  // This is important. It prevents Emotion to render invalid HTML.
+  // See https://github.com/mui/material-ui/issues/26561#issuecomment-855286153
   const emotionStyles = extractCriticalToChunks(initialProps.html);
   const emotionStyleTags = emotionStyles.styles.map(style => (
     <style

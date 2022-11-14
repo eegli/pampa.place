@@ -7,13 +7,6 @@ const config = {
   reactStrictMode: true,
   pageExtensions: ['page.tsx', 'page.ts'],
   /** @param {import('webpack').Configuration} config */
-  webpack: (config, options) => {
-    // TODO improve bundle splitting for server chunks
-    if (options.isServer) {
-      config.optimization.mergeDuplicateChunks = true;
-    }
-    return config;
-  },
   async redirects() {
     return [
       {

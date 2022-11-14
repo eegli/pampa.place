@@ -21,6 +21,7 @@ jest.mock('next/router', () => {
     prefetch: jest.fn(),
     reload: jest.fn(),
     back: jest.fn(),
+    forward: jest.fn(),
     beforePopState: jest.fn(),
     basePath: '',
     isLocaleDomain: false,

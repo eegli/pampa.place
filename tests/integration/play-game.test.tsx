@@ -37,7 +37,7 @@ describe('Integration, game play', () => {
   store.dispatch(setRounds(2));
   store.dispatch(initGame());
 
-  it('searches panorama and does not find one first', async () => {
+  it.only('searches panorama and does not find one first', async () => {
     getPanoramSpy.mockRejectedValue(GoogleStreetViewFailedResponse);
     expect(store.getState().game.status).toBe(STATUS.PENDING_PLAYER);
 
@@ -45,6 +45,7 @@ describe('Integration, game play', () => {
     expect(
       screen.getByRole('button', {name: /getting a random street view/gi})
     ).toBeDisabled();
+
     await waitFor(() => expect(getPanoramSpy).toHaveBeenCalledTimes(50));
     const alertDialog = screen.getByRole('alert');
     expect(
@@ -139,7 +140,7 @@ describe('Integration, game play', () => {
   });
 
   it('dispatches score in round 2 after time runs out', async () => {
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers();
     expect(store.getState().game.status).toBe(STATUS.PENDING_PLAYER);
 
     render(<GamePage />, store);

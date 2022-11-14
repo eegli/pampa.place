@@ -9,10 +9,11 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import {ReactNode} from 'react';
 
 type PreviewDialogProps = {
   onCloseCallback: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
   title: string;
   text?: string;
 };

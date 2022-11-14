@@ -3,19 +3,19 @@ import {createEmotionCache} from '@/styles/utils/index';
 import {DeepPartial} from '@/utils/types';
 import {render, RenderOptions} from '@testing-library/react';
 import {merge} from 'lodash';
-import {FC, ReactElement} from 'react';
+import React, {ReactElement, ReactNode} from 'react';
 import {Provider} from 'react-redux';
 import {ThemeWrapper} from '../src/pages/wrappers/theme';
 import {createStore, initialStates, RootState} from '../src/redux/store';
 
 const emotionCache = createEmotionCache();
 
-const customRender = (
+function customRender(
   ui: ReactElement,
   store: ReturnType<typeof createStore> = createStore(),
   options?: Omit<RenderOptions, 'wrapper'>
-) => {
-  const Wrapper: FC = ({children}) => {
+) {
+  const Wrapper = ({children}: {children: ReactNode}) => {
     return (
       <Provider store={store}>
         <ThemeWrapper emotionCache={emotionCache}>
@@ -31,7 +31,7 @@ const customRender = (
     wrapper: Wrapper,
     ...options,
   });
-};
+}
 
 const createMockState = (
   partialState: DeepPartial<RootState> = {}
