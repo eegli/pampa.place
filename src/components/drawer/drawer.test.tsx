@@ -23,7 +23,7 @@ function getListItem(name: string) {
 
 describe('Drawer', () => {
   [
-    {name: 'home', route: '/'},
+    {name: 'play!', route: '/'},
     {name: 'my maps', route: '/my-maps'},
     {name: 'preview maps', route: '/preview'},
     {name: 'about', route: '/about'},
