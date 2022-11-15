@@ -135,15 +135,11 @@ exports[`Integration, about and docs page matches snapshot 1`] = `
         you can easily add new maps to this server on the
          
         <a
+          class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone mui-style-3603q-MuiTypography-root-MuiLink-root"
           href="/my-maps"
         >
-          <a
-            class="MuiTypography-root MuiTypography-body1 MuiLink-root MuiLink-underlineNone mui-style-79hcfl-MuiTypography-root-MuiLink-root"
-          >
-            my maps page
-          </a>
+          my maps page 
         </a>
-         
         - as many as you like, one at a time. maps that you add there are only available in your current browser.
       </p>
       <hr
