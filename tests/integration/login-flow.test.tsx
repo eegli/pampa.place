@@ -22,7 +22,7 @@ beforeEach(() => {
 });
 
 const elements = {
-  apikeyInput: () => screen.getByLabelText(/api/gi),
+  apikeyInput: () => screen.getByRole('textbox', {name: /api key/i}),
   passwordInput: () => screen.getByLabelText(/password/gi),
   devModeBtn: () => screen.getByRole('button', {name: /dev/gi}),
   enterBtn: () => screen.getByRole('button', {name: /enter/gi}),
