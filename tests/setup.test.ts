@@ -31,7 +31,7 @@ describe('Global mock setup', () => {
       });
 
     expect(await service.getPanorama({})).toMatchInlineSnapshot(`
-      Object {
+      {
         "ok": true,
       }
     `);

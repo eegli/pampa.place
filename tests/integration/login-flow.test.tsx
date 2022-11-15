@@ -23,9 +23,9 @@ beforeEach(() => {
 
 const elements = {
   apikeyInput: () => screen.getByRole('textbox', {name: /api key/i}),
-  passwordInput: () => screen.getByLabelText(/password/gi),
-  devModeBtn: () => screen.getByRole('button', {name: /dev/gi}),
-  enterBtn: () => screen.getByRole('button', {name: /enter/gi}),
+  passwordInput: () => screen.getByLabelText(/password/i),
+  devModeBtn: () => screen.getByRole('button', {name: /dev/i}),
+  enterBtn: () => screen.getByRole('button', {name: /enter/i}),
 };
 
 describe('Integration, app login', () => {

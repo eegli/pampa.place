@@ -15,7 +15,7 @@ const logger = createLogger();
 
 const isDev = process.env.NODE_ENV === 'development';
 const isTest = process.env.NODE_ENV === 'test';
-const testMiddleware = [windowStorage];
+const testMiddleware = [windowStorage, eventLogger];
 const devMiddleware = [logger, windowStorage, eventLogger];
 const prodMiddleware = [windowStorage, eventLogger];
 

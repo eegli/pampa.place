@@ -30,7 +30,7 @@ const config = {
   moduleDirectories: ['node_modules', '<rootDir>/'],
   roots: ['<rootDir>/src/', '<rootDir>/tests/'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
-  testEnvironment: 'jsdom',
+  testEnvironment: 'jest-environment-jsdom',
 };
 
 module.exports = createJestConfig(config);

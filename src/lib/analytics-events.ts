@@ -2,7 +2,7 @@ const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || '';
 
 type GenericEvent<
   C extends string = string,
-  E extends string = string,
+  E extends `${C}${string}` = `${C}`,
   P = Record<string, unknown>
 > = {
   category: C;
@@ -44,3 +44,5 @@ export const pageview = (url: string) => {
     page_path: url,
   });
 };
+
+export default {gaevent};

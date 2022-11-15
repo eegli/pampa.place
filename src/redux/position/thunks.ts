@@ -5,6 +5,12 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {MAPS} from 'src/maps';
 import {PositionState} from '.';
 
+export function warn(message: string) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn(message);
+  }
+}
+
 export interface ValidationError {
   code: 'UNKNOWN_ERROR' | 'ZERO_RESULTS';
   name: 'MapsRequestError';
@@ -61,7 +67,7 @@ export const getRandomStreetView = createAsyncThunk<
         if (!retries) {
           throw err;
         } else {
-          console.warn(`Unable to find random Street View`);
+          warn(`Unable to find random Street View`);
         }
       }
 

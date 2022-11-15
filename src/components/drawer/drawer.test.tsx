@@ -18,7 +18,7 @@ afterEach(() => {
 });
 
 function getListItem(name: string) {
-  return screen.getByRole('button', {name: new RegExp(name, 'ig')});
+  return screen.getByRole('button', {name: new RegExp(name, 'i')});
 }
 
 describe('Drawer', () => {

@@ -49,27 +49,27 @@ describe('Integration, game play', () => {
 
     render(<GamePage />, store);
     expect(
-      screen.getByRole('button', {name: /getting a random street view/gi})
+      screen.getByRole('button', {name: /getting a random street view/i})
     ).toBeDisabled();
 
     await waitFor(() => expect(getPanoramSpy).toHaveBeenCalledTimes(50));
     const alertDialog = screen.getByRole('alert');
     expect(
-      within(alertDialog).getByText(/no results found/gi)
+      within(alertDialog).getByText(/no results found/i)
     ).toBeInTheDocument();
     expect(
-      within(alertDialog).getByText(/error getting street view data/gi)
+      within(alertDialog).getByText(/error getting street view data/i)
     ).toBeInTheDocument();
 
     // Try again and find a panorama
     getPanoramSpy.mockResolvedValue(GoogleStreetViewResponse);
 
-    fireEvent.click(screen.getByRole('button', {name: /search again/gi}));
+    fireEvent.click(screen.getByRole('button', {name: /search again/i}));
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     // Router returns a promise
     await waitFor(() => {
       expect(
-        screen.getByRole('button', {name: /Start round/gi})
+        screen.getByRole('button', {name: /Start round/i})
       ).not.toBeDisabled();
     });
 
@@ -92,7 +92,7 @@ describe('Integration, game play', () => {
     expect(store.getState().game.status).toBe(STATUS.PENDING_PLAYER);
 
     render(<GamePage />, store);
-    const startBtn = await screen.findByRole('button', {name: /start round/gi});
+    const startBtn = await screen.findByRole('button', {name: /start round/i});
     fireEvent.click(startBtn);
     expect(screen.getByTestId('google-map-play-mode')).toBeInTheDocument();
     expect(screen.getByTestId('google-sv-play-mode')).toBeInTheDocument();
@@ -159,7 +159,7 @@ describe('Integration, game play', () => {
     expect(store.getState().game.status).toBe(STATUS.PENDING_PLAYER);
 
     render(<GamePage />, store);
-    const startBtn = await screen.findByRole('button', {name: /start round/gi});
+    const startBtn = await screen.findByRole('button', {name: /start round/i});
     fireEvent.click(startBtn);
 
     act(() => {
@@ -187,8 +187,8 @@ describe('Integration, game play', () => {
     render(<GamePage />, store);
     expect(screen.getByRole('table')).toMatchSnapshot('summary');
     const headings = screen.getAllByRole('heading');
-    expect(headings[0]).toHaveTextContent(/Game over!/gi);
-    expect(headings[1]).toHaveTextContent(/Player 1 wins/gi);
+    expect(headings[0]).toHaveTextContent(/Game over!/i);
+    expect(headings[1]).toHaveTextContent(/Player 1 wins/i);
     const restartButton = screen.getByRole('button', {name: /Play again/i});
     expect(restartButton).toBeInTheDocument();
     fireEvent.click(restartButton);
