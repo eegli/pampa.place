@@ -33,14 +33,14 @@ function expectDialogToBeGone() {
 }
 
 // TODO fix
-describe.skip('Speed dial', () => {
-  it('items render', () => {
+describe('Speed dial', () => {
+  it.skip('items render', () => {
     render(<SpeedDialNav />);
     screen.getByRole('button');
     const items = screen.getAllByRole('menuitem');
     expect(items).toHaveLength(3);
   });
-  it('has theme toggle', () => {
+  it.skip('has theme toggle', () => {
     const state = createMockState({app: {theme: 'dark'}});
     const store = createMockStore(state);
     const {unmount} = render(<SpeedDialNav />, store);
@@ -53,7 +53,7 @@ describe.skip('Speed dial', () => {
     fireEvent.click(toggleButton);
     expect(store.getState().app.theme).toBe('dark');
   });
-  it('has home navigation', () => {
+  it.skip('has home navigation', () => {
     render(<SpeedDialNav />);
     hoverSpeedDial();
     const homeButton = screen.getByRole('menuitem', {name: /home/i});
@@ -73,7 +73,7 @@ describe.skip('Speed dial', () => {
     expectDialogToBeGone();
     expect(mockPush).toHaveBeenCalledWith('/');
   });
-  it('can restart round', () => {
+  it.skip('can restart round', () => {
     // Second round, second player's turn
     const state = createMockState({
       game: {
