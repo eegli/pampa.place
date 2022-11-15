@@ -6,10 +6,7 @@ import {
   render,
   screen,
 } from '@/tests/utils';
-import * as drawer from '../drawer/drawer';
 import {Header} from './header';
-
-const drawerSpy = jest.spyOn(drawer, 'MenuDrawer');
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -20,7 +17,7 @@ describe('Header', () => {
     render(<Header />);
     const menuButton = screen.getByRole('button', {name: 'menu-btn'});
     fireEvent.click(menuButton);
-    expect(drawerSpy).toHaveBeenCalled();
+    expect(screen.getByRole('presentation')).toBeInTheDocument();
   });
   it('has github link', () => {
     render(<Header />);
