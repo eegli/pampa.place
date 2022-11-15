@@ -57,6 +57,53 @@ exports[`Integration, game play dispatches score in round 2 after time runs out:
 </table>
 `;
 
+exports[`Integration, game play displays final game summary: summary 1`] = `
+<table
+  aria-label="result-table"
+  class="MuiTable-root mui-style-1puexzi-MuiTable-root"
+>
+  <thead
+    class="MuiTableHead-root mui-style-15wwp11-MuiTableHead-root"
+  >
+    <tr
+      class="MuiTableRow-root MuiTableRow-head mui-style-1pgphf0-MuiTableRow-root"
+    >
+      <th
+        class="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall mui-style-gvmp1b-MuiTableCell-root"
+        scope="col"
+      >
+        Name
+      </th>
+      <th
+        class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight MuiTableCell-sizeSmall mui-style-w5jrf1-MuiTableCell-root"
+        scope="col"
+      >
+        Total Score
+      </th>
+    </tr>
+  </thead>
+  <tbody
+    class="MuiTableBody-root mui-style-apqrd9-MuiTableBody-root"
+  >
+    <tr
+      class="MuiTableRow-root mui-style-1pgphf0-MuiTableRow-root"
+    >
+      <th
+        class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall mui-style-13rbi0f-MuiTableCell-root"
+        scope="row"
+      >
+        Player 1
+      </th>
+      <td
+        class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight MuiTableCell-sizeSmall mui-style-d5rns7-MuiTableCell-root"
+      >
+        64
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
 exports[`Integration, game play displays round 1 summary: info table 1`] = `
 [
   <li

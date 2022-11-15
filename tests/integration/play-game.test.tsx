@@ -29,6 +29,12 @@ const getPanoramSpy = jest.spyOn(
 
 beforeEach(() => {
   jest.clearAllMocks();
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
 });
 
 describe('Integration, game play', () => {
@@ -149,26 +155,33 @@ describe('Integration, game play', () => {
     unmount();
   });
 
-  it.skip('dispatches score in round 2 after time runs out', async () => {
-    jest.useFakeTimers();
+  it('dispatches score in round 2 after time runs out', async () => {
     expect(store.getState().game.status).toBe(STATUS.PENDING_PLAYER);
 
     render(<GamePage />, store);
     const startBtn = await screen.findByRole('button', {name: /start round/gi});
     fireEvent.click(startBtn);
+
     act(() => {
       jest.runAllTimers();
     });
+
+    await waitFor(
+      () => {
+        screen.getByRole('table');
+      },
+      // Fake awaiting the game timer (30s)
+      {timeout: 1000 * 31}
+    );
 
     expect(screen.getByRole('table')).toMatchSnapshot('summary');
 
     const resultButton = screen.getByRole('button', {name: /See results!/i});
     expect(resultButton).toBeInTheDocument();
     fireEvent.click(resultButton);
-    jest.useRealTimers();
   });
 
-  it.skip('displays final game summary', () => {
+  it('displays final game summary', () => {
     expect(store.getState().game.status).toBe(STATUS.FINISHED);
 
     render(<GamePage />, store);
