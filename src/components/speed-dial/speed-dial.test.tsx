@@ -8,10 +8,7 @@ import {
 } from '@/tests/utils';
 import {RootState} from '../../redux/store';
 import {DeepPartial, PickActual} from '../../utils/types';
-import * as Dialog from '../feedback/dialog';
 import {SpeedDialNav} from './speed-dial';
-
-const dialogSpy = jest.spyOn(Dialog, 'Dialog');
 
 const mockPush = jest.fn().mockResolvedValue(true);
 
@@ -28,19 +25,20 @@ function hoverSpeedDial() {
   fireEvent.mouseOver(speedDial);
 }
 
+function expectDialogToBeInDocument() {
+  expect(screen.getByRole('dialog')).toBeInTheDocument();
+}
+
 function expectDialogToBeGone() {
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 }
 
-// TODO fix
 describe('Speed dial', () => {
-  it.skip('items render', () => {
+  it('renders 3 items on hover', () => {
     render(<SpeedDialNav />);
-    screen.getByRole('button');
-    const items = screen.getAllByRole('menuitem');
-    expect(items).toHaveLength(3);
+    expect(screen.getAllByRole('menuitem')).toHaveLength(3);
   });
-  it.skip('has theme toggle', () => {
+  it('has theme toggle', () => {
     const state = createMockState({app: {theme: 'dark'}});
     const store = createMockStore(state);
     const {unmount} = render(<SpeedDialNav />, store);
@@ -53,62 +51,56 @@ describe('Speed dial', () => {
     fireEvent.click(toggleButton);
     expect(store.getState().app.theme).toBe('dark');
   });
-  it.skip('has home navigation', () => {
+  it('has home navigation', () => {
     render(<SpeedDialNav />);
     hoverSpeedDial();
     const homeButton = screen.getByRole('menuitem', {name: /home/i});
     fireEvent.click(homeButton);
-    expect(dialogSpy).toHaveBeenCalledTimes(1);
-    expect(dialogSpy.mock.calls[0][0]).toMatchSnapshot(
-      'home confirmation dialog'
-    );
-    act(() => {
-      dialogSpy.mock.calls[0][0].onCancelCallback();
-    });
+    expectDialogToBeInDocument();
+    const cancelButton = screen.getByRole('button', {name: /cancel/i});
+    fireEvent.click(cancelButton);
     expectDialogToBeGone();
     fireEvent.click(homeButton);
-    act(() => {
-      dialogSpy.mock.calls[0][0].onConfirmCallback();
-    });
+    const abortGameButton = screen.getByRole('button', {name: /abort game/i});
+    fireEvent.click(abortGameButton);
     expectDialogToBeGone();
+    expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith('/');
   });
-  it.skip('can restart round', () => {
+  it('can restart round', () => {
     // Second round, second player's turn
-    const state = createMockState({
-      game: {
-        players: ['player2', 'player1'],
-        rounds: {
-          total: 2,
-          current: 2,
-          progress: 1,
-        },
-        scores: [
-          [
-            {name: 'player2', score: 0},
-            {name: 'player1', score: 0},
+    const store = createMockStore(
+      createMockState({
+        game: {
+          players: ['player2', 'player1'],
+          rounds: {
+            total: 2,
+            current: 2,
+            progress: 1,
+          },
+          scores: [
+            [
+              {name: 'player2', score: 0},
+              {name: 'player1', score: 0},
+            ],
+            [{name: 'player2', score: 0}],
           ],
-          [{name: 'player2', score: 0}],
-        ],
-      },
-    });
-    const store = createMockStore(state);
+        },
+      })
+    );
     render(<SpeedDialNav />, store);
     hoverSpeedDial();
     const restartButton = screen.getByRole('menuitem', {name: /restart/i});
     fireEvent.click(restartButton);
-    expect(dialogSpy).toHaveBeenCalledTimes(1);
-    expect(dialogSpy.mock.calls[0][0]).toMatchSnapshot(
-      'restart confirmation dialog'
-    );
-    act(() => {
-      dialogSpy.mock.calls[0][0].onCancelCallback();
-    });
+    expectDialogToBeInDocument();
+    const cancelButton = screen.getByRole('button', {name: /cancel/i});
+    fireEvent.click(cancelButton);
     expectDialogToBeGone();
     fireEvent.click(restartButton);
-    act(() => {
-      dialogSpy.mock.calls[0][0].onConfirmCallback();
+    const restartRoundButton = screen.getByRole('button', {
+      name: /restart round/i,
     });
+    fireEvent.click(restartRoundButton);
     expectDialogToBeGone();
     // Second round is restarted, first player's turn again
     expect(store.getState().game).toMatchObject<
