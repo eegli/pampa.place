@@ -11,24 +11,20 @@ import {PageContent} from '@/styles/containers';
 import {NextPage} from 'next';
 import {useRouter} from 'next/router';
 
-// An approach to shallow rendering. Utils can easily be mocked in
-// tests.
-export const utils = {
-  render: (status: STATUS) => {
-    switch (status) {
-      case STATUS.PENDING_PLAYER:
-        return <RoundIntermission />;
-      case STATUS.ROUND_ONGOING:
-        return <Play />;
-      case STATUS.ROUND_ENDED:
-        return <RoundOverSummary />;
-      case STATUS.FINISHED:
-        return <GameOverSummary />;
-      default:
-        return null;
-    }
-  },
-};
+function renderStatus(status: STATUS) {
+  switch (status) {
+    case STATUS.PENDING_PLAYER:
+      return <RoundIntermission />;
+    case STATUS.ROUND_ONGOING:
+      return <Play />;
+    case STATUS.ROUND_ENDED:
+      return <RoundOverSummary />;
+    case STATUS.FINISHED:
+      return <GameOverSummary />;
+    default:
+      return null;
+  }
+}
 
 export const GamePage: NextPage = () => {
   const dispatch = useAppDispatch();
@@ -60,7 +56,7 @@ export const GamePage: NextPage = () => {
           error={positionError.message}
         />
       ) : (
-        utils.render(status)
+        renderStatus(status)
       )}
       <SpeedDialNav />
     </PageContent>
