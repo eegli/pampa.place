@@ -28,13 +28,13 @@ const inputs = {
   name: () => screen.getByLabelText(/map name/i),
 };
 
-/* const spies = {
-  dialog: jest.spyOn(ConfirmDialog, 'Dialog'),
-  preview: jest.spyOn(PreviewDialog, 'PreviewDialog'),
-  parser: jest.spyOn(helpers, 'parseUserGeoJSON'),
-  setMap: jest.spyOn(MAPS, 'set').mockImplementation(jest.fn()),
-  deleteMap: jest.spyOn(MAPS, 'delete').mockImplementation(jest.fn()),
-}; */
+const spies = {
+  dialog: jest.fn(), // jest.spyOn(ConfirmDialog, 'Dialog'),
+  preview: jest.fn(), //jest.spyOn(PreviewDialog, 'PreviewDialog'),
+  parser: jest.fn(), //jest.spyOn(helpers, 'parseUserGeoJSON'),
+  setMap: jest.fn(), //jest.spyOn(MAPS, 'set').mockImplementation(jest.fn()),
+  deleteMap: jest.fn(), // jest.spyOn(MAPS, 'delete').mockImplementation(jest.fn()),
+};
 
 function enterName(value: string) {
   fireEvent.change(inputs.name(), {
