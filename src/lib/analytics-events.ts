@@ -44,5 +44,3 @@ export const pageview = (url: string) => {
     page_path: url,
   });
 };
-
-export default {gaevent};

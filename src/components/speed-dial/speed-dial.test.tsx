@@ -1,5 +1,4 @@
 import {
-  act,
   createMockState,
   createMockStore,
   fireEvent,

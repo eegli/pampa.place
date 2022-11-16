@@ -49,6 +49,19 @@ export const SpeedDialNav = () => {
           sx={{position: 'absolute', bottom: 16, left: 16, zIndex: 100}}
           icon={<ShortcutIcon />}
         >
+          {/* Items are rendered in reversed order: Theme toggle comes last (bottom) */}
+          <SpeedDialAction
+            sx={{whiteSpace: 'nowrap'}}
+            key="theme"
+            aria-label="toggle-theme"
+            icon={
+              activeTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />
+            }
+            tooltipOpen
+            tooltipTitle={activeTheme === 'light' ? 'Lights off' : 'Lights on'}
+            tooltipPlacement="right"
+            onClick={handleToggleTheme}
+          />
           <SpeedDialAction
             sx={{whiteSpace: 'nowrap'}}
             key="restart"
@@ -89,18 +102,6 @@ export const SpeedDialNav = () => {
                 },
               });
             }}
-          />
-          <SpeedDialAction
-            sx={{whiteSpace: 'nowrap'}}
-            key="theme"
-            aria-label="toggle-theme"
-            icon={
-              activeTheme === 'light' ? <DarkModeIcon /> : <LightModeIcon />
-            }
-            tooltipOpen
-            tooltipTitle={activeTheme === 'light' ? 'Lights off' : 'Lights on'}
-            tooltipPlacement="right"
-            onClick={handleToggleTheme}
           />
         </SpeedDial>
       </Box>
