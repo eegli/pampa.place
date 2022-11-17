@@ -34,16 +34,17 @@ exports[`Integration, about and docs page matches snapshot 1`] = `
     <div
       class="MuiBox-root mui-style-1i8zkde"
     >
-      <a
-        href="#how-to-play"
+      <h2
+        class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom mui-style-1rh92yo-MuiTypography-root"
+        id="how-to-play"
       >
-        <h2
-          class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom mui-style-1rh92yo-MuiTypography-root"
-          id="how-to-play"
+        <a
+          class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone mui-style-3603q-MuiTypography-root-MuiLink-root"
+          href="#how-to-play"
         >
           how to play 📖
-        </h2>
-      </a>
+        </a>
+      </h2>
       <p
         class="MuiTypography-root MuiTypography-body1 mui-style-ahj2mt-MuiTypography-root"
       >
@@ -119,16 +120,17 @@ exports[`Integration, about and docs page matches snapshot 1`] = `
     <div
       class="MuiBox-root mui-style-1i8zkde"
     >
-      <a
-        href="#how-to-customize"
+      <h2
+        class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom mui-style-1rh92yo-MuiTypography-root"
+        id="how-to-customize"
       >
-        <h2
-          class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom mui-style-1rh92yo-MuiTypography-root"
-          id="how-to-customize"
+        <a
+          class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone mui-style-3603q-MuiTypography-root-MuiLink-root"
+          href="#how-to-customize"
         >
           how to customize 🗺️
-        </h2>
-      </a>
+        </a>
+      </h2>
       <p
         class="MuiTypography-root MuiTypography-body1 mui-style-ahj2mt-MuiTypography-root"
       >
@@ -171,16 +173,17 @@ exports[`Integration, about and docs page matches snapshot 1`] = `
     <div
       class="MuiBox-root mui-style-1i8zkde"
     >
-      <a
-        href="#about"
+      <h2
+        class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom mui-style-1rh92yo-MuiTypography-root"
+        id="about"
       >
-        <h2
-          class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom mui-style-1rh92yo-MuiTypography-root"
-          id="about"
+        <a
+          class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone mui-style-3603q-MuiTypography-root-MuiLink-root"
+          href="#about"
         >
           about 🎨
-        </h2>
-      </a>
+        </a>
+      </h2>
       <p
         class="MuiTypography-root MuiTypography-body1 mui-style-ahj2mt-MuiTypography-root"
       >
@@ -287,16 +290,17 @@ exports[`Integration, about and docs page matches snapshot 1`] = `
     <div
       class="MuiBox-root mui-style-km0cv9"
     >
-      <a
-        href="#privacy"
+      <h2
+        class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom mui-style-1rh92yo-MuiTypography-root"
+        id="privacy"
       >
-        <h2
-          class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom mui-style-1rh92yo-MuiTypography-root"
-          id="privacy"
+        <a
+          class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone mui-style-3603q-MuiTypography-root-MuiLink-root"
+          href="#privacy"
         >
           privacy 🕵️
-        </h2>
-      </a>
+        </a>
+      </h2>
       <p
         class="MuiTypography-root MuiTypography-body1 mui-style-ahj2mt-MuiTypography-root"
       >
