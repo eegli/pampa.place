@@ -6,7 +6,6 @@ import {GoogleStreetViewResponse} from './payloads/google';
 /* ----------- VARIA ----------- */
 jest.spyOn(global.console, 'log').mockImplementation(() => jest.fn());
 jest.spyOn(global.console, 'info').mockImplementation(() => jest.fn());
-jest.spyOn(global.console, 'warn').mockImplementation(() => jest.fn());
 
 /* ----------- INTERNALS ----------- */
 jest.mock('@/maps/index');
@@ -21,6 +20,7 @@ jest.mock('next/router', () => {
     prefetch: jest.fn(),
     reload: jest.fn(),
     back: jest.fn(),
+    forward: jest.fn(),
     beforePopState: jest.fn(),
     basePath: '',
     isLocaleDomain: false,

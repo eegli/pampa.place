@@ -25,12 +25,11 @@ const config = {
     '^@/tests/(.*)$': '<rootDir>/tests/$1',
   },
   bail: true,
-  maxWorkers: 1,
   setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   moduleDirectories: ['node_modules', '<rootDir>/'],
   roots: ['<rootDir>/src/', '<rootDir>/tests/'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
-  testEnvironment: 'jsdom',
+  testEnvironment: 'jest-environment-jsdom',
 };
 
 module.exports = createJestConfig(config);

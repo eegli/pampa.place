@@ -54,24 +54,35 @@ export const testMap: MapData = {
   },
 };
 
+// Keep the JSON format
+// prettier-ignore
 export const userInputFeatureCollection: FeatureCollection = {
-  type: 'FeatureCollection',
-  features: [
+  "type": "FeatureCollection",
+  "features": [
     {
-      type: 'Feature',
-      properties: {},
-      geometry: {
-        type: 'Polygon',
-        coordinates: [
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
           [
-            [8.530540466308594, 47.35696679330478],
-            [8.576202392578125, 47.351384658074124],
-            [8.530540466308594, 47.35696679330478],
-          ],
-        ],
-      },
-    },
-  ],
-};
+            [
+              8.530540466308594,
+              47.35696679330478
+            ],
+            [
+              8.576202392578125,
+              47.351384658074124
+            ],
+            [
+              8.530540466308594,
+              47.35696679330478
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
 
 export const userInputFeature = userInputFeatureCollection.features[0];

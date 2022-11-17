@@ -2,6 +2,7 @@ import Box, {BoxProps} from '@mui/material/Box';
 import Typography, {TypographyProps} from '@mui/material/Typography';
 import NextLink from 'next/link';
 import {ReactNode} from 'react';
+import MuiLink from '@mui/material/Link';
 
 interface LinkSectionProps extends BoxProps {
   href: string;
@@ -32,20 +33,21 @@ export const LinkSection = ({
           },
         }}
       >
-        <NextLink href={href} passHref>
-          <Typography
-            gutterBottom
-            id={href.slice(1)}
-            variant="h4"
-            component="h2"
-            sx={{
-              scrollMarginTop: '80px',
-            }}
-            {...titleProps}
-          >
+        <Typography
+          gutterBottom
+          id={href.slice(1)}
+          variant="h4"
+          component="h2"
+          sx={{
+            scrollMarginTop: '80px',
+          }}
+          {...titleProps}
+        >
+          <MuiLink href={href} underline="none">
             {title}
-          </Typography>
-        </NextLink>
+          </MuiLink>
+        </Typography>
+
         {children}
       </Box>
     </>

@@ -1,39 +1,23 @@
-import * as ConfirmDialog from '@/components/feedback/dialog';
-import * as PreviewDialog from '@/components/feedback/dialog-preview';
-import {Constants} from '@/config/constants';
-import {LocalStorageMaps} from '@/config/types';
-import * as helpers from '@/maps/helpers/parser';
 import {userInputFeatureCollection} from '@/tests/fixtures/map';
-import {act, fireEvent, render, screen} from '@/tests/utils';
-import {MAPS} from 'src/maps';
+import {act, fireEvent, render, screen, within} from '@/tests/utils';
 import {MyMapsPage} from 'src/pages/my-maps.page';
-
-jest.useFakeTimers();
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
 beforeAll(() => {
-  expect(MAPS.size).toBe(1);
+  jest.useFakeTimers();
 });
 
 afterAll(() => {
-  expect(MAPS.size).toBe(1);
+  jest.useRealTimers();
 });
 
 const inputs = {
-  addMap: () => screen.getByRole('button', {name: /add map/gi}),
+  addMap: () => screen.getByRole('button', {name: /add map/i}),
   json: () => screen.getByLabelText(/geojson/i),
-  name: () => screen.getByLabelText(/map name/gi),
-};
-
-const spies = {
-  dialog: jest.spyOn(ConfirmDialog, 'Dialog'),
-  preview: jest.spyOn(PreviewDialog, 'PreviewDialog'),
-  parser: jest.spyOn(helpers, 'parseUserGeoJSON'),
-  setMap: jest.spyOn(MAPS, 'set').mockImplementation(jest.fn()),
-  deleteMap: jest.spyOn(MAPS, 'delete').mockImplementation(jest.fn()),
+  name: () => screen.getByLabelText(/map name/i),
 };
 
 function enterName(value: string) {
@@ -55,12 +39,6 @@ function enterJSON(value: unknown) {
   });
 }
 
-function getLocalMaps(): LocalStorageMaps {
-  return JSON.parse(
-    window.localStorage.getItem(Constants.LOCALSTORAGE_MAPS_KEY) || '{}'
-  );
-}
-
 function expectDialogToBeGone() {
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 }
@@ -78,8 +56,8 @@ describe('Integration, local map handling', () => {
   it('json input', () => {
     render(<MyMapsPage />);
     const input = inputs.json();
-    enterJSON('asd');
-    expect(input).toHaveValue('asd');
+    enterJSON('not valid json');
+    expect(input).toHaveValue('not valid json');
     // Make sure there is an error message
     expect(inputs.json()).toBeInvalid();
     enterJSON('{}');
@@ -88,6 +66,7 @@ describe('Integration, local map handling', () => {
   });
   it('parses user maps and adds them to global maps and local storage', () => {
     render(<MyMapsPage />);
+    expect(screen.queryAllByRole('listitem')).toHaveLength(0);
     expect(
       screen.queryByRole('button', {name: /add map/gi})
     ).not.toBeInTheDocument();
@@ -101,57 +80,41 @@ describe('Integration, local map handling', () => {
     enterJSON(userInputFeatureCollection);
     fireEvent.click(inputs.addMap());
     expect(inputs.json()).not.toBeInvalid();
-    expect(spies.parser).toHaveBeenCalledWith(
-      expect.any(String),
-      'my user map',
-      'local'
-    );
-    expect(spies.setMap).toHaveBeenCalledTimes(1);
-    const localMaps = Object.values(getLocalMaps());
-    expect(localMaps.length).toBe(1);
+    expect(screen.queryAllByRole('listitem')).toHaveLength(1);
   });
 
+  // At this point, we already have a local map from the previous test
   it('allows previewing local maps', () => {
-    const localMaps = Object.values(getLocalMaps());
-    expect(localMaps.length).toBe(1);
     render(<MyMapsPage />);
     fireEvent.click(screen.getByRole('button', {name: 'preview-map-btn'}));
-    expect(spies.preview).toHaveBeenCalledTimes(1);
-    act(() => {
-      spies.preview.mock.calls[0][0].onCloseCallback();
-    });
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toBeInTheDocument();
+    expect(within(dialog).getByText(/rough bounds/i)).toBeInTheDocument();
+    fireEvent.click(within(dialog).getByRole('button', {name: /close/i}));
     expectDialogToBeGone();
   });
+
   it('allows editing local maps', () => {
-    const localMaps = Object.values(getLocalMaps());
-    expect(localMaps.length).toBe(1);
     render(<MyMapsPage />);
     expect(inputs.json()).toHaveValue('');
     fireEvent.click(screen.getByRole('button', {name: 'edit-map-icon'}));
     expect(inputs.json()).not.toHaveValue('');
+    expect(inputs.name()).toHaveValue('my user map');
   });
+
   it('removes input maps from global maps and local storage', () => {
-    const localMaps = Object.values(getLocalMaps());
-    expect(localMaps.length).toBe(1);
     render(<MyMapsPage />);
-    expect(screen.getAllByRole('listitem')).toHaveLength(1);
+    expect(screen.queryAllByRole('listitem')).toHaveLength(1);
     fireEvent.click(screen.getByRole('button', {name: 'delete-map-icon'}));
-    expect(spies.dialog).toHaveBeenCalledTimes(1);
-    act(() => {
-      spies.dialog.mock.calls[0][0].onCancelCallback();
-    });
-    // Canceling should clear the dialog
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toBeInTheDocument();
+    expect(
+      within(dialog).getByText(
+        /are you sure you want to delete your local map "my user map"?/i
+      )
+    ).toBeInTheDocument();
+    fireEvent.click(within(dialog).getByRole('button', {name: /delete map/i}));
     expectDialogToBeGone();
-    fireEvent.click(screen.getByRole('button', {name: 'delete-map-icon'}));
-    // Delete the map from local storage and the global maps
-    act(() => {
-      spies.dialog.mock.calls[0][0].onConfirmCallback();
-    });
-    expectDialogToBeGone();
-    expect(spies.deleteMap).toHaveBeenCalledTimes(1);
-    const updatedLocalMaps = window.localStorage.getItem(
-      Constants.LOCALSTORAGE_MAPS_KEY
-    );
-    expect(JSON.parse(updatedLocalMaps || '[]')).toStrictEqual({});
+    expect(screen.queryAllByRole('listitem')).toHaveLength(0);
   });
 });

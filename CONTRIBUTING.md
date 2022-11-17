@@ -6,13 +6,13 @@ Contributions (bug fixes or new ideas) to this repo via PR are very welcome. Ple
 
 In case of bug fixes, make sure to update tests. For new features, include tests.
 
-### Testing
+### Wanted: Improved Tests
 
-The following parts of the app can be treated as implementation details and/or non-essential logic and don't have to be tested explicitly
+Ever since the initial tests for this project had been written, newer, faster and cooler tooling and best practices have emerged. Especially some integration tests are not as controlled as I would like them. They might make assertions based on logic outside of the module or are flaky. I'm also not too happy that I chose to go with Jest and React Testing Library initially.
 
-- Redux (`src/redux`)
-- Service objects (`src/services`)
-- App config (`src/config`)
+That being said, I hope I find the time to migrate most tests to an actual integration/e2e testing framework one day.
+
+If you're interested in helping out with this, please reach out (you rockstar!). Improved tests are the most wanted refactor as of now. And Next has [great testing recipes](https://nextjs.org/docs/testing) to get started!
 
 ## Technical notes - Map handling
 

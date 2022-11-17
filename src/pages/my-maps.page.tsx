@@ -2,9 +2,8 @@ import {Dialog} from '@/components/feedback/dialog';
 import {PreviewDialog} from '@/components/feedback/dialog-preview';
 import {GoogleMap} from '@/components/google/google-map';
 import {Header} from '@/components/header/header';
-import {Constants} from '@/config/constants';
 import {config} from '@/config/google';
-import {LocalStorageMaps, MapData} from '@/config/types';
+import type {MapData} from '@/config/types';
 import {parseUserGeoJSON} from '@/maps/helpers/parser';
 import {PageContent, SlimContainer} from '@/styles/containers';
 import {colorize} from '@/styles/utils';
@@ -25,15 +24,11 @@ import Typography from '@mui/material/Typography';
 import {NextPage} from 'next';
 import {ChangeEvent, useEffect, useState} from 'react';
 import {MAPS} from 'src/maps';
-import {useLocalStorage} from 'usehooks-ts';
 import {CustomHead} from '../components/head/custom-head';
+import {useLocalStorageMaps} from '@/hooks/useLocalStorageMaps';
 
 export const MyMapsPage: NextPage = () => {
-  const [localMaps, setLocalMaps] = useLocalStorage<LocalStorageMaps>(
-    Constants.LOCALSTORAGE_MAPS_KEY,
-    {}
-  );
-
+  const [localMaps, addLocalMap, removeLocalMap] = useLocalStorageMaps();
   const [geoJSON, setGeoJSON] = useState('');
   const [name, setName] = useState('');
   const [JSONErrMessage, setJSONErrMessage] = useState('');
@@ -48,9 +43,9 @@ export const MyMapsPage: NextPage = () => {
     setGeoJSON(event.target.value);
   };
 
-  function editMap(m: MapData) {
-    setGeoJSON(JSON.stringify(m, null, 2));
-    setName(m.properties.name);
+  function editMap(mapData: MapData) {
+    setGeoJSON(JSON.stringify(mapData, null, 2));
+    setName(mapData.properties.name);
   }
 
   function handleSubmit() {
@@ -63,56 +58,39 @@ export const MyMapsPage: NextPage = () => {
   }
 
   // This function is only called with parsed and validated geoJSON
-  function addMap(m: MapData) {
-    const id = m.properties.id;
-    MAPS.set(id, m);
-    setLocalMaps({...localMaps, [id]: m});
+  function addMap(mapData: MapData) {
+    MAPS.set(mapData.properties.id, mapData);
+    addLocalMap(mapData);
     // Clear input
     setGeoJSON('');
     setName('');
   }
   // Maps are deleted (and added) from (to) both local storage and the
   // global MAPS object
-  function clearMap() {
-    if (mapToDelete) {
-      const id = mapToDelete.properties.id;
-      delete localMaps[id];
-      setLocalMaps(localMaps);
-      MAPS.delete(id);
-      setMapToDelete(null);
-    }
-  }
-
-  // Clicking "delete" sets the state so that the dialog is shown and
-  // knows what map to delete upon confirmation
-  function triggerMapDeletion(m: MapData) {
-    setMapToDelete(m);
-  }
-
-  // Same thing
-  function triggerMapPreview(m: MapData) {
-    setMapToPreview(m);
+  function deleteMap(mapId: string) {
+    removeLocalMap(mapId);
+    MAPS.delete(mapId);
+    setMapToDelete(null);
   }
 
   // Debounce validation of JSON input
   useEffect(() => {
-    if (geoJSON) {
-      const timeOutId = setTimeout(() => {
-        try {
-          JSON.parse(geoJSON);
-          setJSONErrMessage('');
-          setIsValidJSON(true);
-        } catch (error) {
-          const message = 'Parsing error: ';
-          if (error instanceof SyntaxError) {
-            setJSONErrMessage(message + error.message);
-          } else {
-            setJSONErrMessage(message + 'Invalid input');
-          }
+    if (!geoJSON) return;
+    const timeOutId = setTimeout(() => {
+      try {
+        JSON.parse(geoJSON);
+        setJSONErrMessage('');
+        setIsValidJSON(true);
+      } catch (error) {
+        const message = 'Parsing error: ';
+        if (error instanceof SyntaxError) {
+          setJSONErrMessage(message + error.message);
+        } else {
+          setJSONErrMessage(message + 'Invalid input');
         }
-      }, 800);
-      return () => clearTimeout(timeOutId);
-    }
+      }
+    }, 800);
+    return () => clearTimeout(timeOutId);
   }, [geoJSON]);
 
   return (
@@ -200,7 +178,7 @@ export const MyMapsPage: NextPage = () => {
                     edge="end"
                     aria-label="delete-map-icon"
                     name="delete-map-icon"
-                    onClick={() => triggerMapDeletion(m)}
+                    onClick={() => setMapToDelete(m)}
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -219,7 +197,7 @@ export const MyMapsPage: NextPage = () => {
 
                 <ListItemButton
                   aria-label="preview-map-btn"
-                  onClick={() => triggerMapPreview(m)}
+                  onClick={() => setMapToPreview(m)}
                 >
                   <ListItemText
                     primary={m.properties.name}
@@ -260,7 +238,9 @@ export const MyMapsPage: NextPage = () => {
           {mapToDelete && (
             <Dialog
               onCancelCallback={() => setMapToDelete(null)}
-              onConfirmCallback={clearMap}
+              onConfirmCallback={() =>
+                mapToDelete && deleteMap(mapToDelete.properties.id)
+              }
               title="Delete map"
               infoMessage={`Are you sure you want to delete your local map "${mapToDelete.properties.name}"?`}
               confirmMessage="Delete map"

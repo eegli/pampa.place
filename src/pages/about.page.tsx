@@ -88,11 +88,9 @@ export const AboutPage: NextPage = () => {
           <LinkSection href="#how-to-customize" title="how to customize 🗺️">
             <Typography>
               you can easily add new maps to this server on the{' '}
-              <NextLink href="/my-maps" passHref>
-                <MuiLink variant="body1" underline="none">
-                  my maps page
-                </MuiLink>
-              </NextLink>{' '}
+              <MuiLink href="/my-maps" component={NextLink} underline="none">
+                {'my maps page '}
+              </MuiLink>
               - as many as you like, one at a time. maps that you add there are
               only available in your current browser.
             </Typography>
