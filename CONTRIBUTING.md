@@ -8,7 +8,7 @@ In case of bug fixes, make sure to update tests. For new features, include tests
 
 ### Wanted: Improved Tests
 
-Ever since the initial tests for this project have been written, newer, faster and cooler tooling and best practices have emerged. Especially some integration tests are not as controlled as I would like them. They might make assertions based on logic outside of the module or are flaky. I'm also not too happy that I chose to go with Jest and React Testing Library initially.
+Ever since the initial tests for this project had been written, newer, faster and cooler tooling and best practices have emerged. Especially some integration tests are not as controlled as I would like them. They might make assertions based on logic outside of the module or are flaky. I'm also not too happy that I chose to go with Jest and React Testing Library initially.
 
 That being said, I hope I find the time to migrate most tests to an actual integration/e2e testing framework one day.
 
