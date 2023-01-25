@@ -3,11 +3,11 @@ const {
 } = require('fs');
 const path = require('path');
 const inquirer = require('inquirer');
-const {
-  MAPS_INPUT_DIR,
-  MAPS_OUTPUT_DIR,
-  GEOJSON_REQUIRED_PROP,
-} = require('./constants');
+
+const dirCmd = process.argv[2] || '/';
+const MAPS_INPUT_DIR = path.join(__dirname, '../', dirCmd);
+const MAPS_OUTPUT_DIR = path.join(__dirname, '../', 'maps');
+const GEOJSON_REQUIRED_PROP = 'name';
 
 (async () => {
   console.log(
@@ -17,7 +17,9 @@ const {
     current property you want to use for "${GEOJSON_REQUIRED_PROP}".
     `
   );
-  const fileNames = await readdir(MAPS_INPUT_DIR);
+  const fileNames = (await readdir(MAPS_INPUT_DIR)).filter(fileName =>
+    fileName.endsWith('.json')
+  );
   console.log(`Reading files from dir "./${MAPS_INPUT_DIR}"...`);
 
   for (const fileName of fileNames) {
@@ -45,13 +47,14 @@ const {
     console.log(`${fileName}: Available properties`);
     console.table(geojson.features[0].properties);
 
-    const {
+    let {
       propToRename,
       shouldDeleteOtherProps,
       shouldFilter,
       propToExclude,
       propToExcludeValue,
       shouldSplit,
+      propForNewFileName,
       newFileName,
     } = await inquirer.prompt([
       {
@@ -76,7 +79,7 @@ const {
         message: `${fileName}: Select property to filter by. Maps that don't match this property will be skipped:`,
         type: 'list',
         choices: properties,
-        pageSize: properties.length,
+        pageSize: 15,
         when: answers => answers.shouldFilter,
       },
       {
@@ -89,6 +92,14 @@ const {
         name: 'shouldSplit',
         message: `${fileName}: Do you want to to save each feature as a separate file?`,
         type: 'confirm',
+      },
+      {
+        name: 'propForNewFileName',
+        message: `${fileName}: What property should be used as the new file name?`,
+        type: 'list',
+        choices: properties,
+        pageSize: 15,
+        when: answers => answers.shouldSplit,
       },
       {
         name: 'newFileName',
@@ -123,21 +134,22 @@ const {
     }, []);
 
     geojson.features = newFeatures;
+    const safePathRegex = /[/\\?%*:|"<> ]/gi;
 
     if (shouldSplit) {
       for (const feature of geojson.features) {
+        const mapName = feature.properties[GEOJSON_REQUIRED_PROP];
+        const fileName = mapName.replace(safePathRegex, '-').toLowerCase();
         await writeFile(
-          path.join(
-            MAPS_OUTPUT_DIR,
-            feature.properties[GEOJSON_REQUIRED_PROP] + '.json'
-          ),
+          path.join(MAPS_OUTPUT_DIR, fileName + '.json'),
           JSON.stringify(feature),
           'utf8'
         );
       }
     } else {
+      const fileName = newFileName.replace(safePathRegex, '-').toLowerCase();
       await writeFile(
-        path.join(MAPS_OUTPUT_DIR, newFileName + '.json'),
+        path.join(MAPS_OUTPUT_DIR, fileName + '.json'),
         JSON.stringify(geojson),
         'utf8'
       );
