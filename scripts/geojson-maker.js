@@ -51,6 +51,7 @@ const {
       shouldFilter,
       propToExclude,
       propToExcludeValue,
+      shouldSplit,
       newFileName,
     } = await inquirer.prompt([
       {
@@ -85,10 +86,16 @@ const {
         when: answers => answers.shouldFilter,
       },
       {
+        name: 'shouldSplit',
+        message: `${fileName}: Do you want to to save each feature as a separate file?`,
+        type: 'confirm',
+      },
+      {
         name: 'newFileName',
         message: `${fileName}: (Optional) Enter new file name without extension (hit enter to skip):`,
         type: 'input',
         default: path.parse(fileName).name + '_new.json',
+        when: answers => !answers.shouldSplit,
       },
     ]);
 
@@ -117,10 +124,23 @@ const {
 
     geojson.features = newFeatures;
 
-    await writeFile(
-      path.join(MAPS_OUTPUT_DIR, newFileName + '.json'),
-      JSON.stringify(geojson),
-      'utf8'
-    );
+    if (shouldSplit) {
+      for (const feature of geojson.features) {
+        await writeFile(
+          path.join(
+            MAPS_OUTPUT_DIR,
+            feature.properties[GEOJSON_REQUIRED_PROP] + '.json'
+          ),
+          JSON.stringify(feature),
+          'utf8'
+        );
+      }
+    } else {
+      await writeFile(
+        path.join(MAPS_OUTPUT_DIR, newFileName + '.json'),
+        JSON.stringify(geojson),
+        'utf8'
+      );
+    }
   }
 })();
