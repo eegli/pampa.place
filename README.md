@@ -101,10 +101,10 @@ On geojson.io, you may add as many `features` (maps) to the generated `FeatureCo
 
 If you want to **use an existing GeoJSON file** that you did not create yourself, you may want to run it through the cleanup utility first.
 
-Place your files in `geojson/raw`. Then, run
+Place your files somewhere in a folder, e.g., in `geojson`. Then, run
 
 ```bash
-yarn map
+yarn map geojson
 ```
 
 You'll be taken through the steps to prepare your maps. GeoJSON files from other sources may not have the `name` property but it can easily be derived from another existing property. The utility will let you pick a property to use as `name`, clean up other unused properties and filter larger datasets, e.g. if you only want to include a specific country or region.

@@ -12,7 +12,6 @@ export const PreviewPage: NextPage = () => {
   const geojson = useMemo(() => {
     return Array.from(MAPS.values());
   }, []);
-
   return (
     <>
       <CustomHead title="map preview" />

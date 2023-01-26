@@ -3,7 +3,8 @@ import {addLocalMaps} from './enhancer';
 import {parseGeoJSONFeature} from './parser';
 
 export const generateMapData: MapGenerator = (...inputs) => {
-  const mapData = inputs.reduce((acc, input) => {
+  const mapData = addLocalMaps(new Map());
+  return inputs.reduce((acc, input) => {
     const {collection, category} = input;
 
     collection.features.forEach(feature => {
@@ -12,7 +13,5 @@ export const generateMapData: MapGenerator = (...inputs) => {
     });
 
     return acc;
-  }, new Map<string, MapData>());
-
-  return addLocalMaps(mapData);
+  }, mapData);
 };

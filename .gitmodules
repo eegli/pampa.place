@@ -1,0 +1,3 @@
+[submodule "maps"]
+	path = maps
+	url = git@github.com:eegli/pampa.place.maps.git
