@@ -18,13 +18,12 @@ There are three modes: _Friends and family_, _My key myself and I_ and _Dev_.
 - My key myself and I: Check out other people's places and bring your own key.
 - Dev: Google Maps loads without key. This is good for development and testing and will not eat any quota.
 
-The game comes preloaded with three GeoJSON datasets for the US states (20m resolution), the entire US (unknown res) and EU NUTS regions (3m resolution). The demo features US and Swiss regions.
+The game comes preloaded with two regions:
 
-- `geojson/raw/cb_2018_us_state_20m.json` (source: [US Census Bureau](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html))
+- Switzerland and its cantons
+- The USA and its states
 
-- `geojson/raw/US-geojson-maps.ash.ms.json` (source: [geojson-maps.ash.ms](https://geojson-maps.ash.ms/))
-
-- `geojson/raw/NUTS_RG_03M_2021_4326.json` (source: [Eurostat](https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/nuts))
+Custom maps can be added easily!
 
 # Custom maps
 
@@ -133,7 +132,7 @@ export const MAPS = generateMapData(
 );
 ```
 
-Since the content in the `maps` folder is already preprocessed, you can easily import any of its contents - e.g., the countries in `maps/countries`:
+Since the content in the `maps` folder is already preprocessed, you can easily import any of its contents - e.g., the countries in `maps/countries`. Here's an example:
 
 ```ts
 import {generateMapData} from './helpers/generator';
