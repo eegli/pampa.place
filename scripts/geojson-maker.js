@@ -20,6 +20,7 @@ const GEOJSON_REQUIRED_PROP = 'name';
   const fileNames = (await readdir(MAPS_INPUT_DIR)).filter(fileName =>
     fileName.endsWith('.json')
   );
+
   console.log(`Reading files from dir "./${MAPS_INPUT_DIR}"...`);
 
   for (const fileName of fileNames) {
@@ -27,7 +28,7 @@ const GEOJSON_REQUIRED_PROP = 'name';
     /** @type {import('@turf/helpers').FeatureCollection} */
     const geojson = JSON.parse(raw);
 
-    if (!geojson.features.length) {
+    if (!geojson.features?.length) {
       return;
     }
     const {shouldConvertFile} = await inquirer.prompt([

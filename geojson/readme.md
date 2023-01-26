@@ -1,1 +1,0 @@
-This folder includes the only maps that are bundled and deployed together with the other assets. It's all of Switzerland as well as the United States. All other maps reside in another Git repository and are dynamically added to the game. See the [maps folder](../maps). 
