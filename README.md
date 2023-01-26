@@ -97,9 +97,9 @@ Make sure that for each polygon you draw, you add a `name` entry to the `propert
 
 On geojson.io, you may add as many `features` (maps) to the generated `FeatureCollection` as you want. Just be sure to give them individual names! Maps that you drew yourself can be directly put into the `geojson` folder in the root directory. You can skip the next step as they are already cleaned up and good to go.
 
-## Preparing maps
+## Preprocessing maps
 
-If you want to **use an existing GeoJSON file** that you did not create yourself, you may want to run it through the cleanup utility first. Note that all maps in the `maps` folder have been processed already. If you want to include one of these maps, head to the section _adding maps to the game_.
+If you want to **use an existing GeoJSON file** that you did not create yourself, you may want to run it through the preprocessing utility first. Note that all maps in the `maps` folder have been processed already. If you want to include one of these maps, head to the section _adding maps to the game_.
 
 Place your files in the `maps` in the root of this project. Then, run
 
@@ -107,7 +107,7 @@ Place your files in the `maps` in the root of this project. Then, run
 yarn map <glob-pattern>
 ```
 
-Where `<glob-pattern>` is a pattern that should match the files you want to process. See the [pattern matching lib](https://github.com/isaacs/node-glob) for more info.
+Where `<glob-pattern>` is a pattern that should match the GeoJSON files you want to process. See the [pattern matching lib](https://github.com/isaacs/node-glob) for more info.
 
 You'll be taken through the steps to prepare your maps. GeoJSON files from other sources may not have the `name` property but it can easily be derived from another existing property. The utility will let you pick a property to use as `name`, clean up other unused properties and filter larger datasets, e.g. if you only want to include a specific country or region.
 
@@ -131,6 +131,17 @@ export const MAPS = generateMapData(
     category: 'USA',
   }
 );
+```
+
+Since the content in the `maps` folder is already preprocessed, you can easily import any of its contents - e.g., the countries in `maps/countries`:
+
+```ts
+import {generateMapData} from './helpers/generator';
+
+export const MAPS = generateMapData({
+  collection: require('maps/countries/countries.json'),
+  category: 'Countries',
+});
 ```
 
 Each map collection must provide a category. Since all maps are stored in one large object, the category is used to provide a more unique key and group it in the map selection dropdown. This way, multiple maps can have the same name as long as their categories are different. Maps belonging to the same category that share the same name will overwrite each other.
