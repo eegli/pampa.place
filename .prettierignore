@@ -1,3 +1,2 @@
-maps/countries
-maps/regional
+maps/**/*.json
 
