@@ -3,18 +3,15 @@ import {MapData} from '@/config/types';
 import {setMap} from '@/redux/game';
 import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import {
-  Box,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  ListSubheader,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Tooltip,
-} from '@mui/material';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
+import ListSubheader from '@mui/material/ListSubheader';
+import MenuItem from '@mui/material/MenuItem';
+import Select, {SelectChangeEvent} from '@mui/material/Select';
+import Tooltip from '@mui/material/Tooltip';
 import {useMemo, useState} from 'react';
 import {MAPS} from 'src/maps';
 import {config} from '../../config/google';
@@ -31,23 +28,12 @@ export const FormMapSelect = () => {
   };
 
   const categoryMap = useMemo(() => {
-    const obj = Array.from(MAPS.values());
-    const categories = Array.from(
-      new Set(obj.map(m => m.properties.category).sort())
-    );
-    const categoryMap: Record<string, MapData[]> = Object.fromEntries(
-      categories.map(c => [c, []])
-    );
-    for (const m of obj) {
-      categoryMap[m.properties.category].push(m);
-    }
-    Object.keys(categoryMap).forEach(c => {
-      categoryMap[c].sort((a, b) => {
-        const curr = a.properties.name;
-        const prev = b.properties.name;
-        return curr > prev ? 1 : prev > curr ? -1 : 0;
-      });
-    });
+    const categoryMap = Array.from(MAPS.values()).reduce((acc, curr) => {
+      const existing = acc[curr.properties.category] || [];
+      acc[curr.properties.category] = [...existing, curr];
+      return acc;
+    }, {} as Record<string, MapData[]>);
+
     return categoryMap;
   }, []);
 
