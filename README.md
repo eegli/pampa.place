@@ -99,38 +99,36 @@ On geojson.io, you may add as many `features` (maps) to the generated `FeatureCo
 
 ## Preparing maps
 
-If you want to **use an existing GeoJSON file** that you did not create yourself, you may want to run it through the cleanup utility first.
+If you want to **use an existing GeoJSON file** that you did not create yourself, you may want to run it through the cleanup utility first. Note that all maps in the `maps` folder have been processed already. If you want to include one of these maps, head to the section _adding maps to the game_.
 
-Place your files somewhere in a folder, e.g., in `geojson`. Then, run
+Place your files in the `maps` in the root of this project. Then, run
 
 ```bash
-yarn map geojson
+yarn map <glob-pattern>
 ```
+
+Where `<glob-pattern>` is a pattern that should match the files you want to process. See the [pattern matching lib](https://github.com/isaacs/node-glob) for more info.
 
 You'll be taken through the steps to prepare your maps. GeoJSON files from other sources may not have the `name` property but it can easily be derived from another existing property. The utility will let you pick a property to use as `name`, clean up other unused properties and filter larger datasets, e.g. if you only want to include a specific country or region.
 
-Your shiny new maps will automatically be available in the `geojson` folder. The final step is to include them in the source code.
+Your shiny new maps will automatically be available in the `maps/output` folder. The final step is to include them in the source code.
 
 ## Adding maps to the game
 
 Go to `src/maps/index.ts`. New maps can be imported as follows:
 
 ```ts
-/* Example map configuration */
 import {generateMapData} from './helpers/generator';
 
 export const MAPS = generateMapData(
   {
-    collection: require('geojson/switzerland.json'),
-    category: 'switzerland',
+    // Path relative to project root
+    collection: require('maps/regional/che-cantons.json'),
+    category: 'Switzerland',
   },
   {
-    collection: require('geojson/us-states.json'),
-    category: 'usa',
-  },
-  {
-    collection: require('geojson/america.json'),
-    category: 'usa',
+    collection: require('maps/regional/usa-states.json'),
+    category: 'USA',
   }
 );
 ```

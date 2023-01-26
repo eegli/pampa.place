@@ -2,11 +2,11 @@ import {generateMapData} from './helpers/generator';
 
 export const MAPS = generateMapData(
   {
-    collection: require('geojson/che-cantons.json'),
+    collection: require('maps/regional/che-cantons.json'),
     category: 'Switzerland',
   },
   {
-    collection: require('geojson/usa-states.json'),
+    collection: require('maps/regional/usa-states.json'),
     category: 'USA',
   }
 );
