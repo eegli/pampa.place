@@ -4,10 +4,14 @@ import {Header} from '@/components/header/header';
 import {config} from '@/config/google';
 import {PageContent} from '@/styles/containers';
 import {NextPage} from 'next';
-import {GEOJSON} from 'src/maps';
+import {useMemo} from 'react';
+import {MAPS} from 'src/maps';
 import {GoogleMapStreetViewCoverageLayer} from '../components/google/layers/coverage';
 
 export const PreviewPage: NextPage = () => {
+  const geojson = useMemo(() => {
+    return Array.from(MAPS.values());
+  }, []);
   return (
     <>
       <CustomHead title="map preview" />
@@ -18,7 +22,7 @@ export const PreviewPage: NextPage = () => {
           center={{lat: 35, lng: 0}}
           zoom={4}
           onMount={map => {
-            GEOJSON.forEach(feat => map.data.addGeoJson(feat));
+            geojson.forEach(feat => map.data.addGeoJson(feat));
             map.data.setStyle({
               fillColor: '#e46fb7',
               fillOpacity: 0.1,

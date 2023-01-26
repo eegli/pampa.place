@@ -10,5 +10,3 @@ export const MAPS = generateMapData(
     category: 'USA',
   }
 );
-
-export const GEOJSON = Array.from(MAPS.values());
