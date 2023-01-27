@@ -35,7 +35,6 @@ export const Login = () => {
         pw: serverPassword,
       };
       try {
-        await new Promise(r => setTimeout(r, 1000));
         const res: AuthRes = await (
           await fetch(
             `${window.location.origin}/api/auth?` + new URLSearchParams(params)
@@ -130,9 +129,6 @@ export const Login = () => {
           onChange={handlePasswordInput}
           onKeyUp={handleKeyUp}
         />
-        {/*  <Typography alignSelf="flex-start" my={2} ml={1}>
-          or
-        </Typography> */}
         <TextField
           fullWidth
           name="apikey-input"
