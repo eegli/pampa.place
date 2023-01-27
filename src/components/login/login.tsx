@@ -113,7 +113,7 @@ export const Login = () => {
           </Typography>
           <Typography variant="body1" color="text.secondary">
             For the best experience, either login with the password that the
-            host of this server gave you&nbsp;<b>or</b>&nbsp;bring your own
+            host of this server gave you&nbsp;<b>or</b>&nbsp;provide your own
             Google Maps API key.
           </Typography>
         </Box>
