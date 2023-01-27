@@ -24,7 +24,7 @@ beforeEach(() => {
 const elements = {
   apikeyInput: () => screen.getByRole('textbox', {name: /api key/i}),
   passwordInput: () => screen.getByLabelText(/password/i),
-  devModeBtn: () => screen.getByRole('button', {name: /dev/i}),
+  prevModeBtn: () => screen.getByRole('button', {name: /prev/i}),
   enterBtn: () => screen.getByRole('button', {name: /enter/i}),
 };
 
@@ -65,7 +65,7 @@ describe('Integration, app login', () => {
   it('allows login with dev mode', () => {
     render(<AuthWrapper>{mockchildren}</AuthWrapper>);
     expect(screen.queryByTestId('mock-children')).not.toBeInTheDocument();
-    fireEvent.click(elements.devModeBtn());
+    fireEvent.click(elements.prevModeBtn());
     expect(screen.getByTestId('mock-children')).toBeInTheDocument();
     expect(window.sessionStorage.getItem(Constants.SESSION_API_KEY)).toBe('');
   });

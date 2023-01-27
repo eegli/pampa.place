@@ -14,7 +14,7 @@ import {PageContent, SlimContainer} from '../styles/containers';
 
 export const AboutPage: NextPage = () => {
   const apiKey = useAppSelector(({app}) => app.apiKey);
-  const isDevMode = apiKey === '';
+  const isPreviewMode = apiKey === '';
   return (
     <>
       <CustomHead title="about" />
@@ -22,10 +22,10 @@ export const AboutPage: NextPage = () => {
       <PageContent headerGutter id="docs-page">
         <SlimContainer>
           <FancyRetroTitle primary="PAMPA" secondary="DOCS" />
-          {isDevMode && (
+          {isPreviewMode && (
             <LinkSection
               href=""
-              title="it says that google maps can't load correctly?"
+              title="google maps can't load correctly"
               titleProps={{variant: 'h5', color: amber[500]}}
               sx={{
                 border: 1,
@@ -35,10 +35,10 @@ export const AboutPage: NextPage = () => {
                 borderWidth: 2,
               }}
             >
-              <Typography>hoi 👋🏽</Typography>{' '}
+              <Typography>hi! 👋🏽</Typography>{' '}
               <Typography>
-                it looks like you&apos;re playing the game in development mode.
-                this means that google maps loads <em>without</em> api key and
+                it looks like you&apos;re playing the game in preview mode. this
+                means that google maps loads <em>without</em> api key and
                 therefore can&apos;t display map data. you can still play the
                 game and take a glance at how it works.
               </Typography>

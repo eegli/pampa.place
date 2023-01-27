@@ -6,7 +6,7 @@ const defaultMapOpts: google.maps.MapOptions = {
   disableDefaultUI: true,
   mapTypeControl: true,
   gestureHandling: 'auto',
-  // In dev mode, mapTypeControls do NOT show!
+  // In preview mode, mapTypeControls do NOT show!
   mapTypeControlOptions: {
     mapTypeIds: ['hybrid', 'roadmap'],
   },

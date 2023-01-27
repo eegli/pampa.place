@@ -57,10 +57,10 @@ export const Login = () => {
     }
   }
 
-  function handleDevMode() {
+  function handlePrevMode() {
     dispatch(setApiKey(''));
     gaevent<LoginEvent>({
-      eventName: 'login_dev_mode',
+      eventName: 'login_prev_mode',
       category: 'login',
     });
   }
@@ -149,7 +149,7 @@ export const Login = () => {
             <CircularProgress />
           ) : (
             <>
-              <Tooltip title="No maps API key required - play in development mode">
+              <Tooltip title="No maps API key required - play in preview mode">
                 <Button
                   sx={{
                     my: 1,
@@ -157,7 +157,7 @@ export const Login = () => {
                   }}
                   variant="outlined"
                   color="primary"
-                  onClick={handleDevMode}
+                  onClick={handlePrevMode}
                 >
                   Preview mode
                 </Button>

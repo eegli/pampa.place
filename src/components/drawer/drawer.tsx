@@ -53,7 +53,7 @@ export const MenuDrawer = ({open, toggleDrawer}: MenuDrawerProps) => {
 
             <CustomListItem
               primarText="Change API key"
-              secondaryText="Play with a different API key or change into development mode"
+              secondaryText="Play with a different API key or change into preview mode"
               onClick={handleChangeKey}
             />
           </List>
