@@ -45,6 +45,7 @@ describe('Integration, app login', () => {
     fireEvent.change(passwordInput, {target: {value: 'password'}});
     expect(passwordInput).not.toBeInvalid();
     fireEvent.click(enterButton);
+    expect(screen.getByText('Logging in...')).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.getByTestId('mock-children')).toBeInTheDocument();
     });

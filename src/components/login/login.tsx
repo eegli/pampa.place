@@ -35,11 +35,12 @@ export const Login = () => {
         pw: serverPassword,
       };
       try {
-        const res: AuthRes = await (
-          await fetch(
-            `${window.location.origin}/api/auth?` + new URLSearchParams(params)
-          )
-        ).json();
+        // Throttle requests
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const request = fetch(
+          `${window.location.origin}/api/auth?` + new URLSearchParams(params)
+        );
+        const res: AuthRes = await (await request).json();
         gaevent<LoginEvent>({
           eventName: 'login_password',
           category: 'login',
@@ -146,7 +147,17 @@ export const Login = () => {
         </Box>
         <Box>
           {isLoading ? (
-            <CircularProgress />
+            <Box display="flex" alignItems="center">
+              <Typography
+                component="span"
+                color="primary"
+                variant="body1"
+                mr={1}
+              >
+                Logging in...
+              </Typography>
+              <CircularProgress aria-busy={true} size={30} />
+            </Box>
           ) : (
             <>
               <Tooltip title="No maps API key required - play in preview mode">
