@@ -12,7 +12,10 @@ type GenericEvent<
 
 export type LoginEvent = GenericEvent<
   'login',
-  'login_dev_mode' | 'login_apikey' | 'login_password' | 'login_password_failed'
+  | 'login_prev_mode'
+  | 'login_apikey'
+  | 'login_password'
+  | 'login_password_failed'
 >;
 
 export type GameEvent = GenericEvent<

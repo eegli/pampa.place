@@ -12,20 +12,22 @@ The game can be played 100% for free. It only requires a Google Maps API key for
 
 _\*For up-to-date pricing, [check here.](https://developers.google.com/maps/documentation/javascript/usage-and-billing)_
 
-There are three modes: _Friends and family_, _My key myself and I_ and _Dev_.
+# Game Modes
 
-- Friends and family: You provide the API key and they only need a password to play.
-- My key myself and I: Check out other people's places and bring your own key.
-- Dev: Google Maps loads without key. This is good for development and testing and will not eat any quota.
+When you first enter [pampa.place](https://pampa.place/), you will end up on a login screen. There are three play modes:
+
+- **Friends and family**: You host your own server and provide a Google Maps API key. You may also set a password for your friends and family so they can use your API key.
+- **My key myself and I**: You don't need to host a game but you sure have created a Google Maps API key for yourself. Enter this key to play on anyone's server.
+- **Preview**: In preview mode, Google Maps loads without API key. This is enough for taking a first look as well as development. This mode will not eat any quota.
+
+# Custom maps
 
 The game comes preloaded with two regions:
 
 - Switzerland and its cantons
 - The USA and its states
 
-Custom maps can be added easily!
-
-# Custom maps
+Custom maps can be added easily:
 
 👉 [I just want to play and add new maps dynamically](https://pampa.place/about#how-to-customize)
 
