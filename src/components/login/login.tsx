@@ -36,7 +36,7 @@ export const Login = () => {
       };
       try {
         // Throttle requests
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        /* await new Promise(resolve => setTimeout(resolve, 1000)); */
         const request = fetch(
           `${window.location.origin}/api/auth?` + new URLSearchParams(params)
         );
