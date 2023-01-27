@@ -117,7 +117,7 @@ export const Login = () => {
           </Typography>
         </Box>
         <TextField
-          sx={{my: 2}}
+          sx={{mb: 2}}
           fullWidth
           error={!!inputError}
           helperText={inputError}
