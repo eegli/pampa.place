@@ -1,5 +1,7 @@
 import {GoogleConfig} from './types';
 
+export const GOOGLE_MAPS_VERSION = '3.56';
+
 const defaultMapOpts: google.maps.MapOptions = {
   draggableCursor: 'crosshair',
   clickableIcons: false,
@@ -44,11 +46,11 @@ export const config: GoogleConfig = {
   },
   marker: {
     colors: Object.values({
-      yellow: 'FFD166',
-      red: 'EF476F',
-      mint: '06D6A0',
-      petrol: '073B4C',
-      blue: '118AB2',
+      yellow: '#FFD166',
+      red: '#EF476F',
+      mint: '#06D6A0',
+      petrol: '#073B4C',
+      blue: '#118AB2',
     }),
     /* One that works: https://stackoverflow.com/a/63523618 */
     svg: {

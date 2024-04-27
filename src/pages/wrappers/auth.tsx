@@ -6,7 +6,8 @@ import {useAppDispatch, useAppSelector} from '@/redux/hooks';
 import {PageContent} from '@/styles/containers';
 import {Status, Wrapper} from '@googlemaps/react-wrapper';
 import {ReactNode, useEffect} from 'react';
-import {CustomHead} from '../../components/head/custom-head';
+import {CustomHead} from '@/components/head/custom-head';
+import {GOOGLE_MAPS_VERSION} from '@/config/google';
 
 declare global {
   interface Window {
@@ -45,7 +46,7 @@ export const AuthWrapper = ({children}: {children?: ReactNode}) => {
   return (
     <Wrapper
       apiKey={apiKey}
-      version="3.47.6"
+      version={GOOGLE_MAPS_VERSION}
       render={status => {
         switch (status) {
           case Status.LOADING:
