@@ -32,7 +32,7 @@ export const MenuDrawer = ({open, toggleDrawer}: MenuDrawerProps) => {
         <Box p={2} width="100%" maxWidth="18rem">
           <List>
             <CustomListItem
-              primarText="Play!"
+              primarText="Play"
               onClick={() => handleRouteChange('/')}
             />
             <CustomListItem
