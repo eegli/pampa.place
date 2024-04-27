@@ -18,15 +18,15 @@ afterEach(() => {
 });
 
 function getListItem(name: string) {
-  return screen.getByRole('button', {name: new RegExp(name, 'i')});
+  return screen.getByRole('button', {name: new RegExp(`^${name}`)});
 }
 
 describe('Drawer', () => {
   [
-    {name: 'play', route: '/'},
-    {name: 'my maps', route: '/my-maps'},
-    {name: 'preview maps', route: '/preview'},
-    {name: 'about', route: '/about'},
+    {name: 'Play', route: '/'},
+    {name: 'My maps', route: '/my-maps'},
+    {name: 'Preview maps', route: '/preview'},
+    {name: 'About', route: '/about'},
   ].forEach(({name, route}) => {
     it(`nav item, ${name}`, () => {
       render(<MenuDrawer open toggleDrawer={mockToggleDrawer} />);
@@ -46,7 +46,7 @@ describe('Drawer', () => {
     window.sessionStorage.setItem(Constants.SESSION_API_KEY, 'old key');
     expect(window.sessionStorage.length).toBe(1);
     render(<MenuDrawer open toggleDrawer={mockToggleDrawer} />);
-    const navButton = getListItem('api key');
+    const navButton = getListItem('Change API key');
     fireEvent.click(navButton);
     expect(window.sessionStorage.length).toBe(0);
     expect(mockRouter.reload).toHaveBeenCalledTimes(1);
