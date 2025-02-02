@@ -137,7 +137,8 @@ export const AboutPage: NextPage = () => {
               project that aims to make it possible for everyone to explore any
               place in the world, without any limitations. it&apos;s built using
               data from google maps. at the time of writing, every google
-              account gets 200$ per month for free to spend on the google maps
+              account gets{' '}
+              <s>200$ per month for free to spend on the google maps</s>
               platform.
             </Typography>
             <Divider sx={{mb: 1}} light variant="middle" />
@@ -145,8 +146,27 @@ export const AboutPage: NextPage = () => {
               instead of paying for a service, the idea behind pampa.place is
               that everyone brings their own api key associated with their
               account. the game is optimized to use very little data from google
-              maps - 200$ per month can last for thousands of games.
+              maps - <s>200$ per month</s> can last for thousands of games.
             </Typography>
+            <Divider sx={{mb: 1}} light variant="middle" />
+            <InfoBox type="warning">
+              <b>
+                Update as of 2025: Google will introduce a new{' '}
+                <MuiLink
+                  href="https://mapsplatform.google.com/resources/blog/build-more-for-free-and-access-more-discounts-online-with-google-maps-platform-updates/"
+                  target="_blank"
+                  variant="body1"
+                  underline="none"
+                >
+                  Maps pricing structure as of March 2025
+                </MuiLink>{' '}
+              </b>
+              . They frame this as &quot;expanded usage limits&quot; but
+              unfortunately, it reduces the number of free Street View renders
+              by A LOT. You can still play many rounds of pampa.place for free
+              but be cautious about billing. It is in your sole responsibility
+              to make sure you understand your Maps API usage and billing.
+            </InfoBox>
             <Divider sx={{mb: 1}} light variant="middle" />
             <Typography>
               in the past months, i&apos;ve had a lot of fun working on
