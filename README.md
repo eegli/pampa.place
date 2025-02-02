@@ -8,9 +8,11 @@
 
 `pampa.place` is simple: Select a place - a country, a continent or just your hometown - and the game will abandon you somewhere in that place. Use Google Street View to figure out where you are.
 
-The game can be played 100% for free. It only requires a Google Maps API key for the maps and street view data. As of now, **every Google accounts gets 200$ per month\*** to spend on the Google Maps Platform. The game's API consumption is optimized and allows you to play hundreds of games per month with the free tier (depending on how good you are).
+The game can be played 100% for free. It only requires a Google Maps API key for the maps and street view data. As of now, **~~every Google accounts gets 200$ per month~~\*** to spend on the Google Maps Platform. The game's API consumption is optimized and allows you to play hundreds of games per month with the free tier (depending on how good you are).
 
 _\*For up-to-date pricing, [check here.](https://developers.google.com/maps/documentation/javascript/usage-and-billing)_
+
+_**2025 Update**: Google will introduce a new [pricing structure as of March 2025](https://mapsplatform.google.com/resources/blog/build-more-for-free-and-access-more-discounts-online-with-google-maps-platform-updates/). They frame this as "expanded usage limits" but unfortunately, it reduces the number of free Street View renders by A LOT. You can still play many rounds of pampa.place for free but be cautious about billing._
 
 # Game Modes
 
