@@ -79,14 +79,14 @@ exports[`Integration, about and docs page matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-colorWarning MuiSvgIcon-fontSizeMedium mui-style-w8yy7u-MuiSvgIcon-root"
-          data-testid="LightbulbIcon"
+          class="MuiSvgIcon-root MuiSvgIcon-colorSuccess MuiSvgIcon-fontSizeMedium mui-style-ej8u3f-MuiSvgIcon-root"
+          data-testid="InfoIcon"
           focusable="false"
           style="position: relative; margin: 0px 12px 0px 0px;"
           viewBox="0 0 24 24"
         >
           <path
-            d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
           />
         </svg>
         <p
@@ -100,14 +100,14 @@ exports[`Integration, about and docs page matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-colorWarning MuiSvgIcon-fontSizeMedium mui-style-w8yy7u-MuiSvgIcon-root"
-          data-testid="LightbulbIcon"
+          class="MuiSvgIcon-root MuiSvgIcon-colorSuccess MuiSvgIcon-fontSizeMedium mui-style-ej8u3f-MuiSvgIcon-root"
+          data-testid="InfoIcon"
           focusable="false"
           style="position: relative; margin: 0px 12px 0px 0px;"
           viewBox="0 0 24 24"
         >
           <path
-            d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
           />
         </svg>
         <p
@@ -205,7 +205,12 @@ exports[`Integration, about and docs page matches snapshot 1`] = `
           open-source
         </a>
          
-        project that aims to make it possible for everyone to explore any place in the world, without any limitations. it's built using data from google maps. at the time of writing, every google account gets 200$ per month for free to spend on the google maps platform.
+        project that aims to make it possible for everyone to explore any place in the world, without any limitations. it's built using data from google maps. at the time of writing, every google account gets
+         
+        <s>
+          200$ per month for free to spend on the google maps
+        </s>
+        platform.
       </p>
       <hr
         class="MuiDivider-root MuiDivider-middle MuiDivider-light mui-style-1ffzl3n-MuiDivider-root"
@@ -213,8 +218,48 @@ exports[`Integration, about and docs page matches snapshot 1`] = `
       <p
         class="MuiTypography-root MuiTypography-body1 mui-style-ahj2mt-MuiTypography-root"
       >
-        instead of paying for a service, the idea behind pampa.place is that everyone brings their own api key associated with their account. the game is optimized to use very little data from google maps - 200$ per month can last for thousands of games.
+        instead of paying for a service, the idea behind pampa.place is that everyone brings their own api key associated with their account. the game is optimized to use very little data from google maps - 
+        <s>
+          200$ per month
+        </s>
+         can last for thousands of games.
       </p>
+      <hr
+        class="MuiDivider-root MuiDivider-middle MuiDivider-light mui-style-1ffzl3n-MuiDivider-root"
+      />
+      <div
+        class="MuiBox-root mui-style-1kukc4r"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-colorWarning MuiSvgIcon-fontSizeMedium mui-style-w8yy7u-MuiSvgIcon-root"
+          data-testid="WarningIcon"
+          focusable="false"
+          style="position: relative; margin: 0px 12px 0px 0px;"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"
+          />
+        </svg>
+        <p
+          class="MuiTypography-root MuiTypography-body1 mui-style-1ky6jtx-MuiTypography-root"
+        >
+          <b>
+            Update as of 2025: Google will introduce a new
+             
+            <a
+              class="MuiTypography-root MuiTypography-body1 MuiLink-root MuiLink-underlineNone mui-style-79hcfl-MuiTypography-root-MuiLink-root"
+              href="https://mapsplatform.google.com/resources/blog/build-more-for-free-and-access-more-discounts-online-with-google-maps-platform-updates/"
+              target="_blank"
+            >
+              Maps pricing structure as of March 2025
+            </a>
+             
+          </b>
+          . They frame this as "expanded usage limits" but unfortunately, it reduces the number of free Street View renders by A LOT. You can still play many rounds of pampa.place for free but be cautious about billing. It is in your sole responsibility to make sure you understand your Maps API usage and billing.
+        </p>
+      </div>
       <hr
         class="MuiDivider-root MuiDivider-middle MuiDivider-light mui-style-1ffzl3n-MuiDivider-root"
       />
@@ -228,14 +273,14 @@ exports[`Integration, about and docs page matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-colorWarning MuiSvgIcon-fontSizeMedium mui-style-w8yy7u-MuiSvgIcon-root"
-          data-testid="LightbulbIcon"
+          class="MuiSvgIcon-root MuiSvgIcon-colorSuccess MuiSvgIcon-fontSizeMedium mui-style-ej8u3f-MuiSvgIcon-root"
+          data-testid="InfoIcon"
           focusable="false"
           style="position: relative; margin: 0px 12px 0px 0px;"
           viewBox="0 0 24 24"
         >
           <path
-            d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
           />
         </svg>
         <p
@@ -262,14 +307,14 @@ exports[`Integration, about and docs page matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-colorWarning MuiSvgIcon-fontSizeMedium mui-style-w8yy7u-MuiSvgIcon-root"
-          data-testid="LightbulbIcon"
+          class="MuiSvgIcon-root MuiSvgIcon-colorSuccess MuiSvgIcon-fontSizeMedium mui-style-ej8u3f-MuiSvgIcon-root"
+          data-testid="InfoIcon"
           focusable="false"
           style="position: relative; margin: 0px 12px 0px 0px;"
           viewBox="0 0 24 24"
         >
           <path
-            d="M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
           />
         </svg>
         <p
