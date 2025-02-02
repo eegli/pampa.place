@@ -161,11 +161,11 @@ export const AboutPage: NextPage = () => {
                   Maps pricing structure as of March 2025
                 </MuiLink>{' '}
               </b>
-              . They frame this as "expanded usage limits" but unfortunately, it
-              reduces the number of free Street View renders by A LOT. You can
-              still play many rounds of pampa.place for free but be cautious
-              about billing. It is in your sole responsibility to make sure you
-              understand your Maps API usage and billing.
+              . They frame this as &quot;expanded usage limits&quot; but
+              unfortunately, it reduces the number of free Street View renders
+              by A LOT. You can still play many rounds of pampa.place for free
+              but be cautious about billing. It is in your sole responsibility
+              to make sure you understand your Maps API usage and billing.
             </InfoBox>
             <Divider sx={{mb: 1}} light variant="middle" />
             <Typography>
