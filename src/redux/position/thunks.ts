@@ -42,17 +42,17 @@ export const getRandomStreetView = createAsyncThunk<
 
   const reqDefaults: google.maps.StreetViewLocationRequest = {
     preference: randomPreference,
-    source: google.maps.StreetViewSource.OUTDOOR,
+    source: google.maps.StreetViewSource.DEFAULT,
     radius: config.svRequest.radius,
   };
 
-  let retries = 50;
+  let remainingRetries = config.svRequest.maxRetries;
   /* eslint-disable @typescript-eslint/no-non-null-assertion */
   const map = MAPS.get(game.mapId)!;
 
   try {
     while (true) {
-      retries--;
+      remainingRetries--;
       let data: google.maps.StreetViewPanoramaData | null = null;
       const randomLocation = randomPointInMap(map.properties.bb, map.geometry);
 
@@ -64,7 +64,7 @@ export const getRandomStreetView = createAsyncThunk<
 
         data = svData;
       } catch (err) {
-        if (!retries) {
+        if (!remainingRetries) {
           throw err;
         } else {
           warn(`Unable to find random Street View`);
