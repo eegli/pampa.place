@@ -10,6 +10,7 @@ import {
 export type GoogleConfig = {
   svRequest: {
     radius: number;
+    maxRetries: number;
   };
   streetview: google.maps.StreetViewPanoramaOptions;
   map: Record<

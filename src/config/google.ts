@@ -16,6 +16,7 @@ const defaultMapOpts: google.maps.MapOptions = {
 
 export const config: GoogleConfig = {
   svRequest: {
+    maxRetries: 80,
     radius: 100,
   },
   streetview: {
