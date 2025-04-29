@@ -52,7 +52,7 @@ describe('Integration, game play', () => {
       screen.getByRole('button', {name: /getting a random street view/i})
     ).toBeDisabled();
 
-    await waitFor(() => expect(getPanoramSpy).toHaveBeenCalledTimes(50));
+    await waitFor(() => expect(getPanoramSpy).toHaveBeenCalledTimes(80));
     const alertDialog = screen.getByRole('alert');
     expect(
       within(alertDialog).getByText(/no results found/i)
@@ -76,7 +76,7 @@ describe('Integration, game play', () => {
     expect(screen.getAllByRole('heading')).toMatchSnapshot(
       'intermission screen'
     );
-    expect(getPanoramSpy).toHaveBeenCalledTimes(51);
+    expect(getPanoramSpy).toHaveBeenCalledTimes(81);
   });
 
   it('round 1 works with user interaction', async () => {
